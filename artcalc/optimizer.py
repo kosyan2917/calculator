@@ -5,7 +5,10 @@ import math
 import time
 from typing import Any
 
+import numpy as np
 from ortools.sat.python import cp_model
+from scipy.optimize import Bounds, LinearConstraint, milp
+from scipy.sparse import lil_matrix
 
 from .solver_catalog import ArtifactGroup, SolverCatalog
 from .stat_model import (
@@ -166,6 +169,18 @@ class ArtifactBuildOptimizer:
         armors: list[dict[str, Any]],
         limit: int,
     ) -> tuple[list[BuildSolution], list[str]]:
+        if self._is_linear_request(request):
+            return self._solve_container_milp(request, container, groups, armors, limit)
+        return self._solve_container_cp_sat(request, container, groups, armors, limit)
+
+    def _solve_container_cp_sat(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        limit: int,
+    ) -> tuple[list[BuildSolution], list[str]]:
         model, context = self._build_model(request, container, groups, armors)
         results: list[BuildSolution] = []
         statuses: list[str] = []
@@ -194,6 +209,278 @@ class ArtifactBuildOptimizer:
                 results.append(solution)
             self._exclude_composition(model, context["count_vars"], solver)
         return results, statuses
+
+    def _solve_container_milp(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        limit: int,
+    ) -> tuple[list[BuildSolution], list[str]]:
+        results: list[BuildSolution] = []
+        statuses: list[str] = []
+        excluded_compositions: list[tuple[int, ...]] = []
+        for _ in range(limit):
+            problem = self._build_milp_problem(
+                request,
+                container,
+                groups,
+                armors,
+                excluded_compositions,
+            )
+            solve_started = time.perf_counter()
+            result = milp(
+                c=problem["objective"],
+                integrality=problem["integrality"],
+                bounds=Bounds(problem["lower_bounds"], problem["upper_bounds"]),
+                constraints=LinearConstraint(
+                    problem["matrix"],
+                    problem["constraint_lows"],
+                    problem["constraint_highs"],
+                ),
+                options={
+                    "time_limit": self.config.time_limit_per_solve,
+                    "mip_rel_gap": 0.001,
+                    "presolve": True,
+                },
+            )
+            elapsed = time.perf_counter() - solve_started
+            status_name = self._milp_status_name(int(result.status), result.x is not None)
+            statuses.append(status_name)
+            if result.x is None:
+                break
+            counts = tuple(int(round(result.x[2 * index])) for index in range(len(groups)))
+            quality_sums = tuple(int(round(result.x[2 * index + 1])) for index in range(len(groups)))
+            armor_offset = 2 * len(groups)
+            armor_index = max(range(len(armors)), key=lambda index: result.x[armor_offset + index])
+            objective = -float(result.fun)
+            dual_bound = -float(result.mip_dual_bound) if result.mip_dual_bound is not None else objective
+            solution = self._materialize_values(
+                request,
+                container,
+                groups,
+                armors,
+                counts,
+                quality_sums,
+                tuple(problem["quality_lows"]),
+                armor_index,
+                status_name,
+                objective,
+                dual_bound,
+                float(result.mip_gap) if result.mip_gap is not None else None,
+                elapsed,
+            )
+            if solution is not None:
+                results.append(solution)
+            excluded_compositions.append(counts)
+        return results, statuses
+
+    def _build_milp_problem(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        excluded_compositions: list[tuple[int, ...]],
+    ) -> dict[str, Any]:
+        group_count = len(groups)
+        armor_offset = 2 * group_count
+        capacity = int(container["capacity"])
+        exclusion_specs: list[tuple[int, int, int]] = []
+        next_variable = armor_offset + len(armors)
+        for exclusion_index, composition in enumerate(excluded_compositions):
+            for group_index, value in enumerate(composition):
+                if value > 0:
+                    exclusion_specs.append((exclusion_index, group_index, value))
+                    next_variable += 2
+        variable_count = next_variable
+
+        objective = np.zeros(variable_count)
+        integrality = np.zeros(variable_count)
+        lower_bounds = np.zeros(variable_count)
+        upper_bounds = np.full(variable_count, np.inf)
+        quality_lows: list[int] = []
+
+        for index, group in enumerate(groups):
+            dynamic_low = group.quality_low
+            if request.min_quality_percent is not None:
+                dynamic_low = max(dynamic_low, int(math.ceil(request.min_quality_percent * 100.0 - 1e-9)))
+            quality_lows.append(dynamic_low)
+            integrality[2 * index] = 1
+            upper_bounds[2 * index] = capacity
+            upper_bounds[2 * index + 1] = capacity * group.quality_high
+        integrality[armor_offset : armor_offset + len(armors)] = 1
+        upper_bounds[armor_offset : armor_offset + len(armors)] = 1
+        if exclusion_specs:
+            exclusion_offset = armor_offset + len(armors)
+            integrality[exclusion_offset:] = 1
+            upper_bounds[exclusion_offset:] = 1
+
+        rows: list[list[tuple[int, float]]] = []
+        constraint_lows: list[float] = []
+        constraint_highs: list[float] = []
+
+        def add_constraint(items: list[tuple[int, float]], low: float, high: float) -> None:
+            rows.append(items)
+            constraint_lows.append(low)
+            constraint_highs.append(high)
+
+        add_constraint([(2 * index, 1.0) for index in range(group_count)], capacity, capacity)
+        add_constraint(
+            [(2 * index, float(group.price)) for index, group in enumerate(groups)],
+            float(request.min_build_price) if request.min_build_price > 0 else -np.inf,
+            float(request.budget),
+        )
+        add_constraint(
+            [(armor_offset + index, 1.0) for index in range(len(armors))],
+            1.0,
+            1.0,
+        )
+        for index, group in enumerate(groups):
+            add_constraint([(2 * index, -quality_lows[index]), (2 * index + 1, 1.0)], 0.0, np.inf)
+            add_constraint([(2 * index, -group.quality_high), (2 * index + 1, 1.0)], -np.inf, 0.0)
+
+        stat_forms = self._milp_stat_forms(groups, armors, container, variable_count)
+        infection_forms = self._milp_infection_forms(groups, container, variable_count)
+        for coefficients, constant in infection_forms.values():
+            items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
+            add_constraint(items, -np.inf, -constant - self.config.infection_safety_margin)
+
+        metric_forms = dict(stat_forms)
+        movement = stat_forms.get("movement_speed", (np.zeros(variable_count), 0.0))
+        sprint = stat_forms.get("sprint_speed", (np.zeros(variable_count), 0.0))
+        metric_forms["total_sprint_speed"] = (movement[0] + sprint[0], 100.0 + movement[1] + sprint[1])
+
+        for requested_key, weight in request.preferences.items():
+            key = self._resolve_metric(requested_key)
+            coefficients, _constant = metric_forms[key]
+            normalized_weight = max(-2.0, min(2.0, float(weight))) / METRIC_SCALES[key]
+            objective -= normalized_weight * coefficients
+        for requested_key, target in request.targets.items():
+            key = self._resolve_metric(requested_key)
+            coefficients, constant = metric_forms[key]
+            items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
+            add_constraint(items, float(target) - constant, np.inf)
+
+        exclusion_variables: dict[tuple[int, int], tuple[int, int]] = {}
+        cursor = armor_offset + len(armors)
+        for exclusion_index, group_index, value in exclusion_specs:
+            less_index = cursor
+            greater_index = cursor + 1
+            cursor += 2
+            exclusion_variables[(exclusion_index, group_index)] = (less_index, greater_index)
+            add_constraint(
+                [(2 * group_index, 1.0), (less_index, float(capacity))],
+                -np.inf,
+                float(value - 1 + capacity),
+            )
+            add_constraint(
+                [(2 * group_index, 1.0), (greater_index, -float(capacity))],
+                float(value + 1 - capacity),
+                np.inf,
+            )
+            add_constraint([(less_index, 1.0), (greater_index, 1.0)], -np.inf, 1.0)
+        for exclusion_index, composition in enumerate(excluded_compositions):
+            flags: list[tuple[int, float]] = []
+            for group_index, value in enumerate(composition):
+                if value <= 0:
+                    continue
+                less_index, greater_index = exclusion_variables[(exclusion_index, group_index)]
+                flags.extend(((less_index, 1.0), (greater_index, 1.0)))
+            add_constraint(flags, 1.0, np.inf)
+
+        matrix = lil_matrix((len(rows), variable_count), dtype=float)
+        for row_index, items in enumerate(rows):
+            for column_index, value in items:
+                matrix[row_index, column_index] += value
+        return {
+            "objective": objective,
+            "integrality": integrality,
+            "lower_bounds": lower_bounds,
+            "upper_bounds": upper_bounds,
+            "matrix": matrix.tocsr(),
+            "constraint_lows": np.asarray(constraint_lows),
+            "constraint_highs": np.asarray(constraint_highs),
+            "quality_lows": quality_lows,
+        }
+
+    def _milp_stat_forms(
+        self,
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        container: dict[str, Any],
+        variable_count: int,
+    ) -> dict[str, tuple[np.ndarray, float]]:
+        forms: dict[str, tuple[np.ndarray, float]] = {}
+        armor_offset = 2 * len(groups)
+        effectiveness = float(container["effectiveness"]) / 100.0
+        for key in self._stat_keys(groups, armors, container):
+            coefficients = np.zeros(variable_count)
+            for index, group in enumerate(groups):
+                low = float(group.stats_low.get(key, 0.0)) * effectiveness
+                high = float(group.stats_high.get(key, 0.0)) * effectiveness
+                intercept, slope = self._float_affine(group, low, high)
+                coefficients[2 * index] = intercept
+                coefficients[2 * index + 1] = slope
+            for index, armor in enumerate(armors):
+                coefficients[armor_offset + index] = float((armor.get("stats") or {}).get(key, 0.0))
+            forms[key] = (coefficients, float((container.get("stats") or {}).get(key, 0.0)))
+        return forms
+
+    def _milp_infection_forms(
+        self,
+        groups: list[ArtifactGroup],
+        container: dict[str, Any],
+        variable_count: int,
+    ) -> dict[str, tuple[np.ndarray, float]]:
+        forms: dict[str, tuple[np.ndarray, float]] = {}
+        _, container_infections = split_infections(container.get("stats") or {})
+        protection = max(0.0, min(float(container["inner_protection"]), 100.0)) / 100.0
+        for key in INFECTION_STATS:
+            coefficients = np.zeros(variable_count)
+            protected = key != "frost" or not self.mechanics.frost_ignores_inner_protection
+            artifact_factor = 1.0 - protection if protected else 1.0
+            for index, group in enumerate(groups):
+                low = float(group.infections_low.get(key, 0.0)) * artifact_factor
+                high = float(group.infections_high.get(key, 0.0)) * artifact_factor
+                intercept, slope = self._float_affine(group, low, high)
+                coefficients[2 * index] = intercept
+                coefficients[2 * index + 1] = slope
+            container_value = float(container_infections.get(key, 0.0))
+            if protected and self.mechanics.container_infections_are_protected:
+                container_value *= 1.0 - protection
+            forms[key] = (
+                coefficients,
+                container_value + float(self.mechanics.base_infection_output.get(key, 0.0)),
+            )
+        return forms
+
+    def _float_affine(
+        self,
+        group: ArtifactGroup,
+        low_value: float,
+        high_value: float,
+    ) -> tuple[float, float]:
+        delta = group.quality_high - group.quality_low
+        if delta <= 0:
+            return low_value, 0.0
+        slope = (high_value - low_value) / delta
+        return low_value - slope * group.quality_low, slope
+
+    def _is_linear_request(self, request: OptimizationRequest) -> bool:
+        metrics = {
+            self._resolve_metric(key)
+            for key in set(request.preferences) | set(request.targets)
+        }
+        return not metrics.intersection({"effective_durability", "hp_regen_score"})
+
+    def _milp_status_name(self, status: int, has_solution: bool) -> str:
+        if status == 0:
+            return "OPTIMAL"
+        if status == 1 and has_solution:
+            return "FEASIBLE"
+        return {1: "LIMIT", 2: "INFEASIBLE", 3: "UNBOUNDED"}.get(status, "ERROR")
 
     def _build_model(
         self,
@@ -436,17 +723,60 @@ class ArtifactBuildOptimizer:
             for index, variable in enumerate(context["armor_vars"])
             if solver.value(variable)
         )
+        counts = tuple(
+            int(solver.value(variable))
+            for variable in context["count_vars"]
+        )
+        quality_sums = tuple(
+            int(solver.value(variable))
+            for variable in context["quality_vars"]
+        )
+        objective = float(solver.objective_value)
+        bound = float(solver.best_objective_bound)
+        gap = abs(objective - bound) / max(1.0, abs(objective))
+        return self._materialize_values(
+            request,
+            container,
+            groups,
+            armors,
+            counts,
+            quality_sums,
+            tuple(context["quality_lows"]),
+            armor_index,
+            status_name,
+            objective,
+            bound,
+            gap,
+            elapsed,
+        )
+
+    def _materialize_values(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        counts: tuple[int, ...],
+        quality_sums: tuple[int, ...],
+        quality_lows: tuple[int, ...],
+        armor_index: int,
+        status_name: str,
+        solver_objective: float,
+        solver_best_bound: float,
+        solver_gap: float | None,
+        elapsed: float,
+    ) -> BuildSolution | None:
         armor = armors[armor_index]
         artifacts: list[dict[str, Any]] = []
         for index, group in enumerate(groups):
-            count = int(solver.value(context["count_vars"][index]))
+            count = counts[index]
             if count <= 0:
                 continue
-            quality_sum = int(solver.value(context["quality_vars"][index]))
+            quality_sum = quality_sums[index]
             qualities = self._distribute_quality(
                 count,
                 quality_sum,
-                context["quality_lows"][index],
+                quality_lows[index],
                 group.quality_high,
             )
             for quality in qualities:
@@ -468,9 +798,6 @@ class ArtifactBuildOptimizer:
             / METRIC_SCALES[self._resolve_metric(key)]
             for key, weight in request.preferences.items()
         )
-        objective = float(solver.objective_value)
-        bound = float(solver.best_objective_bound)
-        gap = abs(objective - bound) / max(1.0, abs(objective))
         build_id = f"{armor['item_id']}:{container['container_id']}:" + "|".join(
             f"{item['group_id']}@{item['quality_percent']:.2f}" for item in artifacts
         )
@@ -486,9 +813,9 @@ class ArtifactBuildOptimizer:
             infection=report,
             metrics=metrics,
             solver_status=status_name,
-            solver_objective=objective,
-            solver_best_bound=bound,
-            solver_gap=round(gap, 8),
+            solver_objective=solver_objective,
+            solver_best_bound=solver_best_bound,
+            solver_gap=None if solver_gap is None else round(solver_gap, 8),
             solve_seconds=round(elapsed, 6),
         )
 
