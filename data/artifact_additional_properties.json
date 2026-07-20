@@ -3,30 +3,45 @@
   "source_notes": [
     "Additional artifact roll slots are not exposed in stalzone-database artifact item JSON files.",
     "Ranges are stored before artifact level scaling; runtime applies (50 + upgrade_level) / 50.",
-    "Properties marked selected=false are known possible rolls, but are not applied to the current local stat profile."
+    "All listed additional properties are applied by default because build calculations assume +15 artifacts."
   ],
   "sources": {
-    "jky6": "https://multitoolsx.live/wiki/item/artifact/izyum"
+    "jky6": "https://multitoolsx.live/wiki/item/artifact/izyum",
+    "kqgy": "https://multitoolsx.live/wiki/item/artifact/braslet"
   },
   "items": {
     "jky6": [
       {
         "stat_suffix": "stamina_bonus",
         "min": 6.12,
-        "max": 7.2,
-        "selected": true
+        "max": 7.2
       },
       {
         "stat_suffix": "speed_modifier",
         "min": 0.45,
-        "max": 0.55,
-        "selected": true
+        "max": 0.55
       },
       {
         "stat_suffix": "stamina_regeneration_bonus",
         "min": 4.08,
-        "max": 4.8,
-        "selected": true
+        "max": 4.8
+      }
+    ],
+    "kqgy": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "min": 13.77,
+        "max": 16.2
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "min": 0.32,
+        "max": 0.4
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "min": 1.02,
+        "max": 1.2
       }
     ]
   }

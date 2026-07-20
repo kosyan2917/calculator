@@ -270,8 +270,6 @@ def additional_property_stats(
     multiplier = artifact_level_multiplier(upgrade_level)
     stats: dict[str, float] = {}
     for property_item in additional_properties:
-        if property_item.get("selected") is False or property_item.get("active") is False:
-            continue
         column = str(property_item.get("column") or "")
         if not column:
             stat_id = str(property_item.get("stat_id") or "")
