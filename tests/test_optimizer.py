@@ -174,6 +174,31 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
                 )
             )
 
+    def test_preference_cap_spends_remaining_slots_on_other_stats(self) -> None:
+        heavy = group("heavy", {"carry_weight": 100.0}, {"carry_weight": 100.0})
+        fast = group("fast", {"movement_speed": 6.0}, {"movement_speed": 6.0})
+        test_catalog = catalog(
+            (heavy, fast),
+            (armor("plain", {}),),
+            container(2),
+        )
+        optimizer = ArtifactBuildOptimizer(
+            test_catalog,
+            OptimizerConfig(time_limit_per_solve=1.0, max_solutions_per_container=1),
+        )
+
+        solution = optimizer.search(
+            OptimizationRequest(
+                budget=2_000_000,
+                preferences={"weight": 0.5, "speed": 0.5},
+                preference_caps={"weight": 100.0},
+                max_results=1,
+            )
+        ).solutions[0]
+
+        self.assertEqual({item["item_id"] for item in solution.artifacts}, {"heavy", "fast"})
+        self.assertAlmostEqual(solution.stats["carry_weight"], 100.0)
+
 
 if __name__ == "__main__":
     unittest.main()

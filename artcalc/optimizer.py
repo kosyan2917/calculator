@@ -56,6 +56,7 @@ METRIC_SCALES = {
 class OptimizationRequest:
     budget: int
     preferences: dict[str, float]
+    preference_caps: dict[str, float] = field(default_factory=dict)
     targets: dict[str, float] = field(default_factory=dict)
     armor_ids: tuple[str, ...] = ()
     container_ids: tuple[str, ...] = ()
@@ -225,7 +226,12 @@ class ArtifactBuildOptimizer:
         statuses: list[str] = []
         excluded_compositions: list[tuple[int, ...]] = []
         for _ in range(limit):
-            reference_stats = self._initial_reference_stats(container, armors, request.preferences)
+            reference_stats = self._initial_reference_stats(
+                container,
+                armors,
+                request.preferences,
+                request.preference_caps,
+            )
             iterations = 1 if self._is_linear_request(request) else max(1, self.config.nonlinear_iterations)
             best_solution: BuildSolution | None = None
             best_counts: tuple[int, ...] | None = None
@@ -317,6 +323,17 @@ class ArtifactBuildOptimizer:
                 if value > 0:
                     exclusion_specs.append((exclusion_index, group_index, value))
                     next_variable += 2
+        capped_metrics = {
+            self._resolve_metric(key): float(limit)
+            for key, limit in request.preference_caps.items()
+            if objective_coefficients.get(self._resolve_metric(key), 0.0) > 0.0
+        }
+        cap_offset = next_variable
+        capped_metric_variables = {
+            key: cap_offset + index
+            for index, key in enumerate(sorted(capped_metrics))
+        }
+        next_variable += len(capped_metric_variables)
         variable_count = next_variable
 
         objective = np.zeros(variable_count)
@@ -337,8 +354,11 @@ class ArtifactBuildOptimizer:
         upper_bounds[armor_offset : armor_offset + len(armors)] = 1
         if exclusion_specs:
             exclusion_offset = armor_offset + len(armors)
-            integrality[exclusion_offset:] = 1
-            upper_bounds[exclusion_offset:] = 1
+            integrality[exclusion_offset:cap_offset] = 1
+            upper_bounds[exclusion_offset:cap_offset] = 1
+        for key, variable_index in capped_metric_variables.items():
+            lower_bounds[variable_index] = -np.inf
+            upper_bounds[variable_index] = capped_metrics[key]
 
         rows: list[list[tuple[int, float]]] = []
         constraint_lows: list[float] = []
@@ -376,8 +396,18 @@ class ArtifactBuildOptimizer:
         metric_forms["total_sprint_speed"] = (movement[0] + sprint[0], 100.0 + movement[1] + sprint[1])
 
         for key, normalized_weight in objective_coefficients.items():
-            coefficients, _constant = metric_forms[key]
-            objective -= normalized_weight * coefficients
+            coefficients, constant = metric_forms[key]
+            capped_variable = capped_metric_variables.get(key)
+            if capped_variable is None:
+                objective -= normalized_weight * coefficients
+                continue
+            objective[capped_variable] -= normalized_weight
+            items = [(capped_variable, 1.0)] + [
+                (index, -value)
+                for index, value in enumerate(coefficients)
+                if abs(value) > 1e-15
+            ]
+            add_constraint(items, -np.inf, constant)
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
             coefficients, constant = metric_forms[key]
@@ -541,6 +571,7 @@ class ArtifactBuildOptimizer:
         container: dict[str, Any],
         armors: list[dict[str, Any]],
         preferences: dict[str, float],
+        preference_caps: dict[str, float],
     ) -> dict[str, float]:
         best_stats: dict[str, float] | None = None
         best_score = -math.inf
@@ -548,12 +579,7 @@ class ArtifactBuildOptimizer:
         for armor in armors:
             stats = add_stats(container_stats, armor.get("stats") or {})
             derived = derived_stats(stats)
-            score = sum(
-                max(-2.0, min(2.0, float(weight)))
-                * self._metric_value(stats, derived, self._resolve_metric(key))
-                / METRIC_SCALES[self._resolve_metric(key)]
-                for key, weight in preferences.items()
-            )
+            score = self._preference_score(preferences, preference_caps, stats, derived)
             if score > best_score:
                 best_score = score
                 best_stats = stats
@@ -635,7 +661,12 @@ class ArtifactBuildOptimizer:
             for key in set(request.preferences) | set(request.targets)
         }
         metrics = self._metric_expressions(model, stat_vars, requested_metrics)
-        objective = self._objective_expression(request.preferences, metrics)
+        objective = self._objective_expression(
+            model,
+            request.preferences,
+            request.preference_caps,
+            metrics,
+        )
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
             model.add(metrics[key] >= int(math.ceil(float(target) * self.config.stat_scale - 1e-9)))
@@ -775,7 +806,9 @@ class ArtifactBuildOptimizer:
 
     def _objective_expression(
         self,
+        model: cp_model.CpModel,
         preferences: dict[str, float],
+        preference_caps: dict[str, float],
         metrics: dict[str, cp_model.LinearExpr],
     ) -> cp_model.LinearExpr:
         terms: list[cp_model.LinearExpr] = []
@@ -786,7 +819,18 @@ class ArtifactBuildOptimizer:
                 continue
             coefficient = int(round(normalized_weight * self.config.objective_scale / METRIC_SCALES[key]))
             if coefficient:
-                terms.append(coefficient * metrics[key])
+                metric = metrics[key]
+                cap = preference_caps.get(requested_key, preference_caps.get(key))
+                if cap is not None and normalized_weight > 0:
+                    cap_scaled = int(round(float(cap) * self.config.stat_scale))
+                    capped = model.new_int_var(
+                        -2_000 * self.config.stat_scale,
+                        cap_scaled,
+                        f"capped_{key}",
+                    )
+                    model.add_min_equality(capped, [metric, cap_scaled])
+                    metric = capped
+                terms.append(coefficient * metric)
         if not terms:
             raise ValueError("At least one non-zero preference is required")
         return cp_model.LinearExpr.sum(terms)
@@ -876,11 +920,11 @@ class ArtifactBuildOptimizer:
             self._resolve_metric(key): self._metric_value(stats, derived, self._resolve_metric(key))
             for key in set(request.preferences) | set(request.targets)
         }
-        exact_score = sum(
-            max(-2.0, min(2.0, float(weight)))
-            * self._metric_value(stats, derived, self._resolve_metric(key))
-            / METRIC_SCALES[self._resolve_metric(key)]
-            for key, weight in request.preferences.items()
+        exact_score = self._preference_score(
+            request.preferences,
+            request.preference_caps,
+            stats,
+            derived,
         )
         build_id = f"{armor['item_id']}:{container['container_id']}:" + "|".join(
             f"{item['group_id']}@{item['quality_percent']:.2f}" for item in artifacts
@@ -1001,10 +1045,13 @@ class ArtifactBuildOptimizer:
             raise ValueError("budget must be positive")
         if request.max_results <= 0:
             raise ValueError("max_results must be positive")
-        for key in set(request.preferences) | set(request.targets):
+        for key in set(request.preferences) | set(request.preference_caps) | set(request.targets):
             resolved = self._resolve_metric(key)
             if resolved not in METRIC_SCALES:
                 raise ValueError(f"Unsupported metric: {key}")
+        for key, limit in request.preference_caps.items():
+            if not math.isfinite(float(limit)):
+                raise ValueError(f"Preference cap must be finite: {key}")
 
     def _resolve_metric(self, key: str) -> str:
         return METRIC_ALIASES.get(key, key)
@@ -1029,6 +1076,24 @@ class ArtifactBuildOptimizer:
         if key in derived:
             return float(derived[key])
         return float(stats.get(key, 0.0))
+
+    def _preference_score(
+        self,
+        preferences: dict[str, float],
+        preference_caps: dict[str, float],
+        stats: dict[str, float],
+        derived: dict[str, float],
+    ) -> float:
+        score = 0.0
+        for requested_key, raw_weight in preferences.items():
+            key = self._resolve_metric(requested_key)
+            weight = max(-2.0, min(2.0, float(raw_weight)))
+            value = self._metric_value(stats, derived, key)
+            cap = preference_caps.get(requested_key, preference_caps.get(key))
+            if cap is not None and weight > 0:
+                value = min(value, float(cap))
+            score += weight * value / METRIC_SCALES[key]
+        return score
 
     def _quality_denominator(self, groups: list[ArtifactGroup]) -> int:
         denominator = 1
