@@ -259,7 +259,11 @@ class ArtifactBuildOptimizer:
             container,
             quality_denominator,
         )
-        metrics = self._metric_expressions(model, stat_vars)
+        requested_metrics = {
+            self._resolve_metric(key)
+            for key in set(request.preferences) | set(request.targets)
+        }
+        metrics = self._metric_expressions(model, stat_vars, requested_metrics)
         objective = self._objective_expression(request.preferences, metrics)
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
@@ -353,38 +357,49 @@ class ArtifactBuildOptimizer:
         self,
         model: cp_model.CpModel,
         stats: dict[str, cp_model.IntVar],
+        requested_metrics: set[str],
     ) -> dict[str, cp_model.LinearExpr]:
         scale = self.config.stat_scale
         zero = model.new_constant(0)
-        bullet = stats.get("bullet_resistance", zero)
-        vitality = stats.get("vitality", zero)
-        movement = stats.get("movement_speed", zero)
-        sprint = stats.get("sprint_speed", zero)
-        regeneration = stats.get("health_regeneration", zero)
-        periodic = stats.get("periodic_healing", zero)
-        healing = stats.get("healing_effectiveness", zero)
-
-        durability_product = model.new_int_var(-20_000_000_000_000_000, 20_000_000_000_000_000, "durability_product")
-        model.add_multiplication_equality(
-            durability_product,
-            [bullet + 100 * scale, vitality + 100 * scale],
-        )
-        durability = model.new_int_var(-2_000 * scale, 10_000 * scale, "effective_durability")
-        model.add_division_equality(durability, durability_product, 100 * scale)
-
-        periodic_product = model.new_int_var(-20_000_000_000_000_000, 20_000_000_000_000_000, "periodic_product")
-        model.add_multiplication_equality(periodic_product, [periodic, healing + 100 * scale])
-        periodic_term = model.new_int_var(-2_000 * scale, 10_000 * scale, "periodic_term")
-        model.add_division_equality(periodic_term, periodic_product, 100 * scale)
-        regeneration_term = model.new_int_var(-2_000 * scale, 10_000 * scale, "regeneration_term")
-        model.add_division_equality(regeneration_term, regeneration, 5)
-        hp_regen = model.new_int_var(-2_000 * scale, 10_000 * scale, "hp_regen_score")
-        model.add(hp_regen == scale // 2 + regeneration_term + periodic_term)
-
         result: dict[str, cp_model.LinearExpr] = dict(stats)
-        result["effective_durability"] = durability
-        result["total_sprint_speed"] = 100 * scale + movement + sprint
-        result["hp_regen_score"] = hp_regen
+        if "total_sprint_speed" in requested_metrics:
+            movement = stats.get("movement_speed", zero)
+            sprint = stats.get("sprint_speed", zero)
+            result["total_sprint_speed"] = 100 * scale + movement + sprint
+
+        if "effective_durability" in requested_metrics:
+            bullet = stats.get("bullet_resistance", zero)
+            vitality = stats.get("vitality", zero)
+            durability_product = model.new_int_var(
+                -20_000_000_000_000_000,
+                20_000_000_000_000_000,
+                "durability_product",
+            )
+            model.add_multiplication_equality(
+                durability_product,
+                [bullet + 100 * scale, vitality + 100 * scale],
+            )
+            durability = model.new_int_var(-2_000 * scale, 10_000 * scale, "effective_durability")
+            model.add_division_equality(durability, durability_product, 100 * scale)
+            result["effective_durability"] = durability
+
+        if "hp_regen_score" in requested_metrics:
+            regeneration = stats.get("health_regeneration", zero)
+            periodic = stats.get("periodic_healing", zero)
+            healing = stats.get("healing_effectiveness", zero)
+            periodic_product = model.new_int_var(
+                -20_000_000_000_000_000,
+                20_000_000_000_000_000,
+                "periodic_product",
+            )
+            model.add_multiplication_equality(periodic_product, [periodic, healing + 100 * scale])
+            periodic_term = model.new_int_var(-2_000 * scale, 10_000 * scale, "periodic_term")
+            model.add_division_equality(periodic_term, periodic_product, 100 * scale)
+            regeneration_term = model.new_int_var(-2_000 * scale, 10_000 * scale, "regeneration_term")
+            model.add_division_equality(regeneration_term, regeneration, 5)
+            hp_regen = model.new_int_var(-2_000 * scale, 10_000 * scale, "hp_regen_score")
+            model.add(hp_regen == scale // 2 + regeneration_term + periodic_term)
+            result["hp_regen_score"] = hp_regen
         return result
 
     def _objective_expression(
@@ -721,4 +736,3 @@ class ArtifactBuildOptimizer:
                 "effectiveness",
             )
         }
-
