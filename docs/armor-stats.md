@@ -48,9 +48,9 @@ tear_reaction
 Derived fields:
 
 ```text
-effective_durability = (bullet_resistance + 100) * (vitality + 100)
+effective_durability = (bullet_resistance + 100) * (vitality + 100) / 100
 total_sprint_speed = 100 + movement_speed + sprint_speed
-hp_regen_score = health_regeneration / 5 + periodic_healing * (100 + healing_effectiveness)
+hp_regen_score = 0.5 + health_regeneration / 5 + periodic_healing * (1 + healing_effectiveness / 100)
 ```
 
 Armor variant files duplicate `bullet_dmg_factor`: first as the final bullet

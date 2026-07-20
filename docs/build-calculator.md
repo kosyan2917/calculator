@@ -36,6 +36,8 @@ What it does:
    Default minimum artifact build price is 2,500,000.
    Default maximum artifact build price is 150,000,000.
    Rubik (`9n7z`) is excluded by default until its unique mechanics are modeled.
+   IU-2 (`p99d`) is excluded by default because it is compatible only with the
+   Bear exoskeleton.
    Beam pruning is split into price buckets from 2,500,000 with a 2,500,000 step.
 3. Builds full artifact loadouts per container with beam search.
 4. Applies container effectiveness to artifact stats, excluding infection stats.
@@ -68,6 +70,7 @@ max_beam_states = 0  # uses beam_size when unset
 max_artifact_candidates = 1500
 frontier_limit_per_container = 6000
 excluded_artifact_ids = ("9n7z",)  # Rubik
+excluded_container_ids = ("p99d",)  # IU-2, Bear-only
 ```
 
 That means build power is estimated as if artifacts are eventually upgraded to
@@ -79,6 +82,17 @@ The precompute keeps only full containers. There is no virtual empty artifact
 slot: if a zero-effect artifact is present in the candidate list, it can behave
 like a real filler. Rubik is excluded for this reason until its variable unique
 bonuses are represented explicitly.
+
+Known limitation: the official item variants (`_variants/<id>/<level>.json`)
+change numeric ranges for upgrade levels such as +5, +10, and +15. The current
+calculator reads the +15 range values, but it does not model rolled additional
+properties of concrete artifacts. Results that depend on those rolled properties
+are not reliable yet.
+Across the current database, artifact levels do not add new stat keys between
+`1.json`, `5.json`, `10.json`, and `15.json`; they only scale existing ranges.
+Changed ranges follow the same ratios relative to level 1: +5 is `55/51`, +10
+is `60/51`, and +15 is `65/51`. Positive infection accumulation ranges do not
+change with levels; negative accumulation/output ranges do.
 
 Adaptive quality grid:
 
@@ -127,7 +141,7 @@ engine = BuildQueryEngine()
 result = engine.query(
     budget=50_000_000,
     targets={
-        "effective_durability": 35000,
+        "effective_durability": 350,
         "movement_speed": 5,
         "total_sprint_speed": 110,
         "stamina": 30,
@@ -179,7 +193,7 @@ engine = BoostedBuildQueryEngine()
 result = engine.query_only_with_boosts(
     budget=50_000_000,
     targets={
-        "effective_durability": 35000,
+        "effective_durability": 350,
         "movement_speed": 5,
         "total_sprint_speed": 110,
         "stamina": 30,

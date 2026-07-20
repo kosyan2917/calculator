@@ -17,6 +17,7 @@ class QueryConfig:
     max_results: int = 30
     max_near_misses: int = 10
     budget_overflow_for_near_misses: float = 0.15
+    excluded_container_ids: tuple[str, ...] = ("p99d",)
     default_weights: dict[str, float] = field(
         default_factory=lambda: {
             "effective_durability": 4.0,
@@ -102,6 +103,8 @@ class BuildQueryEngine:
 
         for container_entry in self.index.get("containers") or []:
             container = container_entry["container"]
+            if container["container_id"] in self.config.excluded_container_ids:
+                continue
             if container_ids and container["container_id"] not in container_ids:
                 continue
             for build in container_entry.get("builds") or []:
@@ -204,6 +207,8 @@ class BuildQueryEngine:
         current_score = row["score"]
         for container_entry, build in self.builds_by_signature.get(row["artifact_signature"], []):
             container = container_entry["container"]
+            if container["container_id"] in self.config.excluded_container_ids:
+                continue
             if container["container_id"] == row["container"]["container_id"]:
                 continue
             alt_armor = {**row["armor"], "stats": row["armor_stats"]}
@@ -233,6 +238,9 @@ class BuildQueryEngine:
     def _index_by_signature(self) -> dict[str, list[tuple[dict[str, Any], dict[str, Any]]]]:
         mapping: dict[str, list[tuple[dict[str, Any], dict[str, Any]]]] = {}
         for container_entry in self.index.get("containers") or []:
+            container = container_entry["container"]
+            if container["container_id"] in self.config.excluded_container_ids:
+                continue
             for build in container_entry.get("builds") or []:
                 mapping.setdefault(build["artifact_signature"], []).append((container_entry, build))
         return mapping

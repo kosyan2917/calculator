@@ -18,6 +18,7 @@ class ProfileQueryConfig:
     ranks: tuple[str, ...] = ("\u0412\u0435\u0442\u0435\u0440\u0430\u043d", "\u041c\u0430\u0441\u0442\u0435\u0440")
     armor_upgrade_level: int | None = 15
     max_results: int = 10
+    excluded_container_ids: tuple[str, ...] = ("p99d",)
 
 
 def normalize_profile(profile: dict[str, int | float]) -> dict[str, float]:
@@ -71,6 +72,8 @@ class ProfileQueryEngine:
         rows: list[dict[str, Any]] = []
         for container_entry in self.index.get("containers") or []:
             container = container_entry["container"]
+            if container["container_id"] in self.config.excluded_container_ids:
+                continue
             for build in container_entry.get("builds") or []:
                 if int(build["artifact_price"]) > budget:
                     continue

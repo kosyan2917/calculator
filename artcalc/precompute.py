@@ -71,14 +71,14 @@ REPRESENTATIVE_PROFILES = {
 }
 
 PROFILE_METRIC_SCALES = {
-    "effective_durability": 10_000.0,
+    "effective_durability": 100.0,
     "bullet_resistance": 10.0,
     "vitality": 10.0,
     "movement_speed": 5.0,
     "sprint_speed": 5.0,
     "total_sprint_speed_bonus": 5.0,
     "stamina_regeneration": 5.0,
-    "hp_regen_score": 100.0,
+    "hp_regen_score": 5.0,
     "healing_effectiveness": 10.0,
     "carry_weight": 10.0,
 }
@@ -103,6 +103,7 @@ class PrecomputeConfig:
     price_bucket_beam_size: int = 20
     max_beam_states: int = 0
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
+    excluded_container_ids: tuple[str, ...] = ("p99d",)
     allowed_quality_tiers: tuple[str, ...] = ("common", "uncommon", "special", "rare", "exclusive", "legendary")
     max_artifact_candidates: int = 1500
     beam_size: int = 800
@@ -260,6 +261,10 @@ class BuildPrecomputer:
         allowed_tiers = set(self.config.allowed_quality_tiers)
         self._write_progress({"status": "loading", "message": "Loading containers and artifact candidates."}, force=True)
         containers = load_containers(db_root, self.config.lang, ranks)
+        excluded_container_ids = set(self.config.excluded_container_ids)
+        containers_before_exclusions = len(containers)
+        containers = [container for container in containers if container["container_id"] not in excluded_container_ids]
+        containers_excluded = containers_before_exclusions - len(containers)
         loaded_candidates_before_exclusions = load_artifact_candidates(
             db_root,
             Path(self.config.artifact_prices_path),
@@ -350,6 +355,7 @@ class BuildPrecomputer:
             },
             "counts": {
                 "containers": len(container_entries),
+                "containers_excluded": containers_excluded,
                 "artifact_candidates_loaded_before_exclusions": len(loaded_candidates_before_exclusions),
                 "artifact_candidates_excluded": artifact_candidates_excluded,
                 "artifact_candidates_excluded_by_price_cap": artifact_candidates_excluded_by_price_cap,

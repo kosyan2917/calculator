@@ -24,6 +24,7 @@ class BoostedQueryConfig:
     max_results: int = 30
     base_candidate_limit: int = 800
     boosts_per_type: int = 4
+    excluded_container_ids: tuple[str, ...] = ("p99d",)
     default_weights: dict[str, float] = field(default_factory=lambda: dict(QueryConfig().default_weights))
 
 
@@ -93,6 +94,8 @@ class BoostedBuildQueryEngine:
 
         for container_entry in self.index.get("containers") or []:
             container = container_entry["container"]
+            if container["container_id"] in self.config.excluded_container_ids:
+                continue
             if container_ids and container["container_id"] not in container_ids:
                 continue
             for build in container_entry.get("builds") or []:

@@ -128,9 +128,9 @@ def derived_stats(stats: dict[str, float]) -> dict[str, float]:
     periodic_healing = stats.get("periodic_healing", 0.0)
     healing_effectiveness = stats.get("healing_effectiveness", 0.0)
     return {
-        "effective_durability": (bullet + 100.0) * (vitality + 100.0),
+        "effective_durability": (bullet + 100.0) * (vitality + 100.0) / 100.0,
         "total_sprint_speed": 100.0 + movement + sprint,
-        "hp_regen_score": regeneration / 5.0 + periodic_healing * (100.0 + healing_effectiveness),
+        "hp_regen_score": 0.5 + regeneration / 5.0 + periodic_healing * (1.0 + healing_effectiveness / 100.0),
     }
 
 

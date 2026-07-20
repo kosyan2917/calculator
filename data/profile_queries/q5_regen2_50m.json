@@ -6,521 +6,12 @@
     }
   },
   "counts": {
-    "candidates": 43401,
-    "returned": 5
+    "candidates": 34569,
+    "returned": 10
   },
   "results": [
     {
-      "total_price": 48099599,
-      "armor": {
-        "item_id": "g43rp",
-        "base_id": "g43rp",
-        "name": "Экзоброня JD ZIVCAS 2A",
-        "category": "armor/combined"
-      },
-      "container": {
-        "container_id": "p99d",
-        "name": "Контейнер «ИУ-2»",
-        "capacity": 3,
-        "inner_protection": 95.0,
-        "effectiveness": 139.0
-      },
-      "build_id": "p99d:j3p6:special:q130:stats+15:price+0,j3p6:special:q130:stats+15:price+0,wglp:exclusive:q160:stats+15:price+0",
-      "artifacts": [
-        {
-          "artifact_key": "j3p6:special:q130:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "special",
-          "quality_percent": 130.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 799800,
-          "price_basis": "recent_7d",
-          "liquidity_score": 100.0,
-          "confidence_score": 100.0,
-          "stats": {
-            "vitality": 4.9331096385999995,
-            "periodic_healing": 0.93964
-          },
-          "infections": {
-            "biological": 3.25
-          }
-        },
-        {
-          "artifact_key": "j3p6:special:q130:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "special",
-          "quality_percent": 130.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 799800,
-          "price_basis": "recent_7d",
-          "liquidity_score": 100.0,
-          "confidence_score": 100.0,
-          "stats": {
-            "vitality": 4.9331096385999995,
-            "periodic_healing": 0.93964
-          },
-          "infections": {
-            "biological": 3.25
-          }
-        },
-        {
-          "artifact_key": "wglp:exclusive:q160:stats+15:price+0",
-          "item_id": "wglp",
-          "name": "Ветка Калины",
-          "quality_tier": "exclusive",
-          "quality_percent": 160.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 46499999,
-          "price_basis": "recent_7d",
-          "liquidity_score": 16.0,
-          "confidence_score": 80.0,
-          "stats": {
-            "vitality": 4.3367997776,
-            "healing_effectiveness": 31.514077776,
-            "bleeding_output": -1.15648
-          },
-          "infections": {
-            "radiation": 4.0
-          }
-        }
-      ],
-      "stats": {
-        "vitality": 14.203019054799999,
-        "periodic_healing": 4.87928,
-        "healing_effectiveness": 31.514077776,
-        "bleeding_output": -1.15648,
-        "carry_weight": 25.0,
-        "bullet_resistance": 275.751,
-        "tear_protection": 127.0,
-        "explosion_protection": 122.0,
-        "electricity_protection": 300.0,
-        "fire_protection": 300.0,
-        "chemical_protection": 600.0,
-        "radiation_protection": 300.0,
-        "thermal_protection": 200.0,
-        "biological_protection": 300.0,
-        "psycho_protection": 300.0,
-        "bleeding_resistance": 40.0
-      },
-      "derived": {
-        "effective_durability": 42911.898612860154,
-        "total_sprint_speed": 100.0,
-        "hp_regen_score": 641.6940094108812
-      },
-      "infection": {
-        "valid": true,
-        "by_type": {
-          "radiation": {
-            "raw_artifact": 4.0,
-            "container": 0.0,
-            "after_inner_protection": 0.20000000000000018,
-            "base_output": -0.5,
-            "final": -0.2999999999999998,
-            "limit": 0.5,
-            "margin": 0.2999999999999998,
-            "valid": true
-          },
-          "temperature": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "biological": {
-            "raw_artifact": 6.5,
-            "container": 0.0,
-            "after_inner_protection": 0.3250000000000003,
-            "base_output": -0.5,
-            "final": -0.1749999999999997,
-            "limit": 0.5,
-            "margin": 0.1749999999999997,
-            "valid": true
-          },
-          "psycho": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "frost": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -1.0,
-            "final": -1.0,
-            "limit": 1.0,
-            "margin": 1.0,
-            "valid": true
-          }
-        }
-      },
-      "upgrade_potential": 54.779,
-      "profile_metrics": {
-        "speed": 0.0,
-        "durability": 42911.898612860154,
-        "regen": 1231.5198920410808,
-        "carry_weight": 25.0
-      },
-      "profile_score": 2.025907
-    },
-    {
-      "total_price": 47000000,
-      "armor": {
-        "item_id": "g43rp",
-        "base_id": "g43rp",
-        "name": "Экзоброня JD ZIVCAS 2A",
-        "category": "armor/combined"
-      },
-      "container": {
-        "container_id": "p99d",
-        "name": "Контейнер «ИУ-2»",
-        "capacity": 3,
-        "inner_protection": 95.0,
-        "effectiveness": 139.0
-      },
-      "build_id": "p99d:j3p6:rare:q145:stats+15:price+0,j3p6:rare:q145:stats+15:price+0,49zn:legendary:q175:stats+15:price+0",
-      "artifacts": [
-        {
-          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "rare",
-          "quality_percent": 145.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 12000000,
-          "price_basis": "recent_7d",
-          "liquidity_score": 18.0,
-          "confidence_score": 90.0,
-          "stats": {
-            "vitality": 5.5023145969,
-            "periodic_healing": 1.04806
-          },
-          "infections": {
-            "biological": 3.625
-          }
-        },
-        {
-          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "rare",
-          "quality_percent": 145.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 12000000,
-          "price_basis": "recent_7d",
-          "liquidity_score": 18.0,
-          "confidence_score": 90.0,
-          "stats": {
-            "vitality": 5.5023145969,
-            "periodic_healing": 1.04806
-          },
-          "infections": {
-            "biological": 3.625
-          }
-        },
-        {
-          "artifact_key": "49zn:legendary:q175:stats+15:price+0",
-          "item_id": "49zn",
-          "name": "Нервяк",
-          "quality_tier": "legendary",
-          "quality_percent": 175.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 23000000,
-          "price_basis": "low_data_history",
-          "liquidity_score": 2.0,
-          "confidence_score": 10.0,
-          "stats": {
-            "movement_speed": 2.213574927025,
-            "sprint_speed": 3.00413725675,
-            "healing_effectiveness": 27.511572567499996,
-            "bullet_resistance": -4.864999999999999
-          },
-          "infections": {
-            "temperature": 2.1875
-          }
-        }
-      ],
-      "stats": {
-        "vitality": 11.0046291938,
-        "periodic_healing": 5.09612,
-        "movement_speed": 2.213574927025,
-        "sprint_speed": 3.00413725675,
-        "healing_effectiveness": 27.511572567499996,
-        "bullet_resistance": 270.88599999999997,
-        "carry_weight": 25.0,
-        "tear_protection": 127.0,
-        "explosion_protection": 122.0,
-        "electricity_protection": 300.0,
-        "fire_protection": 300.0,
-        "chemical_protection": 600.0,
-        "radiation_protection": 300.0,
-        "thermal_protection": 200.0,
-        "biological_protection": 300.0,
-        "psycho_protection": 300.0,
-        "bleeding_resistance": 40.0
-      },
-      "derived": {
-        "effective_durability": 41170.0629031717,
-        "total_sprint_speed": 105.21771218377499,
-        "hp_regen_score": 649.8142751926881
-      },
-      "infection": {
-        "valid": true,
-        "by_type": {
-          "radiation": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "temperature": {
-            "raw_artifact": 2.1875,
-            "container": 0.0,
-            "after_inner_protection": 0.1093750000000001,
-            "base_output": -0.5,
-            "final": -0.3906249999999999,
-            "limit": 0.5,
-            "margin": 0.3906249999999999,
-            "valid": true
-          },
-          "biological": {
-            "raw_artifact": 7.25,
-            "container": 0.0,
-            "after_inner_protection": 0.3625000000000003,
-            "base_output": -0.5,
-            "final": -0.13749999999999968,
-            "limit": 0.5,
-            "margin": 0.13749999999999968,
-            "valid": true
-          },
-          "psycho": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "frost": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -1.0,
-            "final": -1.0,
-            "limit": 1.0,
-            "margin": 1.0,
-            "valid": true
-          }
-        }
-      },
-      "upgrade_potential": 27.59,
-      "profile_metrics": {
-        "speed": 7.4312871107999925,
-        "durability": 41170.0629031717,
-        "regen": 1236.5662410255097,
-        "carry_weight": 25.0
-      },
-      "profile_score": 1.994385
-    },
-    {
-      "total_price": 48099599,
-      "armor": {
-        "item_id": "g43rp",
-        "base_id": "g43rp",
-        "name": "Экзоброня JD ZIVCAS 2A",
-        "category": "armor/combined"
-      },
-      "container": {
-        "container_id": "1p2r",
-        "name": "Контейнер «КЗС-МУ»",
-        "capacity": 3,
-        "inner_protection": 95.0,
-        "effectiveness": 132.5
-      },
-      "build_id": "1p2r:j3p6:special:q130:stats+15:price+0,j3p6:special:q130:stats+15:price+0,wglp:exclusive:q160:stats+15:price+0",
-      "artifacts": [
-        {
-          "artifact_key": "j3p6:special:q130:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "special",
-          "quality_percent": 130.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 799800,
-          "price_basis": "recent_7d",
-          "liquidity_score": 100.0,
-          "confidence_score": 100.0,
-          "stats": {
-            "vitality": 4.7024246555,
-            "periodic_healing": 0.8957
-          },
-          "infections": {
-            "biological": 3.25
-          }
-        },
-        {
-          "artifact_key": "j3p6:special:q130:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "special",
-          "quality_percent": 130.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 799800,
-          "price_basis": "recent_7d",
-          "liquidity_score": 100.0,
-          "confidence_score": 100.0,
-          "stats": {
-            "vitality": 4.7024246555,
-            "periodic_healing": 0.8957
-          },
-          "infections": {
-            "biological": 3.25
-          }
-        },
-        {
-          "artifact_key": "wglp:exclusive:q160:stats+15:price+0",
-          "item_id": "wglp",
-          "name": "Ветка Калины",
-          "quality_tier": "exclusive",
-          "quality_percent": 160.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 46499999,
-          "price_basis": "recent_7d",
-          "liquidity_score": 16.0,
-          "confidence_score": 80.0,
-          "stats": {
-            "vitality": 4.133999788,
-            "healing_effectiveness": 30.040397880000004,
-            "bleeding_output": -1.1024
-          },
-          "infections": {
-            "radiation": 4.0
-          }
-        }
-      ],
-      "stats": {
-        "vitality": 13.538849099,
-        "periodic_healing": 4.7914,
-        "healing_effectiveness": 30.040397880000004,
-        "bleeding_output": -1.1024,
-        "carry_weight": 25.0,
-        "bullet_resistance": 275.751,
-        "tear_protection": 127.0,
-        "explosion_protection": 122.0,
-        "electricity_protection": 300.0,
-        "fire_protection": 300.0,
-        "chemical_protection": 600.0,
-        "radiation_protection": 300.0,
-        "thermal_protection": 200.0,
-        "biological_protection": 300.0,
-        "psycho_protection": 300.0,
-        "bleeding_resistance": 40.0
-      },
-      "derived": {
-        "effective_durability": 42662.33608779835,
-        "total_sprint_speed": 100.0,
-        "hp_regen_score": 623.0755624022321
-      },
-      "infection": {
-        "valid": true,
-        "by_type": {
-          "radiation": {
-            "raw_artifact": 4.0,
-            "container": 0.0,
-            "after_inner_protection": 0.20000000000000018,
-            "base_output": -0.5,
-            "final": -0.2999999999999998,
-            "limit": 0.5,
-            "margin": 0.2999999999999998,
-            "valid": true
-          },
-          "temperature": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "biological": {
-            "raw_artifact": 6.5,
-            "container": 0.0,
-            "after_inner_protection": 0.3250000000000003,
-            "base_output": -0.5,
-            "final": -0.1749999999999997,
-            "limit": 0.5,
-            "margin": 0.1749999999999997,
-            "valid": true
-          },
-          "psycho": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -0.5,
-            "final": -0.5,
-            "limit": 0.5,
-            "margin": 0.5,
-            "valid": true
-          },
-          "frost": {
-            "raw_artifact": 0.0,
-            "container": 0.0,
-            "after_inner_protection": 0.0,
-            "base_output": -1.0,
-            "final": -1.0,
-            "limit": 1.0,
-            "margin": 1.0,
-            "valid": true
-          }
-        }
-      },
-      "upgrade_potential": 55.21,
-      "profile_metrics": {
-        "speed": 0.0,
-        "durability": 42662.33608779835,
-        "regen": 1195.7879270954916,
-        "carry_weight": 25.0
-      },
-      "profile_score": 1.968761
-    },
-    {
-      "total_price": 5399400,
+      "total_price": 21000000,
       "armor": {
         "item_id": "g43rp",
         "base_id": "g43rp",
@@ -534,29 +25,1562 @@
         "inner_protection": 95.0,
         "effectiveness": 120.00001
       },
-      "build_id": "j3ml:j3p6:special:q130:stats+15:price+0,j3p6:special:q130:stats+15:price+0,j3p6:special:q130:stats+15:price+0,5r34:legendary:q175:stats+15:price+0",
+      "build_id": "j3ml:5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,j3p6:rare:q145:stats+15:price+0",
       "artifacts": [
         {
-          "artifact_key": "j3p6:special:q130:stats+15:price+0",
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
           "item_id": "j3p6",
           "name": "Смольник",
+          "quality_tier": "rare",
+          "quality_percent": 145.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 12000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 18.0,
+          "confidence_score": 90.0,
+          "stats": {
+            "vitality": 4.750200047849971,
+            "periodic_healing": 0.9048000754000001
+          },
+          "infections": {
+            "biological": 3.625
+          }
+        }
+      ],
+      "stats": {
+        "health_regeneration": 14.7420012285,
+        "stamina_regeneration": 20.47500170625,
+        "periodic_healing": 5.5428002119,
+        "vitality": 4.750200047849971,
+        "carry_weight": 25.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 393.5999241817967,
+        "total_sprint_speed": 100.0,
+        "hp_regen_score": 8.9912004576
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 6.5625,
+            "container": 0.0,
+            "after_inner_protection": 0.3281250000000003,
+            "base_output": -0.5,
+            "final": -0.17187499999999972,
+            "limit": 0.5,
+            "margin": 0.17187499999999972,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 3.625,
+            "container": 0.0,
+            "after_inner_protection": 0.18125000000000016,
+            "base_output": -0.5,
+            "final": -0.31874999999999987,
+            "limit": 0.5,
+            "margin": 0.31874999999999987,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 38.176,
+      "profile_metrics": {
+        "speed": 0.0,
+        "durability": 393.5999241817967,
+        "regen": 17.25564218221219,
+        "carry_weight": 25.0
+      },
+      "profile_score": 2.036264
+    },
+    {
+      "total_price": 9000000,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "1p2r",
+        "name": "Контейнер «КЗС-МУ»",
+        "capacity": 3,
+        "inner_protection": 95.0,
+        "effectiveness": 132.5
+      },
+      "build_id": "1p2r:5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 5.425875,
+            "stamina_regeneration": 7.5359375,
+            "periodic_healing": 0.602875
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 5.425875,
+            "stamina_regeneration": 7.5359375,
+            "periodic_healing": 0.602875
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 5.425875,
+            "stamina_regeneration": 7.5359375,
+            "periodic_healing": 0.602875
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        }
+      ],
+      "stats": {
+        "health_regeneration": 16.277625,
+        "stamina_regeneration": 22.6078125,
+        "periodic_healing": 4.808625,
+        "carry_weight": 25.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 375.751,
+        "total_sprint_speed": 100.0,
+        "hp_regen_score": 8.56415
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 6.5625,
+            "container": 0.0,
+            "after_inner_protection": 0.3281250000000003,
+            "base_output": -0.5,
+            "final": -0.17187499999999972,
+            "limit": 0.5,
+            "margin": 0.17187499999999972,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 40.905,
+      "profile_metrics": {
+        "speed": 0.0,
+        "durability": 375.751,
+        "regen": 16.436059755499997,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.952882
+    },
+    {
+      "total_price": 23399997,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:wgvd:legendary:q175:stats+15:price+0,kq4v:special:q130:stats+15:price+0,kq4v:special:q130:stats+15:price+0,kq4v:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "wgvd:legendary:q175:stats+15:price+0",
+          "item_id": "wgvd",
+          "name": "Чернильница",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3900000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.2760004830000167,
+            "health_regeneration": 5.460000454999999,
+            "tear_reaction": 3.2760004830000167
+          },
+          "infections": {
+            "biological": 2.1875
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
           "quality_tier": "special",
           "quality_percent": 130.0,
           "upgrade_level": 15,
           "stat_upgrade_level": 15,
           "price_upgrade_level": 0,
-          "price": 799800,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "vitality": 3.2760004830000167,
+        "health_regeneration": 25.537202128100002,
+        "tear_reaction": 3.2760004830000167,
+        "sprint_speed": 6.9966001150499615,
+        "stamina_regeneration": 29.20320336960008,
+        "recoil": 35.568002964,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 388.06060457487735,
+        "total_sprint_speed": 106.99660011504996,
+        "hp_regen_score": 8.60744042562
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 9.75,
+            "container": 0.0,
+            "after_inner_protection": 0.48750000000000043,
+            "base_output": -0.5,
+            "final": -0.012499999999999567,
+            "limit": 0.5,
+            "margin": 0.012499999999999567,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 34.854,
+      "profile_metrics": {
+        "speed": 6.996600115049958,
+        "durability": 388.06060457487735,
+        "regen": 16.519141441637135,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.939489
+    },
+    {
+      "total_price": 20205998,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:kq4v:uncommon:q115:stats+15:price+0,kq4v:special:q130:stats+15:price+0,kq4v:special:q130:stats+15:price+0,q1lk:exclusive:q160:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
           "price_basis": "recent_7d",
           "liquidity_score": 100.0,
           "confidence_score": 100.0,
           "stats": {
-            "vitality": 4.258800042899974,
-            "periodic_healing": 0.8112000676000001
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
           },
           "infections": {
-            "biological": 3.25
+            "psycho": 2.875
           }
         },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        },
+        {
+          "artifact_key": "q1lk:exclusive:q160:stats+15:price+0",
+          "item_id": "q1lk",
+          "name": "Жабры",
+          "quality_tier": "exclusive",
+          "quality_percent": 160.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 7000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.244799886399968,
+            "health_regeneration": 5.740800094399968,
+            "bleeding_resistance": 9.235200769599999
+          },
+          "infections": {
+            "radiation": 4.0
+          }
+        }
+      ],
+      "stats": {
+        "sprint_speed": 6.727500110624963,
+        "health_regeneration": 25.045801703149973,
+        "stamina_regeneration": 28.080003240000075,
+        "recoil": 34.200002850000004,
+        "vitality": 3.244799886399968,
+        "bleeding_resistance": 49.2352007696,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0
+      },
+      "derived": {
+        "effective_durability": 387.94336802114674,
+        "total_sprint_speed": 106.72750011062496,
+        "hp_regen_score": 8.509160340629995
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 4.0,
+            "container": 0.0,
+            "after_inner_protection": 0.20000000000000018,
+            "base_output": -0.5,
+            "final": -0.2999999999999998,
+            "limit": 0.5,
+            "margin": 0.2999999999999998,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 41.899,
+      "profile_metrics": {
+        "speed": 6.727500110624959,
+        "durability": 387.94336802114674,
+        "regen": 16.330525250926865,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.930358
+    },
+    {
+      "total_price": 17105998,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:kq4v:uncommon:q115:stats+15:price+0,wgvd:legendary:q175:stats+15:price+0,kq4v:special:q130:stats+15:price+0,kq4v:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "wgvd:legendary:q175:stats+15:price+0",
+          "item_id": "wgvd",
+          "name": "Чернильница",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3900000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.2760004830000167,
+            "health_regeneration": 5.460000454999999,
+            "tear_reaction": 3.2760004830000167
+          },
+          "infections": {
+            "biological": 2.1875
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "sprint_speed": 6.727500110624963,
+        "health_regeneration": 24.76500206375,
+        "stamina_regeneration": 28.080003240000075,
+        "recoil": 34.200002850000004,
+        "vitality": 3.2760004830000167,
+        "tear_reaction": 3.2760004830000167,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 388.06060457487735,
+        "total_sprint_speed": 106.72750011062496,
+        "hp_regen_score": 8.45300041275
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 42.178,
+      "profile_metrics": {
+        "speed": 6.727500110624959,
+        "durability": 388.06060457487735,
+        "regen": 16.222744802137417,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.920795
+    },
+    {
+      "total_price": 10811999,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:kq4v:uncommon:q115:stats+15:price+0,kq4v:uncommon:q115:stats+15:price+0,wgvd:legendary:q175:stats+15:price+0,kq4v:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "wgvd:legendary:q175:stats+15:price+0",
+          "item_id": "wgvd",
+          "name": "Чернильница",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3900000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.2760004830000167,
+            "health_regeneration": 5.460000454999999,
+            "tear_reaction": 3.2760004830000167
+          },
+          "infections": {
+            "biological": 2.1875
+          }
+        },
+        {
+          "artifact_key": "kq4v:special:q130:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 6499999,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.332200038349987,
+            "health_regeneration": 6.692400557700001,
+            "stamina_regeneration": 9.734401123200026,
+            "recoil": 11.856000988000002
+          },
+          "infections": {
+            "psycho": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "sprint_speed": 6.458400106199965,
+        "health_regeneration": 23.9928019994,
+        "stamina_regeneration": 26.95680311040007,
+        "recoil": 32.83200273600001,
+        "vitality": 3.2760004830000167,
+        "tear_reaction": 3.2760004830000167,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 388.06060457487735,
+        "total_sprint_speed": 106.45840010619996,
+        "hp_regen_score": 8.29856039988
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 9.0,
+            "container": 0.0,
+            "after_inner_protection": 0.4500000000000004,
+            "base_output": -0.5,
+            "final": -0.0499999999999996,
+            "limit": 0.5,
+            "margin": 0.0499999999999996,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 49.502,
+      "profile_metrics": {
+        "speed": 6.45840010619996,
+        "durability": 388.06060457487735,
+        "regen": 15.926348162637698,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.9021
+    },
+    {
+      "total_price": 7618000,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:kq4v:uncommon:q115:stats+15:price+0,kq4v:uncommon:q115:stats+15:price+0,kq4v:uncommon:q115:stats+15:price+0,q1lk:exclusive:q160:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "q1lk:exclusive:q160:stats+15:price+0",
+          "item_id": "q1lk",
+          "name": "Жабры",
+          "quality_tier": "exclusive",
+          "quality_percent": 160.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 7000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 4.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.244799886399968,
+            "health_regeneration": 5.740800094399968,
+            "bleeding_resistance": 9.235200769599999
+          },
+          "infections": {
+            "radiation": 4.0
+          }
+        }
+      ],
+      "stats": {
+        "sprint_speed": 6.1893001017749665,
+        "health_regeneration": 23.501401574449968,
+        "stamina_regeneration": 25.833602980800066,
+        "recoil": 31.464002622000002,
+        "vitality": 3.244799886399968,
+        "bleeding_resistance": 49.2352007696,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0
+      },
+      "derived": {
+        "effective_durability": 387.94336802114674,
+        "total_sprint_speed": 106.18930010177496,
+        "hp_regen_score": 8.200280314889994
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 4.0,
+            "container": 0.0,
+            "after_inner_protection": 0.20000000000000018,
+            "base_output": -0.5,
+            "final": -0.2999999999999998,
+            "limit": 0.5,
+            "margin": 0.2999999999999998,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 8.625,
+            "container": 0.0,
+            "after_inner_protection": 0.43125000000000036,
+            "base_output": -0.5,
+            "final": -0.06874999999999964,
+            "limit": 0.5,
+            "margin": 0.06874999999999964,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 56.547,
+      "profile_metrics": {
+        "speed": 6.189300101774961,
+        "durability": 387.94336802114674,
+        "regen": 15.73773197192743,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.892969
+    },
+    {
+      "total_price": 4518000,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:kq4v:uncommon:q115:stats+15:price+0,kq4v:uncommon:q115:stats+15:price+0,kq4v:uncommon:q115:stats+15:price+0,wgvd:legendary:q175:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "kq4v:uncommon:q115:stats+15:price+0",
+          "item_id": "kq4v",
+          "name": "Темная калина",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 206000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "sprint_speed": 2.063100033924989,
+            "health_regeneration": 5.92020049335,
+            "stamina_regeneration": 8.611200993600022,
+            "recoil": 10.488000874
+          },
+          "infections": {
+            "psycho": 2.875
+          }
+        },
+        {
+          "artifact_key": "wgvd:legendary:q175:stats+15:price+0",
+          "item_id": "wgvd",
+          "name": "Чернильница",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3900000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": 3.2760004830000167,
+            "health_regeneration": 5.460000454999999,
+            "tear_reaction": 3.2760004830000167
+          },
+          "infections": {
+            "biological": 2.1875
+          }
+        }
+      ],
+      "stats": {
+        "sprint_speed": 6.1893001017749665,
+        "health_regeneration": 23.22060193505,
+        "stamina_regeneration": 25.833602980800066,
+        "recoil": 31.464002622000002,
+        "vitality": 3.2760004830000167,
+        "tear_reaction": 3.2760004830000167,
+        "carry_weight": 25.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 275.751,
+        "tear_protection": 127.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 600.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 388.06060457487735,
+        "total_sprint_speed": 106.18930010177496,
+        "hp_regen_score": 8.14412038701
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 8.625,
+            "container": 0.0,
+            "after_inner_protection": 0.43125000000000036,
+            "base_output": -0.5,
+            "final": -0.06874999999999964,
+            "limit": 0.5,
+            "margin": 0.06874999999999964,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 56.825,
+      "profile_metrics": {
+        "speed": 6.189300101774961,
+        "durability": 388.06060457487735,
+        "regen": 15.629951523137981,
+        "carry_weight": 25.0
+      },
+      "profile_score": 1.883404
+    },
+    {
+      "total_price": 7599600,
+      "armor": {
+        "item_id": "g43rp",
+        "base_id": "g43rp",
+        "name": "Экзоброня JD ZIVCAS 2A",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:j3p6:special:q130:stats+15:price+0,j3p6:special:q130:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0",
+      "artifacts": [
         {
           "artifact_key": "j3p6:special:q130:stats+15:price+0",
           "item_id": "j3p6",
@@ -620,13 +1644,35 @@
           "infections": {
             "radiation": 2.1875
           }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
         }
       ],
       "stats": {
-        "vitality": 12.776400128699922,
-        "periodic_healing": 5.979600248300001,
-        "health_regeneration": 4.9140004095,
-        "stamina_regeneration": 6.82500056875,
+        "vitality": 8.517600085799948,
+        "periodic_healing": 5.7144002262,
+        "health_regeneration": 9.828000819,
+        "stamina_regeneration": 13.6500011375,
         "carry_weight": 25.0,
         "bullet_resistance": 275.751,
         "tear_protection": 127.0,
@@ -641,21 +1687,21 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 42375.84512475912,
+        "effective_durability": 407.75596749839417,
         "total_sprint_speed": 100.0,
-        "hp_regen_score": 598.9428249119001
+        "hp_regen_score": 8.18000039
       },
       "infection": {
         "valid": true,
         "by_type": {
           "radiation": {
-            "raw_artifact": 2.1875,
+            "raw_artifact": 4.375,
             "container": 0.0,
-            "after_inner_protection": 0.1093750000000001,
+            "after_inner_protection": 0.2187500000000002,
             "base_output": -0.5,
-            "final": -0.3906249999999999,
+            "final": -0.2812499999999998,
             "limit": 0.5,
-            "margin": 0.3906249999999999,
+            "margin": 0.2812499999999998,
             "valid": true
           },
           "temperature": {
@@ -669,13 +1715,13 @@
             "valid": true
           },
           "biological": {
-            "raw_artifact": 9.75,
+            "raw_artifact": 6.5,
             "container": 0.0,
-            "after_inner_protection": 0.48750000000000043,
+            "after_inner_protection": 0.3250000000000003,
             "base_output": -0.5,
-            "final": -0.012499999999999567,
+            "final": -0.1749999999999997,
             "limit": 0.5,
-            "margin": 0.012499999999999567,
+            "margin": 0.1749999999999997,
             "valid": true
           },
           "psycho": {
@@ -700,17 +1746,17 @@
           }
         }
       },
-      "upgrade_potential": 58.518,
+      "upgrade_potential": 52.04,
       "profile_metrics": {
         "speed": 0.0,
-        "durability": 42375.84512475912,
-        "regen": 1149.4731012861712,
+        "durability": 407.75596749839417,
+        "regen": 15.698811348476298,
         "carry_weight": 25.0
       },
-      "profile_score": 1.941515
+      "profile_score": 1.881503
     },
     {
-      "total_price": 47000000,
+      "total_price": 18799800,
       "armor": {
         "item_id": "g43rp",
         "base_id": "g43rp",
@@ -718,88 +1764,108 @@
         "category": "armor/combined"
       },
       "container": {
-        "container_id": "1p2r",
-        "name": "Контейнер «КЗС-МУ»",
-        "capacity": 3,
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
         "inner_protection": 95.0,
-        "effectiveness": 132.5
+        "effectiveness": 120.00001
       },
-      "build_id": "1p2r:j3p6:rare:q145:stats+15:price+0,j3p6:rare:q145:stats+15:price+0,49zn:legendary:q175:stats+15:price+0",
+      "build_id": "j3ml:j3p6:special:q130:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,5r34:legendary:q175:stats+15:price+0,j3p6:rare:q145:stats+15:price+0",
       "artifacts": [
         {
-          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
+          "artifact_key": "j3p6:special:q130:stats+15:price+0",
           "item_id": "j3p6",
           "name": "Смольник",
-          "quality_tier": "rare",
-          "quality_percent": 145.0,
+          "quality_tier": "special",
+          "quality_percent": 130.0,
           "upgrade_level": 15,
           "stat_upgrade_level": 15,
           "price_upgrade_level": 0,
-          "price": 12000000,
+          "price": 799800,
           "price_basis": "recent_7d",
-          "liquidity_score": 18.0,
-          "confidence_score": 90.0,
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
           "stats": {
-            "vitality": 5.24501211575,
-            "periodic_healing": 0.99905
+            "vitality": 4.258800042899974,
+            "periodic_healing": 0.8112000676000001
           },
           "infections": {
-            "biological": 3.625
+            "biological": 3.25
           }
         },
         {
-          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
-          "item_id": "j3p6",
-          "name": "Смольник",
-          "quality_tier": "rare",
-          "quality_percent": 145.0,
-          "upgrade_level": 15,
-          "stat_upgrade_level": 15,
-          "price_upgrade_level": 0,
-          "price": 12000000,
-          "price_basis": "recent_7d",
-          "liquidity_score": 18.0,
-          "confidence_score": 90.0,
-          "stats": {
-            "vitality": 5.24501211575,
-            "periodic_healing": 0.99905
-          },
-          "infections": {
-            "biological": 3.625
-          }
-        },
-        {
-          "artifact_key": "49zn:legendary:q175:stats+15:price+0",
-          "item_id": "49zn",
-          "name": "Нервяк",
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
           "quality_tier": "legendary",
           "quality_percent": 175.0,
           "upgrade_level": 15,
           "stat_upgrade_level": 15,
           "price_upgrade_level": 0,
-          "price": 23000000,
-          "price_basis": "low_data_history",
-          "liquidity_score": 2.0,
-          "confidence_score": 10.0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
           "stats": {
-            "movement_speed": 2.1100624304375,
-            "sprint_speed": 2.863656018125,
-            "healing_effectiveness": 26.225060181249997,
-            "bullet_resistance": -4.6375
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
           },
           "infections": {
-            "temperature": 2.1875
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "5r34:legendary:q175:stats+15:price+0",
+          "item_id": "5r34",
+          "name": "Сердце",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 3000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 26.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "health_regeneration": 4.9140004095,
+            "stamina_regeneration": 6.82500056875,
+            "periodic_healing": 0.5460000455
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        },
+        {
+          "artifact_key": "j3p6:rare:q145:stats+15:price+0",
+          "item_id": "j3p6",
+          "name": "Смольник",
+          "quality_tier": "rare",
+          "quality_percent": 145.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 12000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 18.0,
+          "confidence_score": 90.0,
+          "stats": {
+            "vitality": 4.750200047849971,
+            "periodic_healing": 0.9048000754000001
+          },
+          "infections": {
+            "biological": 3.625
           }
         }
       ],
       "stats": {
-        "vitality": 10.4900242315,
-        "periodic_healing": 4.9981,
-        "movement_speed": 2.1100624304375,
-        "sprint_speed": 2.863656018125,
-        "healing_effectiveness": 26.225060181249997,
-        "bullet_resistance": 271.1135,
+        "vitality": 9.009000090749945,
+        "periodic_healing": 5.8080002340000005,
+        "health_regeneration": 9.828000819,
+        "stamina_regeneration": 13.6500011375,
         "carry_weight": 25.0,
+        "bullet_resistance": 275.751,
         "tear_protection": 127.0,
         "explosion_protection": 122.0,
         "electricity_protection": 300.0,
@@ -812,14 +1878,24 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 41004.33960763677,
-        "total_sprint_speed": 104.9737184485625,
-        "hp_regen_score": 630.8854732919057
+        "effective_durability": 409.6024079309938,
+        "total_sprint_speed": 100.0,
+        "hp_regen_score": 8.273600397800001
       },
       "infection": {
         "valid": true,
         "by_type": {
           "radiation": {
+            "raw_artifact": 4.375,
+            "container": 0.0,
+            "after_inner_protection": 0.2187500000000002,
+            "base_output": -0.5,
+            "final": -0.2812499999999998,
+            "limit": 0.5,
+            "margin": 0.2812499999999998,
+            "valid": true
+          },
+          "temperature": {
             "raw_artifact": 0.0,
             "container": 0.0,
             "after_inner_protection": 0.0,
@@ -829,24 +1905,14 @@
             "margin": 0.5,
             "valid": true
           },
-          "temperature": {
-            "raw_artifact": 2.1875,
-            "container": 0.0,
-            "after_inner_protection": 0.1093750000000001,
-            "base_output": -0.5,
-            "final": -0.3906249999999999,
-            "limit": 0.5,
-            "margin": 0.3906249999999999,
-            "valid": true
-          },
           "biological": {
-            "raw_artifact": 7.25,
+            "raw_artifact": 6.875,
             "container": 0.0,
-            "after_inner_protection": 0.3625000000000003,
+            "after_inner_protection": 0.34375000000000033,
             "base_output": -0.5,
-            "final": -0.13749999999999968,
+            "final": -0.15624999999999967,
             "limit": 0.5,
-            "margin": 0.13749999999999968,
+            "margin": 0.15624999999999967,
             "valid": true
           },
           "psycho": {
@@ -871,14 +1937,14 @@
           }
         }
       },
-      "upgrade_potential": 28.02,
+      "upgrade_potential": 44.654,
       "profile_metrics": {
-        "speed": 7.083780878999994,
-        "durability": 41004.33960763677,
-        "regen": 1201.0240358363226,
+        "speed": 0.0,
+        "durability": 409.6024079309938,
+        "regen": 15.878445675445827,
         "carry_weight": 25.0
       },
-      "profile_score": 1.937545
+      "profile_score": 1.881026
     }
   ]
 }

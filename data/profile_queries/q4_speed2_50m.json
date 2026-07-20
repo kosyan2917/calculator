@@ -6,8 +6,8 @@
     }
   },
   "counts": {
-    "candidates": 43401,
-    "returned": 5
+    "candidates": 34569,
+    "returned": 10
   },
   "results": [
     {
@@ -145,9 +145,9 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 27728.404419541977,
+        "effective_durability": 277.28404419541977,
         "total_sprint_speed": 141.14860260305002,
-        "hp_regen_score": 0.0
+        "hp_regen_score": 0.5
       },
       "infection": {
         "valid": true,
@@ -207,8 +207,8 @@
       "upgrade_potential": 41.52,
       "profile_metrics": {
         "speed": 65.59740381445005,
-        "durability": 27728.404419541977,
-        "regen": 0.0,
+        "durability": 277.28404419541977,
+        "regen": 0.8555550166666667,
         "carry_weight": 18.0
       },
       "profile_score": 2.01278
@@ -348,9 +348,9 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 31415.901649641834,
+        "effective_durability": 314.15901649641836,
         "total_sprint_speed": 141.14860260305002,
-        "hp_regen_score": 0.0
+        "hp_regen_score": 0.5
       },
       "infection": {
         "valid": true,
@@ -410,8 +410,8 @@
       "upgrade_potential": 41.52,
       "profile_metrics": {
         "speed": 65.59740381445005,
-        "durability": 31415.901649641834,
-        "regen": 0.0,
+        "durability": 314.15901649641836,
+        "regen": 0.9250033333333334,
         "carry_weight": 18.0
       },
       "profile_score": 2.01278
@@ -551,9 +551,9 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 27880.684275091964,
+        "effective_durability": 278.80684275091966,
         "total_sprint_speed": 140.271102529925,
-        "hp_regen_score": 0.0
+        "hp_regen_score": 0.5
       },
       "infection": {
         "valid": true,
@@ -613,11 +613,11 @@
       "upgrade_potential": 49.462,
       "profile_metrics": {
         "speed": 64.34550371012502,
-        "durability": 27880.684275091964,
-        "regen": 0.0,
+        "durability": 278.80684275091966,
+        "regen": 0.8555550166666667,
         "carry_weight": 18.0
       },
-      "profile_score": 2.006857
+      "profile_score": 2.006725
     },
     {
       "total_price": 37320000,
@@ -754,9 +754,9 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 31588.432636019414,
+        "effective_durability": 315.8843263601941,
         "total_sprint_speed": 140.271102529925,
-        "hp_regen_score": 0.0
+        "hp_regen_score": 0.5
       },
       "infection": {
         "valid": true,
@@ -816,11 +816,11 @@
       "upgrade_potential": 49.462,
       "profile_metrics": {
         "speed": 64.34550371012502,
-        "durability": 31588.432636019414,
-        "regen": 0.0,
+        "durability": 315.8843263601941,
+        "regen": 0.9250033333333334,
         "carry_weight": 18.0
       },
-      "profile_score": 2.006857
+      "profile_score": 2.006725
     },
     {
       "total_price": 46000000,
@@ -956,9 +956,9 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 27374.02475570034,
+        "effective_durability": 273.7402475570034,
         "total_sprint_speed": 141.14860260305002,
-        "hp_regen_score": 0.0
+        "hp_regen_score": 0.5
       },
       "infection": {
         "valid": true,
@@ -1018,11 +1018,1021 @@
       "upgrade_potential": 32.127,
       "profile_metrics": {
         "speed": 65.59740381445005,
-        "durability": 27374.02475570034,
-        "regen": 0.0,
+        "durability": 273.7402475570034,
+        "regen": 0.8555550166666667,
         "carry_weight": 18.0
       },
       "profile_score": 2.002191
+    },
+    {
+      "total_price": 46000000,
+      "armor": {
+        "item_id": "rwgmg",
+        "base_id": "rwgmg",
+        "name": "Экзоброня «Гончий»",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:6goy:rare:q145:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "6goy:rare:q145:stats+15:price+0",
+          "item_id": "6goy",
+          "name": "Петля",
+          "quality_tier": "rare",
+          "quality_percent": 145.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 7000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 14.0,
+          "confidence_score": 70.0,
+          "stats": {
+            "movement_speed": 2.7144004002000144,
+            "sprint_speed": 3.6192003016000003,
+            "recoil": -5.881199794099942
+          },
+          "infections": {
+            "radiation": 3.625
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "movement_speed": 24.448801211400017,
+        "sprint_speed": 16.69980139165,
+        "recoil": -5.881199794099942,
+        "vitality": -12.636001052999998,
+        "stamina": 131.41441095119998,
+        "stability": 15.818399446199843,
+        "carry_weight": 18.0,
+        "bleeding_output": -0.5,
+        "bullet_resistance": 255.002,
+        "tear_protection": 113.0,
+        "explosion_protection": 108.0,
+        "electricity_protection": 150.0,
+        "fire_protection": 150.0,
+        "chemical_protection": 150.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 310.14394354182895,
+        "total_sprint_speed": 141.14860260305002,
+        "hp_regen_score": 0.5
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 3.625,
+            "container": 0.0,
+            "after_inner_protection": 0.18125000000000016,
+            "base_output": -0.5,
+            "final": -0.31874999999999987,
+            "limit": 0.5,
+            "margin": 0.31874999999999987,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 9.75,
+            "container": 0.0,
+            "after_inner_protection": 0.48750000000000043,
+            "base_output": -0.5,
+            "final": -0.012499999999999567,
+            "limit": 0.5,
+            "margin": 0.012499999999999567,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 32.127,
+      "profile_metrics": {
+        "speed": 65.59740381445005,
+        "durability": 310.14394354182895,
+        "regen": 0.9250033333333334,
+        "carry_weight": 18.0
+      },
+      "profile_score": 2.002191
+    },
+    {
+      "total_price": 33820000,
+      "armor": {
+        "item_id": "knqkv",
+        "base_id": "knqkv",
+        "name": "Экзоброня «Альбатрос-Разведчик»",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:jky6:uncommon:q115:stats+15:price+0,6goy:rare:q145:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -3.7260003105,
+            "stamina": 38.7504032292,
+            "movement_speed": 2.8704002392000003,
+            "sprint_speed": 3.8571003214250004,
+            "stability": 4.664399836699953
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "6goy:rare:q145:stats+15:price+0",
+          "item_id": "6goy",
+          "name": "Петля",
+          "quality_tier": "rare",
+          "quality_percent": 145.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 7000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 14.0,
+          "confidence_score": 70.0,
+          "stats": {
+            "movement_speed": 2.7144004002000144,
+            "sprint_speed": 3.6192003016000003,
+            "recoil": -5.881199794099942
+          },
+          "infections": {
+            "radiation": 3.625
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -12.150001012499999,
+        "stamina": 126.36001053000001,
+        "movement_speed": 24.074401180200017,
+        "sprint_speed": 16.196701349725,
+        "stability": 15.209999467499848,
+        "recoil": -5.881199794099942,
+        "carry_weight": 18.0,
+        "bleeding_output": -0.5,
+        "bullet_resistance": 213.33301,
+        "tear_protection": 100.0,
+        "explosion_protection": 98.0,
+        "electricity_protection": 120.0,
+        "fire_protection": 120.0,
+        "chemical_protection": 120.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 240.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 275.2630461125033,
+        "total_sprint_speed": 140.271102529925,
+        "hp_regen_score": 0.5
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 3.625,
+            "container": 0.0,
+            "after_inner_protection": 0.18125000000000016,
+            "base_output": -0.5,
+            "final": -0.31874999999999987,
+            "limit": 0.5,
+            "margin": 0.31874999999999987,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 40.069,
+      "profile_metrics": {
+        "speed": 64.34550371012502,
+        "durability": 275.2630461125033,
+        "regen": 0.8555550166666667,
+        "carry_weight": 18.0
+      },
+      "profile_score": 1.996136
+    },
+    {
+      "total_price": 33820000,
+      "armor": {
+        "item_id": "rwgmg",
+        "base_id": "rwgmg",
+        "name": "Экзоброня «Гончий»",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:jky6:uncommon:q115:stats+15:price+0,6goy:rare:q145:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -3.7260003105,
+            "stamina": 38.7504032292,
+            "movement_speed": 2.8704002392000003,
+            "sprint_speed": 3.8571003214250004,
+            "stability": 4.664399836699953
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "6goy:rare:q145:stats+15:price+0",
+          "item_id": "6goy",
+          "name": "Петля",
+          "quality_tier": "rare",
+          "quality_percent": 145.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 7000000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 14.0,
+          "confidence_score": 70.0,
+          "stats": {
+            "movement_speed": 2.7144004002000144,
+            "sprint_speed": 3.6192003016000003,
+            "recoil": -5.881199794099942
+          },
+          "infections": {
+            "radiation": 3.625
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -12.150001012499999,
+        "stamina": 126.36001053000001,
+        "movement_speed": 24.074401180200017,
+        "sprint_speed": 16.196701349725,
+        "stability": 15.209999467499848,
+        "recoil": -5.881199794099942,
+        "carry_weight": 18.0,
+        "bleeding_output": -0.5,
+        "bullet_resistance": 255.002,
+        "tear_protection": 113.0,
+        "explosion_protection": 108.0,
+        "electricity_protection": 150.0,
+        "fire_protection": 150.0,
+        "chemical_protection": 150.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 311.86925340560475,
+        "total_sprint_speed": 140.271102529925,
+        "hp_regen_score": 0.5
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 3.625,
+            "container": 0.0,
+            "after_inner_protection": 0.18125000000000016,
+            "base_output": -0.5,
+            "final": -0.31874999999999987,
+            "limit": 0.5,
+            "margin": 0.31874999999999987,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 40.069,
+      "profile_metrics": {
+        "speed": 64.34550371012502,
+        "durability": 311.86925340560475,
+        "regen": 0.9250033333333334,
+        "carry_weight": 18.0
+      },
+      "profile_score": 1.996136
+    },
+    {
+      "total_price": 31419999,
+      "armor": {
+        "item_id": "knqkv",
+        "base_id": "knqkv",
+        "name": "Экзоброня «Альбатрос-Разведчик»",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:jky6:uncommon:q115:stats+15:price+0,5r5g:exclusive:q160:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -3.7260003105,
+            "stamina": 38.7504032292,
+            "movement_speed": 2.8704002392000003,
+            "sprint_speed": 3.8571003214250004,
+            "stability": 4.664399836699953
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "5r5g:exclusive:q160:stats+15:price+0",
+          "item_id": "5r5g",
+          "name": "Ледяной ежик",
+          "quality_tier": "exclusive",
+          "quality_percent": 160.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 4599999,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "movement_speed": 2.4960002080000003,
+            "sprint_speed": 3.3696002807999994,
+            "stamina_regeneration": 7.238400603200001
+          },
+          "infections": {
+            "biological": 2.0
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -12.150001012499999,
+        "stamina": 126.36001053000001,
+        "movement_speed": 23.856000988,
+        "sprint_speed": 15.947101328925,
+        "stability": 15.209999467499848,
+        "stamina_regeneration": 7.238400603200001,
+        "carry_weight": 18.0,
+        "bleeding_output": -0.5,
+        "bullet_resistance": 213.33301,
+        "tear_protection": 100.0,
+        "explosion_protection": 98.0,
+        "electricity_protection": 120.0,
+        "fire_protection": 120.0,
+        "chemical_protection": 120.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 240.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 275.2630461125033,
+        "total_sprint_speed": 139.803102316925,
+        "hp_regen_score": 0.5
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.0,
+            "container": 0.0,
+            "after_inner_protection": 0.10000000000000009,
+            "base_output": -0.5,
+            "final": -0.3999999999999999,
+            "limit": 0.5,
+            "margin": 0.3999999999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 49.459,
+      "profile_metrics": {
+        "speed": 63.659103304925,
+        "durability": 275.2630461125033,
+        "regen": 0.8555550166666667,
+        "carry_weight": 18.0
+      },
+      "profile_score": 1.996091
+    },
+    {
+      "total_price": 31419999,
+      "armor": {
+        "item_id": "rwgmg",
+        "base_id": "rwgmg",
+        "name": "Экзоброня «Гончий»",
+        "category": "armor/combined"
+      },
+      "container": {
+        "container_id": "j3ml",
+        "name": "Контейнер «КСМ»",
+        "capacity": 4,
+        "inner_protection": 95.0,
+        "effectiveness": 120.00001
+      },
+      "build_id": "j3ml:jky6:uncommon:q115:stats+15:price+0,5r5g:exclusive:q160:stats+15:price+0,jky6:special:q130:stats+15:price+0,jky6:special:q130:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -3.7260003105,
+            "stamina": 38.7504032292,
+            "movement_speed": 2.8704002392000003,
+            "sprint_speed": 3.8571003214250004,
+            "stability": 4.664399836699953
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "5r5g:exclusive:q160:stats+15:price+0",
+          "item_id": "5r5g",
+          "name": "Ледяной ежик",
+          "quality_tier": "exclusive",
+          "quality_percent": 160.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 4599999,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "movement_speed": 2.4960002080000003,
+            "sprint_speed": 3.3696002807999994,
+            "stamina_regeneration": 7.238400603200001
+          },
+          "infections": {
+            "biological": 2.0
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        },
+        {
+          "artifact_key": "jky6:special:q130:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "special",
+          "quality_percent": 130.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 13000000,
+          "price_basis": "recent_30d",
+          "liquidity_score": 6.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.2120003509999995,
+            "stamina": 43.8048036504,
+            "movement_speed": 3.2448002704000003,
+            "sprint_speed": 4.36020036335,
+            "stability": 5.272799815399948
+          },
+          "infections": {
+            "temperature": 3.25
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -12.150001012499999,
+        "stamina": 126.36001053000001,
+        "movement_speed": 23.856000988,
+        "sprint_speed": 15.947101328925,
+        "stability": 15.209999467499848,
+        "stamina_regeneration": 7.238400603200001,
+        "carry_weight": 18.0,
+        "bleeding_output": -0.5,
+        "bullet_resistance": 255.002,
+        "tear_protection": 113.0,
+        "explosion_protection": 108.0,
+        "electricity_protection": 150.0,
+        "fire_protection": 150.0,
+        "chemical_protection": 150.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 311.86925340560475,
+        "total_sprint_speed": 139.803102316925,
+        "hp_regen_score": 0.5
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 9.375,
+            "container": 0.0,
+            "after_inner_protection": 0.46875000000000044,
+            "base_output": -0.5,
+            "final": -0.031249999999999556,
+            "limit": 0.5,
+            "margin": 0.031249999999999556,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 2.0,
+            "container": 0.0,
+            "after_inner_protection": 0.10000000000000009,
+            "base_output": -0.5,
+            "final": -0.3999999999999999,
+            "limit": 0.5,
+            "margin": 0.3999999999999999,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "upgrade_potential": 49.459,
+      "profile_metrics": {
+        "speed": 63.659103304925,
+        "durability": 311.86925340560475,
+        "regen": 0.9250033333333334,
+        "carry_weight": 18.0
+      },
+      "profile_score": 1.996091
     }
   ]
 }

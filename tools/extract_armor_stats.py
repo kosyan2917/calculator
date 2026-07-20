@@ -151,9 +151,9 @@ def extract_item(path: Path, lang: str) -> tuple[dict[str, Any], dict[str, str]]
     periodic_healing = stats.get("periodic_healing", 0.0)
     healing_effectiveness = stats.get("healing_effectiveness", 0.0)
     derived = {
-        "effective_durability": (bullet + 100.0) * (vitality + 100.0),
+        "effective_durability": (bullet + 100.0) * (vitality + 100.0) / 100.0,
         "total_sprint_speed": 100.0 + movement + sprint,
-        "hp_regen_score": regeneration / 5.0 + periodic_healing * (100.0 + healing_effectiveness),
+        "hp_regen_score": 0.5 + regeneration / 5.0 + periodic_healing * (1.0 + healing_effectiveness / 100.0),
     }
 
     output = {
@@ -247,9 +247,9 @@ def main() -> int:
         "stat_columns": STAT_COLUMNS,
         "factor_names_ru": dict(sorted(factor_names.items())),
         "derived_formulas": {
-            "effective_durability": "(bullet_resistance + 100) * (vitality + 100)",
+            "effective_durability": "(bullet_resistance + 100) * (vitality + 100) / 100",
             "total_sprint_speed": "100 + movement_speed + sprint_speed",
-            "hp_regen_score": "health_regeneration / 5 + periodic_healing * (100 + healing_effectiveness)",
+            "hp_regen_score": "0.5 + health_regeneration / 5 + periodic_healing * (1 + healing_effectiveness / 100)",
         },
         "items": items,
     }
