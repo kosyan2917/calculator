@@ -60,7 +60,13 @@ def extract_stat_values(
                     if quality_percent is None:
                         stats[column] = value_at_quality(range_min, range_max, quality_tier, quality_policy)
                     else:
-                        stats[column] = artifact_value_at_quality_percent(column, range_min, range_max, quality_percent)
+                        stats[column] = artifact_value_at_quality_percent(
+                            column,
+                            range_min,
+                            range_max,
+                            quality_percent,
+                            quality_tier,
+                        )
             elif element.get("type") == "numeric":
                 value = to_float(element.get("value"))
                 if value is not None and column not in stats:
@@ -225,7 +231,7 @@ def _artifact_quality_candidates(
     candidates: list[dict[str, Any]] = []
     for quality_percent in percents:
         stats = extract_stat_values(item, lang, quality_tier, mechanics.quality_policy, quality_percent)
-        extra_stats = additional_property_stats(additional_properties, upgrade_level, quality_percent)
+        extra_stats = additional_property_stats(additional_properties, upgrade_level, quality_tier, quality_percent)
         stats = {**stats, **{key: stats.get(key, 0.0) + value for key, value in extra_stats.items()}}
         normal_stats, infections = split_infections(stats)
         candidate = {
@@ -265,6 +271,7 @@ def _artifact_quality_candidates(
 def additional_property_stats(
     additional_properties: list[dict[str, Any]],
     upgrade_level: int,
+    quality_tier: str,
     quality_percent: float,
 ) -> dict[str, float]:
     multiplier = artifact_level_multiplier(upgrade_level)
@@ -285,7 +292,7 @@ def additional_property_stats(
             continue
         stats[column] = (
             stats.get(column, 0.0)
-            + artifact_value_at_quality_percent(column, range_min, range_max, quality_percent) * multiplier
+            + artifact_value_at_quality_percent(column, range_min, range_max, quality_percent, quality_tier) * multiplier
         )
     return stats
 

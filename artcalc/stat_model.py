@@ -73,6 +73,7 @@ SECONDARY_STATS = [
 ]
 
 INFECTION_STATS = ["radiation", "temperature", "biological", "psycho", "frost"]
+BENEFICIAL_NEGATIVE_STATS = {"bleeding_output"}
 
 QUALITY_BOUNDS = {
     "common": (85.0, 100.0),
@@ -167,12 +168,20 @@ def artifact_value_at_quality_percent(
     range_min: float,
     range_max: float,
     quality_percent: float,
+    quality_tier: str | None = None,
 ) -> float:
     value_at_100 = range_min if abs(range_min) >= abs(range_max) else range_max
     if value_at_100 > 0.0 and column not in INFECTION_STATS:
         return value_at_100 * quality_percent / 100.0
     if value_at_100 < 0.0 and column in INFECTION_STATS:
         return value_at_100 * quality_percent / 100.0
+    if quality_tier and (column in INFECTION_STATS or (value_at_100 < 0.0 and column not in BENEFICIAL_NEGATIVE_STATS)):
+        low, high = QUALITY_BOUNDS[quality_tier]
+        if high > low:
+            progress = max(0.0, min(1.0, (quality_percent - low) / (high - low)))
+            less_harmful = range_min if abs(range_min) <= abs(range_max) else range_max
+            more_harmful = range_max if less_harmful == range_min else range_min
+            return less_harmful + (more_harmful - less_harmful) * progress
     return value_at_100
 
 

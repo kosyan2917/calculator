@@ -153,6 +153,22 @@ container_infections_are_protected = False
 These defaults follow current community-documented mechanics. The old meaning of
 container effectiveness as charge drain is intentionally not used for stat scoring.
 
+Artifact quality scaling:
+
+```text
+Positive useful stats:
+  value = value_at_100 * quality_percent / 100
+
+Harmful stats:
+  value is interpolated inside the current rarity range.
+  Example for rare 137% and range [2.125; 2.5]:
+  progress = (137 - 130) / (145 - 130)
+  value = 2.125 + (2.5 - 2.125) * progress = 2.3
+```
+
+This means harmful stats reset to the low end of their range when the artifact
+crosses into the next rarity tier.
+
 ## 2. Runtime Query
 
 Entrypoint:
