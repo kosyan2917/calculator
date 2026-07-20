@@ -166,6 +166,10 @@ def value_at_quality(range_min: float, range_max: float, quality_tier: str, poli
     return value_at_quality_percent(range_min, range_max, quality_value(quality_tier, policy))
 
 
+def artifact_level_multiplier(upgrade_level: int) -> float:
+    return (50.0 + float(upgrade_level)) / 50.0
+
+
 def split_infections(stats: dict[str, float]) -> tuple[dict[str, float], dict[str, float]]:
     normal: dict[str, float] = {}
     infections: dict[str, float] = {}

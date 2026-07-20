@@ -11,6 +11,7 @@ from .stat_model import (
     STAT_PREFIX,
     MechanicsConfig,
     apply_container_effectiveness,
+    artifact_level_multiplier,
     quality_points,
     quality_value,
     split_infections,
@@ -136,6 +137,20 @@ def load_artifact_price_segments(price_path: Path, upgrade_level: int) -> dict[t
     return segments
 
 
+def load_artifact_additional_properties(path: Path | None) -> dict[str, list[dict[str, Any]]]:
+    if path is None or not path.exists():
+        return {}
+    data = read_json(path)
+    items = data.get("items") if isinstance(data, dict) else {}
+    if not isinstance(items, dict):
+        return {}
+    result: dict[str, list[dict[str, Any]]] = {}
+    for item_id, properties in items.items():
+        if isinstance(properties, list):
+            result[str(item_id)] = [property_item for property_item in properties if isinstance(property_item, dict)]
+    return result
+
+
 def load_artifact_candidates(
     db_root: Path,
     price_path: Path,
@@ -147,9 +162,11 @@ def load_artifact_candidates(
     quality_strategy: str = "single",
     quality_step: float = 2.5,
     min_quality_percent: float | None = None,
+    additional_properties_path: Path | None = Path("data/artifact_additional_properties.json"),
 ) -> list[dict[str, Any]]:
     price_level = upgrade_level if price_upgrade_level is None else price_upgrade_level
     price_segments = load_artifact_price_segments(price_path, price_level)
+    additional_properties = load_artifact_additional_properties(additional_properties_path)
     artifact_root = db_root / lang / "items" / "artefact"
     candidates: list[dict[str, Any]] = []
     for variant_path in sorted(artifact_root.rglob(f"_variants/*/{upgrade_level}.json")):
@@ -173,6 +190,7 @@ def load_artifact_candidates(
                 quality_strategy,
                 quality_step,
                 min_quality_percent,
+                additional_properties.get(str(item_id), []),
             )
             candidates.extend(segment_candidates)
     candidates.sort(key=lambda item: (item["item_id"], item["quality_order"], item["quality_percent"], item["price"]))
@@ -192,6 +210,7 @@ def _artifact_quality_candidates(
     quality_strategy: str,
     quality_step: float,
     min_quality_percent: float | None,
+    additional_properties: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     if quality_strategy == "single":
         percents = [quality_value(quality_tier, mechanics.quality_policy)]
@@ -205,6 +224,8 @@ def _artifact_quality_candidates(
     candidates: list[dict[str, Any]] = []
     for quality_percent in percents:
         stats = extract_stat_values(item, lang, quality_tier, mechanics.quality_policy, quality_percent)
+        extra_stats = additional_property_stats(additional_properties, upgrade_level, quality_percent)
+        stats = {**stats, **{key: stats.get(key, 0.0) + value for key, value in extra_stats.items()}}
         normal_stats, infections = split_infections(stats)
         candidate = {
                 "artifact_key": (
@@ -230,6 +251,7 @@ def _artifact_quality_candidates(
                 "liquidity_score": float(price_info.get("liquidity_score") or 0.0),
                 "stats": normal_stats,
                 "infections": infections,
+                "additional_properties": additional_properties,
                 "source_path": str(variant_path.as_posix()),
         }
         candidates.append(candidate)
@@ -237,6 +259,31 @@ def _artifact_quality_candidates(
     if quality_strategy == "adaptive_grid":
         return _quality_frontier(candidates)
     return candidates
+
+
+def additional_property_stats(
+    additional_properties: list[dict[str, Any]],
+    upgrade_level: int,
+    quality_percent: float,
+) -> dict[str, float]:
+    multiplier = artifact_level_multiplier(upgrade_level)
+    stats: dict[str, float] = {}
+    for property_item in additional_properties:
+        column = str(property_item.get("column") or "")
+        if not column:
+            stat_id = str(property_item.get("stat_id") or "")
+            column = stat_suffix_to_column(stat_id) or ""
+        if not column:
+            suffix = str(property_item.get("stat_suffix") or "")
+            column = stat_suffix_to_column(f"{STAT_PREFIX}{suffix}") or ""
+        if not column:
+            continue
+        range_min = to_float(property_item.get("min"))
+        range_max = to_float(property_item.get("max"))
+        if range_min is None or range_max is None:
+            continue
+        stats[column] = stats.get(column, 0.0) + value_at_quality_percent(range_min, range_max, quality_percent) * multiplier
+    return stats
 
 
 def _quality_dominates(a: dict[str, Any], b: dict[str, Any]) -> bool:

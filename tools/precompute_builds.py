@@ -15,6 +15,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Precompute Pareto artifact builds by container.")
     parser.add_argument("--db-root", default="stalzone-database")
     parser.add_argument("--artifact-prices", default="data/artifact_prices.json")
+    parser.add_argument("--artifact-additional-properties", default="data/artifact_additional_properties.json")
     parser.add_argument("--output", default="data/precomputed_builds.json")
     parser.add_argument("--lang", default="ru")
     parser.add_argument("--beam-size", type=int, default=800)
@@ -53,6 +54,7 @@ def main() -> int:
     config = PrecomputeConfig(
         db_root=args.db_root,
         artifact_prices_path=args.artifact_prices,
+        artifact_additional_properties_path=args.artifact_additional_properties,
         output_path=args.output,
         lang=args.lang,
         artifact_upgrade_level=args.artifact_upgrade_level,

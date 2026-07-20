@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "source_notes": [
+    "Additional artifact roll slots are not exposed in stalzone-database artifact item JSON files.",
+    "Ranges are stored before artifact level scaling; runtime applies (50 + upgrade_level) / 50."
+  ],
+  "sources": {
+    "jky6": "https://multitoolsx.live/wiki/item/artifact/izyum"
+  },
+  "items": {
+    "jky6": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "min": 6.12,
+        "max": 7.2
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "min": 0.45,
+        "max": 0.55
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "min": 4.08,
+        "max": 4.8
+      }
+    ]
+  }
+}

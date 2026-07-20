@@ -88,6 +88,7 @@ PROFILE_METRIC_SCALES = {
 class PrecomputeConfig:
     db_root: str = "stalzone-database"
     artifact_prices_path: str = "data/artifact_prices.json"
+    artifact_additional_properties_path: str = "data/artifact_additional_properties.json"
     output_path: str = "data/precomputed_builds.json"
     lang: str = "ru"
     ranks: tuple[str, ...] = ("Ветеран", "Мастер")
@@ -276,6 +277,7 @@ class BuildPrecomputer:
             self.config.quality_strategy,
             self.config.quality_step,
             self.config.min_quality_percent,
+            Path(self.config.artifact_additional_properties_path),
         )
         excluded_artifact_ids = set(self.config.excluded_artifact_ids)
         loaded_candidates = [

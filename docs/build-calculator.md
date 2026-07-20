@@ -85,14 +85,34 @@ bonuses are represented explicitly.
 
 Known limitation: the official item variants (`_variants/<id>/<level>.json`)
 change numeric ranges for upgrade levels such as +5, +10, and +15. The current
-calculator reads the +15 range values, but it does not model rolled additional
-properties of concrete artifacts. Results that depend on those rolled properties
-are not reliable yet.
-Across the current database, artifact levels do not add new stat keys between
-`1.json`, `5.json`, `10.json`, and `15.json`; they only scale existing ranges.
-Changed ranges follow the same ratios relative to level 1: +5 is `55/51`, +10
-is `60/51`, and +15 is `65/51`. Positive infection accumulation ranges do not
-change with levels; negative accumulation/output ranges do.
+calculator reads those +15 range values directly from the official database.
+
+Additional artifact roll properties are separate from those official variant
+files. For example, `jky6` (Raisin / Izum) does not have
+`stamina_regeneration_bonus` in the official base or +15 JSON, but external
+wiki data lists it as one of the three additional properties. These extra
+properties are loaded from `data/artifact_additional_properties.json` and then
+scaled by artifact level:
+
+```text
+level_multiplier = (50 + artifact_upgrade_level) / 50
++5  = 1.1
++10 = 1.2
++15 = 1.3
+```
+
+For `jky6`, the currently modeled additional raw ranges are:
+
+```text
+stamina_bonus: [6.12; 7.2]
+speed_modifier: [0.45; 0.55]
+stamina_regeneration_bonus: [4.08; 4.8]
+```
+
+At 100% quality and +15 this gives +9.36 stamina, +0.715 movement speed, and
++6.24 stamina regeneration. The additional-property data file is currently
+partial, so builds involving artifacts without entries there still miss their
+rolled additional properties.
 
 Adaptive quality grid:
 
