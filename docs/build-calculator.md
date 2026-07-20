@@ -34,6 +34,7 @@ What it does:
    Default quality strategy is adaptive_grid with 2.5% steps.
    Default minimum quality percent is 95%.
    Default minimum artifact build price is 2,500,000.
+   Default maximum artifact build price is 150,000,000.
    Rubik (`9n7z`) is excluded by default until its unique mechanics are modeled.
    Beam pruning is split into price buckets from 2,500,000 with a 2,500,000 step.
 3. Builds full artifact loadouts per container with beam search.
@@ -59,10 +60,13 @@ quality_strategy = adaptive_grid
 quality_step = 2.5
 min_quality_percent = 95
 min_build_price = 2500000
+max_build_price = 150000000
 price_bucket_start = 2500000
 price_bucket_step = 2500000
 price_bucket_beam_size = 20
 max_beam_states = 0  # uses beam_size when unset
+max_artifact_candidates = 1500
+frontier_limit_per_container = 6000
 excluded_artifact_ids = ("9n7z",)  # Rubik
 ```
 
@@ -89,7 +93,11 @@ Adaptive quality grid:
 5. During container search, beam states are pruned by price buckets, not only by
    global score. Default buckets start at 2,500,000 and grow by 2,500,000.
    This preserves cheaper builds for low-budget queries.
-6. Negative infection output is not scored as a positive build property.
+6. The representative set keeps several build styles: durability-heavy,
+   speed-heavy, balanced, and the same directions with HP regeneration mixed in.
+   This mirrors the future `-2..2` user preference scale without requiring a
+   concrete runtime query during precompute.
+7. Negative infection output is not scored as a positive build property.
    It is only used to keep enough safety representatives during beam pruning
    and to pass the final infection validity check.
 ```
@@ -231,5 +239,5 @@ This affects generated artifact stats for each rarity tier.
 python tools\staldata_prices.py --offline
 python tools\extract_armor_stats.py
 python tools\extract_boosts.py
-python tools\precompute_builds.py --artifact-upgrade-level 15 --artifact-price-upgrade-level 0 --quality-strategy adaptive_grid --quality-step 2.5 --min-quality-percent 95 --min-build-price 2500000 --price-bucket-start 2500000 --price-bucket-step 2500000
+python tools\precompute_builds.py --artifact-upgrade-level 15 --artifact-price-upgrade-level 0 --quality-strategy adaptive_grid --quality-step 2.5 --min-quality-percent 95 --min-build-price 2500000 --max-build-price 150000000 --price-bucket-start 2500000 --price-bucket-step 2500000
 ```

@@ -18,8 +18,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default="data/precomputed_builds.json")
     parser.add_argument("--lang", default="ru")
     parser.add_argument("--beam-size", type=int, default=800)
-    parser.add_argument("--frontier-limit", type=int, default=1200)
-    parser.add_argument("--max-artifact-candidates", type=int, default=180)
+    parser.add_argument("--frontier-limit", type=int, default=6000)
+    parser.add_argument("--max-artifact-candidates", type=int, default=1500)
     parser.add_argument("--artifact-upgrade-level", type=int, default=15)
     parser.add_argument("--artifact-price-upgrade-level", type=int, default=0)
     parser.add_argument("--quality-policy", choices=["min", "mid", "p75", "max"], default="mid")
@@ -27,6 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--quality-step", type=float, default=2.5)
     parser.add_argument("--min-quality-percent", type=float, default=95.0)
     parser.add_argument("--min-build-price", type=int, default=2_500_000)
+    parser.add_argument("--max-build-price", type=int, default=150_000_000)
     parser.add_argument("--price-bucket-start", type=int, default=2_500_000)
     parser.add_argument("--price-bucket-step", type=int, default=2_500_000)
     parser.add_argument("--price-bucket-beam-size", type=int, default=20)
@@ -60,6 +61,7 @@ def main() -> int:
         quality_step=args.quality_step,
         min_quality_percent=args.min_quality_percent,
         min_build_price=args.min_build_price,
+        max_build_price=args.max_build_price,
         price_bucket_start=args.price_bucket_start,
         price_bucket_step=args.price_bucket_step,
         price_bucket_beam_size=args.price_bucket_beam_size,
@@ -79,7 +81,8 @@ def main() -> int:
         f"{args.output}: {payload['counts']['frontier_builds']} frontier builds, "
         f"{payload['counts']['containers']} containers, "
         f"{payload['counts']['artifact_candidates']} artifact candidates, "
-        f"{payload['counts']['artifact_candidates_excluded']} excluded candidates."
+        f"{payload['counts']['artifact_candidates_excluded']} excluded candidates, "
+        f"{payload['counts']['artifact_candidates_excluded_by_price_cap']} price-capped candidates."
     )
     return 0
 

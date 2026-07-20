@@ -22,6 +22,55 @@ from .stat_model import (
 
 
 REPRESENTATIVE_DERIVED_METRICS = ["effective_durability", "total_sprint_speed", "hp_regen_score"]
+REPRESENTATIVE_PROFILES = {
+    "tank": {
+        "effective_durability": 2.0,
+        "movement_speed": -1.0,
+        "total_sprint_speed_bonus": -1.0,
+    },
+    "speed": {
+        "movement_speed": 2.0,
+        "total_sprint_speed_bonus": 2.0,
+        "effective_durability": -1.0,
+    },
+    "balanced": {
+        "effective_durability": 1.2,
+        "movement_speed": 1.2,
+        "total_sprint_speed_bonus": 1.0,
+    },
+    "regen": {
+        "hp_regen_score": 2.0,
+    },
+    "tank_regen": {
+        "effective_durability": 1.6,
+        "hp_regen_score": 1.2,
+        "movement_speed": -0.6,
+        "total_sprint_speed_bonus": -0.6,
+    },
+    "speed_regen": {
+        "movement_speed": 1.5,
+        "total_sprint_speed_bonus": 1.5,
+        "hp_regen_score": 1.0,
+        "effective_durability": -0.6,
+    },
+    "balanced_regen": {
+        "effective_durability": 1.0,
+        "movement_speed": 1.0,
+        "total_sprint_speed_bonus": 0.8,
+        "hp_regen_score": 1.0,
+    },
+}
+
+PROFILE_METRIC_SCALES = {
+    "effective_durability": 10_000.0,
+    "movement_speed": 5.0,
+    "sprint_speed": 5.0,
+    "total_sprint_speed_bonus": 5.0,
+    "stamina_regeneration": 5.0,
+    "hp_regen_score": 100.0,
+    "healing_effectiveness": 10.0,
+    "carry_weight": 10.0,
+}
 
 
 @dataclass(frozen=True)
@@ -37,15 +86,16 @@ class PrecomputeConfig:
     quality_step: float = 2.5
     min_quality_percent: float = 95.0
     min_build_price: int = 2_500_000
+    max_build_price: int | None = 150_000_000
     price_bucket_start: int = 2_500_000
     price_bucket_step: int = 2_500_000
     price_bucket_beam_size: int = 20
     max_beam_states: int = 0
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
     allowed_quality_tiers: tuple[str, ...] = ("common", "uncommon", "special", "rare", "exclusive", "legendary")
-    max_artifact_candidates: int = 180
+    max_artifact_candidates: int = 1500
     beam_size: int = 800
-    frontier_limit_per_container: int = 1200
+    frontier_limit_per_container: int = 6000
     allow_duplicate_artifacts: bool = True
     progress_path: str = "data/precompute_progress.json"
     progress_interval_seconds: float = 5.0
@@ -218,6 +268,14 @@ class BuildPrecomputer:
             if candidate["item_id"] not in excluded_artifact_ids
         ]
         artifact_candidates_excluded = len(loaded_candidates_before_exclusions) - len(loaded_candidates)
+        loaded_candidates_before_price_cap = len(loaded_candidates)
+        if self.config.max_build_price is not None:
+            loaded_candidates = [
+                candidate
+                for candidate in loaded_candidates
+                if int(candidate.get("price") or 0) <= self.config.max_build_price
+            ]
+        artifact_candidates_excluded_by_price_cap = loaded_candidates_before_price_cap - len(loaded_candidates)
         candidates = select_artifact_candidates(
             loaded_candidates,
             self.config.max_artifact_candidates,
@@ -237,6 +295,7 @@ class BuildPrecomputer:
                     "container": self._container_progress_view(container),
                     "artifact_candidates_loaded_before_exclusions": len(loaded_candidates_before_exclusions),
                     "artifact_candidates_excluded": artifact_candidates_excluded,
+                    "artifact_candidates_excluded_by_price_cap": artifact_candidates_excluded_by_price_cap,
                     "artifact_candidates_loaded": len(loaded_candidates),
                     "artifact_candidates": len(candidates),
                     "completed_containers": len(container_entries),
@@ -282,6 +341,7 @@ class BuildPrecomputer:
                 "containers": len(container_entries),
                 "artifact_candidates_loaded_before_exclusions": len(loaded_candidates_before_exclusions),
                 "artifact_candidates_excluded": artifact_candidates_excluded,
+                "artifact_candidates_excluded_by_price_cap": artifact_candidates_excluded_by_price_cap,
                 "artifact_candidates_loaded": len(loaded_candidates),
                 "artifact_candidates": len(candidates),
                 "frontier_builds": sum(entry["frontier_builds"] for entry in container_entries),
@@ -331,7 +391,10 @@ class BuildPrecomputer:
             for state_index, state in enumerate(beam, start=1):
                 start = int(state["last_index"])
                 for index in range(start, len(candidates)):
-                    expanded.append(self._extend_state(state, candidates[index], index, container))
+                    next_state = self._extend_state(state, candidates[index], index, container)
+                    if self.config.max_build_price is not None and int(next_state["artifact_price"]) > self.config.max_build_price:
+                        continue
+                    expanded.append(next_state)
                 self._write_progress(
                     {
                         "status": "running",
@@ -372,6 +435,8 @@ class BuildPrecomputer:
         builds: list[dict[str, Any]] = []
         for state in final_states:
             if int(state["artifact_price"]) < self.config.min_build_price:
+                continue
+            if self.config.max_build_price is not None and int(state["artifact_price"]) > self.config.max_build_price:
                 continue
             report = infection_report(
                 state["artifact_infections"],
@@ -493,6 +558,7 @@ class BuildPrecomputer:
             + PRIMARY_STATS
             + SECONDARY_STATS
             + REPRESENTATIVE_DERIVED_METRICS
+            + [f"profile:{name}" for name in REPRESENTATIVE_PROFILES]
             + [f"infection_safety:{key}" for key in INFECTION_STATS]
             + ["low_positive_infection"]
         )
@@ -538,12 +604,35 @@ class BuildPrecomputer:
             return derived_stats(stats)["total_sprint_speed"]
         if metric == "hp_regen_score":
             return derived_stats(stats)["hp_regen_score"]
+        if metric.startswith("profile:"):
+            profile_name = metric.split(":", 1)[1]
+            return self._profile_score(state, REPRESENTATIVE_PROFILES[profile_name])
         if metric.startswith("infection_safety:"):
             infection_key = metric.split(":", 1)[1]
             return -float(infections.get(infection_key, 0.0))
         if metric == "low_positive_infection":
             return -sum(max(0.0, float(infections.get(key, 0.0))) for key in INFECTION_STATS)
         return float(stats.get(metric, 0.0))
+
+    def _profile_score(self, state: dict[str, Any], profile: dict[str, float]) -> float:
+        stats = state["stats"]
+        derived = derived_stats(stats)
+        score = 0.0
+        for metric, weight in profile.items():
+            value = self._profile_metric_value(stats, derived, metric)
+            scale = PROFILE_METRIC_SCALES.get(metric, 10.0)
+            score += float(weight) * (value / (abs(value) + scale) if abs(value) > 1e-9 else 0.0)
+        score -= state["artifact_price"] / 150_000_000.0 * 0.05
+        return score
+
+    def _profile_metric_value(self, stats: dict[str, float], derived: dict[str, float], metric: str) -> float:
+        if metric == "effective_durability":
+            return float(derived.get("effective_durability") or 0.0)
+        if metric == "total_sprint_speed_bonus":
+            return float(derived.get("total_sprint_speed") or 100.0) - 100.0
+        if metric == "hp_regen_score":
+            return float(derived.get("hp_regen_score") or 0.0)
+        return float(stats.get(metric) or 0.0)
 
     def _extend_state(
         self,
