@@ -199,6 +199,18 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertEqual({item["item_id"] for item in solution.artifacts}, {"heavy", "fast"})
         self.assertAlmostEqual(solution.stats["carry_weight"], 100.0)
 
+        weight_only = optimizer.search(
+            OptimizationRequest(
+                budget=2_000_000,
+                preferences={"weight": 0.5},
+                preference_caps={"weight": 100.0},
+                max_results=1,
+            )
+        ).solutions[0]
+
+        self.assertEqual({item["item_id"] for item in weight_only.artifacts}, {"heavy", "fast"})
+        self.assertAlmostEqual(weight_only.stats["carry_weight"], 100.0)
+
 
 if __name__ == "__main__":
     unittest.main()

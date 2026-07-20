@@ -51,6 +51,8 @@ METRIC_SCALES = {
     "tear_reaction": 10.0,
 }
 
+CAP_EXCESS_PENALTY = 0.01
+
 
 @dataclass(frozen=True)
 class OptimizationRequest:
@@ -401,7 +403,8 @@ class ArtifactBuildOptimizer:
             if capped_variable is None:
                 objective -= normalized_weight * coefficients
                 continue
-            objective[capped_variable] -= normalized_weight
+            objective[capped_variable] -= normalized_weight * (1.0 + CAP_EXCESS_PENALTY)
+            objective += normalized_weight * CAP_EXCESS_PENALTY * coefficients
             items = [(capped_variable, 1.0)] + [
                 (index, -value)
                 for index, value in enumerate(coefficients)
@@ -829,8 +832,11 @@ class ArtifactBuildOptimizer:
                         f"capped_{key}",
                     )
                     model.add_min_equality(capped, [metric, cap_scaled])
-                    metric = capped
-                terms.append(coefficient * metric)
+                    penalty_coefficient = max(1, int(round(coefficient * CAP_EXCESS_PENALTY)))
+                    terms.append(coefficient * capped)
+                    terms.append(-penalty_coefficient * (metric - capped))
+                else:
+                    terms.append(coefficient * metric)
         if not terms:
             raise ValueError("At least one non-zero preference is required")
         return cp_model.LinearExpr.sum(terms)
@@ -1091,7 +1097,8 @@ class ArtifactBuildOptimizer:
             value = self._metric_value(stats, derived, key)
             cap = preference_caps.get(requested_key, preference_caps.get(key))
             if cap is not None and weight > 0:
-                value = min(value, float(cap))
+                limit = float(cap)
+                value = min(value, limit) - CAP_EXCESS_PENALTY * max(value - limit, 0.0)
             score += weight * value / METRIC_SCALES[key]
         return score
 
