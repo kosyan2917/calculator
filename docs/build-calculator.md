@@ -110,11 +110,12 @@ speed_modifier: [0.45; 0.55]
 stamina_regeneration_bonus: [4.08; 4.8]
 ```
 
-The current local `jky6` profile has only `stamina_regeneration_bonus` selected.
-At 130% quality and +15, the calculator should therefore produce the official
-main stats plus +8.112 stamina regeneration. The additional-property data file
-is currently partial, so builds involving artifacts without entries there still
-miss their rolled additional properties.
+The current local `jky6` profile has all three listed additional properties
+selected. At 130% quality and +15, the calculator should therefore produce the
+official main stats plus +12.168 stamina, +0.9295 movement speed, and +8.112
+stamina regeneration. The additional-property data file is currently partial,
+so builds involving artifacts without entries there still miss their rolled
+additional properties.
 
 Adaptive quality grid:
 

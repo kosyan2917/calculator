@@ -14,13 +14,13 @@
         "stat_suffix": "stamina_bonus",
         "min": 6.12,
         "max": 7.2,
-        "selected": false
+        "selected": true
       },
       {
         "stat_suffix": "speed_modifier",
         "min": 0.45,
         "max": 0.55,
-        "selected": false
+        "selected": true
       },
       {
         "stat_suffix": "stamina_regeneration_bonus",
