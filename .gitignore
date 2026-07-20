@@ -3,4 +3,7 @@ __pycache__/
 .Python
 .venv/
 venv/
+node_modules/
+dist/
+*.tsbuildinfo
 data/precompute_runner.json
