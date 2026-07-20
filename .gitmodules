@@ -1,0 +1,4 @@
+[submodule "stalzone-database"]
+	path = stalzone-database
+	url = https://github.com/EXBO-Studio/stalzone-database.git
+

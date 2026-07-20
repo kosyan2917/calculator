@@ -1,0 +1,1412 @@
+{
+  "category": "only_with_boosts",
+  "query": {
+    "budget": 50000000,
+    "targets": {
+      "effective_durability": 35000,
+      "movement_speed": 5,
+      "total_sprint_speed": 110,
+      "stamina": 30
+    },
+    "weights": {
+      "effective_durability": 4.0,
+      "movement_speed": 3.0,
+      "total_sprint_speed": 2.5,
+      "stamina": 1.5,
+      "stamina_regeneration": 1.5,
+      "hp_regen_score": 2.0,
+      "healing_effectiveness": 1.0,
+      "carry_weight": 1.0
+    },
+    "base_candidate_limit": 800,
+    "boosts_per_type": 4,
+    "ignored_effect_types": [
+      "Вывод",
+      "Лечение"
+    ]
+  },
+  "counts": {
+    "scanned_base_rows": 11109,
+    "skipped_already_valid_without_boosts": 2312,
+    "base_candidates_checked": 800,
+    "boost_combinations": 624,
+    "results": 478667,
+    "returned": 3
+  },
+  "boost_options": {
+    "Защита": [
+      {
+        "boost_id": "964k0",
+        "name": "Сильная мазь от ожогов",
+        "duration_seconds": 1800.0,
+        "priority": 10.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "health_regeneration": 1.3,
+          "bullet_resistance": 5.8,
+          "fire_protection": 26.3,
+          "chemical_protection": 26.3,
+          "combustion": -0.7
+        }
+      },
+      {
+        "boost_id": "n4vw6",
+        "name": "Мазь от ожогов",
+        "duration_seconds": 1800.0,
+        "priority": 5.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "bullet_resistance": 4.2,
+          "fire_protection": 19.0,
+          "chemical_protection": 19.0,
+          "combustion": -0.5
+        }
+      },
+      {
+        "boost_id": "g4lz0",
+        "name": "«Биозаплатка»",
+        "duration_seconds": 1800.0,
+        "priority": 10.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "health_regeneration": 1.0,
+          "healing_effectiveness": 4.4,
+          "bleeding_resistance": 6.1,
+          "bleeding_output": -1.05
+        }
+      },
+      {
+        "boost_id": "1r2l6",
+        "name": "«Астрикцин»",
+        "duration_seconds": 1800.0,
+        "priority": 8.0,
+        "toxicity_penalty": 20.0,
+        "stats": {
+          "health_regeneration": 0.9,
+          "bleeding_resistance": 5.4,
+          "bleeding_output": -0.93
+        }
+      }
+    ],
+    "Кратковременное усиление": [
+      {
+        "boost_id": "6w5lj",
+        "name": "«Шизоерш»",
+        "duration_seconds": 270.0,
+        "priority": 10.0,
+        "toxicity_penalty": 40.0,
+        "stats": {
+          "vitality": 3.3,
+          "stamina": 37.3,
+          "bullet_resistance": 23.3,
+          "tear_protection": 35.0,
+          "psycho": 0.01
+        }
+      },
+      {
+        "boost_id": "y770",
+        "name": "Мякоть лимонника",
+        "duration_seconds": 270.0,
+        "priority": 10.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "stamina": 37.3,
+          "healing_effectiveness": 17.5,
+          "bullet_resistance": 23.3,
+          "bleeding_resistance": 9.8
+        }
+      },
+      {
+        "boost_id": "2o9g0",
+        "name": "«Озверин»",
+        "duration_seconds": 270.0,
+        "priority": 7.0,
+        "toxicity_penalty": 40.0,
+        "stats": {
+          "stamina": 35.5,
+          "health_regeneration": 3.8,
+          "bullet_resistance": 22.2,
+          "tear_reaction": 10.8
+        }
+      },
+      {
+        "boost_id": "p62q6",
+        "name": "Морфин",
+        "duration_seconds": 270.0,
+        "priority": 7.0,
+        "toxicity_penalty": 40.0,
+        "stats": {
+          "healing_effectiveness": 15.8,
+          "bullet_resistance": 21.0,
+          "explosion_protection": 23.1,
+          "bleeding_resistance": 8.8
+        }
+      }
+    ],
+    "Подвижность": [
+      {
+        "boost_id": "7lyd3",
+        "name": "Анаболик «STARK»",
+        "duration_seconds": 1800.0,
+        "priority": 10.0,
+        "toxicity_penalty": 15.0,
+        "stats": {
+          "stamina": 19.6,
+          "movement_speed": 0.7,
+          "sprint_speed": 0.7,
+          "carry_weight": 15.9,
+          "stamina_regeneration": 2.4,
+          "frost_protection": 5.0
+        }
+      },
+      {
+        "boost_id": "g4l10",
+        "name": "Анаболик «ATLAS»",
+        "duration_seconds": 1800.0,
+        "priority": 8.0,
+        "toxicity_penalty": 15.0,
+        "stats": {
+          "stamina": 17.4,
+          "movement_speed": 0.65,
+          "sprint_speed": 0.65,
+          "carry_weight": 14.1
+        }
+      },
+      {
+        "boost_id": "p62o6",
+        "name": "Эскимо",
+        "duration_seconds": 1800.0,
+        "priority": 8.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "stamina": 14.8,
+          "movement_speed": 0.9,
+          "sprint_speed": 0.9,
+          "stamina_regeneration": 2.7
+        }
+      },
+      {
+        "boost_id": "2o9w0",
+        "name": "Грог",
+        "duration_seconds": 1800.0,
+        "priority": 10.0,
+        "toxicity_penalty": 15.0,
+        "stats": {
+          "stamina": 13.7,
+          "movement_speed": 1.0,
+          "sprint_speed": 1.0,
+          "carry_weight": 10.3,
+          "stamina_regeneration": 3.6,
+          "frost_protection": 5.0
+        }
+      }
+    ],
+    "Усиление": [
+      {
+        "boost_id": "ly6y1",
+        "name": "Завтрак чемпиона",
+        "duration_seconds": 2100.0,
+        "priority": 10.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "vitality": 3.3,
+          "stamina": 9.3,
+          "carry_weight": 26.5,
+          "health_regeneration": 2.8,
+          "stamina_regeneration": 2.8,
+          "healing_effectiveness": 14.9
+        }
+      },
+      {
+        "boost_id": "4qd3p",
+        "name": "Уха из сома «Дворянская»",
+        "duration_seconds": 1800.0,
+        "priority": 10.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "vitality": 3.3,
+          "carry_weight": 17.2,
+          "health_regeneration": 2.8,
+          "stamina_regeneration": 4.3
+        }
+      },
+      {
+        "boost_id": "1r246",
+        "name": "Хорог",
+        "duration_seconds": 1800.0,
+        "priority": 9.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "vitality": 3.1,
+          "stamina": 18.7,
+          "healing_effectiveness": 11.6
+        }
+      },
+      {
+        "boost_id": "4qdqn",
+        "name": "Отечественный ИРП",
+        "duration_seconds": 1800.0,
+        "priority": 9.0,
+        "toxicity_penalty": null,
+        "stats": {
+          "vitality": 3.1,
+          "stamina": 15.4,
+          "health_regeneration": 3.2
+        }
+      }
+    ]
+  },
+  "results": [
+    {
+      "score": 12.612179,
+      "target_score": 11.518399,
+      "secondary_score": 0.732,
+      "upgrade_potential": 57.778,
+      "total_price": 3120000,
+      "armor": {
+        "item_id": "5lr4q",
+        "base_id": "5lr4q",
+        "name": "Защитный бронекостюм «Йорш»",
+        "rank": "Ветеран",
+        "category": "armor/combat",
+        "upgrade_level": 15
+      },
+      "armor_stats": {
+        "stamina": 20.0,
+        "movement_speed": -1.0,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "container": {
+        "container_id": "p99d",
+        "name": "Контейнер «ИУ-2»",
+        "rank": "Ветеран",
+        "capacity": 3,
+        "inner_protection": 95.0,
+        "effectiveness": 139.0
+      },
+      "build_id": "p99d:jky6:uncommon:q115:stats+15:price+0,jky6:uncommon:q115:stats+15:price+0,zy32:legendary:q175:stats+15:price+0",
+      "artifact_signature": "jky6:uncommon:q115:stats+15:price+0|jky6:uncommon:q115:stats+15:price+0|zy32:legendary:q175:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "zy32:legendary:q175:stats+15:price+0",
+          "item_id": "zy32",
+          "name": "Батарейка",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 1480000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 20.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "stamina": 36.049647567499996,
+            "movement_speed": 2.6879125,
+            "sprint_speed": 3.6365872567499995,
+            "electroshock_reaction": 4.1109245135000005
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -5.5319,
+        "stamina": 179.3214075675,
+        "movement_speed": 9.2376725,
+        "sprint_speed": 13.47220225675,
+        "stability": 10.805858721199998,
+        "electroshock_reaction": 4.1109245135000005,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 71.1,
+        "health_regeneration": 1.0,
+        "healing_effectiveness": 16.0,
+        "bleeding_output": -1.05,
+        "stamina_regeneration": 2.7
+      },
+      "derived": {
+        "effective_durability": 35616.363062,
+        "total_sprint_speed": 122.70987475675,
+        "hp_regen_score": 0.2
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 5.75,
+            "container": 0.0,
+            "after_inner_protection": 0.28750000000000026,
+            "base_output": -0.5,
+            "final": -0.21249999999999974,
+            "limit": 0.5,
+            "margin": 0.21249999999999974,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "misses": [],
+      "category": "only_with_boosts",
+      "stats_without_boosts": {
+        "vitality": -8.6319,
+        "stamina": 145.8214075675,
+        "movement_speed": 8.3376725,
+        "sprint_speed": 12.57220225675,
+        "stability": 10.805858721199998,
+        "electroshock_reaction": 4.1109245135000005,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "derived_without_boosts": {
+        "effective_durability": 34447.601061999994,
+        "total_sprint_speed": 120.90987475675,
+        "hp_regen_score": 0.0
+      },
+      "misses_without_boosts": [
+        {
+          "stat": "effective_durability",
+          "target": 35000.0,
+          "value": 34447.601061999994,
+          "gap": 552.3989380000057
+        }
+      ],
+      "boosts": [
+        {
+          "boost_id": "g4lz0",
+          "name": "«Биозаплатка»",
+          "effect_type": "Защита",
+          "price": 0,
+          "priority": 10.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "health_regeneration": 1.0,
+            "healing_effectiveness": 4.4,
+            "bleeding_resistance": 6.1,
+            "bleeding_output": -1.05
+          }
+        },
+        {
+          "boost_id": "p62o6",
+          "name": "Эскимо",
+          "effect_type": "Подвижность",
+          "price": 0,
+          "priority": 8.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "stamina": 14.8,
+            "movement_speed": 0.9,
+            "sprint_speed": 0.9,
+            "stamina_regeneration": 2.7
+          }
+        },
+        {
+          "boost_id": "1r246",
+          "name": "Хорог",
+          "effect_type": "Усиление",
+          "price": 0,
+          "priority": 9.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "vitality": 3.1,
+            "stamina": 18.7,
+            "healing_effectiveness": 11.6
+          }
+        }
+      ],
+      "boost_summary": {
+        "effect_types": [
+          "Защита",
+          "Подвижность",
+          "Усиление"
+        ],
+        "count": 3,
+        "price": 0,
+        "min_duration_seconds": 1800.0,
+        "toxicity_penalty": 0.0,
+        "stats": {
+          "health_regeneration": 1.0,
+          "healing_effectiveness": 16.0,
+          "bleeding_resistance": 6.1,
+          "bleeding_output": -1.05,
+          "stamina": 33.5,
+          "movement_speed": 0.9,
+          "sprint_speed": 0.9,
+          "stamina_regeneration": 2.7,
+          "vitality": 3.1
+        }
+      },
+      "comparison": {
+        "effective_durability": {
+          "without_boosts": 34447.601061999994,
+          "with_boosts": 35616.363062,
+          "delta": 1168.7620000000024
+        },
+        "movement_speed": {
+          "without_boosts": 8.3376725,
+          "with_boosts": 9.2376725,
+          "delta": 0.9000000000000004
+        },
+        "total_sprint_speed": {
+          "without_boosts": 120.90987475675,
+          "with_boosts": 122.70987475675,
+          "delta": 1.7999999999999972
+        },
+        "stamina": {
+          "without_boosts": 145.8214075675,
+          "with_boosts": 179.3214075675,
+          "delta": 33.5
+        },
+        "bullet_resistance": {
+          "without_boosts": 277.02,
+          "with_boosts": 277.02,
+          "delta": 0.0
+        },
+        "vitality": {
+          "without_boosts": -8.6319,
+          "with_boosts": -5.5319,
+          "delta": 3.0999999999999996
+        },
+        "sprint_speed": {
+          "without_boosts": 12.57220225675,
+          "with_boosts": 13.47220225675,
+          "delta": 0.9000000000000004
+        },
+        "stamina_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 2.7,
+          "delta": 2.7
+        },
+        "health_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 1.0,
+          "delta": 1.0
+        },
+        "periodic_healing": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "healing_effectiveness": {
+          "without_boosts": 0.0,
+          "with_boosts": 16.0,
+          "delta": 16.0
+        },
+        "carry_weight": {
+          "without_boosts": 25.0,
+          "with_boosts": 25.0,
+          "delta": 0.0
+        },
+        "bleeding_output": {
+          "without_boosts": 0.0,
+          "with_boosts": -1.05,
+          "delta": -1.05
+        },
+        "bleeding_resistance": {
+          "without_boosts": 65.0,
+          "with_boosts": 71.1,
+          "delta": 6.099999999999994
+        },
+        "burn_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "tear_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        }
+      }
+    },
+    {
+      "score": 12.603929,
+      "target_score": 11.510149,
+      "secondary_score": 0.732,
+      "upgrade_potential": 57.778,
+      "total_price": 3120000,
+      "armor": {
+        "item_id": "5lr4q",
+        "base_id": "5lr4q",
+        "name": "Защитный бронекостюм «Йорш»",
+        "rank": "Ветеран",
+        "category": "armor/combat",
+        "upgrade_level": 15
+      },
+      "armor_stats": {
+        "stamina": 20.0,
+        "movement_speed": -1.0,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "container": {
+        "container_id": "p99d",
+        "name": "Контейнер «ИУ-2»",
+        "rank": "Ветеран",
+        "capacity": 3,
+        "inner_protection": 95.0,
+        "effectiveness": 139.0
+      },
+      "build_id": "p99d:jky6:uncommon:q115:stats+15:price+0,jky6:uncommon:q115:stats+15:price+0,zy32:legendary:q175:stats+15:price+0",
+      "artifact_signature": "jky6:uncommon:q115:stats+15:price+0|jky6:uncommon:q115:stats+15:price+0|zy32:legendary:q175:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "zy32:legendary:q175:stats+15:price+0",
+          "item_id": "zy32",
+          "name": "Батарейка",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 1480000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 20.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "stamina": 36.049647567499996,
+            "movement_speed": 2.6879125,
+            "sprint_speed": 3.6365872567499995,
+            "electroshock_reaction": 4.1109245135000005
+          },
+          "infections": {
+            "radiation": 2.1875
+          }
+        }
+      ],
+      "stats": {
+        "vitality": -5.5319,
+        "stamina": 176.02140756749998,
+        "movement_speed": 9.2376725,
+        "sprint_speed": 13.47220225675,
+        "stability": 10.805858721199998,
+        "electroshock_reaction": 4.1109245135000005,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 71.1,
+        "health_regeneration": 4.2,
+        "healing_effectiveness": 4.4,
+        "bleeding_output": -1.05,
+        "stamina_regeneration": 2.7
+      },
+      "derived": {
+        "effective_durability": 35616.363062,
+        "total_sprint_speed": 122.70987475675,
+        "hp_regen_score": 0.8400000000000001
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 2.1875,
+            "container": 0.0,
+            "after_inner_protection": 0.1093750000000001,
+            "base_output": -0.5,
+            "final": -0.3906249999999999,
+            "limit": 0.5,
+            "margin": 0.3906249999999999,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 5.75,
+            "container": 0.0,
+            "after_inner_protection": 0.28750000000000026,
+            "base_output": -0.5,
+            "final": -0.21249999999999974,
+            "limit": 0.5,
+            "margin": 0.21249999999999974,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "misses": [],
+      "category": "only_with_boosts",
+      "stats_without_boosts": {
+        "vitality": -8.6319,
+        "stamina": 145.8214075675,
+        "movement_speed": 8.3376725,
+        "sprint_speed": 12.57220225675,
+        "stability": 10.805858721199998,
+        "electroshock_reaction": 4.1109245135000005,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "derived_without_boosts": {
+        "effective_durability": 34447.601061999994,
+        "total_sprint_speed": 120.90987475675,
+        "hp_regen_score": 0.0
+      },
+      "misses_without_boosts": [
+        {
+          "stat": "effective_durability",
+          "target": 35000.0,
+          "value": 34447.601061999994,
+          "gap": 552.3989380000057
+        }
+      ],
+      "boosts": [
+        {
+          "boost_id": "g4lz0",
+          "name": "«Биозаплатка»",
+          "effect_type": "Защита",
+          "price": 0,
+          "priority": 10.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "health_regeneration": 1.0,
+            "healing_effectiveness": 4.4,
+            "bleeding_resistance": 6.1,
+            "bleeding_output": -1.05
+          }
+        },
+        {
+          "boost_id": "p62o6",
+          "name": "Эскимо",
+          "effect_type": "Подвижность",
+          "price": 0,
+          "priority": 8.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "stamina": 14.8,
+            "movement_speed": 0.9,
+            "sprint_speed": 0.9,
+            "stamina_regeneration": 2.7
+          }
+        },
+        {
+          "boost_id": "4qdqn",
+          "name": "Отечественный ИРП",
+          "effect_type": "Усиление",
+          "price": 0,
+          "priority": 9.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "vitality": 3.1,
+            "stamina": 15.4,
+            "health_regeneration": 3.2
+          }
+        }
+      ],
+      "boost_summary": {
+        "effect_types": [
+          "Защита",
+          "Подвижность",
+          "Усиление"
+        ],
+        "count": 3,
+        "price": 0,
+        "min_duration_seconds": 1800.0,
+        "toxicity_penalty": 0.0,
+        "stats": {
+          "health_regeneration": 4.2,
+          "healing_effectiveness": 4.4,
+          "bleeding_resistance": 6.1,
+          "bleeding_output": -1.05,
+          "stamina": 30.200000000000003,
+          "movement_speed": 0.9,
+          "sprint_speed": 0.9,
+          "stamina_regeneration": 2.7,
+          "vitality": 3.1
+        }
+      },
+      "comparison": {
+        "effective_durability": {
+          "without_boosts": 34447.601061999994,
+          "with_boosts": 35616.363062,
+          "delta": 1168.7620000000024
+        },
+        "movement_speed": {
+          "without_boosts": 8.3376725,
+          "with_boosts": 9.2376725,
+          "delta": 0.9000000000000004
+        },
+        "total_sprint_speed": {
+          "without_boosts": 120.90987475675,
+          "with_boosts": 122.70987475675,
+          "delta": 1.7999999999999972
+        },
+        "stamina": {
+          "without_boosts": 145.8214075675,
+          "with_boosts": 176.02140756749998,
+          "delta": 30.19999999999999
+        },
+        "bullet_resistance": {
+          "without_boosts": 277.02,
+          "with_boosts": 277.02,
+          "delta": 0.0
+        },
+        "vitality": {
+          "without_boosts": -8.6319,
+          "with_boosts": -5.5319,
+          "delta": 3.0999999999999996
+        },
+        "sprint_speed": {
+          "without_boosts": 12.57220225675,
+          "with_boosts": 13.47220225675,
+          "delta": 0.9000000000000004
+        },
+        "stamina_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 2.7,
+          "delta": 2.7
+        },
+        "health_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 4.2,
+          "delta": 4.2
+        },
+        "periodic_healing": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "healing_effectiveness": {
+          "without_boosts": 0.0,
+          "with_boosts": 4.4,
+          "delta": 4.4
+        },
+        "carry_weight": {
+          "without_boosts": 25.0,
+          "with_boosts": 25.0,
+          "delta": 0.0
+        },
+        "bleeding_output": {
+          "without_boosts": 0.0,
+          "with_boosts": -1.05,
+          "delta": -1.05
+        },
+        "bleeding_resistance": {
+          "without_boosts": 65.0,
+          "with_boosts": 71.1,
+          "delta": 6.099999999999994
+        },
+        "burn_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "tear_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        }
+      }
+    },
+    {
+      "score": 12.593003,
+      "target_score": 11.494653,
+      "secondary_score": 0.732,
+      "upgrade_potential": 57.835,
+      "total_price": 3039999,
+      "armor": {
+        "item_id": "5lr4q",
+        "base_id": "5lr4q",
+        "name": "Защитный бронекостюм «Йорш»",
+        "rank": "Ветеран",
+        "category": "armor/combat",
+        "upgrade_level": 15
+      },
+      "armor_stats": {
+        "stamina": 20.0,
+        "movement_speed": -1.0,
+        "carry_weight": 25.0,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "container": {
+        "container_id": "p99d",
+        "name": "Контейнер «ИУ-2»",
+        "rank": "Ветеран",
+        "capacity": 3,
+        "inner_protection": 95.0,
+        "effectiveness": 139.0
+      },
+      "build_id": "p99d:gyn0:legendary:q175:stats+15:price+0,jky6:uncommon:q115:stats+15:price+0,jky6:uncommon:q115:stats+15:price+0",
+      "artifact_signature": "gyn0:legendary:q175:stats+15:price+0|jky6:uncommon:q115:stats+15:price+0|jky6:uncommon:q115:stats+15:price+0",
+      "artifacts": [
+        {
+          "artifact_key": "gyn0:legendary:q175:stats+15:price+0",
+          "item_id": "gyn0",
+          "name": "Комета",
+          "quality_tier": "legendary",
+          "quality_percent": 175.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 1399999,
+          "price_basis": "recent_7d",
+          "liquidity_score": 20.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "stamina": 51.228449999999995,
+            "movement_speed": 1.8973500729749997,
+            "sprint_speed": 2.5298,
+            "carry_weight": 10.435425
+          },
+          "infections": {
+            "temperature": 2.1875
+          }
+        },
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        },
+        {
+          "artifact_key": "jky6:uncommon:q115:stats+15:price+0",
+          "item_id": "jky6",
+          "name": "Изюм",
+          "quality_tier": "uncommon",
+          "quality_percent": 115.0,
+          "upgrade_level": 15,
+          "stat_upgrade_level": 15,
+          "price_upgrade_level": 0,
+          "price": 820000,
+          "price_basis": "recent_7d",
+          "liquidity_score": 100.0,
+          "confidence_score": 100.0,
+          "stats": {
+            "vitality": -4.31595,
+            "stamina": 44.88588,
+            "movement_speed": 3.3248800000000003,
+            "sprint_speed": 4.4678075,
+            "stability": 5.402929360599999
+          },
+          "infections": {
+            "temperature": 2.875
+          }
+        }
+      ],
+      "stats": {
+        "stamina": 185.10020999999998,
+        "movement_speed": 8.447110072975,
+        "sprint_speed": 12.365415,
+        "carry_weight": 61.935425,
+        "vitality": -5.3319,
+        "stability": 10.805858721199998,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 71.1,
+        "health_regeneration": 3.8,
+        "healing_effectiveness": 19.3,
+        "bleeding_output": -1.05,
+        "stamina_regeneration": 5.5
+      },
+      "derived": {
+        "effective_durability": 35691.767062,
+        "total_sprint_speed": 120.81252507297499,
+        "hp_regen_score": 0.76
+      },
+      "infection": {
+        "valid": true,
+        "by_type": {
+          "radiation": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "temperature": {
+            "raw_artifact": 7.9375,
+            "container": 0.0,
+            "after_inner_protection": 0.39687500000000037,
+            "base_output": -0.5,
+            "final": -0.10312499999999963,
+            "limit": 0.5,
+            "margin": 0.10312499999999963,
+            "valid": true
+          },
+          "biological": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "psycho": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -0.5,
+            "final": -0.5,
+            "limit": 0.5,
+            "margin": 0.5,
+            "valid": true
+          },
+          "frost": {
+            "raw_artifact": 0.0,
+            "container": 0.0,
+            "after_inner_protection": 0.0,
+            "base_output": -1.0,
+            "final": -1.0,
+            "limit": 1.0,
+            "margin": 1.0,
+            "valid": true
+          }
+        }
+      },
+      "misses": [],
+      "category": "only_with_boosts",
+      "stats_without_boosts": {
+        "stamina": 161.00020999999998,
+        "movement_speed": 7.547110072975,
+        "sprint_speed": 11.465415,
+        "carry_weight": 35.435425,
+        "vitality": -8.6319,
+        "stability": 10.805858721199998,
+        "bullet_resistance": 277.02,
+        "tear_protection": 240.0,
+        "explosion_protection": 143.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 40.0,
+        "chemical_protection": 40.0,
+        "radiation_protection": 230.0,
+        "thermal_protection": 120.0,
+        "biological_protection": 230.0,
+        "psycho_protection": 210.0,
+        "bleeding_resistance": 65.0
+      },
+      "derived_without_boosts": {
+        "effective_durability": 34447.601061999994,
+        "total_sprint_speed": 119.012525072975,
+        "hp_regen_score": 0.0
+      },
+      "misses_without_boosts": [
+        {
+          "stat": "effective_durability",
+          "target": 35000.0,
+          "value": 34447.601061999994,
+          "gap": 552.3989380000057
+        }
+      ],
+      "boosts": [
+        {
+          "boost_id": "g4lz0",
+          "name": "«Биозаплатка»",
+          "effect_type": "Защита",
+          "price": 0,
+          "priority": 10.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "health_regeneration": 1.0,
+            "healing_effectiveness": 4.4,
+            "bleeding_resistance": 6.1,
+            "bleeding_output": -1.05
+          }
+        },
+        {
+          "boost_id": "p62o6",
+          "name": "Эскимо",
+          "effect_type": "Подвижность",
+          "price": 0,
+          "priority": 8.0,
+          "duration_seconds": 1800.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "stamina": 14.8,
+            "movement_speed": 0.9,
+            "sprint_speed": 0.9,
+            "stamina_regeneration": 2.7
+          }
+        },
+        {
+          "boost_id": "ly6y1",
+          "name": "Завтрак чемпиона",
+          "effect_type": "Усиление",
+          "price": 0,
+          "priority": 10.0,
+          "duration_seconds": 2100.0,
+          "toxicity_penalty": null,
+          "stats": {
+            "vitality": 3.3,
+            "stamina": 9.3,
+            "carry_weight": 26.5,
+            "health_regeneration": 2.8,
+            "stamina_regeneration": 2.8,
+            "healing_effectiveness": 14.9
+          }
+        }
+      ],
+      "boost_summary": {
+        "effect_types": [
+          "Защита",
+          "Подвижность",
+          "Усиление"
+        ],
+        "count": 3,
+        "price": 0,
+        "min_duration_seconds": 1800.0,
+        "toxicity_penalty": 0.0,
+        "stats": {
+          "health_regeneration": 3.8,
+          "healing_effectiveness": 19.3,
+          "bleeding_resistance": 6.1,
+          "bleeding_output": -1.05,
+          "stamina": 24.1,
+          "movement_speed": 0.9,
+          "sprint_speed": 0.9,
+          "stamina_regeneration": 5.5,
+          "vitality": 3.3,
+          "carry_weight": 26.5
+        }
+      },
+      "comparison": {
+        "effective_durability": {
+          "without_boosts": 34447.601061999994,
+          "with_boosts": 35691.767062,
+          "delta": 1244.1660000000047
+        },
+        "movement_speed": {
+          "without_boosts": 7.547110072975,
+          "with_boosts": 8.447110072975,
+          "delta": 0.9000000000000004
+        },
+        "total_sprint_speed": {
+          "without_boosts": 119.012525072975,
+          "with_boosts": 120.81252507297499,
+          "delta": 1.7999999999999972
+        },
+        "stamina": {
+          "without_boosts": 161.00020999999998,
+          "with_boosts": 185.10020999999998,
+          "delta": 24.099999999999994
+        },
+        "bullet_resistance": {
+          "without_boosts": 277.02,
+          "with_boosts": 277.02,
+          "delta": 0.0
+        },
+        "vitality": {
+          "without_boosts": -8.6319,
+          "with_boosts": -5.3319,
+          "delta": 3.3
+        },
+        "sprint_speed": {
+          "without_boosts": 11.465415,
+          "with_boosts": 12.365415,
+          "delta": 0.9000000000000004
+        },
+        "stamina_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 5.5,
+          "delta": 5.5
+        },
+        "health_regeneration": {
+          "without_boosts": 0.0,
+          "with_boosts": 3.8,
+          "delta": 3.8
+        },
+        "periodic_healing": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "healing_effectiveness": {
+          "without_boosts": 0.0,
+          "with_boosts": 19.3,
+          "delta": 19.3
+        },
+        "carry_weight": {
+          "without_boosts": 35.435425,
+          "with_boosts": 61.935425,
+          "delta": 26.5
+        },
+        "bleeding_output": {
+          "without_boosts": 0.0,
+          "with_boosts": -1.05,
+          "delta": -1.05
+        },
+        "bleeding_resistance": {
+          "without_boosts": 65.0,
+          "with_boosts": 71.1,
+          "delta": 6.099999999999994
+        },
+        "burn_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        },
+        "tear_reaction": {
+          "without_boosts": 0.0,
+          "with_boosts": 0.0,
+          "delta": 0.0
+        }
+      }
+    }
+  ]
+}

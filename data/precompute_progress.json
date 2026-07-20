@@ -1,0 +1,12 @@
+{
+  "updated_at": "2026-07-20T07:40:45.546165+00:00",
+  "elapsed_seconds": 943.516,
+  "status": "done",
+  "output_path": "data/precomputed_builds.json",
+  "counts": {
+    "containers": 17,
+    "artifact_candidates_loaded": 3081,
+    "artifact_candidates": 1500,
+    "frontier_builds": 1370
+  }
+}
