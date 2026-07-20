@@ -14,7 +14,7 @@ from artcalc.profile_query import ProfileQueryConfig, ProfileQueryEngine
 def parse_profile(value: str) -> dict[str, float]:
     path = Path(value)
     if path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(path.read_text(encoding="utf-8-sig"))
     return json.loads(value)
 
 
