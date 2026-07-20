@@ -20,6 +20,8 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual(len(payload["preference_levels"]), 5)
         self.assertGreater(len(payload["armors"]), 0)
         self.assertGreater(len(payload["containers"]), 0)
+        self.assertGreater(len(payload["artifacts"]), 0)
+        self.assertEqual(len(payload["artifacts"]), len({item["id"] for item in payload["artifacts"]}))
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
 
     def test_optimize_returns_exactly_validated_builds(self) -> None:
@@ -49,6 +51,21 @@ class WebApiTests(unittest.TestCase):
         )
 
         self.assertEqual(response.status_code, 422)
+
+    def test_optimize_rejects_selected_and_excluded_armor(self) -> None:
+        armor_id = self.client.get("/api/catalog").json()["armors"][0]["id"]
+        response = self.client.post(
+            "/api/optimize",
+            json={
+                "budget": 10_000_000,
+                "armor_id": armor_id,
+                "preferences": {"speed": 4},
+                "excluded_armor_ids": [armor_id],
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("No armors match", response.json()["detail"])
 
 
 if __name__ == "__main__":

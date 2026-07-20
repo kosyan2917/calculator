@@ -53,6 +53,9 @@ class OptimizePayload(BaseModel):
     armor_id: str | None = None
     container_id: str | None = None
     preferences: dict[str, PreferenceLevel]
+    excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
+    excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
+    excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     max_results: int = Field(default=10, ge=1, le=30)
     min_quality_percent: float = Field(default=95.0, ge=95.0, le=175.0)
 
@@ -118,10 +121,27 @@ def catalog() -> dict:
         ),
         key=lambda item: (-int(item["capacity"]), item["name"]),
     )
+    artifact_tiers: dict[str, set[str]] = {}
+    artifact_names: dict[str, str] = {}
+    for group in data.artifact_groups:
+        artifact_names[group.item_id] = group.name
+        artifact_tiers.setdefault(group.item_id, set()).add(group.quality_tier)
+    artifacts = sorted(
+        (
+            {
+                "id": item_id,
+                "name": artifact_names[item_id],
+                "quality_tiers": sorted(artifact_tiers[item_id]),
+            }
+            for item_id in artifact_names
+        ),
+        key=lambda item: item["name"],
+    )
     return {
         "generated_at": data.generated_at,
         "armors": armors,
         "containers": containers,
+        "artifacts": artifacts,
         "metrics": METRICS,
         "preference_levels": PREFERENCE_LEVELS,
         "limits": {
@@ -155,6 +175,9 @@ async def optimize(payload: OptimizePayload) -> dict:
         preferences=preferences,
         armor_ids=(payload.armor_id,) if payload.armor_id else (),
         container_ids=(payload.container_id,) if payload.container_id else (),
+        excluded_armor_ids=tuple(payload.excluded_armor_ids),
+        excluded_container_ids=tuple(payload.excluded_container_ids),
+        excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
         min_quality_percent=payload.min_quality_percent,
         max_results=payload.max_results,
     )
