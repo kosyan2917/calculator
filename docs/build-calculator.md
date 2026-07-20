@@ -1,5 +1,56 @@
 # Build calculator components
 
+## Query-time solver core
+
+The new optimizer does not depend on `data/precomputed_builds.json`. It is split
+into a serializable catalog compiler and a query-time optimizer:
+
+```python
+from artcalc import (
+    ArtifactBuildOptimizer,
+    OptimizationRequest,
+    SolverCatalog,
+)
+
+optimizer = ArtifactBuildOptimizer(SolverCatalog.read("data/solver_catalog.json"))
+result = optimizer.search(
+    OptimizationRequest(
+        budget=50_000_000,
+        preferences={"speed": 2, "regen": 1},
+        armor_ids=("0r4gy",),
+        max_results=10,
+    )
+)
+```
+
+Compile the catalog after item, armor, additional-property, or price data changes:
+
+```powershell
+python tools\compile_solver_catalog.py
+```
+
+Run a standalone query:
+
+```powershell
+python tools\optimize_builds.py --budget 50000000 --preferences speed=2 --armor-ids 0r4gy
+```
+
+The public aliases are `speed` (movement speed), `run_speed` (base 100 plus
+movement and sprint bonuses), `durability`, `regen`, and `weight`. Canonical
+stat names such as `movement_speed`, `stamina_regeneration`, and
+`healing_effectiveness` are also accepted.
+
+Linear requests use the HiGHS MILP backend and report `OPTIMAL`, `FEASIBLE`, or
+an error status plus a solver gap. Preferences involving effective durability
+or HP regeneration use iterative armor-aware linearization and report
+`HEURISTIC`; all returned stats and infection constraints are then evaluated
+again with the exact game formulas. Hard nonlinear targets use CP-SAT.
+
+Artifact quality is a query-time variable in hundredths of a percent. The
+solver can therefore return six artifacts at 175% and one at 161.50% when that
+is the highest infection-valid point. Quality is not restricted to the old
+2.5% grid.
+
 The build calculator is split into two independent components.
 
 ## 1. Precompute
