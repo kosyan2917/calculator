@@ -94,9 +94,12 @@ Adaptive quality grid:
    global score. Default buckets start at 2,500,000 and grow by 2,500,000.
    This preserves cheaper builds for low-budget queries.
 6. The representative set keeps several build styles: durability-heavy,
-   speed-heavy, balanced, and the same directions with HP regeneration mixed in.
-   This mirrors the future `-2..2` user preference scale without requiring a
-   concrete runtime query during precompute.
+   vitality-heavy for high bullet-resistance armor, speed-heavy, balanced, and
+   the same directions with HP regeneration mixed in. Regeneration profiles also
+   preserve bullet-resistance candidates because bullet resistance reduces HP
+   damage before regeneration has to compensate for it. This mirrors the future
+   `-2..2` user preference scale without requiring a concrete runtime query
+   during precompute.
 7. Negative infection output is not scored as a positive build property.
    It is only used to keep enough safety representatives during beam pruning
    and to pass the final infection validity check.

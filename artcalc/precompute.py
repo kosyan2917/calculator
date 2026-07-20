@@ -25,8 +25,15 @@ REPRESENTATIVE_DERIVED_METRICS = ["effective_durability", "total_sprint_speed", 
 REPRESENTATIVE_PROFILES = {
     "tank": {
         "effective_durability": 2.0,
+        "vitality": 0.8,
         "movement_speed": -1.0,
         "total_sprint_speed_bonus": -1.0,
+    },
+    "vitality_tank": {
+        "vitality": 2.0,
+        "effective_durability": 0.8,
+        "movement_speed": -0.8,
+        "total_sprint_speed_bonus": -0.8,
     },
     "speed": {
         "movement_speed": 2.0,
@@ -40,10 +47,12 @@ REPRESENTATIVE_PROFILES = {
     },
     "regen": {
         "hp_regen_score": 2.0,
+        "bullet_resistance": 1.2,
     },
     "tank_regen": {
-        "effective_durability": 1.6,
-        "hp_regen_score": 1.2,
+        "bullet_resistance": 1.8,
+        "hp_regen_score": 1.5,
+        "effective_durability": 0.6,
         "movement_speed": -0.6,
         "total_sprint_speed_bonus": -0.6,
     },
@@ -63,6 +72,8 @@ REPRESENTATIVE_PROFILES = {
 
 PROFILE_METRIC_SCALES = {
     "effective_durability": 10_000.0,
+    "bullet_resistance": 10.0,
+    "vitality": 10.0,
     "movement_speed": 5.0,
     "sprint_speed": 5.0,
     "total_sprint_speed_bonus": 5.0,
