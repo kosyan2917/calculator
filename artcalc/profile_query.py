@@ -15,7 +15,7 @@ PROFILE_KEYS = {"speed", "durability", "regen", "carry_weight"}
 class ProfileQueryConfig:
     precomputed_path: str = "data/precomputed_builds.json"
     armor_stats_path: str = "data/armor_stats.json"
-    ranks: tuple[str, ...] = ("Р’РµС‚РµСЂР°РЅ", "РњР°СЃС‚РµСЂ")
+    ranks: tuple[str, ...] = ("\u0412\u0435\u0442\u0435\u0440\u0430\u043d", "\u041c\u0430\u0441\u0442\u0435\u0440")
     armor_upgrade_level: int | None = 15
     max_results: int = 10
 
