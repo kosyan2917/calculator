@@ -1,48 +1,3214 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-20T21:23:00.082351+00:00",
   "source_notes": [
     "Additional artifact roll slots are not exposed in stalzone-database artifact item JSON files.",
     "Ranges are stored before artifact level scaling; runtime applies (50 + upgrade_level) / 50.",
-    "All listed additional properties are applied by default because build calculations assume +15 artifacts."
+    "All listed additional properties are applied by default because build calculations assume +15 artifacts.",
+    "Fetched from Multitool item pages."
   ],
   "sources": {
+    "wg53": "https://multitoolsx.live/wiki/item/artifact/atom",
+    "zy32": "https://multitoolsx.live/wiki/item/artifact/batareyka",
+    "wg62": "https://multitoolsx.live/wiki/item/artifact/belaya-roza",
+    "zyo9": "https://multitoolsx.live/wiki/item/artifact/bolotnyy-gnilets",
+    "kqgy": "https://multitoolsx.live/wiki/item/artifact/braslet",
+    "qodk": "https://multitoolsx.live/wiki/item/artifact/bublgum",
+    "wglp": "https://multitoolsx.live/wiki/item/artifact/vetka-kaliny",
+    "9nvy": "https://multitoolsx.live/wiki/item/artifact/vekhotka",
+    "4lrn": "https://multitoolsx.live/wiki/item/artifact/vismut",
+    "04yr": "https://multitoolsx.live/wiki/item/artifact/vitok",
+    "y5k0": "https://multitoolsx.live/wiki/item/artifact/vikhr",
+    "y5nz": "https://multitoolsx.live/wiki/item/artifact/volchi-slezy",
+    "j306": "https://multitoolsx.live/wiki/item/artifact/vspolokh",
+    "y5yw": "https://multitoolsx.live/wiki/item/artifact/gantel",
+    "kqr0": "https://multitoolsx.live/wiki/item/artifact/geliy",
+    "y54z": "https://multitoolsx.live/wiki/item/artifact/girya",
+    "jkml": "https://multitoolsx.live/wiki/item/artifact/glaz-buri",
+    "4l7p": "https://multitoolsx.live/wiki/item/artifact/grebeshok",
+    "wg3p": "https://multitoolsx.live/wiki/item/artifact/dezintegrator",
+    "zy7y": "https://multitoolsx.live/wiki/item/artifact/ezhik",
+    "gy06": "https://multitoolsx.live/wiki/item/artifact/ershik",
+    "q1lk": "https://multitoolsx.live/wiki/item/artifact/zhabry",
+    "kqp0": "https://multitoolsx.live/wiki/item/artifact/zhar-ptitsa",
+    "qo59": "https://multitoolsx.live/wiki/item/artifact/zhvachka",
+    "7z77": "https://multitoolsx.live/wiki/item/artifact/zhele",
+    "y5jk": "https://multitoolsx.live/wiki/item/artifact/zhilnik",
+    "q10k": "https://multitoolsx.live/wiki/item/artifact/zveno",
+    "zyrm": "https://multitoolsx.live/wiki/item/artifact/zerkalo",
+    "4lml": "https://multitoolsx.live/wiki/item/artifact/zmeinyy-glaz",
+    "zypm": "https://multitoolsx.live/wiki/item/artifact/zolotistaya-prima",
     "jky6": "https://multitoolsx.live/wiki/item/artifact/izyum",
-    "kqgy": "https://multitoolsx.live/wiki/item/artifact/braslet"
+    "gyln": "https://multitoolsx.live/wiki/item/artifact/iney",
+    "kqoj": "https://multitoolsx.live/wiki/item/artifact/kabluk",
+    "w4no": "https://multitoolsx.live/wiki/item/artifact/kanifol",
+    "lj0j": "https://multitoolsx.live/wiki/item/artifact/katushka",
+    "zyv9": "https://multitoolsx.live/wiki/item/artifact/kisel",
+    "gyjg": "https://multitoolsx.live/wiki/item/artifact/kislotnyy-kristall",
+    "5rm0": "https://multitoolsx.live/wiki/item/artifact/klyuchik",
+    "gyn0": "https://multitoolsx.live/wiki/item/artifact/kometa",
+    "5rzo": "https://multitoolsx.live/wiki/item/artifact/korka",
+    "gy10": "https://multitoolsx.live/wiki/item/artifact/krasnyy-kristall",
+    "gyg5": "https://multitoolsx.live/wiki/item/artifact/krevetka",
+    "y5m3": "https://multitoolsx.live/wiki/item/artifact/kriogen",
+    "1kw1": "https://multitoolsx.live/wiki/item/artifact/kristall-iznanki",
+    "qo94": "https://multitoolsx.live/wiki/item/artifact/kurinyy-bog",
+    "4lkp": "https://multitoolsx.live/wiki/item/artifact/lampochka-ilicha",
+    "5r5g": "https://multitoolsx.live/wiki/item/artifact/ledyanoy-ezhik",
+    "1kdg": "https://multitoolsx.live/wiki/item/artifact/lipkiy-repyakh",
+    "yq3o": "https://multitoolsx.live/wiki/item/artifact/lichinka",
+    "jkq7": "https://multitoolsx.live/wiki/item/artifact/magma",
+    "ljpq": "https://multitoolsx.live/wiki/item/artifact/mnogogrannik",
+    "ljn2": "https://multitoolsx.live/wiki/item/artifact/morozets",
+    "49zn": "https://multitoolsx.live/wiki/item/artifact/nervyak",
+    "k3yv": "https://multitoolsx.live/wiki/item/artifact/obruch",
+    "zyw2": "https://multitoolsx.live/wiki/item/artifact/ogonek",
+    "rn1z": "https://multitoolsx.live/wiki/item/artifact/opal",
+    "5rwq": "https://multitoolsx.live/wiki/item/artifact/oskolok",
+    "wgzd": "https://multitoolsx.live/wiki/item/artifact/ostov",
+    "6goy": "https://multitoolsx.live/wiki/item/artifact/petlya",
+    "5rog": "https://multitoolsx.live/wiki/item/artifact/piyavka",
+    "gypg": "https://multitoolsx.live/wiki/item/artifact/plod",
+    "zjzn": "https://multitoolsx.live/wiki/item/artifact/poleno",
+    "y5w3": "https://multitoolsx.live/wiki/item/artifact/prizma",
+    "9nd0": "https://multitoolsx.live/wiki/item/artifact/prizrachnyy-kristall",
+    "1kv2": "https://multitoolsx.live/wiki/item/artifact/prima",
+    "5rg1": "https://multitoolsx.live/wiki/item/artifact/proklyataya-roza",
+    "4l1r": "https://multitoolsx.live/wiki/item/artifact/prototsibulya",
+    "ljrj": "https://multitoolsx.live/wiki/item/artifact/radiator",
+    "9nml": "https://multitoolsx.live/wiki/item/artifact/repyakh",
+    "gyv6": "https://multitoolsx.live/wiki/item/artifact/roza",
+    "wgko": "https://multitoolsx.live/wiki/item/artifact/roza-iznanki",
+    "9n7z": "https://multitoolsx.live/wiki/item/artifact/rubik",
+    "jkj4": "https://multitoolsx.live/wiki/item/artifact/ryaska",
+    "1k4q": "https://multitoolsx.live/wiki/item/artifact/salo",
+    "5r34": "https://multitoolsx.live/wiki/item/artifact/serdtse",
+    "gy7p": "https://multitoolsx.live/wiki/item/artifact/setchatka",
+    "rnkl": "https://multitoolsx.live/wiki/item/artifact/silki",
+    "y5vw": "https://multitoolsx.live/wiki/item/artifact/skorlupa",
+    "zymn": "https://multitoolsx.live/wiki/item/artifact/smalets",
+    "j3p6": "https://multitoolsx.live/wiki/item/artifact/smolnik",
+    "qoq6": "https://multitoolsx.live/wiki/item/artifact/solntse",
+    "gyq5": "https://multitoolsx.live/wiki/item/artifact/spiral",
+    "5rd1": "https://multitoolsx.live/wiki/item/artifact/stalnoy-ezhik",
+    "4lpo": "https://multitoolsx.live/wiki/item/artifact/statik",
+    "kq4v": "https://multitoolsx.live/wiki/item/artifact/temnaya-kalina",
+    "wgr3": "https://multitoolsx.live/wiki/item/artifact/temnyy-kristall",
+    "qo06": "https://multitoolsx.live/wiki/item/artifact/transformator",
+    "1k96": "https://multitoolsx.live/wiki/item/artifact/treshchotka",
+    "qokj": "https://multitoolsx.live/wiki/item/artifact/tykva",
+    "kqj3": "https://multitoolsx.live/wiki/item/artifact/ulitka",
+    "wgwz": "https://multitoolsx.live/wiki/item/artifact/farengeyt",
+    "5r04": "https://multitoolsx.live/wiki/item/artifact/flegma",
+    "51l0": "https://multitoolsx.live/wiki/item/artifact/kharya",
+    "zyqk": "https://multitoolsx.live/wiki/item/artifact/khrustal",
+    "zyly": "https://multitoolsx.live/wiki/item/artifact/tsibulya",
+    "w4jo": "https://multitoolsx.live/wiki/item/artifact/chernaya-dyra",
+    "wgvd": "https://multitoolsx.live/wiki/item/artifact/chernilnitsa",
+    "k3rv": "https://multitoolsx.live/wiki/item/artifact/chertov-ezh",
+    "rnvg": "https://multitoolsx.live/wiki/item/artifact/shishka",
+    "g34p": "https://multitoolsx.live/wiki/item/artifact/yula",
+    "9n1w": "https://multitoolsx.live/wiki/item/artifact/yagodka",
+    "y5ro": "https://multitoolsx.live/wiki/item/artifact/yaytso",
+    "5rpq": "https://multitoolsx.live/wiki/item/artifact/yantarnik"
+  },
+  "counts": {
+    "artifacts": 103,
+    "items_with_additional_properties": 100,
+    "failures": 0,
+    "unknown_label_items": 0
   },
   "items": {
-    "jky6": [
+    "wg53": [
       {
-        "stat_suffix": "stamina_bonus",
-        "min": 6.12,
-        "max": 7.2
-      },
-      {
-        "stat_suffix": "speed_modifier",
-        "min": 0.45,
-        "max": 0.55
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.698,
+        "max": -0.575,
+        "raw": "[-0.698; -0.575]",
+        "is_percent": false,
+        "sign": "negative"
       },
       {
         "stat_suffix": "stamina_regeneration_bonus",
-        "min": 4.08,
-        "max": 4.8
+        "label": "Восстановление выносливости",
+        "min": 0.989,
+        "max": 1.201,
+        "raw": "[+0.989%; +1.201%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.331,
+        "max": 0.402,
+        "raw": "[+0.331%; +0.402%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zy32": [
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 8.81,
+        "max": 10.7,
+        "raw": "[+8.81%; +10.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.24,
+        "max": 0.3,
+        "raw": "[+0.24%; +0.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.12,
+        "max": 3.8,
+        "raw": "[+3.12%; +3.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "wg62": [
+      {
+        "stat_suffix": "psycho_accumulation",
+        "label": "Пси-излучение",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.14,
+        "max": 2.6,
+        "raw": "[+2.14%; +2.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.125,
+        "max": 2.5,
+        "raw": "[+2.125; +2.5]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "zyo9": [
+      {
+        "stat_suffix": "biological_accumulation",
+        "label": "Биологическое заражение",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.65,
+        "max": 0.8,
+        "raw": "[+0.65%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 1.15,
+        "max": 1.4,
+        "raw": "[+1.15%; +1.4%]",
+        "is_percent": true,
+        "sign": "positive"
       }
     ],
     "kqgy": [
       {
         "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
         "min": 13.77,
-        "max": 16.2
+        "max": 16.2,
+        "raw": "[+13.77%; +16.2%]",
+        "is_percent": true,
+        "sign": "positive"
       },
       {
         "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
         "min": 0.32,
-        "max": 0.4
+        "max": 0.4,
+        "raw": "[+0.32%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
       },
       {
         "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
         "min": 1.02,
-        "max": 1.2
+        "max": 1.2,
+        "raw": "[+1.02%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qodk": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 5.525,
+        "max": 6.5,
+        "raw": "[+5.525; +6.5]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 17.17,
+        "max": 20.2,
+        "raw": "[+17.17; +20.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 4.25,
+        "max": 5,
+        "raw": "[+4.25; +5]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "wglp": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 13.77,
+        "max": 16.2,
+        "raw": "[+13.77%; +16.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 3.54,
+        "max": 4.3,
+        "raw": "[+3.54%; +4.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "9nvy": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 2.63,
+        "max": 3.2,
+        "raw": "[+2.63; +3.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.15,
+        "max": 1.4,
+        "raw": "[+1.15%; +1.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "4lrn": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.85,
+        "max": 1,
+        "raw": "[+0.85%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "recoil_bonus",
+        "label": "Отдача",
+        "min": -1.5,
+        "max": -1.275,
+        "raw": "[-1.5%; -1.275%]",
+        "is_percent": true,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "wiggle_bonus",
+        "label": "Покачивание",
+        "min": -6.1,
+        "max": -5.185,
+        "raw": "[-6.1%; -5.185%]",
+        "is_percent": true,
+        "sign": "negative"
+      }
+    ],
+    "04yr": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 4.28,
+        "max": 5.2,
+        "raw": "[+4.28%; +5.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.32,
+        "max": 1.6,
+        "raw": "[+1.32%; +1.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.3,
+        "max": -0.25,
+        "raw": "[-0.3; -0.25]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "y5k0": [
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 3.78,
+        "max": 4.6,
+        "raw": "[+3.78%; +4.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "combustion_accumulation",
+        "label": "Горение",
+        "min": -0.3,
+        "max": -0.24,
+        "raw": "[-0.3; -0.24]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.32,
+        "max": 0.4,
+        "raw": "[+0.32%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "y5nz": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 3.485,
+        "max": 4.1,
+        "raw": "[+3.485; +4.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.55,
+        "max": 3.1,
+        "raw": "[+2.55%; +3.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.275,
+        "max": 1.5,
+        "raw": "[+1.275; +1.5]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "y5yw": [
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 3.21,
+        "max": 3.9,
+        "raw": "[+3.21%; +3.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 3.79,
+        "max": 4.6,
+        "raw": "[+3.79; +4.6]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 8.33,
+        "max": 9.8,
+        "raw": "[+8.33; +9.8]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "kqr0": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.32,
+        "max": 0.4,
+        "raw": "[+0.32%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.72,
+        "max": 3.2,
+        "raw": "[+2.72%; +3.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.57,
+        "max": 0.7,
+        "raw": "[+0.57%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "y54z": [
+      {
+        "stat_suffix": "burn_dmg_factor",
+        "label": "Защита от огня",
+        "min": 7.98,
+        "max": 9.7,
+        "raw": "[+7.98; +9.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.16,
+        "max": 0.2,
+        "raw": "[+0.16%; +0.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "thermal_protection",
+        "label": "Защита от температуры",
+        "min": 17,
+        "max": 20,
+        "raw": "[+17; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "jkml": [
+      {
+        "stat_suffix": "thermal_protection",
+        "label": "Защита от температуры",
+        "min": 8.5,
+        "max": 10,
+        "raw": "[+8.5; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "biological_protection",
+        "label": "Защита от биозаражения",
+        "min": 4.25,
+        "max": 10,
+        "raw": "[+4.25; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.2,
+        "max": 0.25,
+        "raw": "[+0.2%; +0.25%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "4l7p": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.89,
+        "max": 3.4,
+        "raw": "[+2.89; +3.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 2.21,
+        "max": 2.6,
+        "raw": "[+2.21; +2.6]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.9,
+        "max": -0.765,
+        "raw": "[-0.9; -0.765]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "wg3p": [
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 6.67,
+        "max": 8.1,
+        "raw": "[+6.67%; +8.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.57,
+        "max": 4.2,
+        "raw": "[+3.57%; +4.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.57,
+        "max": 0.7,
+        "raw": "[+0.57%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zy7y": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.975,
+        "max": 3.5,
+        "raw": "[+2.975%; +3.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 7.98,
+        "max": 9.7,
+        "raw": "[+7.98; +9.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "radiation_protection",
+        "label": "Защита от радиации",
+        "min": 17,
+        "max": 20,
+        "raw": "[+17; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "gy06": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.9,
+        "max": 1.1,
+        "raw": "[+0.9%; +1.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "biological_accumulation",
+        "label": "Биологическое заражение",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 1.48,
+        "max": 1.8,
+        "raw": "[+1.48%; +1.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "q1lk": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.72,
+        "max": 3.2,
+        "raw": "[+2.72%; +3.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.82,
+        "max": 1,
+        "raw": "[+0.82%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "kqp0": [
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -1,
+        "max": -0.85,
+        "raw": "[-1; -0.85]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.89,
+        "max": 3.4,
+        "raw": "[+2.89%; +3.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qo59": [
+      {
+        "stat_suffix": "radiation_accumulation",
+        "label": "Радиация",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.4,
+        "max": -0.32,
+        "raw": "[-0.4; -0.32]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "7z77": [
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.39,
+        "max": 2.9,
+        "raw": "[+2.39; +2.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 3.21,
+        "max": 3.9,
+        "raw": "[+3.21; +3.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 10.05,
+        "max": 12.2,
+        "raw": "[+10.05; +12.2]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "y5jk": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.295,
+        "max": 2.7,
+        "raw": "[+2.295; +2.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.7,
+        "max": 2,
+        "raw": "[+1.7%; +2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.785,
+        "max": 2.1,
+        "raw": "[+1.785; +2.1]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "zyrm": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.207,
+        "max": 0.252,
+        "raw": "[+0.207%; +0.252%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "radiation_protection",
+        "label": "Защита от радиации",
+        "min": 16.47,
+        "max": 20,
+        "raw": "[+16.47; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "psycho_protection",
+        "label": "Защита от пси-излучения",
+        "min": 16.47,
+        "max": 20,
+        "raw": "[+16.47; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "4lml": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 12.41,
+        "max": 14.6,
+        "raw": "[+12.41%; +14.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.2,
+        "max": 0.25,
+        "raw": "[+0.2%; +0.25%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zypm": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.2,
+        "max": 0.25,
+        "raw": "[+0.2%; +0.25%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 3.57,
+        "max": 4.2,
+        "raw": "[+3.57; +4.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 11.05,
+        "max": 13,
+        "raw": "[+11.05%; +13%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "jky6": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 6.12,
+        "max": 7.2,
+        "raw": "[+6.12%; +7.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.45,
+        "max": 0.55,
+        "raw": "[+0.45%; +0.55%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 4.08,
+        "max": 4.8,
+        "raw": "[+4.08%; +4.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gyln": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 3.74,
+        "max": 4.4,
+        "raw": "[+3.74; +4.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 7.98,
+        "max": 9.7,
+        "raw": "[+7.98%; +9.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 1.48,
+        "max": 1.8,
+        "raw": "[+1.48%; +1.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "kqoj": [
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 3.7,
+        "max": 4.5,
+        "raw": "[+3.7; +4.5]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 14.98,
+        "max": 18.2,
+        "raw": "[+14.98; +18.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 4.335,
+        "max": 5.1,
+        "raw": "[+4.335%; +5.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "w4no": [
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.38,
+        "max": 2.9,
+        "raw": "[+2.38; +2.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.98,
+        "max": 1.2,
+        "raw": "[+0.98%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "lj0j": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.33,
+        "max": 0.4,
+        "raw": "[+0.33%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "burn_dmg_factor",
+        "label": "Защита от огня",
+        "min": 4.2,
+        "max": 5.1,
+        "raw": "[+4.2; +5.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 5.85,
+        "max": 7.1,
+        "raw": "[+5.85%; +7.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zyv9": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 1.72,
+        "max": 2.1,
+        "raw": "[+1.72; +2.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.51,
+        "max": 0.6,
+        "raw": "[+0.51%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gyjg": [
+      {
+        "stat_suffix": "chemical_burn_dmg_factor",
+        "label": "Химзащита",
+        "min": 6.01,
+        "max": 7.3,
+        "raw": "[+6.01; +7.3]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "biological_protection",
+        "label": "Защита от биозаражения",
+        "min": 8.5,
+        "max": 10,
+        "raw": "[+8.5; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.34,
+        "max": 0.4,
+        "raw": "[+0.34%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5rm0": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 10.37,
+        "max": 12.2,
+        "raw": "[+10.37; +12.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "recoil_bonus",
+        "label": "Отдача",
+        "min": -1.5,
+        "max": -1.275,
+        "raw": "[-1.5%; -1.275%]",
+        "is_percent": true,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "wiggle_bonus",
+        "label": "Покачивание",
+        "min": -2.1,
+        "max": -1.785,
+        "raw": "[-2.1%; -1.785%]",
+        "is_percent": true,
+        "sign": "negative"
+      }
+    ],
+    "gyn0": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.125,
+        "max": 2.5,
+        "raw": "[+2.125%; +2.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 4.59,
+        "max": 5.4,
+        "raw": "[+4.59%; +5.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.16,
+        "max": 0.2,
+        "raw": "[+0.16%; +0.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5rzo": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 3.06,
+        "max": 3.6,
+        "raw": "[+3.06; +3.6]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.89,
+        "max": 3.4,
+        "raw": "[+2.89; +3.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 6.63,
+        "max": 7.8,
+        "raw": "[+6.63; +7.8]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "gy10": [
+      {
+        "stat_suffix": "burn_dmg_factor",
+        "label": "Защита от огня",
+        "min": 6.01,
+        "max": 7.3,
+        "raw": "[+6.01; +7.3]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "thermal_protection",
+        "label": "Защита от температуры",
+        "min": 8.5,
+        "max": 10,
+        "raw": "[+8.5; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.21,
+        "max": 2.6,
+        "raw": "[+2.21%; +2.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gyg5": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.04,
+        "max": 2.4,
+        "raw": "[+2.04; +2.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 6.63,
+        "max": 7.8,
+        "raw": "[+6.63; +7.8]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 3.145,
+        "max": 3.7,
+        "raw": "[+3.145; +3.7]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "y5m3": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 4.59,
+        "max": 5.4,
+        "raw": "[+4.59; +5.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.2,
+        "max": 2,
+        "raw": "[+1.2; +2]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "1kw1": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.74,
+        "max": 4.4,
+        "raw": "[+3.74%; +4.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 3.57,
+        "max": 4.2,
+        "raw": "[+3.57; +4.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465%; +2.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qo94": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.49,
+        "max": 0.6,
+        "raw": "[+0.49%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465; +2.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465%; +2.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "4lkp": [
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.98,
+        "max": 2.4,
+        "raw": "[+1.98; +2.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "psycho_protection",
+        "label": "Защита от пси-излучения",
+        "min": 16.47,
+        "max": 20,
+        "raw": "[+16.47; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 7.99,
+        "max": 9.7,
+        "raw": "[+7.99%; +9.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5r5g": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 11.05,
+        "max": 13,
+        "raw": "[+11.05%; +13%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.28,
+        "max": 0.35,
+        "raw": "[+0.28%; +0.35%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.85,
+        "max": 1,
+        "raw": "[+0.85%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "1kdg": [
+      {
+        "stat_suffix": "radiation_accumulation",
+        "label": "Радиация",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.06,
+        "max": 3.6,
+        "raw": "[+3.06%; +3.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.12,
+        "max": 0.15,
+        "raw": "[+0.12%; +0.15%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "yq3o": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.99,
+        "max": 1.2,
+        "raw": "[+0.99%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 5.11,
+        "max": 6.2,
+        "raw": "[+5.11%; +6.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.04,
+        "max": 2.4,
+        "raw": "[+2.04%; +2.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "jkq7": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.576,
+        "max": 0.699,
+        "raw": "[+0.576%; +0.699%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 13.34,
+        "max": 16.2,
+        "raw": "[+13.34%; +16.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stopping_protection",
+        "label": "Стойкость",
+        "min": 1.73,
+        "max": 2.1,
+        "raw": "[+1.73%; +2.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "ljpq": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.91,
+        "max": 1.1,
+        "raw": "[+0.91%; +1.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 5.76,
+        "max": 7,
+        "raw": "[+5.76%; +7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.618,
+        "max": 0.75,
+        "raw": "[+0.618%; +0.75%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "ljn2": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "combustion_accumulation",
+        "label": "Горение",
+        "min": -0.2,
+        "max": -0.17,
+        "raw": "[-0.2; -0.17]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 12.665,
+        "max": 14.9,
+        "raw": "[+12.665; +14.9]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "49zn": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.2,
+        "max": 0.25,
+        "raw": "[+0.2%; +0.25%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.89,
+        "max": 3.4,
+        "raw": "[+2.89%; +3.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 7.395,
+        "max": 8.7,
+        "raw": "[+7.395; +8.7]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "k3yv": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.55,
+        "max": 3.1,
+        "raw": "[+2.55; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 12.02,
+        "max": 14.6,
+        "raw": "[+12.02%; +14.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.82,
+        "max": 1,
+        "raw": "[+0.82%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zyw2": [
+      {
+        "stat_suffix": "thermal_accumulation",
+        "label": "Температура",
+        "min": -0.88,
+        "max": -0.35,
+        "raw": "[-0.88; -0.35]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.68,
+        "max": 0.8,
+        "raw": "[+0.68%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.34,
+        "max": 0.4,
+        "raw": "[+0.34%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "rn1z": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 5.93,
+        "max": 7.2,
+        "raw": "[+5.93%; +7.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 5.35,
+        "max": 6.5,
+        "raw": "[+5.35; +6.5]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stopping_protection",
+        "label": "Стойкость",
+        "min": 6.67,
+        "max": 8.1,
+        "raw": "[+6.67%; +8.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5rwq": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.72,
+        "max": 3.2,
+        "raw": "[+2.72%; +3.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.295,
+        "max": 2.7,
+        "raw": "[+2.295%; +2.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "wgzd": [
+      {
+        "stat_suffix": "psycho_accumulation",
+        "label": "Пси-излучение",
+        "min": -1.28,
+        "max": -1.088,
+        "raw": "[-1.28; -1.088]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.68,
+        "max": 0.8,
+        "raw": "[+0.68%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "6goy": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.33,
+        "max": 0.4,
+        "raw": "[+0.33%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -1,
+        "max": -0.82,
+        "raw": "[-1; -0.82]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "recoil_bonus",
+        "label": "Отдача",
+        "min": -0.9,
+        "max": -0.74,
+        "raw": "[-0.9%; -0.74%]",
+        "is_percent": true,
+        "sign": "negative"
+      }
+    ],
+    "5rog": [
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.53,
+        "max": 1.8,
+        "raw": "[+1.53; +1.8]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "reaction_to_tear",
+        "label": "Реакция на разрыв",
+        "min": 1.36,
+        "max": 1.6,
+        "raw": "[+1.36%; +1.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "radiation_protection",
+        "label": "Защита от радиации",
+        "min": 8.5,
+        "max": 10,
+        "raw": "[+8.5; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "gypg": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.3,
+        "max": -0.24,
+        "raw": "[-0.3; -0.24]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.28,
+        "max": 0.35,
+        "raw": "[+0.28%; +0.35%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zjzn": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.615,
+        "max": 1.9,
+        "raw": "[+1.615%; +1.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.15,
+        "max": 1.4,
+        "raw": "[+1.15%; +1.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.22,
+        "max": 2.7,
+        "raw": "[+2.22; +2.7]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "y5w3": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 4.165,
+        "max": 4.9,
+        "raw": "[+4.165; +4.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 3.23,
+        "max": 3.8,
+        "raw": "[+3.23; +3.8]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 3.06,
+        "max": 3.6,
+        "raw": "[+3.06%; +3.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "9nd0": [
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 6.01,
+        "max": 7.3,
+        "raw": "[+6.01%; +7.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "psycho_protection",
+        "label": "Защита от пси-излучения",
+        "min": 8.5,
+        "max": 10,
+        "raw": "[+8.5; +10]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.51,
+        "max": 0.6,
+        "raw": "[+0.51%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "1kv2": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.8,
+        "max": -0.68,
+        "raw": "[-0.8; -0.68]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "5rg1": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 3.315,
+        "max": 3.9,
+        "raw": "[+3.315; +3.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 2.55,
+        "max": 3,
+        "raw": "[+2.55; +3]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465%; +2.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "4l1r": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.07,
+        "max": 1.3,
+        "raw": "[+1.07%; +1.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 1.36,
+        "max": 1.6,
+        "raw": "[+1.36%; +1.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "ljrj": [
+      {
+        "stat_suffix": "combustion_accumulation",
+        "label": "Горение",
+        "min": -0.1,
+        "max": -0.08,
+        "raw": "[-0.1; -0.08]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.16,
+        "max": 0.2,
+        "raw": "[+0.16%; +0.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "thermal_accumulation",
+        "label": "Температура",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "9nml": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635%; +3.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.12,
+        "max": 0.15,
+        "raw": "[+0.12%; +0.15%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.275,
+        "max": 1.5,
+        "raw": "[+1.275%; +1.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gyv6": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465; +2.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 1.955,
+        "max": 2.3,
+        "raw": "[+1.955; +2.3]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 5.525,
+        "max": 6.5,
+        "raw": "[+5.525; +6.5]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "wgko": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 3.54,
+        "max": 4.3,
+        "raw": "[+3.54%; +4.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 3.485,
+        "max": 4.1,
+        "raw": "[+3.485; +4.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stopping_protection",
+        "label": "Стойкость",
+        "min": 2.975,
+        "max": 3.5,
+        "raw": "[+2.975%; +3.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "9n7z": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 6.885,
+        "max": 8.1,
+        "raw": "[+6.885; +8.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 7.565,
+        "max": 8.9,
+        "raw": "[+7.565; +8.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 10.37,
+        "max": 12.2,
+        "raw": "[+10.37; +12.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "reaction_to_tear",
+        "label": "Реакция на разрыв",
+        "min": 2.295,
+        "max": 2.7,
+        "raw": "[+2.295%; +2.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "reaction_to_electroshock",
+        "label": "Реакция на электричество",
+        "min": 2.805,
+        "max": 3.3,
+        "raw": "[+2.805%; +3.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "reaction_to_burn",
+        "label": "Реакция на ожог",
+        "min": 1.87,
+        "max": 2.2,
+        "raw": "[+1.87%; +2.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "reaction_to_chemical_burn",
+        "label": "Реакция на хим. ожог",
+        "min": 2.805,
+        "max": 3.3,
+        "raw": "[+2.805%; +3.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "electra_dmg_factor",
+        "label": "Электрозащита",
+        "min": 10.37,
+        "max": 12.2,
+        "raw": "[+10.37%; +12.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "burn_dmg_factor",
+        "label": "Защита от огня",
+        "min": 10.37,
+        "max": 12.2,
+        "raw": "[+10.37; +12.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "chemical_burn_dmg_factor",
+        "label": "Химзащита",
+        "min": 10.37,
+        "max": 12.2,
+        "raw": "[+10.37; +12.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "recoil_bonus",
+        "label": "Отдача",
+        "min": -2.1,
+        "max": -1.785,
+        "raw": "[-2.1%; -1.785%]",
+        "is_percent": true,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 4,
+        "max": 7.6,
+        "raw": "[+4%; +7.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "radiation_accumulation",
+        "label": "Радиация",
+        "min": -1.28,
+        "max": -1.088,
+        "raw": "[-1.28; -1.088]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "thermal_accumulation",
+        "label": "Температура",
+        "min": -1.28,
+        "max": -1.088,
+        "raw": "[-1.28; -1.088]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "biological_accumulation",
+        "label": "Биологическое заражение",
+        "min": -1.28,
+        "max": -1.088,
+        "raw": "[-1.28; -1.088]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "psycho_accumulation",
+        "label": "Пси-излучение",
+        "min": -1.28,
+        "max": -1.088,
+        "raw": "[-1.28; -1.088]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -1,
+        "max": -0.85,
+        "raw": "[-1; -0.85]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 1.19,
+        "max": 1.4,
+        "raw": "[+1.19%; +1.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 7.395,
+        "max": 8.7,
+        "raw": "[+7.395; +8.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 6.12,
+        "max": 7.2,
+        "raw": "[+6.12%; +7.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 1.02,
+        "max": 1.2,
+        "raw": "[+1.02%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.615,
+        "max": 1.9,
+        "raw": "[+1.615%; +1.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 11.05,
+        "max": 13,
+        "raw": "[+11.05%; +13%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465%; +2.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "jkj4": [
+      {
+        "stat_suffix": "chemical_burn_dmg_factor",
+        "label": "Химзащита",
+        "min": 7.98,
+        "max": 9.7,
+        "raw": "[+7.98; +9.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "biological_protection",
+        "label": "Защита от биозаражения",
+        "min": 17,
+        "max": 20,
+        "raw": "[+17; +20]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "1k4q": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 7.98,
+        "max": 9.7,
+        "raw": "[+7.98%; +9.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.58,
+        "max": 0.7,
+        "raw": "[+0.58%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 1.48,
+        "max": 1.8,
+        "raw": "[+1.48%; +1.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5r34": [
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 5.18,
+        "max": 6.3,
+        "raw": "[+5.18%; +6.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.66,
+        "max": 0.8,
+        "raw": "[+0.66%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gy7p": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.288,
+        "max": 0.35,
+        "raw": "[+0.288%; +0.35%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.85,
+        "max": 1,
+        "raw": "[+0.85%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -1,
+        "max": -0.85,
+        "raw": "[-1; -0.85]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "rnkl": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.206,
+        "max": 0.25,
+        "raw": "[+0.206%; +0.25%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.56,
+        "max": 1.9,
+        "raw": "[+1.56%; +1.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 4.78,
+        "max": 5.8,
+        "raw": "[+4.78; +5.8]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "y5vw": [
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.3,
+        "max": -0.255,
+        "raw": "[-0.3; -0.255]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 4.845,
+        "max": 5.7,
+        "raw": "[+4.845%; +5.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.58,
+        "max": 0.7,
+        "raw": "[+0.58%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zymn": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.51,
+        "max": 0.6,
+        "raw": "[+0.51%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.89,
+        "max": 3.4,
+        "raw": "[+2.89%; +3.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 6.12,
+        "max": 7.2,
+        "raw": "[+6.12; +7.2]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "j3p6": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 2.96,
+        "max": 3.6,
+        "raw": "[+2.96%; +3.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "artefakt_heal",
+        "label": "Периодическое лечение",
+        "min": 0.165,
+        "max": 0.2,
+        "raw": "[+0.165%; +0.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qoq6": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 5.27,
+        "max": 6.4,
+        "raw": "[+5.27%; +6.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.595,
+        "max": 0.7,
+        "raw": "[+0.595%; +0.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "gyq5": [
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.465,
+        "max": 2.9,
+        "raw": "[+2.465; +2.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.28,
+        "max": 0.35,
+        "raw": "[+0.28%; +0.35%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 6.12,
+        "max": 7.2,
+        "raw": "[+6.12%; +7.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5rd1": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 3.74,
+        "max": 4.4,
+        "raw": "[+3.74; +4.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 11.28,
+        "max": 13.7,
+        "raw": "[+11.28; +13.7]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 4.03,
+        "max": 4.9,
+        "raw": "[+4.03%; +4.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "4lpo": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 13.34,
+        "max": 16.2,
+        "raw": "[+13.34%; +16.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.8,
+        "max": 3.4,
+        "raw": "[+2.8; +3.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "recoil_bonus",
+        "label": "Отдача",
+        "min": -1.3,
+        "max": -1.07,
+        "raw": "[-1.3%; -1.07%]",
+        "is_percent": true,
+        "sign": "negative"
+      }
+    ],
+    "kq4v": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.24,
+        "max": 1.5,
+        "raw": "[+1.24%; +1.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.95,
+        "max": 1.15,
+        "raw": "[+0.95%; +1.15%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.32,
+        "max": 1.6,
+        "raw": "[+1.32%; +1.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "wgr3": [
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.68,
+        "max": 0.8,
+        "raw": "[+0.68%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.85,
+        "max": 1,
+        "raw": "[+0.85%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.68,
+        "max": 0.8,
+        "raw": "[+0.68%; +0.8%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qo06": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.995,
+        "max": 4.7,
+        "raw": "[+3.995%; +4.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 1.87,
+        "max": 2.2,
+        "raw": "[+1.87; +2.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "psycho_accumulation",
+        "label": "Пси-излучение",
+        "min": -0.88,
+        "max": -0.748,
+        "raw": "[-0.88; -0.748]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "1k96": [
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.87,
+        "max": 2.2,
+        "raw": "[+1.87%; +2.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.995,
+        "max": 4.7,
+        "raw": "[+3.995%; +4.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.16,
+        "max": 0.2,
+        "raw": "[+0.16%; +0.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "qokj": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.82,
+        "max": 1,
+        "raw": "[+0.82%; +1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 2.06,
+        "max": 2.5,
+        "raw": "[+2.06; +2.5]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.99,
+        "max": 1.2,
+        "raw": "[+0.99%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "kqj3": [
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 4.335,
+        "max": 5.1,
+        "raw": "[+4.335%; +5.1%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 3.57,
+        "max": 4.2,
+        "raw": "[+3.57%; +4.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.425,
+        "max": 0.5,
+        "raw": "[+0.425%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "wgwz": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.635,
+        "max": 3.1,
+        "raw": "[+2.635; +3.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.88,
+        "max": 3.5,
+        "raw": "[+2.88%; +3.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.275,
+        "max": 1.5,
+        "raw": "[+1.275%; +1.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5r04": [
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.8,
+        "max": -0.68,
+        "raw": "[-0.8; -0.68]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 1.615,
+        "max": 1.9,
+        "raw": "[+1.615%; +1.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 2.14,
+        "max": 2.6,
+        "raw": "[+2.14%; +2.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "51l0": [
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.33,
+        "max": 0.4,
+        "raw": "[+0.33%; +0.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.615,
+        "max": 1.9,
+        "raw": "[+1.615%; +1.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 3.54,
+        "max": 4.3,
+        "raw": "[+3.54; +4.3]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "zyqk": [
+      {
+        "stat_suffix": "combustion_accumulation",
+        "label": "Горение",
+        "min": -0.1,
+        "max": -0.085,
+        "raw": "[-0.1; -0.085]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.41,
+        "max": 0.5,
+        "raw": "[+0.41%; +0.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.51,
+        "max": 0.6,
+        "raw": "[+0.51%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "zyly": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.04,
+        "max": 2.4,
+        "raw": "[+2.04; +2.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 2.21,
+        "max": 2.6,
+        "raw": "[+2.21%; +2.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 3.91,
+        "max": 4.6,
+        "raw": "[+3.91%; +4.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "w4jo": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 2.8,
+        "max": 3.4,
+        "raw": "[+2.8; +3.4]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 1.4,
+        "max": 1.7,
+        "raw": "[+1.4%; +1.7%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.89,
+        "max": 2.3,
+        "raw": "[+1.89%; +2.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "wgvd": [
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 3.37,
+        "max": 4.1,
+        "raw": "[+3.37; +4.1]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 1.02,
+        "max": 1.2,
+        "raw": "[+1.02%; +1.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "rnvg": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 4.28,
+        "max": 5.2,
+        "raw": "[+4.28%; +5.2%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "heal_efficiency",
+        "label": "Эффективность лечения",
+        "min": 4.94,
+        "max": 6,
+        "raw": "[+4.94%; +6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "combustion_accumulation",
+        "label": "Горение",
+        "min": -0.1,
+        "max": -0.082,
+        "raw": "[-0.1; -0.082]",
+        "is_percent": false,
+        "sign": "negative"
+      }
+    ],
+    "g34p": [
+      {
+        "stat_suffix": "bullet_dmg_factor",
+        "label": "Пулестойкость",
+        "min": 5.6,
+        "max": 6.8,
+        "raw": "[+5.6; +6.8]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "tear_dmg_factor",
+        "label": "Защита от разрыва",
+        "min": 4.03,
+        "max": 4.9,
+        "raw": "[+4.03; +4.9]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "explosion_dmg_factor",
+        "label": "Защита от взрыва",
+        "min": 2.06,
+        "max": 2.5,
+        "raw": "[+2.06; +2.5]",
+        "is_percent": false,
+        "sign": "positive"
+      }
+    ],
+    "9n1w": [
+      {
+        "stat_suffix": "bleeding_accumulation",
+        "label": "Кровотечение",
+        "min": -0.4,
+        "max": -0.34,
+        "raw": "[-0.4; -0.34]",
+        "is_percent": false,
+        "sign": "negative"
+      },
+      {
+        "stat_suffix": "regeneration_bonus",
+        "label": "Регенерация здоровья",
+        "min": 1.15,
+        "max": 1.4,
+        "raw": "[+1.15%; +1.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "health_bonus",
+        "label": "Живучесть",
+        "min": 0.255,
+        "max": 0.3,
+        "raw": "[+0.255%; +0.3%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "y5ro": [
+      {
+        "stat_suffix": "stamina_bonus",
+        "label": "Выносливость",
+        "min": 5.525,
+        "max": 6.5,
+        "raw": "[+5.525%; +6.5%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 5.27,
+        "max": 6.2,
+        "raw": "[+5.27; +6.2]",
+        "is_percent": false,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "bleeding_protection",
+        "label": "Защита от кровотечения",
+        "min": 9.69,
+        "max": 11.4,
+        "raw": "[+9.69%; +11.4%]",
+        "is_percent": true,
+        "sign": "positive"
+      }
+    ],
+    "5rpq": [
+      {
+        "stat_suffix": "speed_modifier",
+        "label": "Скорость передвижения",
+        "min": 0.49,
+        "max": 0.6,
+        "raw": "[+0.49%; +0.6%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "stamina_regeneration_bonus",
+        "label": "Восстановление выносливости",
+        "min": 0.765,
+        "max": 0.9,
+        "raw": "[+0.765%; +0.9%]",
+        "is_percent": true,
+        "sign": "positive"
+      },
+      {
+        "stat_suffix": "max_weight_bonus",
+        "label": "Переносимый вес",
+        "min": 3.23,
+        "max": 3.8,
+        "raw": "[+3.23; +3.8]",
+        "is_percent": false,
+        "sign": "positive"
       }
     ]
-  }
+  },
+  "failures": [],
+  "unknown_labels": {}
 }

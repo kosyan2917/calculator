@@ -88,7 +88,14 @@ change numeric ranges for upgrade levels such as +5, +10, and +15. The current
 calculator reads those +15 range values directly from the official database.
 
 Additional artifact roll properties are separate from those official variant
-files. For example, `jky6` (Raisin / Izum) does not have
+files. The local export is split into two files:
+
+```text
+data/artifact_multitool_properties.json      # full Multitool artifact snapshot
+data/artifact_additional_properties.json     # compact additional-property input for the calculator
+```
+
+For example, `jky6` (Raisin / Izum) does not have
 `stamina_regeneration_bonus` in the official base or +15 JSON, but external
 wiki data lists it as one of the possible additional properties. These extra
 properties are loaded from `data/artifact_additional_properties.json`. All
@@ -295,5 +302,6 @@ This affects generated artifact stats for each rarity tier.
 python tools\staldata_prices.py --offline
 python tools\extract_armor_stats.py
 python tools\extract_boosts.py
+python tools\fetch_artifact_properties.py
 python tools\precompute_builds.py --artifact-upgrade-level 15 --artifact-price-upgrade-level 0 --quality-strategy adaptive_grid --quality-step 2.5 --min-quality-percent 95 --min-build-price 2500000 --max-build-price 150000000 --price-bucket-start 2500000 --price-bucket-step 2500000
 ```
