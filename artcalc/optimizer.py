@@ -61,6 +61,8 @@ class OptimizationRequest:
     container_ids: tuple[str, ...] = ()
     allowed_quality_tiers: tuple[str, ...] = ()
     excluded_artifact_ids: tuple[str, ...] = ()
+    excluded_armor_ids: tuple[str, ...] = ()
+    excluded_container_ids: tuple[str, ...] = ()
     min_quality_percent: float | None = None
     min_build_price: int = 0
     max_results: int = 10
@@ -970,10 +972,12 @@ class ArtifactBuildOptimizer:
 
     def _eligible_armors(self, request: OptimizationRequest) -> list[dict[str, Any]]:
         ids = set(request.armor_ids)
+        excluded = set(request.excluded_armor_ids)
         armors = [
             armor
             for armor in self.catalog.armors
             if not ids or armor["item_id"] in ids or armor["base_id"] in ids
+            if armor["item_id"] not in excluded and armor["base_id"] not in excluded
         ]
         if not armors:
             raise ValueError("No armors match the request")
@@ -981,10 +985,12 @@ class ArtifactBuildOptimizer:
 
     def _eligible_containers(self, request: OptimizationRequest) -> list[dict[str, Any]]:
         ids = set(request.container_ids)
+        excluded = set(request.excluded_container_ids)
         containers = [
             container
             for container in self.catalog.containers
             if not ids or container["container_id"] in ids
+            if container["container_id"] not in excluded
         ]
         if not containers:
             raise ValueError("No containers match the request")

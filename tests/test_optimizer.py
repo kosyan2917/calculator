@@ -148,6 +148,32 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertAlmostEqual(plain.derived["effective_durability"], 120.0)
         self.assertAlmostEqual(armored.derived["effective_durability"], 550.0)
 
+    def test_equipment_exclusions_are_applied_by_the_core(self) -> None:
+        test_catalog = catalog(
+            (group("speed", {"movement_speed": 1.0}, {"movement_speed": 1.0}),),
+            (armor("keep", {}), armor("drop", {})),
+            container(1),
+        )
+        optimizer = ArtifactBuildOptimizer(test_catalog)
+
+        armors = optimizer._eligible_armors(
+            OptimizationRequest(
+                budget=1_000_000,
+                preferences={"speed": 1.0},
+                excluded_armor_ids=("drop",),
+            )
+        )
+
+        self.assertEqual([item["item_id"] for item in armors], ["keep"])
+        with self.assertRaisesRegex(ValueError, "No containers match"):
+            optimizer._eligible_containers(
+                OptimizationRequest(
+                    budget=1_000_000,
+                    preferences={"speed": 1.0},
+                    excluded_container_ids=("container",),
+                )
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
