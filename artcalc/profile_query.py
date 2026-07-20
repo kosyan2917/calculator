@@ -114,12 +114,14 @@ class ProfileQueryEngine:
                     + max(0.0, float(derived.get("total_sprint_speed") or 100.0) - 100.0)
                 ),
                 "durability": float(derived.get("effective_durability") or 0.0),
-                "regen": (
-                    float(derived.get("hp_regen_score") or 0.0)
-                    + max(0.0, float(stats.get("bullet_resistance") or 0.0)) * 4.0
-                ),
+                "regen": self._regen_metric(stats, derived),
                 "carry_weight": float(stats.get("carry_weight") or 0.0),
             }
+
+    def _regen_metric(self, stats: dict[str, float], derived: dict[str, float]) -> float:
+        hp_regen = float(derived.get("hp_regen_score") or 0.0)
+        bullet = max(0.0, float(stats.get("bullet_resistance") or 0.0))
+        return hp_regen * (1.0 + bullet / 300.0)
 
     def _metric_ranges(self, rows: list[dict[str, Any]]) -> dict[str, tuple[float, float]]:
         ranges: dict[str, tuple[float, float]] = {}
