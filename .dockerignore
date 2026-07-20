@@ -1,0 +1,10 @@
+.git
+.gitignore
+.pytest_cache
+**/__pycache__
+**/*.pyc
+web/frontend/node_modules
+web/frontend/dist
+stalzone-database
+data/*
+!data/solver_catalog.json

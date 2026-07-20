@@ -1,0 +1,11 @@
+services:
+  artcalc:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ARTCALC_TIME_LIMIT: "0.5"
+      ARTCALC_SOLUTIONS_PER_CONTAINER: "1"
+      ARTCALC_CP_WORKERS: "1"
+      ARTCALC_NONLINEAR_ITERATIONS: "3"
+    restart: unless-stopped
