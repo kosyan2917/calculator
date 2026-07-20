@@ -10,10 +10,12 @@ import {
   Gauge,
   HeartPulse,
   Layers3,
+  Plus,
   Search,
   Shield,
   SlidersHorizontal,
   Timer,
+  Trash2,
   Weight,
   Wind,
 } from "lucide-react";
@@ -69,6 +71,11 @@ function valueForStat(solution: BuildSolution, key: string) {
   return solution.stats[key] ?? 0;
 }
 
+function parseDecimal(value: string) {
+  const normalized = value.trim().replace(",", ".");
+  return normalized === "" ? Number.NaN : Number(normalized);
+}
+
 function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [budgetMillions, setBudgetMillions] = useState(50);
@@ -82,6 +89,7 @@ function App() {
   const [excludedArmorIds, setExcludedArmorIds] = useState<string[]>([]);
   const [excludedContainerIds, setExcludedContainerIds] = useState<string[]>([]);
   const [excludedArtifactIds, setExcludedArtifactIds] = useState<string[]>([]);
+  const [targets, setTargets] = useState<Record<string, string>>({});
   const [result, setResult] = useState<OptimizationResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -104,6 +112,13 @@ function App() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    const parsedTargets = Object.fromEntries(
+      Object.entries(targets).map(([key, value]) => [key, parseDecimal(value)]),
+    );
+    if (Object.values(parsedTargets).some((value) => !Number.isFinite(value))) {
+      setError("Укажите числовое значение для каждого минимального свойства");
+      return;
+    }
     setLoading(true);
     setError("");
     const started = performance.now();
@@ -116,6 +131,7 @@ function App() {
           armor_id: armorId || null,
           container_id: containerId || null,
           preferences,
+          targets: parsedTargets,
           excluded_armor_ids: excludedArmorIds,
           excluded_container_ids: excludedContainerIds,
           excluded_artifact_ids: excludedArtifactIds,
@@ -237,6 +253,10 @@ function App() {
               </details>
             </section>
 
+            <section className="form-section target-section">
+              <TargetFilters metrics={catalog?.metrics ?? []} targets={targets} setTargets={setTargets} />
+            </section>
+
             <section className="form-section exclusion-section">
               <details className="exclusion-settings">
                 <summary>
@@ -345,6 +365,100 @@ function MetricList({
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function TargetFilters({
+  metrics,
+  targets,
+  setTargets,
+}: {
+  metrics: Metric[];
+  targets: Record<string, string>;
+  setTargets: (value: Record<string, string>) => void;
+}) {
+  const [draftMetric, setDraftMetric] = useState("");
+  const [draftValue, setDraftValue] = useState("");
+  const metricByKey = useMemo(
+    () => Object.fromEntries(metrics.map((metric) => [metric.key, metric])),
+    [metrics],
+  );
+  const availableMetrics = metrics.filter((metric) => !(metric.key in targets));
+  const parsedDraft = parseDecimal(draftValue);
+
+  function addTarget() {
+    if (!draftMetric || !Number.isFinite(parsedDraft)) return;
+    setTargets({ ...targets, [draftMetric]: draftValue.trim().replace(",", ".") });
+    setDraftMetric("");
+    setDraftValue("");
+  }
+
+  return (
+    <div className="target-settings">
+      <div className="target-heading">
+        <span><SlidersHorizontal size={16} /> Минимальные значения</span>
+        <span className="target-count">{Object.keys(targets).length}</span>
+      </div>
+      <div className="target-editor">
+        {Object.entries(targets).map(([key, value]) => {
+          const metric = metricByKey[key];
+          const valid = Number.isFinite(parseDecimal(value));
+          return (
+            <div className={`target-row ${valid ? "" : "invalid"}`} key={key}>
+              <span className="target-name">{metric?.label ?? key}</span>
+              <span className="target-operator">≥</span>
+              <input
+                aria-label={`Минимум: ${metric?.label ?? key}`}
+                type="text"
+                inputMode="decimal"
+                value={value}
+                onChange={(event) => setTargets({ ...targets, [key]: event.target.value })}
+              />
+              <button
+                type="button"
+                aria-label={`Удалить минимум: ${metric?.label ?? key}`}
+                title="Удалить условие"
+                onClick={() => setTargets(Object.fromEntries(Object.entries(targets).filter(([item]) => item !== key)))}
+              >
+                <Trash2 size={14} />
+              </button>
+            </div>
+          );
+        })}
+        {availableMetrics.length > 0 && (
+          <div className="target-add-row">
+            <div className="select-wrap">
+              <select
+                aria-label="Свойство для минимального значения"
+                value={draftMetric}
+                onChange={(event) => setDraftMetric(event.target.value)}
+              >
+                <option value="">Выберите свойство</option>
+                {availableMetrics.map((metric) => <option key={metric.key} value={metric.key}>{metric.label}</option>)}
+              </select>
+              <ChevronDown size={15} />
+            </div>
+            <input
+              aria-label="Новое минимальное значение"
+              type="text"
+              inputMode="decimal"
+              value={draftValue}
+              onChange={(event) => setDraftValue(event.target.value)}
+              placeholder="Значение"
+            />
+            <button
+              type="button"
+              aria-label="Добавить минимальное значение"
+              title="Добавить условие"
+              disabled={!draftMetric || !Number.isFinite(parsedDraft)}
+              onClick={addTarget}
+            >
+              <Plus size={15} />
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
