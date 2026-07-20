@@ -33,6 +33,7 @@ class WebApiTests(unittest.TestCase):
                 "armor_id": catalog["armors"][0]["id"],
                 "container_id": catalog["containers"][0]["id"],
                 "preferences": {"speed": 4, "regen": 2, "weight": 2},
+                "targets": {"weight": 10.0},
                 "max_results": 3,
             },
         )
@@ -41,9 +42,11 @@ class WebApiTests(unittest.TestCase):
         payload = response.json()
         self.assertIn("solutions", payload)
         self.assertEqual(payload["request"]["preference_caps"]["weight"], 100.0)
+        self.assertEqual(payload["request"]["targets"]["weight"], 10.0)
         for build in payload["solutions"]:
             self.assertLessEqual(build["total_price"], 10_000_000)
             self.assertTrue(build["infection"]["valid"])
+            self.assertGreaterEqual(build["stats"].get("carry_weight", 0.0), 10.0)
 
     def test_optimize_rejects_empty_preferences(self) -> None:
         response = self.client.post(
@@ -67,6 +70,19 @@ class WebApiTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 422)
         self.assertIn("No armors match", response.json()["detail"])
+
+    def test_optimize_rejects_unknown_target(self) -> None:
+        response = self.client.post(
+            "/api/optimize",
+            json={
+                "budget": 10_000_000,
+                "preferences": {"speed": 4},
+                "targets": {"unknown_stat": 1.0},
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("unknown_stat", response.json()["detail"])
 
 
 if __name__ == "__main__":

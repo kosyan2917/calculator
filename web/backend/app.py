@@ -56,6 +56,7 @@ class OptimizePayload(BaseModel):
     armor_id: str | None = None
     container_id: str | None = None
     preferences: dict[str, PreferenceLevel]
+    targets: dict[str, float] = Field(default_factory=dict)
     excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
@@ -160,7 +161,7 @@ def catalog() -> dict:
 @app.post("/api/optimize")
 async def optimize(payload: OptimizePayload) -> dict:
     known_metrics = set(METRIC_DIRECTIONS)
-    unknown = set(payload.preferences) - known_metrics
+    unknown = (set(payload.preferences) | set(payload.targets)) - known_metrics
     if unknown:
         raise HTTPException(status_code=422, detail=f"Unknown metrics: {', '.join(sorted(unknown))}")
 
@@ -181,6 +182,7 @@ async def optimize(payload: OptimizePayload) -> dict:
         budget=payload.budget,
         preferences=preferences,
         preference_caps=preference_caps,
+        targets=payload.targets,
         armor_ids=(payload.armor_id,) if payload.armor_id else (),
         container_ids=(payload.container_id,) if payload.container_id else (),
         excluded_armor_ids=tuple(payload.excluded_armor_ids),
