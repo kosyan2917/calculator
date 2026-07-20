@@ -74,6 +74,7 @@ class OptimizerConfig:
     stat_scale: int = 10_000
     objective_scale: int = 10_000
     infection_safety_margin: float = 0.0001
+    nonlinear_iterations: int = 4
 
 
 @dataclass(frozen=True)
@@ -169,7 +170,7 @@ class ArtifactBuildOptimizer:
         armors: list[dict[str, Any]],
         limit: int,
     ) -> tuple[list[BuildSolution], list[str]]:
-        if self._is_linear_request(request):
+        if self._can_use_milp(request):
             return self._solve_container_milp(request, container, groups, armors, limit)
         return self._solve_container_cp_sat(request, container, groups, armors, limit)
 
@@ -222,58 +223,77 @@ class ArtifactBuildOptimizer:
         statuses: list[str] = []
         excluded_compositions: list[tuple[int, ...]] = []
         for _ in range(limit):
-            problem = self._build_milp_problem(
-                request,
-                container,
-                groups,
-                armors,
-                excluded_compositions,
-            )
-            solve_started = time.perf_counter()
-            result = milp(
-                c=problem["objective"],
-                integrality=problem["integrality"],
-                bounds=Bounds(problem["lower_bounds"], problem["upper_bounds"]),
-                constraints=LinearConstraint(
-                    problem["matrix"],
-                    problem["constraint_lows"],
-                    problem["constraint_highs"],
-                ),
-                options={
-                    "time_limit": self.config.time_limit_per_solve,
-                    "mip_rel_gap": 0.001,
-                    "presolve": True,
-                },
-            )
-            elapsed = time.perf_counter() - solve_started
-            status_name = self._milp_status_name(int(result.status), result.x is not None)
-            statuses.append(status_name)
-            if result.x is None:
+            reference_stats = self._initial_reference_stats(container, armors, request.preferences)
+            iterations = 1 if self._is_linear_request(request) else max(1, self.config.nonlinear_iterations)
+            best_solution: BuildSolution | None = None
+            best_counts: tuple[int, ...] | None = None
+            final_status = "INFEASIBLE"
+            for _iteration in range(iterations):
+                objective_coefficients = self._linearized_objective_coefficients(
+                    request.preferences,
+                    reference_stats,
+                )
+                problem = self._build_milp_problem(
+                    request,
+                    container,
+                    groups,
+                    armors,
+                    excluded_compositions,
+                    objective_coefficients,
+                )
+                solve_started = time.perf_counter()
+                result = milp(
+                    c=problem["objective"],
+                    integrality=problem["integrality"],
+                    bounds=Bounds(problem["lower_bounds"], problem["upper_bounds"]),
+                    constraints=LinearConstraint(
+                        problem["matrix"],
+                        problem["constraint_lows"],
+                        problem["constraint_highs"],
+                    ),
+                    options={
+                        "time_limit": self.config.time_limit_per_solve,
+                        "mip_rel_gap": 0.001,
+                        "presolve": True,
+                    },
+                )
+                elapsed = time.perf_counter() - solve_started
+                final_status = self._milp_status_name(int(result.status), result.x is not None)
+                if result.x is None:
+                    break
+                counts = tuple(int(round(result.x[2 * index])) for index in range(len(groups)))
+                quality_sums = tuple(int(round(result.x[2 * index + 1])) for index in range(len(groups)))
+                armor_offset = 2 * len(groups)
+                armor_index = max(range(len(armors)), key=lambda index: result.x[armor_offset + index])
+                objective = -float(result.fun)
+                dual_bound = -float(result.mip_dual_bound) if result.mip_dual_bound is not None else objective
+                nonlinear = not self._is_linear_request(request)
+                solution = self._materialize_values(
+                    request,
+                    container,
+                    groups,
+                    armors,
+                    counts,
+                    quality_sums,
+                    tuple(problem["quality_lows"]),
+                    armor_index,
+                    "HEURISTIC" if nonlinear else final_status,
+                    objective,
+                    dual_bound,
+                    None if nonlinear else (float(result.mip_gap) if result.mip_gap is not None else None),
+                    elapsed,
+                )
+                if solution is None:
+                    break
+                if best_solution is None or solution.objective_score > best_solution.objective_score:
+                    best_solution = solution
+                    best_counts = counts
+                reference_stats = solution.stats
+            statuses.append("HEURISTIC" if best_solution and not self._is_linear_request(request) else final_status)
+            if best_solution is None or best_counts is None:
                 break
-            counts = tuple(int(round(result.x[2 * index])) for index in range(len(groups)))
-            quality_sums = tuple(int(round(result.x[2 * index + 1])) for index in range(len(groups)))
-            armor_offset = 2 * len(groups)
-            armor_index = max(range(len(armors)), key=lambda index: result.x[armor_offset + index])
-            objective = -float(result.fun)
-            dual_bound = -float(result.mip_dual_bound) if result.mip_dual_bound is not None else objective
-            solution = self._materialize_values(
-                request,
-                container,
-                groups,
-                armors,
-                counts,
-                quality_sums,
-                tuple(problem["quality_lows"]),
-                armor_index,
-                status_name,
-                objective,
-                dual_bound,
-                float(result.mip_gap) if result.mip_gap is not None else None,
-                elapsed,
-            )
-            if solution is not None:
-                results.append(solution)
-            excluded_compositions.append(counts)
+            results.append(best_solution)
+            excluded_compositions.append(best_counts)
         return results, statuses
 
     def _build_milp_problem(
@@ -283,6 +303,7 @@ class ArtifactBuildOptimizer:
         groups: list[ArtifactGroup],
         armors: list[dict[str, Any]],
         excluded_compositions: list[tuple[int, ...]],
+        objective_coefficients: dict[str, float],
     ) -> dict[str, Any]:
         group_count = len(groups)
         armor_offset = 2 * group_count
@@ -352,10 +373,8 @@ class ArtifactBuildOptimizer:
         sprint = stat_forms.get("sprint_speed", (np.zeros(variable_count), 0.0))
         metric_forms["total_sprint_speed"] = (movement[0] + sprint[0], 100.0 + movement[1] + sprint[1])
 
-        for requested_key, weight in request.preferences.items():
-            key = self._resolve_metric(requested_key)
+        for key, normalized_weight in objective_coefficients.items():
             coefficients, _constant = metric_forms[key]
-            normalized_weight = max(-2.0, min(2.0, float(weight))) / METRIC_SCALES[key]
             objective -= normalized_weight * coefficients
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
@@ -474,6 +493,69 @@ class ArtifactBuildOptimizer:
             for key in set(request.preferences) | set(request.targets)
         }
         return not metrics.intersection({"effective_durability", "hp_regen_score"})
+
+    def _can_use_milp(self, request: OptimizationRequest) -> bool:
+        target_metrics = {self._resolve_metric(key) for key in request.targets}
+        return not target_metrics.intersection({"effective_durability", "hp_regen_score"})
+
+    def _linearized_objective_coefficients(
+        self,
+        preferences: dict[str, float],
+        reference_stats: dict[str, float],
+    ) -> dict[str, float]:
+        coefficients: dict[str, float] = {}
+
+        def add(key: str, value: float) -> None:
+            coefficients[key] = coefficients.get(key, 0.0) + value
+
+        for requested_key, raw_weight in preferences.items():
+            key = self._resolve_metric(requested_key)
+            weight = max(-2.0, min(2.0, float(raw_weight)))
+            if abs(weight) <= 1e-12:
+                continue
+            if key == "effective_durability":
+                bullet = float(reference_stats.get("bullet_resistance", 0.0))
+                vitality = float(reference_stats.get("vitality", 0.0))
+                base = weight / METRIC_SCALES[key]
+                add("bullet_resistance", base * (vitality + 100.0) / 100.0)
+                add("vitality", base * (bullet + 100.0) / 100.0)
+            elif key == "hp_regen_score":
+                periodic = float(reference_stats.get("periodic_healing", 0.0))
+                healing = float(reference_stats.get("healing_effectiveness", 0.0))
+                base = weight / METRIC_SCALES[key]
+                add("health_regeneration", base / 5.0)
+                add("periodic_healing", base * (1.0 + healing / 100.0))
+                add("healing_effectiveness", base * periodic / 100.0)
+            elif key == "total_sprint_speed":
+                base = weight / METRIC_SCALES[key]
+                add("movement_speed", base)
+                add("sprint_speed", base)
+            else:
+                add(key, weight / METRIC_SCALES[key])
+        return coefficients
+
+    def _initial_reference_stats(
+        self,
+        container: dict[str, Any],
+        armors: list[dict[str, Any]],
+        preferences: dict[str, float],
+    ) -> dict[str, float]:
+        best_stats: dict[str, float] | None = None
+        best_score = -math.inf
+        container_stats, _infections = split_infections(container.get("stats") or {})
+        for armor in armors:
+            stats = add_stats(container_stats, armor.get("stats") or {})
+            derived = derived_stats(stats)
+            score = sum(
+                max(-2.0, min(2.0, float(weight)))
+                * self._metric_value(stats, derived, self._resolve_metric(key))
+                / METRIC_SCALES[self._resolve_metric(key)]
+                for key, weight in preferences.items()
+            )
+            if score > best_score:
+                best_score = score
+                best_stats = stats
+        return best_stats or dict(container_stats)
 
     def _milp_status_name(self, status: int, has_solution: bool) -> str:
         if status == 0:
