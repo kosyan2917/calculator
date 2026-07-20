@@ -1,5 +1,6 @@
 import {
   Activity,
+  Ban,
   Box,
   CheckCircle2,
   ChevronDown,
@@ -78,6 +79,9 @@ function App() {
     speed: 2,
     regen: 1,
   });
+  const [excludedArmorIds, setExcludedArmorIds] = useState<string[]>([]);
+  const [excludedContainerIds, setExcludedContainerIds] = useState<string[]>([]);
+  const [excludedArtifactIds, setExcludedArtifactIds] = useState<string[]>([]);
   const [result, setResult] = useState<OptimizationResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -112,6 +116,9 @@ function App() {
           armor_id: armorId || null,
           container_id: containerId || null,
           preferences,
+          excluded_armor_ids: excludedArmorIds,
+          excluded_container_ids: excludedContainerIds,
+          excluded_artifact_ids: excludedArtifactIds,
           max_results: 10,
           min_quality_percent: 95,
         }),
@@ -131,17 +138,27 @@ function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand-mark"><Layers3 size={20} /></div>
-        <div>
+        <div className="brand-lockup">
+          <div className="brand-mark"><Layers3 size={20} /></div>
+          <div>
           <div className="brand-name">STALZONE</div>
           <div className="brand-section">Сборки артефактов</div>
+          </div>
         </div>
-        <div className="topbar-status"><span className="status-dot" /> +15</div>
+        <div className="topbar-title">Калькулятор сборок</div>
+        <div className="topbar-status"><span className="status-dot" /> Артефакты +15</div>
       </header>
 
       <div className="workspace">
         <aside className="control-panel">
           <form onSubmit={submit}>
+            <div className="panel-heading">
+              <div className="eyebrow">Параметры поиска</div>
+              <div className="panel-title-row">
+                <h1>Фильтры</h1>
+                <span>{excludedArmorIds.length + excludedContainerIds.length + excludedArtifactIds.length} исключено</span>
+              </div>
+            </div>
             <section className="form-section">
               <div className="section-heading"><Coins size={17} /><h2>Бюджет</h2></div>
               <div className="budget-row">
@@ -174,7 +191,15 @@ function App() {
               <div className="section-heading"><Shield size={17} /><h2>Экипировка</h2></div>
               <label className="field-label" htmlFor="armor">Костюм</label>
               <div className="select-wrap">
-                <select id="armor" value={armorId} onChange={(event) => setArmorId(event.target.value)} disabled={!catalog}>
+                <select
+                  id="armor"
+                  value={armorId}
+                  onChange={(event) => {
+                    setArmorId(event.target.value);
+                    setExcludedArmorIds((current) => current.filter((id) => id !== event.target.value));
+                  }}
+                  disabled={!catalog}
+                >
                   <option value="">Любой ветеранский или мастерский</option>
                   {catalog?.armors.map((armor) => <option key={armor.id} value={armor.id}>{armor.name}</option>)}
                 </select>
@@ -182,7 +207,15 @@ function App() {
               </div>
               <label className="field-label" htmlFor="container">Контейнер</label>
               <div className="select-wrap">
-                <select id="container" value={containerId} onChange={(event) => setContainerId(event.target.value)} disabled={!catalog}>
+                <select
+                  id="container"
+                  value={containerId}
+                  onChange={(event) => {
+                    setContainerId(event.target.value);
+                    setExcludedContainerIds((current) => current.filter((id) => id !== event.target.value));
+                  }}
+                  disabled={!catalog}
+                >
                   <option value="">Любой допустимый</option>
                   {catalog?.containers.map((container) => (
                     <option key={container.id} value={container.id}>{container.name} · {container.capacity} сл.</option>
@@ -194,10 +227,47 @@ function App() {
 
             <section className="form-section preference-section">
               <div className="section-heading"><SlidersHorizontal size={17} /><h2>Желаемые свойства</h2></div>
+              <div className="scale-legend" aria-hidden="true">
+                {LEVEL_SHORT.map((label, level) => <span key={label}><b>{level}</b>{label}</span>)}
+              </div>
               <MetricList metrics={mainMetrics} preferences={preferences} setPreferences={setPreferences} />
               <details className="secondary-settings">
                 <summary>Второстепенные свойства <ChevronDown size={15} /></summary>
                 <MetricList metrics={secondaryMetrics} preferences={preferences} setPreferences={setPreferences} />
+              </details>
+            </section>
+
+            <section className="form-section exclusion-section">
+              <details className="exclusion-settings">
+                <summary>
+                  <span><Ban size={16} /> Исключить из расчета</span>
+                  <span className="exclusion-count">
+                    {excludedArmorIds.length + excludedContainerIds.length + excludedArtifactIds.length}
+                  </span>
+                  <ChevronDown size={15} />
+                </summary>
+                <div className="exclusion-groups">
+                  <ExclusionGroup
+                    title="Костюмы"
+                    options={catalog?.armors ?? []}
+                    selected={excludedArmorIds}
+                    setSelected={setExcludedArmorIds}
+                    disabledId={armorId}
+                  />
+                  <ExclusionGroup
+                    title="Контейнеры"
+                    options={catalog?.containers ?? []}
+                    selected={excludedContainerIds}
+                    setSelected={setExcludedContainerIds}
+                    disabledId={containerId}
+                  />
+                  <ExclusionGroup
+                    title="Артефакты"
+                    options={catalog?.artifacts ?? []}
+                    selected={excludedArtifactIds}
+                    setSelected={setExcludedArtifactIds}
+                  />
+                </div>
               </details>
             </section>
 
@@ -211,7 +281,10 @@ function App() {
           <div className="results-heading">
             <div>
               <div className="eyebrow">Результаты</div>
-              <h1>Подходящие сборки</h1>
+              <div className="results-title-row">
+                <h1>Рекомендации</h1>
+                {result && <span className="result-count">{result.solutions.length}</span>}
+              </div>
             </div>
             {result && (
               <div className="runtime"><Timer size={16} /> {result.diagnostics.elapsed_seconds.toFixed(2)} с</div>
@@ -222,7 +295,7 @@ function App() {
           {loading && <LoadingState />}
           {!loading && !result && !error && <EmptyState />}
           {!loading && result && result.solutions.length === 0 && (
-            <div className="empty-state"><CircleAlert size={28} /><h2>Сборки не найдены</h2></div>
+              <div className="empty-state"><CircleAlert size={28} /><h2>Подходящих сборок нет</h2></div>
           )}
           {!loading && result && result.solutions.length > 0 && (
             <div className="build-list">
@@ -258,13 +331,13 @@ function MetricList({
                 <button
                   key={label}
                   type="button"
-                  className={selected === level ? "active" : ""}
+                  className={selected === level ? `active level-${level}` : ""}
                   role="radio"
                   aria-checked={selected === level}
                   title={label}
                   onClick={() => setPreferences({ ...preferences, [metric.key]: level })}
                 >
-                  <span className="segment-number">{level + 1}</span>
+                  <span className="segment-number">{level}</span>
                   <span className="segment-label">{label}</span>
                 </button>
               ))}
@@ -273,6 +346,65 @@ function MetricList({
         );
       })}
     </div>
+  );
+}
+
+function ExclusionGroup({
+  title,
+  options,
+  selected,
+  setSelected,
+  disabledId = "",
+}: {
+  title: string;
+  options: Array<{ id: string; name: string }>;
+  selected: string[];
+  setSelected: (value: string[]) => void;
+  disabledId?: string;
+}) {
+  const [query, setQuery] = useState("");
+  const visibleOptions = useMemo(() => {
+    const normalized = query.trim().toLocaleLowerCase("ru-RU");
+    if (!normalized) return options;
+    return options.filter((option) => option.name.toLocaleLowerCase("ru-RU").includes(normalized));
+  }, [options, query]);
+
+  function toggle(id: string) {
+    setSelected(selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id]);
+  }
+
+  return (
+    <details className="exclusion-group">
+      <summary>
+        <span>{title}</span>
+        <small>{selected.length > 0 ? selected.length : options.length}</small>
+        <ChevronDown size={14} />
+      </summary>
+      <div className="exclusion-search">
+        <Search size={14} />
+        <input
+          aria-label={`Поиск: ${title}`}
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Поиск"
+        />
+      </div>
+      <div className="exclusion-list">
+        {visibleOptions.map((option) => (
+          <label key={option.id} className={disabledId === option.id ? "disabled" : ""}>
+            <input
+              type="checkbox"
+              checked={selected.includes(option.id)}
+              disabled={disabledId === option.id}
+              onChange={() => toggle(option.id)}
+            />
+            <span>{option.name}</span>
+          </label>
+        ))}
+        {visibleOptions.length === 0 && <div className="no-options">Ничего не найдено</div>}
+      </div>
+    </details>
   );
 }
 
@@ -359,8 +491,8 @@ function EmptyState() {
   return (
     <div className="empty-state">
       <div className="empty-visual"><Shield size={34} /><Activity size={22} /><Wind size={26} /></div>
-      <h2>Задайте приоритеты</h2>
-      <div className="empty-stats"><span>Приведенка</span><span>Скорость</span><span>Реген</span></div>
+      <h2>Результатов пока нет</h2>
+      <div className="empty-stats"><span>Костюм</span><span>Контейнер</span><span>Артефакты</span></div>
     </div>
   );
 }

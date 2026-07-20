@@ -27,10 +27,17 @@ export type ContainerOption = {
   effectiveness: number;
 };
 
+export type ArtifactOption = {
+  id: string;
+  name: string;
+  quality_tiers: string[];
+};
+
 export type Catalog = {
   generated_at: string;
   armors: ArmorOption[];
   containers: ContainerOption[];
+  artifacts: ArtifactOption[];
   metrics: Metric[];
   preference_levels: PreferenceLevel[];
   limits: {
