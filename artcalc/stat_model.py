@@ -162,6 +162,20 @@ def value_at_quality_percent(range_min: float, range_max: float, quality_percent
     return value_at_100 * quality_percent / 100.0
 
 
+def artifact_value_at_quality_percent(
+    column: str,
+    range_min: float,
+    range_max: float,
+    quality_percent: float,
+) -> float:
+    value_at_100 = range_min if abs(range_min) >= abs(range_max) else range_max
+    if value_at_100 > 0.0 and column not in INFECTION_STATS:
+        return value_at_100 * quality_percent / 100.0
+    if value_at_100 < 0.0 and column in INFECTION_STATS:
+        return value_at_100 * quality_percent / 100.0
+    return value_at_100
+
+
 def value_at_quality(range_min: float, range_max: float, quality_tier: str, policy: str) -> float:
     return value_at_quality_percent(range_min, range_max, quality_value(quality_tier, policy))
 

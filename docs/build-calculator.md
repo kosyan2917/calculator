@@ -90,9 +90,10 @@ calculator reads those +15 range values directly from the official database.
 Additional artifact roll properties are separate from those official variant
 files. For example, `jky6` (Raisin / Izum) does not have
 `stamina_regeneration_bonus` in the official base or +15 JSON, but external
-wiki data lists it as one of the three additional properties. These extra
-properties are loaded from `data/artifact_additional_properties.json` and then
-scaled by artifact level:
+wiki data lists it as one of the possible additional properties. These extra
+properties are loaded from `data/artifact_additional_properties.json`. Only
+entries marked as selected are applied to the current local stat profile, then
+they are scaled by artifact level:
 
 ```text
 level_multiplier = (50 + artifact_upgrade_level) / 50
@@ -109,10 +110,11 @@ speed_modifier: [0.45; 0.55]
 stamina_regeneration_bonus: [4.08; 4.8]
 ```
 
-At 100% quality and +15 this gives +9.36 stamina, +0.715 movement speed, and
-+6.24 stamina regeneration. The additional-property data file is currently
-partial, so builds involving artifacts without entries there still miss their
-rolled additional properties.
+The current local `jky6` profile has only `stamina_regeneration_bonus` selected.
+At 130% quality and +15, the calculator should therefore produce the official
+main stats plus +8.112 stamina regeneration. The additional-property data file
+is currently partial, so builds involving artifacts without entries there still
+miss their rolled additional properties.
 
 Adaptive quality grid:
 

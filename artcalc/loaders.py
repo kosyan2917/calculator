@@ -12,6 +12,7 @@ from .stat_model import (
     MechanicsConfig,
     apply_container_effectiveness,
     artifact_level_multiplier,
+    artifact_value_at_quality_percent,
     quality_points,
     quality_value,
     split_infections,
@@ -59,7 +60,7 @@ def extract_stat_values(
                     if quality_percent is None:
                         stats[column] = value_at_quality(range_min, range_max, quality_tier, quality_policy)
                     else:
-                        stats[column] = value_at_quality_percent(range_min, range_max, quality_percent)
+                        stats[column] = artifact_value_at_quality_percent(column, range_min, range_max, quality_percent)
             elif element.get("type") == "numeric":
                 value = to_float(element.get("value"))
                 if value is not None and column not in stats:
@@ -269,6 +270,8 @@ def additional_property_stats(
     multiplier = artifact_level_multiplier(upgrade_level)
     stats: dict[str, float] = {}
     for property_item in additional_properties:
+        if property_item.get("selected") is False or property_item.get("active") is False:
+            continue
         column = str(property_item.get("column") or "")
         if not column:
             stat_id = str(property_item.get("stat_id") or "")
@@ -282,7 +285,10 @@ def additional_property_stats(
         range_max = to_float(property_item.get("max"))
         if range_min is None or range_max is None:
             continue
-        stats[column] = stats.get(column, 0.0) + value_at_quality_percent(range_min, range_max, quality_percent) * multiplier
+        stats[column] = (
+            stats.get(column, 0.0)
+            + artifact_value_at_quality_percent(column, range_min, range_max, quality_percent) * multiplier
+        )
     return stats
 
 
