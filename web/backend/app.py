@@ -27,6 +27,9 @@ PREFERENCE_LEVELS = (
     {"value": 4, "label": "Очень важно", "weight": 2.0},
 )
 LEVEL_WEIGHTS = {item["value"]: item["weight"] for item in PREFERENCE_LEVELS}
+PREFERENCE_CAPS = {
+    "weight": {1: 50.0, 2: 100.0, 3: 150.0, 4: 200.0},
+}
 
 METRICS = (
     {"key": "durability", "label": "Приведенка", "group": "main", "direction": "max"},
@@ -162,17 +165,22 @@ async def optimize(payload: OptimizePayload) -> dict:
         raise HTTPException(status_code=422, detail=f"Unknown metrics: {', '.join(sorted(unknown))}")
 
     preferences: dict[str, float] = {}
+    preference_caps: dict[str, float] = {}
     for key, level in payload.preferences.items():
         weight = LEVEL_WEIGHTS[int(level)]
         if METRIC_DIRECTIONS[key] == "min":
             weight *= -1.0
         preferences[key] = weight
+        cap = PREFERENCE_CAPS.get(key, {}).get(int(level))
+        if cap is not None:
+            preference_caps[key] = cap
     if not any(abs(weight) > 1e-12 for weight in preferences.values()):
         raise HTTPException(status_code=422, detail="Select at least one desired stat")
 
     request = OptimizationRequest(
         budget=payload.budget,
         preferences=preferences,
+        preference_caps=preference_caps,
         armor_ids=(payload.armor_id,) if payload.armor_id else (),
         container_ids=(payload.container_id,) if payload.container_id else (),
         excluded_armor_ids=tuple(payload.excluded_armor_ids),
