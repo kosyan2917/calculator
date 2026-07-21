@@ -113,6 +113,37 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertAlmostEqual(qualities[6], 161.5, places=2)
         self.assertTrue(solution.infection["valid"])
 
+    def test_infection_safety_margin_is_preserved_in_exact_result(self) -> None:
+        speed = group(
+            "speed",
+            {"movement_speed": 1.0},
+            {"movement_speed": 2.0},
+            {"radiation": 0.0},
+            {"radiation": 0.1},
+        )
+        optimizer = ArtifactBuildOptimizer(
+            catalog(
+                (speed,),
+                (armor("plain", {}),),
+                container(7, {"radiation": -0.11}),
+            ),
+            OptimizerConfig(
+                time_limit_per_solve=1.0,
+                max_solutions_per_container=1,
+                infection_safety_margin=0.05,
+            ),
+        )
+
+        solution = optimizer.search(
+            OptimizationRequest(
+                budget=7_000_000,
+                preferences={"speed": 2.0},
+                max_results=1,
+            )
+        ).solutions[0]
+
+        self.assertGreaterEqual(solution.infection["by_type"]["radiation"]["margin"], 0.05 - 1e-9)
+
     def test_armor_changes_durability_choice(self) -> None:
         bullet = group("bullet", {"bullet_resistance": 20.0}, {"bullet_resistance": 20.0})
         vitality = group("vitality", {"vitality": 10.0}, {"vitality": 10.0})

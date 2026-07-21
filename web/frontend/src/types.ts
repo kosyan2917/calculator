@@ -81,7 +81,16 @@ export type BuildSolution = {
   derived: Record<string, number>;
   infection: {
     valid: boolean;
-    by_type: Record<string, { final: number; margin: number; valid: boolean }>;
+    by_type: Record<string, {
+      raw_artifact: number;
+      container: number;
+      after_inner_protection: number;
+      base_output: number;
+      final: number;
+      limit: number;
+      margin: number;
+      valid: boolean;
+    }>;
   };
   solver_status: string;
   solver_gap: number | null;

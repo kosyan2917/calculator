@@ -258,6 +258,7 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 .stat-cell strong { font-size: 11px; }
 .build-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 16px; background: #f7f9f6; }
 .infection-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 13px; color: #50705f; font-size: 9px; }
+.infection-summary .near-limit { color: #a65c18; font-weight: 800; }
 .all-stats { position: relative; min-width: 102px; }
 .all-stats summary { justify-content: flex-end; gap: 5px; }
 .all-stats-grid { position: absolute; z-index: 8; top: 25px; right: 0; width: min(420px, 75vw); display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; padding: 11px; border: 1px solid var(--line-strong); border-radius: 5px; background: #fff; box-shadow: 0 16px 34px #1b211d2e; }

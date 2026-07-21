@@ -78,7 +78,7 @@ class OptimizerConfig:
     num_search_workers: int = 1
     stat_scale: int = 10_000
     objective_scale: int = 10_000
-    infection_safety_margin: float = 0.0001
+    infection_safety_margin: float = 0.01
     nonlinear_iterations: int = 4
 
 
@@ -917,7 +917,10 @@ class ArtifactBuildOptimizer:
                 artifacts.append(self._artifact_view(group, quality, container))
 
         stats, report = self._evaluate_exact(artifacts, armor, container)
-        if not report["valid"]:
+        if not report["valid"] or any(
+            float(item["margin"]) + 1e-9 < self.config.infection_safety_margin
+            for item in report["by_type"].values()
+        ):
             return None
         derived = derived_stats(stats)
         if not self._passes_exact_targets(request.targets, stats, derived):

@@ -65,6 +65,11 @@ function signed(value: number, digits = 2) {
   })}`;
 }
 
+function decimal(value: number, digits = 2) {
+  const rounded = Math.abs(value) < 0.0005 ? 0 : value;
+  return rounded.toLocaleString("ru-RU", { maximumFractionDigits: digits });
+}
+
 function valueForStat(solution: BuildSolution, key: string) {
   if (key === "effective_durability" || key === "hp_regen_score") return solution.derived[key] ?? 0;
   if (key === "total_sprint_speed") return (solution.derived[key] ?? 100) - 100;
@@ -538,7 +543,9 @@ function BuildCard({ solution, index }: { solution: BuildSolution; index: number
     ["stamina_regeneration", Activity],
     ["carry_weight", Weight],
   ] as const;
-  const infections = Object.entries(solution.infection.by_type).filter(([, value]) => Math.abs(value.final) > 0.0005);
+  const infections = Object.entries(solution.infection.by_type)
+    .map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const)
+    .filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   return (
     <article className="build-card">
       <header className="build-header">
@@ -581,8 +588,10 @@ function BuildCard({ solution, index }: { solution: BuildSolution; index: number
       <footer className="build-footer">
         <div className="infection-summary">
           <CheckCircle2 size={15} />
-          {infections.length === 0 ? <span>Без остаточного заражения</span> : infections.map(([key, value]) => (
-            <span key={key}>{INFECTION_LABELS[key] ?? key}: {signed(value.final)}</span>
+          {infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => (
+            <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>
+              {INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}
+            </span>
           ))}
         </div>
         <details className="all-stats">
