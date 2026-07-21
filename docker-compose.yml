@@ -1,11 +1,65 @@
+name: stalzone-artcalc
+
 services:
   artcalc:
-    build: .
-    ports:
-      - "8000:8000"
+    build:
+      context: .
+    expose:
+      - "8000"
     environment:
-      ARTCALC_TIME_LIMIT: "0.5"
-      ARTCALC_SOLUTIONS_PER_CONTAINER: "1"
-      ARTCALC_CP_WORKERS: "1"
-      ARTCALC_NONLINEAR_ITERATIONS: "3"
+      ALLOWED_HOSTS: "${DOMAIN:?Set DOMAIN in .env},localhost,127.0.0.1,artcalc"
+      WEB_CONCURRENCY: "${WEB_CONCURRENCY:-2}"
+      ARTCALC_TIME_LIMIT: "${ARTCALC_TIME_LIMIT:-0.5}"
+      ARTCALC_SOLUTIONS_PER_CONTAINER: "${ARTCALC_SOLUTIONS_PER_CONTAINER:-1}"
+      ARTCALC_CP_WORKERS: "${ARTCALC_CP_WORKERS:-1}"
+      ARTCALC_NONLINEAR_ITERATIONS: "${ARTCALC_NONLINEAR_ITERATIONS:-3}"
+      ARTCALC_UPGRADE_TIME_LIMIT: "${ARTCALC_UPGRADE_TIME_LIMIT:-0.25}"
+      ARTCALC_UPGRADE_NONLINEAR_ITERATIONS: "${ARTCALC_UPGRADE_NONLINEAR_ITERATIONS:-2}"
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    environment:
+      DOMAIN: "${DOMAIN:?Set DOMAIN in .env}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      artcalc:
+        condition: service_healthy
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  caddy_data:
+  caddy_config:

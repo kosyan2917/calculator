@@ -7,3 +7,5 @@ node_modules/
 dist/
 *.tsbuildinfo
 data/precompute_runner.json
+.env
+.deploy.lock/

@@ -8,6 +8,7 @@ from typing import Annotated, Any, Literal
 from fastapi import FastAPI, HTTPException
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -140,6 +141,9 @@ def validate_metrics(preferences: dict[str, PreferenceLevel], targets: dict[str,
 
 
 app = FastAPI(title="STALZONE Artifact Builds", version="1.0.0")
+allowed_hosts = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
+if allowed_hosts:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
