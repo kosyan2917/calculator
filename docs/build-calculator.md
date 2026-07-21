@@ -113,7 +113,7 @@ quality_strategy = adaptive_grid
 quality_step = 2.5
 min_quality_percent = 95
 min_build_price = 2500000
-max_build_price = 150000000
+max_build_price = None
 price_bucket_start = 2500000
 price_bucket_step = 2500000
 price_bucket_beam_size = 20
@@ -354,5 +354,5 @@ python tools\staldata_prices.py --offline
 python tools\extract_armor_stats.py
 python tools\extract_boosts.py
 python tools\fetch_artifact_properties.py
-python tools\precompute_builds.py --artifact-upgrade-level 15 --artifact-price-upgrade-level 0 --quality-strategy adaptive_grid --quality-step 2.5 --min-quality-percent 95 --min-build-price 2500000 --max-build-price 150000000 --price-bucket-start 2500000 --price-bucket-step 2500000
+python tools\precompute_builds.py --artifact-upgrade-level 15 --artifact-price-upgrade-level 0 --quality-strategy adaptive_grid --quality-step 2.5 --min-quality-percent 95 --min-build-price 2500000 --price-bucket-start 2500000 --price-bucket-step 2500000
 ```

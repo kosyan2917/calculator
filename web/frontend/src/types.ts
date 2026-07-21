@@ -48,7 +48,6 @@ export type Catalog = {
   }>;
   limits: {
     budget_min: number;
-    budget_max: number;
     budget_step: number;
     quality_min: number;
     quality_max: number;

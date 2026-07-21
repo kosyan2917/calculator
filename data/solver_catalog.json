@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T01:22:06.452875+00:00",
+  "generated_at": "2026-07-21T22:08:07.221611+00:00",
   "artifact_upgrade_level": 15,
   "artifact_price_upgrade_level": 0,
   "min_quality_percent": 95.0,
@@ -44,7 +44,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 42.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "04yr:exclusive",
@@ -72,7 +75,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "04yr:legendary",
@@ -100,7 +106,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "04yr:rare",
@@ -128,7 +137,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 30.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "04yr:special",
@@ -156,7 +168,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 68.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "04yr:uncommon",
@@ -184,7 +199,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:common",
@@ -214,7 +232,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:exclusive",
@@ -244,7 +265,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:legendary",
@@ -274,7 +298,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 44.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:rare",
@@ -304,7 +331,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:special",
@@ -334,7 +364,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k4q:uncommon",
@@ -364,7 +397,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:common",
@@ -394,7 +430,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:exclusive",
@@ -424,7 +463,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 98.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:legendary",
@@ -454,7 +496,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 38.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:rare",
@@ -484,7 +529,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:special",
@@ -514,7 +562,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1k96:uncommon",
@@ -544,7 +595,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:common",
@@ -572,7 +626,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:exclusive",
@@ -600,7 +657,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 50.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:legendary",
@@ -628,7 +688,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 10.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:rare",
@@ -656,7 +719,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:special",
@@ -684,7 +750,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kdg:uncommon",
@@ -712,7 +781,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:common",
@@ -740,7 +812,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:exclusive",
@@ -768,7 +843,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:legendary",
@@ -796,7 +874,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 22.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:rare",
@@ -824,7 +905,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:special",
@@ -852,7 +936,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kv2:uncommon",
@@ -880,7 +967,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:common",
@@ -910,7 +1000,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 76.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:exclusive",
@@ -940,7 +1033,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:legendary",
@@ -970,7 +1066,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:rare",
@@ -1000,7 +1099,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 54.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:special",
@@ -1030,7 +1132,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 72.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "1kw1:uncommon",
@@ -1060,7 +1165,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 94.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "49zn:exclusive",
@@ -1092,7 +1200,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 0.0,
-      "confidence_score": 50.0
+      "confidence_score": 50.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "49zn:legendary",
@@ -1124,7 +1235,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "49zn:rare",
@@ -1156,7 +1270,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "49zn:special",
@@ -1188,7 +1305,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "49zn:uncommon",
@@ -1220,7 +1340,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:common",
@@ -1248,7 +1371,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:exclusive",
@@ -1276,7 +1402,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 36.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:legendary",
@@ -1304,7 +1433,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:rare",
@@ -1332,7 +1464,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:special",
@@ -1360,7 +1495,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l1r:uncommon",
@@ -1388,7 +1526,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:common",
@@ -1416,7 +1557,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:exclusive",
@@ -1444,7 +1588,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:legendary",
@@ -1472,7 +1619,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 24.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:rare",
@@ -1500,7 +1650,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:special",
@@ -1528,7 +1681,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4l7p:uncommon",
@@ -1556,7 +1712,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:common",
@@ -1588,7 +1747,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:exclusive",
@@ -1620,7 +1782,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 84.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:legendary",
@@ -1652,7 +1817,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 24.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:rare",
@@ -1684,7 +1852,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:special",
@@ -1716,7 +1887,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lkp:uncommon",
@@ -1748,7 +1922,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:common",
@@ -1780,7 +1957,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:exclusive",
@@ -1812,7 +1992,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 28.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:legendary",
@@ -1844,7 +2027,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:rare",
@@ -1876,7 +2062,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:special",
@@ -1908,7 +2097,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lml:uncommon",
@@ -1940,7 +2132,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:common",
@@ -1968,7 +2163,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 38.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:exclusive",
@@ -1996,7 +2194,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 10.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:legendary",
@@ -2024,7 +2225,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:rare",
@@ -2052,7 +2256,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 30.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:special",
@@ -2080,7 +2287,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lpo:uncommon",
@@ -2108,7 +2318,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:common",
@@ -2136,7 +2349,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 34.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:exclusive",
@@ -2164,7 +2380,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:legendary",
@@ -2192,7 +2411,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:rare",
@@ -2220,7 +2442,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:special",
@@ -2248,7 +2473,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "4lrn:uncommon",
@@ -2276,7 +2504,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 54.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "51l0:exclusive",
@@ -2308,7 +2539,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 10.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "51l0:rare",
@@ -2340,7 +2574,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 52.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "51l0:special",
@@ -2372,7 +2609,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "51l0:uncommon",
@@ -2404,7 +2644,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:common",
@@ -2436,7 +2679,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:exclusive",
@@ -2468,7 +2714,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:legendary",
@@ -2500,7 +2749,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 36.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:rare",
@@ -2532,7 +2784,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:special",
@@ -2564,7 +2819,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r04:uncommon",
@@ -2596,7 +2854,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:common",
@@ -2626,7 +2887,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:exclusive",
@@ -2656,7 +2920,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:legendary",
@@ -2686,7 +2953,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 26.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:rare",
@@ -2716,7 +2986,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:special",
@@ -2746,7 +3019,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r34:uncommon",
@@ -2776,7 +3052,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:common",
@@ -2806,7 +3085,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:exclusive",
@@ -2836,7 +3118,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:legendary",
@@ -2866,7 +3151,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:rare",
@@ -2896,7 +3184,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:special",
@@ -2926,7 +3217,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5r5g:uncommon",
@@ -2956,7 +3250,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:common",
@@ -2988,7 +3285,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:exclusive",
@@ -3020,7 +3320,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 6.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:legendary",
@@ -3052,7 +3355,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:rare",
@@ -3084,7 +3390,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:special",
@@ -3116,7 +3425,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rd1:uncommon",
@@ -3148,7 +3460,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:common",
@@ -3176,7 +3491,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:exclusive",
@@ -3204,7 +3522,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 56.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:legendary",
@@ -3232,7 +3553,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 4.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:rare",
@@ -3260,7 +3584,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:special",
@@ -3288,7 +3615,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rg1:uncommon",
@@ -3316,7 +3646,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:common",
@@ -3344,7 +3677,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 50.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:exclusive",
@@ -3372,7 +3708,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:legendary",
@@ -3400,7 +3739,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:rare",
@@ -3428,7 +3770,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:special",
@@ -3456,7 +3801,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 64.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rm0:uncommon",
@@ -3484,7 +3832,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 48.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:common",
@@ -3514,7 +3865,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:exclusive",
@@ -3544,7 +3898,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:legendary",
@@ -3574,7 +3931,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:rare",
@@ -3604,7 +3964,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:special",
@@ -3634,7 +3997,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rog:uncommon",
@@ -3664,7 +4030,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:common",
@@ -3696,7 +4065,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:exclusive",
@@ -3728,7 +4100,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 20.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:legendary",
@@ -3760,7 +4135,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:rare",
@@ -3792,7 +4170,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:special",
@@ -3824,7 +4205,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rpq:uncommon",
@@ -3856,7 +4240,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:common",
@@ -3886,7 +4273,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:exclusive",
@@ -3916,7 +4306,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 32.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:legendary",
@@ -3946,7 +4339,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:rare",
@@ -3976,7 +4372,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:special",
@@ -4006,7 +4405,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rwq:uncommon",
@@ -4036,7 +4438,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:common",
@@ -4066,7 +4471,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:exclusive",
@@ -4096,7 +4504,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 34.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:legendary",
@@ -4126,7 +4537,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:rare",
@@ -4156,7 +4570,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:special",
@@ -4186,7 +4603,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "5rzo:uncommon",
@@ -4216,7 +4636,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "6goy:common",
@@ -4246,7 +4669,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "6goy:exclusive",
@@ -4276,7 +4702,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "6goy:rare",
@@ -4306,7 +4735,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "6goy:special",
@@ -4336,7 +4768,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "6goy:uncommon",
@@ -4366,7 +4801,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:common",
@@ -4394,7 +4832,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:exclusive",
@@ -4422,7 +4863,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:legendary",
@@ -4450,7 +4894,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:rare",
@@ -4478,7 +4925,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:special",
@@ -4506,7 +4956,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "7z77:uncommon",
@@ -4534,7 +4987,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:common",
@@ -4562,7 +5018,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:exclusive",
@@ -4590,7 +5049,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:legendary",
@@ -4618,7 +5080,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 34.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:rare",
@@ -4646,7 +5111,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:special",
@@ -4674,7 +5142,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9n1w:uncommon",
@@ -4702,7 +5173,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:common",
@@ -4734,7 +5208,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:exclusive",
@@ -4766,7 +5243,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 88.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:legendary",
@@ -4798,7 +5278,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 34.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:rare",
@@ -4830,7 +5313,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:special",
@@ -4862,7 +5348,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nd0:uncommon",
@@ -4894,7 +5383,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:common",
@@ -4926,7 +5418,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:exclusive",
@@ -4958,7 +5453,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 62.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:legendary",
@@ -4990,7 +5488,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:rare",
@@ -5022,7 +5523,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:special",
@@ -5054,7 +5558,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nml:uncommon",
@@ -5086,7 +5593,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:common",
@@ -5118,7 +5628,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:exclusive",
@@ -5150,7 +5663,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:legendary",
@@ -5182,7 +5698,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 32.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:rare",
@@ -5214,7 +5733,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:special",
@@ -5246,7 +5768,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "9nvy:uncommon",
@@ -5278,7 +5803,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "g34p:common",
@@ -5306,7 +5834,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "g34p:exclusive",
@@ -5334,7 +5865,41 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "g34p:legendary",
+      "item_id": "g34p",
+      "name": "Юла",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 300000000,
+      "stats_low": {
+        "tear_protection": 40.351996799999995,
+        "explosion_protection": 20.8,
+        "bullet_resistance": 14.144000000000002
+      },
+      "stats_high": {
+        "tear_protection": 44.1349965,
+        "explosion_protection": 22.75,
+        "bullet_resistance": 15.47
+      },
+      "infections_low": {
+        "psycho": -8.486400000000001
+      },
+      "infections_high": {
+        "psycho": -9.282
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "g34p:rare",
@@ -5362,7 +5927,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 56.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "g34p:special",
@@ -5390,7 +5958,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "g34p:uncommon",
@@ -5418,7 +5989,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:common",
@@ -5448,7 +6022,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:exclusive",
@@ -5478,7 +6055,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:legendary",
@@ -5508,7 +6088,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:rare",
@@ -5538,7 +6121,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:special",
@@ -5568,7 +6154,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy06:uncommon",
@@ -5598,7 +6187,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:common",
@@ -5630,7 +6222,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:exclusive",
@@ -5662,7 +6257,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:legendary",
@@ -5694,7 +6292,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:rare",
@@ -5726,7 +6327,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:special",
@@ -5758,7 +6362,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy10:uncommon",
@@ -5790,7 +6397,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy7p:common",
@@ -5824,7 +6434,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy7p:exclusive",
@@ -5858,7 +6471,47 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "gy7p:legendary",
+      "item_id": "gy7p",
+      "name": "Сетчатка",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 184999999,
+      "stats_low": {
+        "movement_speed": 2.8080000000000003,
+        "sprint_speed": 2.8079999999999994,
+        "stamina_regeneration": 8.112,
+        "burn_reaction": -4.165,
+        "bleeding_output": -1.3
+      },
+      "stats_high": {
+        "movement_speed": 3.07125,
+        "sprint_speed": 3.07125,
+        "stamina_regeneration": 8.8725,
+        "burn_reaction": -4.9,
+        "bleeding_output": -1.3
+      },
+      "infections_low": {
+        "biological": -2.66239984,
+        "psycho": 1.0625
+      },
+      "infections_high": {
+        "biological": -2.9119998250000005,
+        "psycho": 1.25
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy7p:rare",
@@ -5892,7 +6545,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 36.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy7p:special",
@@ -5926,7 +6582,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gy7p:uncommon",
@@ -5960,7 +6619,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:common",
@@ -5990,7 +6652,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:exclusive",
@@ -6020,7 +6685,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:legendary",
@@ -6050,7 +6718,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 30.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:rare",
@@ -6080,7 +6751,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:special",
@@ -6110,7 +6784,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyg5:uncommon",
@@ -6140,7 +6817,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:common",
@@ -6172,7 +6852,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:exclusive",
@@ -6204,7 +6887,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:legendary",
@@ -6236,7 +6922,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 32.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:rare",
@@ -6268,7 +6957,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:special",
@@ -6300,7 +6992,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyjg:uncommon",
@@ -6332,7 +7027,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:common",
@@ -6366,7 +7064,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:exclusive",
@@ -6400,7 +7101,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:legendary",
@@ -6434,7 +7138,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:rare",
@@ -6468,7 +7175,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:special",
@@ -6502,7 +7212,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 34.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyln:uncommon",
@@ -6536,7 +7249,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:common",
@@ -6568,7 +7284,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:exclusive",
@@ -6600,7 +7319,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:legendary",
@@ -6632,7 +7354,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 20.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:rare",
@@ -6664,7 +7389,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:special",
@@ -6696,7 +7424,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyn0:uncommon",
@@ -6728,7 +7459,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:common",
@@ -6762,7 +7496,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:exclusive",
@@ -6796,7 +7533,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 98.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:legendary",
@@ -6830,7 +7570,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 22.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:rare",
@@ -6864,7 +7607,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:special",
@@ -6898,7 +7644,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gypg:uncommon",
@@ -6932,7 +7681,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:common",
@@ -6964,7 +7716,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:exclusive",
@@ -6996,7 +7751,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 42.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:legendary",
@@ -7028,7 +7786,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 4.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:rare",
@@ -7060,7 +7821,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:special",
@@ -7092,7 +7856,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyq5:uncommon",
@@ -7124,7 +7891,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:common",
@@ -7152,7 +7922,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:exclusive",
@@ -7180,7 +7953,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:legendary",
@@ -7208,7 +7984,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:rare",
@@ -7236,7 +8015,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:special",
@@ -7264,7 +8046,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "gyv6:uncommon",
@@ -7292,7 +8077,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:common",
@@ -7322,7 +8110,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:exclusive",
@@ -7352,7 +8143,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:legendary",
@@ -7382,7 +8176,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:rare",
@@ -7412,7 +8209,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 70.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:special",
@@ -7442,7 +8242,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j306:uncommon",
@@ -7472,7 +8275,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j3p6:rare",
@@ -7500,7 +8306,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j3p6:special",
@@ -7528,7 +8337,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "j3p6:uncommon",
@@ -7556,7 +8368,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:common",
@@ -7590,7 +8405,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:exclusive",
@@ -7624,7 +8442,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 82.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:legendary",
@@ -7658,7 +8479,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:rare",
@@ -7692,7 +8516,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:special",
@@ -7726,7 +8553,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkj4:uncommon",
@@ -7760,7 +8590,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:common",
@@ -7796,7 +8629,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:exclusive",
@@ -7832,7 +8668,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 36.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:legendary",
@@ -7868,7 +8707,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:rare",
@@ -7904,7 +8746,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:special",
@@ -7940,7 +8785,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkml:uncommon",
@@ -7976,7 +8824,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkq7:common",
@@ -8006,7 +8857,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 26.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkq7:exclusive",
@@ -8036,7 +8890,43 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "jkq7:legendary",
+      "item_id": "jkq7",
+      "name": "Магма",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 328888888,
+      "stats_low": {
+        "vitality": 5.82191968,
+        "bullet_resistance": 9.152,
+        "stability": 14.56,
+        "stamina": 33.696000000000005
+      },
+      "stats_high": {
+        "vitality": 6.3677246499999995,
+        "bullet_resistance": 10.01,
+        "stability": 15.925,
+        "stamina": 36.855000000000004
+      },
+      "infections_low": {
+        "temperature": 2.125
+      },
+      "infections_high": {
+        "temperature": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkq7:rare",
@@ -8066,7 +8956,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 26.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkq7:special",
@@ -8096,7 +8989,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 94.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jkq7:uncommon",
@@ -8126,7 +9022,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jky6:common",
@@ -8160,7 +9059,47 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "jky6:exclusive",
+      "item_id": "jky6",
+      "name": "Изюм",
+      "quality_tier": "exclusive",
+      "quality_low": 14500,
+      "quality_high": 16000,
+      "price": 180000000,
+      "stats_low": {
+        "vitality": -2.295,
+        "stamina": 54.288,
+        "movement_speed": 4.05275,
+        "sprint_speed": 4.05275,
+        "stability": 4.90099942,
+        "stamina_regeneration": 9.048
+      },
+      "stats_high": {
+        "vitality": -2.7,
+        "stamina": 59.90399999999999,
+        "movement_speed": 4.472,
+        "sprint_speed": 4.4719999999999995,
+        "stability": 5.40799936,
+        "stamina_regeneration": 9.984
+      },
+      "infections_low": {
+        "temperature": 2.125
+      },
+      "infections_high": {
+        "temperature": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jky6:rare",
@@ -8194,7 +9133,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jky6:special",
@@ -8228,7 +9170,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "jky6:uncommon",
@@ -8262,7 +9207,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3rv:common",
@@ -8296,7 +9244,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3rv:exclusive",
@@ -8330,7 +9281,47 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "k3rv:legendary",
+      "item_id": "k3rv",
+      "name": "Чертов еж",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 210000000,
+      "stats_low": {
+        "stamina": 28.912,
+        "movement_speed": 1.04,
+        "sprint_speed": 1.455999952,
+        "tear_reaction": 1.8719999999999999
+      },
+      "stats_high": {
+        "stamina": 31.6225,
+        "movement_speed": 1.1375,
+        "sprint_speed": 1.5924999475,
+        "tear_reaction": 2.0475
+      },
+      "infections_low": {
+        "radiation": -2.66239984,
+        "temperature": -2.66239984,
+        "biological": -2.66239984
+      },
+      "infections_high": {
+        "radiation": -2.9119998250000005,
+        "temperature": -2.9119998250000005,
+        "biological": -2.9119998250000005
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3rv:rare",
@@ -8364,7 +9355,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 26.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3rv:special",
@@ -8398,7 +9392,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3rv:uncommon",
@@ -8432,7 +9429,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3yv:exclusive",
@@ -8460,7 +9460,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 40.0
+      "confidence_score": 40.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3yv:legendary",
@@ -8488,7 +9491,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3yv:rare",
@@ -8516,7 +9522,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 88.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3yv:special",
@@ -8544,7 +9553,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "k3yv:uncommon",
@@ -8572,7 +9584,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kq4v:common",
@@ -8604,7 +9619,45 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 54.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "kq4v:exclusive",
+      "item_id": "kq4v",
+      "name": "Темная калина",
+      "quality_tier": "exclusive",
+      "quality_low": 14500,
+      "quality_high": 16000,
+      "price": 250000000,
+      "stats_low": {
+        "sprint_speed": 2.1677498550000003,
+        "health_regeneration": 9.047999999999998,
+        "stamina_regeneration": 12.06400029,
+        "recoil": 11.02,
+        "movement_speed": 2.16775
+      },
+      "stats_high": {
+        "sprint_speed": 2.39199984,
+        "health_regeneration": 9.984,
+        "stamina_regeneration": 13.31200032,
+        "recoil": 12.16,
+        "movement_speed": 2.3920000000000003
+      },
+      "infections_low": {
+        "psycho": 2.125
+      },
+      "infections_high": {
+        "psycho": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kq4v:rare",
@@ -8636,7 +9689,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kq4v:special",
@@ -8668,7 +9724,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kq4v:uncommon",
@@ -8700,7 +9759,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:common",
@@ -8732,7 +9794,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:exclusive",
@@ -8764,7 +9829,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 80.0
+      "confidence_score": 80.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:legendary",
@@ -8796,7 +9864,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:rare",
@@ -8828,7 +9899,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:special",
@@ -8860,7 +9934,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqgy:uncommon",
@@ -8892,7 +9969,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:common",
@@ -8922,7 +10002,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:exclusive",
@@ -8952,7 +10035,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 78.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:legendary",
@@ -8982,7 +10068,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:rare",
@@ -9012,7 +10101,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:special",
@@ -9042,7 +10134,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqj3:uncommon",
@@ -9072,7 +10167,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqoj:common",
@@ -9106,7 +10204,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqoj:exclusive",
@@ -9140,7 +10241,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqoj:rare",
@@ -9174,7 +10278,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqoj:special",
@@ -9208,7 +10315,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqoj:uncommon",
@@ -9242,7 +10352,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:common",
@@ -9272,7 +10385,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:exclusive",
@@ -9302,7 +10418,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:legendary",
@@ -9332,7 +10451,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 20.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:rare",
@@ -9362,7 +10484,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:special",
@@ -9392,7 +10517,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqp0:uncommon",
@@ -9422,7 +10550,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:common",
@@ -9454,7 +10585,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:exclusive",
@@ -9486,7 +10620,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:legendary",
@@ -9518,7 +10655,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:rare",
@@ -9550,7 +10690,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:special",
@@ -9582,7 +10725,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "kqr0:uncommon",
@@ -9614,7 +10760,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "lj0j:common",
@@ -9646,7 +10795,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "lj0j:exclusive",
@@ -9678,7 +10830,45 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 2.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "lj0j:legendary",
+      "item_id": "lj0j",
+      "name": "Катушка",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 155800000,
+      "stats_low": {
+        "movement_speed": 3.32800016,
+        "sprint_speed": 3.3280000000000003,
+        "carry_weight": 9.775999520000001,
+        "fire_protection": 44.304,
+        "bleeding_resistance": 14.767999999999999
+      },
+      "stats_high": {
+        "movement_speed": 3.640000174999999,
+        "sprint_speed": 3.64,
+        "carry_weight": 10.692499475,
+        "fire_protection": 48.457499999999996,
+        "bleeding_resistance": 16.1525
+      },
+      "infections_low": {
+        "temperature": 2.125
+      },
+      "infections_high": {
+        "temperature": 2.5
+      },
+      "price_basis": "low_data_history",
+      "liquidity_score": 0.0,
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "lj0j:rare",
@@ -9710,7 +10900,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 32.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "lj0j:special",
@@ -9742,7 +10935,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "lj0j:uncommon",
@@ -9774,7 +10970,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljn2:common",
@@ -9804,7 +11003,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljn2:rare",
@@ -9834,7 +11036,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljn2:special",
@@ -9864,7 +11069,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljn2:uncommon",
@@ -9894,7 +11102,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:common",
@@ -9924,7 +11135,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:exclusive",
@@ -9954,7 +11168,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:legendary",
@@ -9984,7 +11201,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:rare",
@@ -10014,7 +11234,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:special",
@@ -10044,7 +11267,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljpq:uncommon",
@@ -10074,7 +11300,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:common",
@@ -10106,7 +11335,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:exclusive",
@@ -10138,7 +11370,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 88.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:legendary",
@@ -10170,7 +11405,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:rare",
@@ -10202,7 +11440,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:special",
@@ -10234,7 +11475,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "ljrj:uncommon",
@@ -10266,7 +11510,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q10k:common",
@@ -10292,7 +11539,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 64.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q10k:exclusive",
@@ -10318,7 +11568,39 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "q10k:legendary",
+      "item_id": "q10k",
+      "name": "Звено",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 165999999,
+      "stats_low": {
+        "vitality": 4.36799968,
+        "carry_weight": 22.671998400000003
+      },
+      "stats_high": {
+        "vitality": 4.777499649999999,
+        "carry_weight": 24.797498250000004
+      },
+      "infections_low": {
+        "temperature": 2.125
+      },
+      "infections_high": {
+        "temperature": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q10k:rare",
@@ -10344,7 +11626,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 24.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q10k:special",
@@ -10370,7 +11655,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 86.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q10k:uncommon",
@@ -10396,7 +11684,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q1lk:exclusive",
@@ -10426,7 +11717,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q1lk:legendary",
@@ -10456,7 +11750,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q1lk:rare",
@@ -10486,7 +11783,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q1lk:special",
@@ -10516,7 +11816,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "q1lk:uncommon",
@@ -10546,7 +11849,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:common",
@@ -10576,7 +11882,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:exclusive",
@@ -10606,7 +11915,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 18.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:legendary",
@@ -10636,7 +11948,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:rare",
@@ -10666,7 +11981,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:special",
@@ -10696,7 +12014,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo06:uncommon",
@@ -10726,7 +12047,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:common",
@@ -10758,7 +12082,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:exclusive",
@@ -10790,7 +12117,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 32.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:legendary",
@@ -10822,7 +12152,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 4.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:rare",
@@ -10854,7 +12187,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:special",
@@ -10886,7 +12222,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo59:uncommon",
@@ -10918,7 +12257,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:common",
@@ -10956,7 +12298,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:exclusive",
@@ -10994,7 +12339,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 58.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:legendary",
@@ -11032,7 +12380,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 4.0,
-      "confidence_score": 50.0
+      "confidence_score": 50.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:rare",
@@ -11070,7 +12421,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:special",
@@ -11108,7 +12462,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qo94:uncommon",
@@ -11146,7 +12503,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qodk:common",
@@ -11180,7 +12540,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qodk:rare",
@@ -11214,7 +12577,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 4.0,
-      "confidence_score": 50.0
+      "confidence_score": 50.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qodk:special",
@@ -11248,7 +12614,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qodk:uncommon",
@@ -11282,7 +12651,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qokj:common",
@@ -11310,7 +12682,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 46.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qokj:exclusive",
@@ -11338,7 +12713,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 4.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qokj:rare",
@@ -11366,7 +12744,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 10.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qokj:special",
@@ -11394,7 +12775,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 60.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qokj:uncommon",
@@ -11422,7 +12806,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:common",
@@ -11452,7 +12839,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:exclusive",
@@ -11482,7 +12872,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 52.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:legendary",
@@ -11512,7 +12905,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 4.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:rare",
@@ -11542,7 +12938,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:special",
@@ -11572,7 +12971,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "qoq6:uncommon",
@@ -11602,7 +13004,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rn1z:common",
@@ -11634,7 +13039,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rn1z:rare",
@@ -11666,7 +13074,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rn1z:special",
@@ -11698,7 +13109,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rn1z:uncommon",
@@ -11730,7 +13144,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:common",
@@ -11758,7 +13175,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:exclusive",
@@ -11786,7 +13206,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:legendary",
@@ -11814,7 +13237,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:rare",
@@ -11842,7 +13268,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 56.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:special",
@@ -11870,7 +13299,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 50.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "rnvg:uncommon",
@@ -11898,7 +13330,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4jo:exclusive",
@@ -11930,7 +13365,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 30.0
+      "confidence_score": 30.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4jo:rare",
@@ -11962,7 +13400,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4jo:special",
@@ -11994,7 +13435,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4jo:uncommon",
@@ -12026,7 +13470,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4no:exclusive",
@@ -12056,7 +13503,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 38.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4no:legendary",
@@ -12086,7 +13536,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 2.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4no:rare",
@@ -12116,7 +13569,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4no:special",
@@ -12146,7 +13602,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "w4no:uncommon",
@@ -12176,7 +13635,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 94.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:common",
@@ -12208,7 +13670,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:exclusive",
@@ -12240,7 +13705,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 98.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:legendary",
@@ -12272,7 +13740,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:rare",
@@ -12304,7 +13775,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:special",
@@ -12336,7 +13810,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg3p:uncommon",
@@ -12368,7 +13845,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg53:common",
@@ -12402,7 +13882,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg53:exclusive",
@@ -12436,7 +13919,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 4.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg53:rare",
@@ -12470,7 +13956,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg53:special",
@@ -12504,7 +13993,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg53:uncommon",
@@ -12538,7 +14030,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:common",
@@ -12566,7 +14061,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:exclusive",
@@ -12594,7 +14092,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:legendary",
@@ -12622,7 +14123,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 22.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:rare",
@@ -12650,7 +14154,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:special",
@@ -12678,7 +14185,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wg62:uncommon",
@@ -12706,7 +14216,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:common",
@@ -12736,7 +14249,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 40.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:exclusive",
@@ -12766,7 +14282,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:legendary",
@@ -12796,7 +14315,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:rare",
@@ -12826,7 +14348,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 38.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:special",
@@ -12856,7 +14381,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 62.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgko:uncommon",
@@ -12886,7 +14414,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 40.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wglp:common",
@@ -12916,7 +14447,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wglp:exclusive",
@@ -12946,7 +14480,43 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 16.0,
-      "confidence_score": 80.0
+      "confidence_score": 80.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "wglp:legendary",
+      "item_id": "wglp",
+      "name": "Ветка Калины",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 184999995,
+      "stats_low": {
+        "vitality": 4.159999839999999,
+        "healing_effectiveness": 31.615998400000002,
+        "bleeding_output": -0.52,
+        "stamina": 33.696000000000005
+      },
+      "stats_high": {
+        "vitality": 4.5499998249999996,
+        "healing_effectiveness": 34.57999825,
+        "bleeding_output": -0.52,
+        "stamina": 36.855000000000004
+      },
+      "infections_low": {
+        "radiation": 2.125
+      },
+      "infections_high": {
+        "radiation": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wglp:rare",
@@ -12976,7 +14546,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wglp:special",
@@ -13006,7 +14579,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wglp:uncommon",
@@ -13036,7 +14612,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:common",
@@ -13066,7 +14645,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:exclusive",
@@ -13096,7 +14678,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 78.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:legendary",
@@ -13126,7 +14711,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 4.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:rare",
@@ -13156,7 +14744,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:special",
@@ -13186,7 +14777,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgr3:uncommon",
@@ -13216,7 +14810,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:common",
@@ -13246,7 +14843,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:exclusive",
@@ -13276,7 +14876,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 54.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:legendary",
@@ -13306,7 +14909,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:rare",
@@ -13336,7 +14942,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:special",
@@ -13366,7 +14975,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgvd:uncommon",
@@ -13396,7 +15008,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:common",
@@ -13428,7 +15043,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:exclusive",
@@ -13460,7 +15078,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 60.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:legendary",
@@ -13492,7 +15113,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:rare",
@@ -13524,7 +15148,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:special",
@@ -13556,7 +15183,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgwz:uncommon",
@@ -13588,7 +15218,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:common",
@@ -13620,7 +15253,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:exclusive",
@@ -13652,7 +15288,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 8.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:legendary",
@@ -13684,7 +15323,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 4.0,
-      "confidence_score": 20.0
+      "confidence_score": 20.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:rare",
@@ -13716,7 +15358,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:special",
@@ -13748,7 +15393,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "wgzd:uncommon",
@@ -13780,7 +15428,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:common",
@@ -13814,7 +15465,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:exclusive",
@@ -13848,7 +15502,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:legendary",
@@ -13882,7 +15539,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:rare",
@@ -13916,7 +15576,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:special",
@@ -13950,7 +15613,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y54z:uncommon",
@@ -13984,7 +15650,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:common",
@@ -14014,7 +15683,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:exclusive",
@@ -14044,7 +15716,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:legendary",
@@ -14074,7 +15749,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:rare",
@@ -14104,7 +15782,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:special",
@@ -14134,7 +15815,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5jk:uncommon",
@@ -14164,7 +15848,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5k0:common",
@@ -14198,7 +15885,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5k0:exclusive",
@@ -14232,7 +15922,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5k0:rare",
@@ -14266,7 +15959,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 36.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5k0:special",
@@ -14300,7 +15996,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5k0:uncommon",
@@ -14334,7 +16033,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:common",
@@ -14362,7 +16064,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:exclusive",
@@ -14390,7 +16095,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 68.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:legendary",
@@ -14418,7 +16126,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:rare",
@@ -14446,7 +16157,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:special",
@@ -14474,7 +16188,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5m3:uncommon",
@@ -14502,7 +16219,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:common",
@@ -14534,7 +16254,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:exclusive",
@@ -14566,7 +16289,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:legendary",
@@ -14598,7 +16324,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 88.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:rare",
@@ -14630,7 +16359,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:special",
@@ -14662,7 +16394,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5nz:uncommon",
@@ -14694,7 +16429,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:common",
@@ -14722,7 +16460,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:exclusive",
@@ -14750,7 +16491,10 @@
       },
       "price_basis": "low_data_history",
       "liquidity_score": 0.0,
-      "confidence_score": 10.0
+      "confidence_score": 10.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:legendary",
@@ -14778,7 +16522,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:rare",
@@ -14806,7 +16553,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 16.0,
-      "confidence_score": 80.0
+      "confidence_score": 80.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:special",
@@ -14834,7 +16584,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5ro:uncommon",
@@ -14862,7 +16615,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:common",
@@ -14892,7 +16648,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:exclusive",
@@ -14922,7 +16681,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:legendary",
@@ -14952,7 +16714,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 28.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:rare",
@@ -14982,7 +16747,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:special",
@@ -15012,7 +16780,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5vw:uncommon",
@@ -15042,7 +16813,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5w3:common",
@@ -15072,7 +16846,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5w3:exclusive",
@@ -15102,7 +16879,43 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
+    },
+    {
+      "group_id": "y5w3:legendary",
+      "item_id": "y5w3",
+      "name": "Призма",
+      "quality_tier": "legendary",
+      "quality_low": 16000,
+      "quality_high": 17500,
+      "price": 320000000,
+      "stats_low": {
+        "bullet_resistance": 40.351996799999995,
+        "explosion_protection": 31.1999984,
+        "stability": 5.40799936,
+        "stamina_regeneration": 7.4879999999999995
+      },
+      "stats_high": {
+        "bullet_resistance": 44.1349965,
+        "explosion_protection": 34.12499825,
+        "stability": 5.914999300000001,
+        "stamina_regeneration": 8.19
+      },
+      "infections_low": {
+        "psycho": 2.125
+      },
+      "infections_high": {
+        "psycho": 2.5
+      },
+      "price_basis": "active_ask_only",
+      "liquidity_score": 0.0,
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5w3:rare",
@@ -15132,7 +16945,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 92.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5w3:special",
@@ -15162,7 +16978,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5w3:uncommon",
@@ -15192,7 +17011,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:common",
@@ -15224,7 +17046,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:exclusive",
@@ -15256,7 +17081,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 44.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:legendary",
@@ -15288,7 +17116,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 2.0,
-      "confidence_score": 60.0
+      "confidence_score": 60.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:rare",
@@ -15320,7 +17151,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:special",
@@ -15352,7 +17186,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "y5yw:uncommon",
@@ -15384,7 +17221,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "yq3o:exclusive",
@@ -15414,7 +17254,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 70.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "yq3o:rare",
@@ -15444,7 +17287,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 76.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "yq3o:special",
@@ -15474,7 +17320,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "yq3o:uncommon",
@@ -15504,7 +17353,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zjzn:exclusive",
@@ -15534,7 +17386,10 @@
       },
       "price_basis": "recent_30d",
       "liquidity_score": 6.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zjzn:rare",
@@ -15564,7 +17419,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 90.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zjzn:special",
@@ -15594,7 +17452,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zjzn:uncommon",
@@ -15624,7 +17485,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:common",
@@ -15656,7 +17520,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:exclusive",
@@ -15688,7 +17555,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:legendary",
@@ -15720,7 +17590,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 20.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:rare",
@@ -15752,7 +17625,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:special",
@@ -15784,7 +17660,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy32:uncommon",
@@ -15816,7 +17695,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:common",
@@ -15850,7 +17732,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:exclusive",
@@ -15884,7 +17769,10 @@
       },
       "price_basis": "older_history",
       "liquidity_score": 6.0,
-      "confidence_score": 90.0
+      "confidence_score": 90.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:legendary",
@@ -15918,7 +17806,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:rare",
@@ -15952,7 +17843,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:special",
@@ -15986,7 +17880,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zy7y:uncommon",
@@ -16020,7 +17917,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:common",
@@ -16050,7 +17950,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:exclusive",
@@ -16080,7 +17983,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:legendary",
@@ -16110,7 +18016,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 10.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:rare",
@@ -16140,7 +18049,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:special",
@@ -16170,7 +18082,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyly:uncommon",
@@ -16200,7 +18115,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:common",
@@ -16230,7 +18148,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 60.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:exclusive",
@@ -16260,7 +18181,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 12.0,
-      "confidence_score": 65.0
+      "confidence_score": 65.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:legendary",
@@ -16290,7 +18214,10 @@
       },
       "price_basis": "active_ask_only",
       "liquidity_score": 0.0,
-      "confidence_score": 0.0
+      "confidence_score": 0.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:rare",
@@ -16320,7 +18247,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 48.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:special",
@@ -16350,7 +18280,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zymn:uncommon",
@@ -16380,7 +18313,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 44.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:common",
@@ -16410,7 +18346,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:exclusive",
@@ -16440,7 +18379,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:legendary",
@@ -16470,7 +18412,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 16.0,
-      "confidence_score": 80.0
+      "confidence_score": 80.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:rare",
@@ -16500,7 +18445,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:special",
@@ -16530,7 +18478,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyo9:uncommon",
@@ -16560,7 +18511,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:common",
@@ -16590,7 +18544,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:exclusive",
@@ -16620,7 +18577,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:legendary",
@@ -16650,7 +18610,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:rare",
@@ -16680,7 +18643,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:special",
@@ -16710,7 +18676,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zypm:uncommon",
@@ -16740,7 +18709,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:common",
@@ -16776,7 +18748,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:exclusive",
@@ -16812,7 +18787,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 92.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:legendary",
@@ -16848,7 +18826,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:rare",
@@ -16884,7 +18865,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:special",
@@ -16920,7 +18904,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 24.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyqk:uncommon",
@@ -16956,7 +18943,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 70.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:common",
@@ -16992,7 +18982,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:exclusive",
@@ -17028,7 +19021,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 74.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:legendary",
@@ -17064,7 +19060,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 14.0,
-      "confidence_score": 70.0
+      "confidence_score": 70.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:rare",
@@ -17100,7 +19099,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:special",
@@ -17136,7 +19138,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyrm:uncommon",
@@ -17172,7 +19177,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:common",
@@ -17204,7 +19212,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:exclusive",
@@ -17236,7 +19247,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:legendary",
@@ -17268,7 +19282,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 40.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:rare",
@@ -17300,7 +19317,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:special",
@@ -17332,7 +19352,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyv9:uncommon",
@@ -17364,7 +19387,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:common",
@@ -17392,7 +19418,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:exclusive",
@@ -17420,7 +19449,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:legendary",
@@ -17448,7 +19480,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 94.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:rare",
@@ -17476,7 +19511,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:special",
@@ -17504,7 +19542,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     },
     {
       "group_id": "zyw2:uncommon",
@@ -17532,7 +19573,10 @@
       },
       "price_basis": "recent_7d",
       "liquidity_score": 100.0,
-      "confidence_score": 100.0
+      "confidence_score": 100.0,
+      "max_count": null,
+      "owned_instance_id": null,
+      "market_price": null
     }
   ],
   "containers": [

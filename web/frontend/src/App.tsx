@@ -237,24 +237,12 @@ function App() {
                   className="budget-input"
                   type="number"
                   min={2.5}
-                  max={150}
                   step={2.5}
                   value={budgetMillions}
                   onChange={(event) => setBudgetMillions(Number(event.target.value))}
                 />
                 <span>млн</span>
               </div>
-              <input
-                aria-label="Ползунок бюджета"
-                className="budget-slider"
-                type="range"
-                min={2.5}
-                max={150}
-                step={2.5}
-                value={budgetMillions}
-                onChange={(event) => setBudgetMillions(Number(event.target.value))}
-              />
-              <div className="range-labels"><span>2,5</span><span>150 млн</span></div>
             </section>
 
             <section className="form-section strategy-section">

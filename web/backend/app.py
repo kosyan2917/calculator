@@ -63,7 +63,7 @@ SelectionStrategy = Literal["best_now", "balanced", "upgrade"]
 
 
 class OptimizePayload(BaseModel):
-    budget: int = Field(ge=1, le=150_000_000)
+    budget: int = Field(ge=1)
     armor_id: str | None = None
     container_id: str | None = None
     preferences: dict[str, PreferenceLevel]
@@ -218,7 +218,6 @@ def catalog() -> dict:
         ),
         "limits": {
             "budget_min": 2_500_000,
-            "budget_max": 150_000_000,
             "budget_step": 2_500_000,
             "quality_min": data.min_quality_percent,
             "quality_max": 175.0,

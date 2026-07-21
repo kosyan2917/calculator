@@ -90,8 +90,6 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 }
 .budget-input { min-width: 0; width: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 23px; font-weight: 800; }
 .budget-row span { color: var(--muted); font-size: 11px; font-weight: 700; }
-.budget-slider { width: 100%; margin: 13px 0 3px; accent-color: var(--accent); }
-.range-labels { display: flex; justify-content: space-between; color: #89918b; font-size: 9px; }
 
 .strategy-segments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line-strong); border-radius: 5px; background: #fff; }
 .strategy-segments button { min-width: 0; min-height: 40px; padding: 5px 7px; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 9px; font-weight: 750; line-height: 1.2; }

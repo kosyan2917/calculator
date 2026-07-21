@@ -87,7 +87,7 @@ class CatalogCompilerConfig:
     artifact_upgrade_level: int = 15
     artifact_price_upgrade_level: int = 0
     min_quality_percent: float = 95.0
-    max_artifact_price: int | None = 150_000_000
+    max_artifact_price: int | None = None
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
     excluded_container_ids: tuple[str, ...] = ("p99d",)
     included_container_ids: tuple[str, ...] = ("lny1",)

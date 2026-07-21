@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--quality-step", type=float, default=2.5)
     parser.add_argument("--min-quality-percent", type=float, default=95.0)
     parser.add_argument("--min-build-price", type=int, default=2_500_000)
-    parser.add_argument("--max-build-price", type=int, default=150_000_000)
+    parser.add_argument("--max-build-price", type=int)
     parser.add_argument("--price-bucket-start", type=int, default=2_500_000)
     parser.add_argument("--price-bucket-step", type=int, default=2_500_000)
     parser.add_argument("--price-bucket-beam-size", type=int, default=20)

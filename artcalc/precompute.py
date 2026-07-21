@@ -98,7 +98,7 @@ class PrecomputeConfig:
     quality_step: float = 2.5
     min_quality_percent: float = 95.0
     min_build_price: int = 2_500_000
-    max_build_price: int | None = 150_000_000
+    max_build_price: int | None = None
     price_bucket_start: int = 2_500_000
     price_bucket_step: int = 2_500_000
     price_bucket_beam_size: int = 20

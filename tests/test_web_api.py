@@ -27,6 +27,7 @@ class WebApiTests(unittest.TestCase):
         self.assertGreater(len(payload["artifacts"]), 0)
         self.assertEqual(len(payload["artifacts"]), len({item["id"] for item in payload["artifacts"]}))
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
+        self.assertNotIn("budget_max", payload["limits"])
         self.assertEqual(
             {item["category"] for item in payload["containers"]},
             {"containers", "backpacks"},
@@ -107,6 +108,14 @@ class WebApiTests(unittest.TestCase):
         )
 
         self.assertEqual(response.status_code, 422)
+
+    def test_optimize_accepts_budget_above_previous_cap(self) -> None:
+        response = self.client.post(
+            "/api/optimize",
+            json={"budget": 200_000_000, "preferences": {"speed": 4}, "max_results": 1},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
 
     def test_optimize_rejects_selected_and_excluded_armor(self) -> None:
         armor_id = self.client.get("/api/catalog").json()["armors"][0]["id"]
