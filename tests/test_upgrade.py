@@ -90,7 +90,7 @@ class UpgradePlannerTest(unittest.TestCase):
         planner = UpgradePlanner(
             source_catalog,
             UpgradePlannerConfig(
-                extra_budgets=(1_000_000,),
+                extra_budgets=(1_000_000, 2_000_000),
                 max_plans_per_budget=2,
                 time_limit_per_solve=1.0,
                 nonlinear_iterations=1,
@@ -113,6 +113,9 @@ class UpgradePlannerTest(unittest.TestCase):
         self.assertEqual(changed.removed_artifacts, ())
         self.assertEqual([item["item_id"] for item in changed.added_artifacts], ["fast"])
         self.assertEqual(changed.result_build["container"]["container_id"], "larger")
+        build_ids = [plan.result_build["build_id"] for plan in result.plans]
+        self.assertEqual(len(build_ids), len(set(build_ids)))
+        self.assertGreaterEqual(result.diagnostics["duplicate_plans_removed"], 1)
 
 
 if __name__ == "__main__":

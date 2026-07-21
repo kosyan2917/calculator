@@ -111,6 +111,11 @@ class UpgradePlanner:
         searches: list[dict[str, Any]] = []
         armor_id = str((current.get("armor") or {}).get("item_id") or "")
         current_container_id = str((current.get("container") or {}).get("container_id") or "")
+        upgrade_container_ids = self._upgrade_container_ids(
+            current_container_id,
+            len(current_artifacts),
+            request.excluded_container_ids,
+        )
 
         for extra_budget in sorted(set(int(value) for value in budgets if int(value) > 0)):
             result = optimizer.search(
@@ -120,6 +125,7 @@ class UpgradePlanner:
                     preference_caps=request.preference_caps,
                     targets=request.targets,
                     armor_ids=(armor_id,),
+                    container_ids=upgrade_container_ids,
                     excluded_artifact_ids=request.excluded_artifact_ids,
                     excluded_container_ids=request.excluded_container_ids,
                     min_quality_percent=self.catalog.min_quality_percent,
@@ -150,14 +156,47 @@ class UpgradePlanner:
                 }
             )
 
+        unique_plans = self._deduplicate_plans(all_plans)
         return UpgradePlanningResult(
-            plans=tuple(all_plans),
+            plans=tuple(unique_plans),
             diagnostics={
                 "elapsed_seconds": round(time.perf_counter() - started, 6),
                 "owned_artifacts": len(current_artifacts),
+                "eligible_containers": len(upgrade_container_ids),
+                "duplicate_plans_removed": len(all_plans) - len(unique_plans),
                 "searches": searches,
             },
         )
+
+    def _upgrade_container_ids(
+        self,
+        current_container_id: str,
+        current_artifact_count: int,
+        excluded_container_ids: tuple[str, ...],
+    ) -> tuple[str, ...]:
+        excluded = set(excluded_container_ids)
+        ids = tuple(
+            str(container["container_id"])
+            for container in self.catalog.containers
+            if int(container["capacity"]) >= current_artifact_count
+            and container["container_id"] not in excluded
+        )
+        if not ids:
+            raise ValueError("No containers with enough slots are available for an upgrade")
+        if current_container_id and current_container_id not in ids and current_container_id not in excluded:
+            raise ValueError("Current container is missing from the upgrade catalog")
+        return ids
+
+    def _deduplicate_plans(self, plans: list[UpgradePlan]) -> list[UpgradePlan]:
+        selected: list[UpgradePlan] = []
+        seen: set[str] = set()
+        for plan in plans:
+            build_id = str(plan.result_build["build_id"])
+            if build_id in seen:
+                continue
+            seen.add(build_id)
+            selected.append(plan)
+        return selected
 
     def _owned_groups(self, artifacts: tuple[dict[str, Any], ...]) -> tuple[ArtifactGroup, ...]:
         groups: list[ArtifactGroup] = []
