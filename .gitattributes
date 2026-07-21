@@ -1,0 +1,4 @@
+Dockerfile text eol=lf
+*.sh text eol=lf
+.githooks/* text eol=lf
+deploy/Caddyfile text eol=lf

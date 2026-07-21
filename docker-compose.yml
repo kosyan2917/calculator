@@ -2,6 +2,7 @@ name: stalzone-artcalc
 
 services:
   artcalc:
+    image: stalzone-artcalc:local
     build:
       context: .
     expose:
