@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from dataclasses import replace
 
 from artcalc.optimizer import ArtifactBuildOptimizer, OptimizationRequest, OptimizerConfig
 from artcalc.solver_catalog import ArtifactGroup, SolverCatalog
@@ -77,6 +78,33 @@ def catalog(groups: tuple[ArtifactGroup, ...], armors: tuple[dict, ...], test_co
 
 
 class ArtifactBuildOptimizerTest(unittest.TestCase):
+    def test_owned_artifact_group_can_only_be_used_once(self) -> None:
+        owned = replace(
+            group("owned", {"movement_speed": 10.0}, {"movement_speed": 10.0}),
+            price=0,
+            max_count=1,
+            owned_instance_id="owned-0",
+            market_price=1_000_000,
+        )
+        filler = group("filler", {"movement_speed": 0.0}, {"movement_speed": 0.0})
+        optimizer = ArtifactBuildOptimizer(
+            catalog((owned, filler), (armor("plain", {}),), container(2)),
+            OptimizerConfig(time_limit_per_solve=1.0, max_solutions_per_container=1),
+        )
+
+        solution = optimizer.search(
+            OptimizationRequest(
+                budget=1_000_000,
+                preferences={"speed": 2.0},
+                group_rewards={"owned": 0.01},
+                max_results=1,
+            )
+        ).solutions[0]
+
+        self.assertEqual(sum(item["owned_instance_id"] is not None for item in solution.artifacts), 1)
+        self.assertEqual(solution.total_price, 1_000_000)
+        self.assertGreater(solution.objective_score, solution.preference_score)
+
     def test_quality_is_optimized_at_infection_boundary(self) -> None:
         speed = group(
             "speed",

@@ -28,6 +28,9 @@ class ArtifactGroup:
     price_basis: str | None = None
     liquidity_score: float = 0.0
     confidence_score: float = 0.0
+    max_count: int | None = None
+    owned_instance_id: str | None = None
+    market_price: int | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ArtifactGroup:

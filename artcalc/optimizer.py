@@ -69,6 +69,7 @@ class OptimizationRequest:
     min_quality_percent: float | None = None
     min_build_price: int = 0
     max_results: int = 10
+    group_rewards: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -86,6 +87,7 @@ class OptimizerConfig:
 class BuildSolution:
     build_id: str
     objective_score: float
+    preference_score: float
     total_price: int
     armor: dict[str, Any]
     container: dict[str, Any]
@@ -350,8 +352,9 @@ class ArtifactBuildOptimizer:
                 dynamic_low = max(dynamic_low, int(math.ceil(request.min_quality_percent * 100.0 - 1e-9)))
             quality_lows.append(dynamic_low)
             integrality[2 * index] = 1
-            upper_bounds[2 * index] = capacity
-            upper_bounds[2 * index + 1] = capacity * group.quality_high
+            max_count = capacity if group.max_count is None else min(capacity, int(group.max_count))
+            upper_bounds[2 * index] = max_count
+            upper_bounds[2 * index + 1] = max_count * group.quality_high
         integrality[armor_offset : armor_offset + len(armors)] = 1
         upper_bounds[armor_offset : armor_offset + len(armors)] = 1
         if exclusion_specs:
@@ -416,6 +419,10 @@ class ArtifactBuildOptimizer:
             coefficients, constant = metric_forms[key]
             items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
             add_constraint(items, float(target) - constant, np.inf)
+        for index, group in enumerate(groups):
+            reward = float(request.group_rewards.get(group.group_id, 0.0))
+            if reward:
+                objective[2 * index] -= reward
 
         exclusion_variables: dict[tuple[int, int], tuple[int, int]] = {}
         cursor = armor_offset + len(armors)
@@ -612,8 +619,9 @@ class ArtifactBuildOptimizer:
             dynamic_low = group.quality_low
             if request.min_quality_percent is not None:
                 dynamic_low = max(dynamic_low, int(math.ceil(request.min_quality_percent * 100.0 - 1e-9)))
-            count = model.new_int_var(0, capacity, f"count_{index}")
-            quality = model.new_int_var(0, capacity * group.quality_high, f"quality_sum_{index}")
+            max_count = capacity if group.max_count is None else min(capacity, int(group.max_count))
+            count = model.new_int_var(0, max_count, f"count_{index}")
+            quality = model.new_int_var(0, max_count * group.quality_high, f"quality_sum_{index}")
             model.add(quality >= dynamic_low * count)
             model.add(quality <= group.quality_high * count)
             count_vars.append(count)
@@ -669,6 +677,9 @@ class ArtifactBuildOptimizer:
             request.preferences,
             request.preference_caps,
             metrics,
+            groups,
+            count_vars,
+            request.group_rewards,
         )
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
@@ -813,6 +824,9 @@ class ArtifactBuildOptimizer:
         preferences: dict[str, float],
         preference_caps: dict[str, float],
         metrics: dict[str, cp_model.LinearExpr],
+        groups: list[ArtifactGroup],
+        count_vars: list[cp_model.IntVar],
+        group_rewards: dict[str, float],
     ) -> cp_model.LinearExpr:
         terms: list[cp_model.LinearExpr] = []
         for requested_key, weight in preferences.items():
@@ -837,6 +851,11 @@ class ArtifactBuildOptimizer:
                     terms.append(-penalty_coefficient * (metric - capped))
                 else:
                     terms.append(coefficient * metric)
+        for index, group in enumerate(groups):
+            reward = float(group_rewards.get(group.group_id, 0.0))
+            coefficient = int(round(reward * self.config.objective_scale * self.config.stat_scale))
+            if coefficient:
+                terms.append(coefficient * count_vars[index])
         if not terms:
             raise ValueError("At least one non-zero preference is required")
         return cp_model.LinearExpr.sum(terms)
@@ -929,18 +948,23 @@ class ArtifactBuildOptimizer:
             self._resolve_metric(key): self._metric_value(stats, derived, self._resolve_metric(key))
             for key in set(request.preferences) | set(request.targets)
         }
-        exact_score = self._preference_score(
+        preference_score = self._preference_score(
             request.preferences,
             request.preference_caps,
             stats,
             derived,
+        )
+        selection_bonus = sum(
+            float(request.group_rewards.get(item["group_id"], 0.0))
+            for item in artifacts
         )
         build_id = f"{armor['item_id']}:{container['container_id']}:" + "|".join(
             f"{item['group_id']}@{item['quality_percent']:.2f}" for item in artifacts
         )
         return BuildSolution(
             build_id=build_id,
-            objective_score=round(exact_score, 8),
+            objective_score=round(preference_score + selection_bonus, 8),
+            preference_score=round(preference_score, 8),
             total_price=sum(int(item["price"]) for item in artifacts),
             armor=self._armor_view(armor),
             container=self._container_view(container),
@@ -980,6 +1004,8 @@ class ArtifactBuildOptimizer:
             "quality_percent": quality_percent,
             "upgrade_level": self.catalog.artifact_upgrade_level,
             "price": group.price,
+            "market_price": group.market_price if group.market_price is not None else group.price,
+            "owned_instance_id": group.owned_instance_id,
             "price_basis": group.price_basis,
             "stats": effective_stats,
             "infections": infections,
