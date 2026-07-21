@@ -18,6 +18,10 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         payload = response.json()
         self.assertEqual(len(payload["preference_levels"]), 5)
+        self.assertEqual(
+            [item["value"] for item in payload["strategies"]],
+            ["best_now", "balanced", "upgrade"],
+        )
         self.assertGreater(len(payload["armors"]), 0)
         self.assertEqual(len(payload["containers"]), 26)
         self.assertGreater(len(payload["artifacts"]), 0)
@@ -45,6 +49,7 @@ class WebApiTests(unittest.TestCase):
                 "container_id": catalog["containers"][0]["id"],
                 "preferences": {"speed": 4, "regen": 2, "weight": 2},
                 "targets": {"weight": 10.0},
+                "strategy": "balanced",
                 "max_results": 3,
             },
         )
@@ -54,10 +59,46 @@ class WebApiTests(unittest.TestCase):
         self.assertIn("solutions", payload)
         self.assertEqual(payload["request"]["preference_caps"]["weight"], 100.0)
         self.assertEqual(payload["request"]["targets"]["weight"], 10.0)
+        self.assertEqual(payload["request"]["strategy"], "balanced")
         for build in payload["solutions"]:
             self.assertLessEqual(build["total_price"], 10_000_000)
             self.assertTrue(build["infection"]["valid"])
             self.assertGreaterEqual(build["stats"].get("carry_weight", 0.0), 10.0)
+            self.assertIn("upgrade_potential", build)
+            self.assertLessEqual(build["current_stat_loss_percent"], 3.0)
+
+    def test_upgrade_endpoint_returns_concrete_changes(self) -> None:
+        catalog = self.client.get("/api/catalog").json()
+        search = self.client.post(
+            "/api/optimize",
+            json={
+                "budget": 5_000_000,
+                "armor_id": catalog["armors"][0]["id"],
+                "container_id": catalog["containers"][-1]["id"],
+                "preferences": {"speed": 4},
+                "max_results": 1,
+            },
+        )
+        self.assertEqual(search.status_code, 200, search.text)
+        build = search.json()["solutions"][0]
+
+        response = self.client.post(
+            "/api/upgrade-plans",
+            json={
+                "current_build": build,
+                "preferences": {"speed": 4},
+                "extra_budgets": [2_500_000],
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["diagnostics"]["owned_artifacts"], len(build["artifacts"]))
+        for plan in payload["plans"]:
+            self.assertLessEqual(plan["purchase_cost"], 2_500_000)
+            self.assertIn("removed_artifacts", plan)
+            self.assertIn("added_artifacts", plan)
+            self.assertIn("container_changed", plan)
 
     def test_optimize_rejects_empty_preferences(self) -> None:
         response = self.client.post(

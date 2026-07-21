@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 import os
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any, Literal
 
 from fastapi import FastAPI, HTTPException
 from fastapi.concurrency import run_in_threadpool
@@ -12,7 +12,16 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from artcalc import ArtifactBuildOptimizer, OptimizationRequest, OptimizerConfig, SolverCatalog
+from artcalc import (
+    ArtifactBuildOptimizer,
+    BuildStrategyRanker,
+    OptimizationRequest,
+    OptimizerConfig,
+    SolverCatalog,
+    UpgradePlanner,
+    UpgradePlannerConfig,
+    UpgradePlanningRequest,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -49,6 +58,7 @@ METRIC_DIRECTIONS = {item["key"]: item["direction"] for item in METRICS}
 
 
 PreferenceLevel = Annotated[int, Field(ge=0, le=4)]
+SelectionStrategy = Literal["best_now", "balanced", "upgrade"]
 
 
 class OptimizePayload(BaseModel):
@@ -62,6 +72,16 @@ class OptimizePayload(BaseModel):
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     max_results: int = Field(default=10, ge=1, le=30)
     min_quality_percent: float = Field(default=95.0, ge=95.0, le=175.0)
+    strategy: SelectionStrategy = "best_now"
+
+
+class UpgradePayload(BaseModel):
+    current_build: dict[str, Any]
+    preferences: dict[str, PreferenceLevel]
+    targets: dict[str, float] = Field(default_factory=dict)
+    excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
+    excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
+    extra_budgets: list[int] = Field(default_factory=list, max_length=6)
 
 
 @lru_cache(maxsize=1)
@@ -81,6 +101,42 @@ def get_optimizer() -> ArtifactBuildOptimizer:
             infection_safety_margin=float(os.getenv("ARTCALC_INFECTION_SAFETY_MARGIN", "0.0001")),
         ),
     )
+
+
+@lru_cache(maxsize=1)
+def get_ranker() -> BuildStrategyRanker:
+    return BuildStrategyRanker(get_catalog())
+
+
+@lru_cache(maxsize=1)
+def get_upgrade_planner() -> UpgradePlanner:
+    return UpgradePlanner(
+        get_catalog(),
+        UpgradePlannerConfig(
+            time_limit_per_solve=float(os.getenv("ARTCALC_UPGRADE_TIME_LIMIT", "0.25")),
+            nonlinear_iterations=int(os.getenv("ARTCALC_UPGRADE_NONLINEAR_ITERATIONS", "2")),
+        ),
+    )
+
+
+def resolve_preferences(levels: dict[str, PreferenceLevel]) -> tuple[dict[str, float], dict[str, float]]:
+    preferences: dict[str, float] = {}
+    preference_caps: dict[str, float] = {}
+    for key, level in levels.items():
+        weight = LEVEL_WEIGHTS[int(level)]
+        if METRIC_DIRECTIONS[key] == "min":
+            weight *= -1.0
+        preferences[key] = weight
+        cap = PREFERENCE_CAPS.get(key, {}).get(int(level))
+        if cap is not None:
+            preference_caps[key] = cap
+    return preferences, preference_caps
+
+
+def validate_metrics(preferences: dict[str, PreferenceLevel], targets: dict[str, float]) -> None:
+    unknown = (set(preferences) | set(targets)) - set(METRIC_DIRECTIONS)
+    if unknown:
+        raise HTTPException(status_code=422, detail=f"Unknown metrics: {', '.join(sorted(unknown))}")
 
 
 app = FastAPI(title="STALZONE Artifact Builds", version="1.0.0")
@@ -151,6 +207,11 @@ def catalog() -> dict:
         "artifacts": artifacts,
         "metrics": METRICS,
         "preference_levels": PREFERENCE_LEVELS,
+        "strategies": (
+            {"value": "best_now", "label": "Лучшее сейчас"},
+            {"value": "balanced", "label": "Баланс"},
+            {"value": "upgrade", "label": "Задел на улучшение"},
+        ),
         "limits": {
             "budget_min": 2_500_000,
             "budget_max": 150_000_000,
@@ -163,24 +224,12 @@ def catalog() -> dict:
 
 @app.post("/api/optimize")
 async def optimize(payload: OptimizePayload) -> dict:
-    known_metrics = set(METRIC_DIRECTIONS)
-    unknown = (set(payload.preferences) | set(payload.targets)) - known_metrics
-    if unknown:
-        raise HTTPException(status_code=422, detail=f"Unknown metrics: {', '.join(sorted(unknown))}")
-
-    preferences: dict[str, float] = {}
-    preference_caps: dict[str, float] = {}
-    for key, level in payload.preferences.items():
-        weight = LEVEL_WEIGHTS[int(level)]
-        if METRIC_DIRECTIONS[key] == "min":
-            weight *= -1.0
-        preferences[key] = weight
-        cap = PREFERENCE_CAPS.get(key, {}).get(int(level))
-        if cap is not None:
-            preference_caps[key] = cap
+    validate_metrics(payload.preferences, payload.targets)
+    preferences, preference_caps = resolve_preferences(payload.preferences)
     if not any(abs(weight) > 1e-12 for weight in preferences.values()):
         raise HTTPException(status_code=422, detail="Select at least one desired stat")
 
+    candidate_limit = payload.max_results if payload.strategy == "best_now" else max(30, payload.max_results)
     request = OptimizationRequest(
         budget=payload.budget,
         preferences=preferences,
@@ -192,11 +241,49 @@ async def optimize(payload: OptimizePayload) -> dict:
         excluded_container_ids=tuple(payload.excluded_container_ids),
         excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
         min_quality_percent=payload.min_quality_percent,
-        max_results=payload.max_results,
+        max_results=candidate_limit,
     )
     try:
         result = await run_in_threadpool(get_optimizer().search, request)
+        ranked = get_ranker().rank(
+            result.solutions,
+            payload.strategy,
+            payload.max_results,
+            payload.excluded_container_ids,
+        )
     except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from error
+    response = result.to_dict()
+    response["request"]["max_results"] = payload.max_results
+    response["request"]["strategy"] = payload.strategy
+    response["solutions"] = [item.to_dict() for item in ranked]
+    response["diagnostics"]["ranked_candidates"] = len(result.solutions)
+    response["diagnostics"]["returned_solutions"] = len(ranked)
+    return response
+
+
+@app.post("/api/upgrade-plans")
+async def upgrade_plans(payload: UpgradePayload) -> dict:
+    validate_metrics(payload.preferences, payload.targets)
+    preferences, preference_caps = resolve_preferences(payload.preferences)
+    if not any(abs(weight) > 1e-12 for weight in preferences.values()):
+        raise HTTPException(status_code=422, detail="Select at least one desired stat")
+    budgets = tuple(payload.extra_budgets) if payload.extra_budgets else ()
+    if any(budget < 1 or budget > 50_000_000 for budget in budgets):
+        raise HTTPException(status_code=422, detail="Extra budgets must be between 1 and 50000000")
+
+    request = UpgradePlanningRequest(
+        current_build=payload.current_build,
+        preferences=preferences,
+        preference_caps=preference_caps,
+        targets=payload.targets,
+        extra_budgets=budgets,
+        excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
+        excluded_container_ids=tuple(payload.excluded_container_ids),
+    )
+    try:
+        result = await run_in_threadpool(get_upgrade_planner().plan, request)
+    except (KeyError, TypeError, ValueError) as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
     return result.to_dict()
 
