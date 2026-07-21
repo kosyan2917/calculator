@@ -81,6 +81,7 @@ def extract_container(path: Path, lang: str) -> dict[str, Any]:
         "name": text_value(item.get("name") or {}, lang),
         "rank": "",
         "category": item.get("category") or "",
+        "equipment_class": "",
         "color": item.get("color") or "",
         "status": (item.get("status") or {}).get("state") or "",
         "weight": 0.0,
@@ -92,6 +93,10 @@ def extract_container(path: Path, lang: str) -> dict[str, Any]:
     }
     stats: dict[str, float] = {}
     for block in item.get("infoBlocks") or []:
+        class_key = (block.get("text") or {}).get("key")
+        for prefix in ("general.container.class.", "general.backpack.class."):
+            if class_key and class_key.startswith(prefix):
+                result["equipment_class"] = class_key.removeprefix(prefix)
         for element in block.get("elements") or []:
             key_node = element.get("key") or {}
             name_node = element.get("name") or {}
@@ -122,8 +127,13 @@ def extract_container(path: Path, lang: str) -> dict[str, Any]:
 
 
 def load_containers(db_root: Path, lang: str, ranks: set[str]) -> list[dict[str, Any]]:
-    root = db_root / lang / "items" / "containers"
-    containers = [extract_container(path, lang) for path in sorted(root.glob("*.json"))]
+    item_root = db_root / lang / "items"
+    paths = [
+        path
+        for category in ("containers", "backpacks")
+        for path in sorted((item_root / category).glob("*.json"))
+    ]
+    containers = [extract_container(path, lang) for path in paths]
     return [container for container in containers if container["rank"] in ranks and container["capacity"] > 0]
 
 
