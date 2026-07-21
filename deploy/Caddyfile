@@ -9,5 +9,17 @@
         Permissions-Policy "camera=(), microphone=(), geolocation=()"
     }
 
-    reverse_proxy artcalc:8000
+    handle /api/simulator/* {
+        reverse_proxy simulator:8010
+    }
+
+    handle /api/* {
+        reverse_proxy artcalc-api:8000
+    }
+
+    handle {
+        root * /srv
+        try_files {path} /index.html
+        file_server
+    }
 }

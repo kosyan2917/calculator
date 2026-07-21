@@ -1,14 +1,15 @@
 name: stalzone-artcalc
 
 services:
-  artcalc:
-    image: stalzone-artcalc:local
+  artcalc-api:
+    image: stalzone-artcalc-api:local
     build:
       context: .
+      target: artcalc-api
     expose:
       - "8000"
     environment:
-      ALLOWED_HOSTS: "${DOMAIN:?Set DOMAIN in .env},localhost,127.0.0.1,artcalc"
+      ALLOWED_HOSTS: "${DOMAIN:?Set DOMAIN in .env},localhost,127.0.0.1,artcalc-api"
       WEB_CONCURRENCY: "${WEB_CONCURRENCY:-2}"
       ARTCALC_TIME_LIMIT: "${ARTCALC_TIME_LIMIT:-0.5}"
       ARTCALC_SOLUTIONS_PER_CONTAINER: "${ARTCALC_SOLUTIONS_PER_CONTAINER:-1}"
@@ -31,14 +32,40 @@ services:
       retries: 5
       start_period: 30s
     restart: unless-stopped
-    logging:
+    logging: &default-logging
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
 
-  caddy:
-    image: caddy:2-alpine
+  simulator:
+    image: stalzone-simulator:local
+    build:
+      context: ./services/simulator
+    expose:
+      - "8010"
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/api/simulator/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+    logging: *default-logging
+
+  gateway:
+    image: stalzone-gateway:local
+    build:
+      context: .
+      target: gateway
     environment:
       DOMAIN: "${DOMAIN:?Set DOMAIN in .env}"
     ports:
@@ -46,20 +73,17 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
-      artcalc:
+      artcalc-api:
+        condition: service_healthy
+      simulator:
         condition: service_healthy
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
+    logging: *default-logging
 
 volumes:
   caddy_data:
