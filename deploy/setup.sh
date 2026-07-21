@@ -2,7 +2,20 @@
 set -eu
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-DOMAIN=${1:-}
+PUBLIC_HOST=${1:-}
+
+is_ipv4() {
+    printf '%s\n' "$1" | awk -F. '
+        NF != 4 { exit 1 }
+        {
+            for (i = 1; i <= 4; i++) {
+                if ($i !~ /^[0-9]+$/ || $i < 0 || $i > 255) {
+                    exit 1
+                }
+            }
+        }
+    '
+}
 
 cd "$ROOT_DIR"
 
@@ -24,24 +37,40 @@ if ! docker info >/dev/null 2>&1; then
 fi
 
 if [ ! -f .env ]; then
-    if [ -z "$DOMAIN" ]; then
+    if [ -z "$PUBLIC_HOST" ]; then
         if [ -t 0 ]; then
-            printf "Public domain (for example artifacts.example.com): "
-            read -r DOMAIN
+            printf "Public domain or IPv4 address: "
+            read -r PUBLIC_HOST
         else
-            echo "Usage: ./deploy/setup.sh <domain>" >&2
+            echo "Usage: ./deploy/setup.sh <domain-or-ipv4>" >&2
             exit 1
         fi
     fi
-    case "$DOMAIN" in
+    case "$PUBLIC_HOST" in
         ""|*/*|*:*|*" "*)
-            echo "Pass a bare domain without scheme, port, path, or spaces." >&2
+            echo "Pass a bare domain or IPv4 address without scheme, port, path, or spaces." >&2
             exit 1
             ;;
     esac
 
+    if is_ipv4 "$PUBLIC_HOST"; then
+        SITE_ADDRESS="http://$PUBLIC_HOST"
+        PUBLIC_URL=$SITE_ADDRESS
+    else
+        case "$PUBLIC_HOST" in
+            *[!0-9.]*) ;;
+            *)
+                echo "Invalid IPv4 address: $PUBLIC_HOST" >&2
+                exit 1
+                ;;
+        esac
+        SITE_ADDRESS=$PUBLIC_HOST
+        PUBLIC_URL="https://$PUBLIC_HOST"
+    fi
+
     cat > .env <<EOF
-DOMAIN=$DOMAIN
+DOMAIN=$PUBLIC_HOST
+SITE_ADDRESS=$SITE_ADDRESS
 WEB_CONCURRENCY=2
 ARTCALC_TIME_LIMIT=0.5
 ARTCALC_SOLUTIONS_PER_CONTAINER=1
@@ -52,6 +81,7 @@ ARTCALC_UPGRADE_NONLINEAR_ITERATIONS=2
 EOF
     chmod 600 .env
     echo "Created $ROOT_DIR/.env"
+    echo "Public URL: $PUBLIC_URL"
 else
     echo "Keeping existing $ROOT_DIR/.env"
 fi

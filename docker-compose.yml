@@ -67,7 +67,7 @@ services:
       context: .
       target: gateway
     environment:
-      DOMAIN: "${DOMAIN:?Set DOMAIN in .env}"
+      SITE_ADDRESS: "${SITE_ADDRESS:-${DOMAIN:?Set DOMAIN in .env}}"
     ports:
       - "80:80"
       - "443:443"

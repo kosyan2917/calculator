@@ -45,7 +45,7 @@ trap cleanup 0 1 2 15
 cd "$ROOT_DIR"
 
 if [ ! -f .env ]; then
-    echo "Missing $ROOT_DIR/.env. Run ./deploy/setup.sh <domain> first." >&2
+    echo "Missing $ROOT_DIR/.env. Run ./deploy/setup.sh <domain-or-ipv4> first." >&2
     exit 1
 fi
 if ! command -v docker >/dev/null 2>&1; then
