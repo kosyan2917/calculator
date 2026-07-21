@@ -221,7 +221,7 @@ function App() {
                 </select>
                 <ChevronDown size={16} />
               </div>
-              <label className="field-label" htmlFor="container">Контейнер</label>
+              <label className="field-label" htmlFor="container">Контейнер / рюкзак</label>
               <div className="select-wrap">
                 <select
                   id="container"
@@ -232,10 +232,17 @@ function App() {
                   }}
                   disabled={!catalog}
                 >
-                  <option value="">Любой допустимый</option>
-                  {catalog?.containers.map((container) => (
-                    <option key={container.id} value={container.id}>{container.name} · {container.capacity} сл.</option>
-                  ))}
+                  <option value="">Любой контейнер или рюкзак</option>
+                  <optgroup label="Контейнеры">
+                    {catalog?.containers.filter((container) => container.category === "containers").map((container) => (
+                      <option key={container.id} value={container.id}>{container.name} · {container.capacity} сл.</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Рюкзаки и разгрузки">
+                    {catalog?.containers.filter((container) => container.category === "backpacks").map((container) => (
+                      <option key={container.id} value={container.id}>{container.name} · {container.capacity} сл.</option>
+                    ))}
+                  </optgroup>
                 </select>
                 <ChevronDown size={16} />
               </div>
@@ -275,7 +282,7 @@ function App() {
                     disabledId={armorId}
                   />
                   <ExclusionGroup
-                    title="Контейнеры"
+                    title="Контейнеры и рюкзаки"
                     options={catalog?.containers ?? []}
                     selected={excludedContainerIds}
                     setSelected={setExcludedContainerIds}

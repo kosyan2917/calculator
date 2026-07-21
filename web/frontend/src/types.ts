@@ -22,6 +22,8 @@ export type ContainerOption = {
   id: string;
   name: string;
   rank: string;
+  category: string;
+  equipment_class: string;
   capacity: number;
   inner_protection: number;
   effectiveness: number;

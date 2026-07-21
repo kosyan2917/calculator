@@ -117,6 +117,8 @@ def catalog() -> dict:
                 "id": item["container_id"],
                 "name": item["name"],
                 "rank": item["rank"],
+                "category": item["category"],
+                "equipment_class": item.get("equipment_class", ""),
                 "capacity": item["capacity"],
                 "inner_protection": item["inner_protection"],
                 "effectiveness": item["effectiveness"],

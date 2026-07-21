@@ -19,10 +19,17 @@ class WebApiTests(unittest.TestCase):
         payload = response.json()
         self.assertEqual(len(payload["preference_levels"]), 5)
         self.assertGreater(len(payload["armors"]), 0)
-        self.assertGreater(len(payload["containers"]), 0)
+        self.assertEqual(len(payload["containers"]), 25)
         self.assertGreater(len(payload["artifacts"]), 0)
         self.assertEqual(len(payload["artifacts"]), len({item["id"] for item in payload["artifacts"]}))
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
+        self.assertEqual(
+            {item["category"] for item in payload["containers"]},
+            {"containers", "backpacks"},
+        )
+        backpack = next(item for item in payload["containers"] if item["name"] == "Рюкзак Secret Valley 35")
+        self.assertEqual(backpack["equipment_class"], "medium")
+        self.assertEqual(backpack["capacity"], 6)
 
     def test_optimize_returns_exactly_validated_builds(self) -> None:
         catalog = self.client.get("/api/catalog").json()
