@@ -20,7 +20,8 @@ cleanup() {
     if [ "$status" -ne 0 ] && [ "$UPDATE_STARTED" -eq 1 ] && [ -n "$PREVIOUS_IMAGE" ]; then
         echo "Deployment failed; restoring the previous application image." >&2
         docker image tag "$PREVIOUS_IMAGE" stalzone-artcalc:local
-        compose up -d --no-build artcalc
+        compose up -d --no-build --force-recreate --wait \
+            --wait-timeout "${DEPLOY_WAIT_TIMEOUT:-180}" artcalc
     fi
 
     if [ "$LOCK_ACQUIRED" -eq 1 ]; then
