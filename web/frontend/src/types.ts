@@ -42,6 +42,10 @@ export type Catalog = {
   artifacts: ArtifactOption[];
   metrics: Metric[];
   preference_levels: PreferenceLevel[];
+  strategies: Array<{
+    value: "best_now" | "balanced" | "upgrade";
+    label: string;
+  }>;
   limits: {
     budget_min: number;
     budget_max: number;
@@ -59,6 +63,8 @@ export type Artifact = {
   quality_percent: number;
   upgrade_level: number;
   price: number;
+  market_price: number;
+  owned_instance_id: string | null;
   stats: Record<string, number>;
   infections: Record<string, number>;
 };
@@ -66,6 +72,10 @@ export type Artifact = {
 export type BuildSolution = {
   build_id: string;
   objective_score: number;
+  preference_score: number;
+  upgrade_potential: number;
+  current_stat_loss_percent: number;
+  selection_strategy: "best_now" | "balanced" | "upgrade";
   total_price: number;
   armor: { item_id: string; name: string; rank: string; category: string };
   container: {
@@ -95,6 +105,35 @@ export type BuildSolution = {
   solver_status: string;
   solver_gap: number | null;
   solve_seconds: number;
+};
+
+export type UpgradePlan = {
+  extra_budget: number;
+  purchase_cost: number;
+  resale_credit: number;
+  estimated_net_cost: number;
+  preference_gain: number;
+  kept_count: number;
+  current_count: number;
+  kept_value: number;
+  container_changed: boolean;
+  removed_artifacts: Artifact[];
+  added_artifacts: Artifact[];
+  result_build: BuildSolution;
+};
+
+export type UpgradeResult = {
+  plans: UpgradePlan[];
+  diagnostics: {
+    elapsed_seconds: number;
+    owned_artifacts: number;
+    searches: Array<{
+      extra_budget: number;
+      candidates: number;
+      selected: number;
+      elapsed_seconds: number;
+    }>;
+  };
 };
 
 export type OptimizationResult = {

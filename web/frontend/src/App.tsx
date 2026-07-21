@@ -1,5 +1,7 @@
 import {
   Activity,
+  ArrowRight,
+  ArrowUpRight,
   Ban,
   Box,
   CheckCircle2,
@@ -10,6 +12,7 @@ import {
   Gauge,
   HeartPulse,
   Layers3,
+  LoaderCircle,
   Plus,
   Search,
   Shield,
@@ -20,7 +23,10 @@ import {
   Wind,
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import type { BuildSolution, Catalog, Metric, OptimizationResult } from "./types";
+import type { BuildSolution, Catalog, Metric, OptimizationResult, UpgradePlan, UpgradeResult } from "./types";
+
+type SelectionStrategy = "best_now" | "balanced" | "upgrade";
+type UpgradeState = { loading: boolean; error: string; result: UpgradeResult | null };
 
 const LEVEL_SHORT = ["Не нужно", "Паритет", "Хорошо бы", "Важно", "Очень важно"];
 
@@ -86,6 +92,7 @@ function App() {
   const [budgetMillions, setBudgetMillions] = useState(50);
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
+  const [strategy, setStrategy] = useState<SelectionStrategy>("best_now");
   const [preferences, setPreferences] = useState<Record<string, number>>({
     durability: 3,
     speed: 2,
@@ -98,6 +105,7 @@ function App() {
   const [result, setResult] = useState<OptimizationResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [upgradeStates, setUpgradeStates] = useState<Record<string, UpgradeState>>({});
 
   useEffect(() => {
     fetch("/api/catalog")
@@ -126,6 +134,7 @@ function App() {
     }
     setLoading(true);
     setError("");
+    setUpgradeStates({});
     const started = performance.now();
     try {
       const response = await fetch("/api/optimize", {
@@ -142,6 +151,7 @@ function App() {
           excluded_artifact_ids: excludedArtifactIds,
           max_results: 10,
           min_quality_percent: 95,
+          strategy,
         }),
       });
       const payload = await response.json();
@@ -153,6 +163,45 @@ function App() {
       setLoading(false);
       const elapsed = performance.now() - started;
       if (elapsed < 300) await new Promise((resolve) => window.setTimeout(resolve, 300 - elapsed));
+    }
+  }
+
+  async function loadUpgrades(solution: BuildSolution) {
+    setUpgradeStates((current) => ({
+      ...current,
+      [solution.build_id]: { loading: true, error: "", result: null },
+    }));
+    const parsedTargets = Object.fromEntries(
+      Object.entries(targets).map(([key, value]) => [key, parseDecimal(value)]),
+    );
+    try {
+      const response = await fetch("/api/upgrade-plans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          current_build: solution,
+          preferences,
+          targets: parsedTargets,
+          excluded_container_ids: excludedContainerIds,
+          excluded_artifact_ids: excludedArtifactIds,
+          extra_budgets: [2_500_000, 5_000_000, 10_000_000],
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(typeof payload.detail === "string" ? payload.detail : "Ошибка расчета улучшений");
+      setUpgradeStates((current) => ({
+        ...current,
+        [solution.build_id]: { loading: false, error: "", result: payload as UpgradeResult },
+      }));
+    } catch (reason) {
+      setUpgradeStates((current) => ({
+        ...current,
+        [solution.build_id]: {
+          loading: false,
+          error: reason instanceof Error ? reason.message : "Ошибка расчета улучшений",
+          result: null,
+        },
+      }));
     }
   }
 
@@ -206,6 +255,24 @@ function App() {
                 onChange={(event) => setBudgetMillions(Number(event.target.value))}
               />
               <div className="range-labels"><span>2,5</span><span>150 млн</span></div>
+            </section>
+
+            <section className="form-section strategy-section">
+              <div className="section-heading"><ArrowUpRight size={17} /><h2>Стратегия</h2></div>
+              <div className="strategy-segments" role="radiogroup" aria-label="Стратегия подбора">
+                {catalog?.strategies.map((option) => (
+                  <button
+                    type="button"
+                    key={option.value}
+                    className={strategy === option.value ? "active" : ""}
+                    role="radio"
+                    aria-checked={strategy === option.value}
+                    onClick={() => setStrategy(option.value)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
             </section>
 
             <section className="form-section equipment-section">
@@ -332,7 +399,13 @@ function App() {
           {!loading && result && result.solutions.length > 0 && (
             <div className="build-list">
               {result.solutions.map((solution, index) => (
-                <BuildCard key={solution.build_id} solution={solution} index={index} />
+                <BuildCard
+                  key={solution.build_id}
+                  solution={solution}
+                  index={index}
+                  upgradeState={upgradeStates[solution.build_id]}
+                  onLoadUpgrades={() => loadUpgrades(solution)}
+                />
               ))}
             </div>
           )}
@@ -534,7 +607,17 @@ function ExclusionGroup({
   );
 }
 
-function BuildCard({ solution, index }: { solution: BuildSolution; index: number }) {
+function BuildCard({
+  solution,
+  index,
+  upgradeState,
+  onLoadUpgrades,
+}: {
+  solution: BuildSolution;
+  index: number;
+  upgradeState?: UpgradeState;
+  onLoadUpgrades: () => void;
+}) {
   const keyStats = [
     ["effective_durability", Shield],
     ["hp_regen_score", HeartPulse],
@@ -556,6 +639,7 @@ function BuildCard({ solution, index }: { solution: BuildSolution; index: number
         </div>
         <div className="build-meta">
           <strong>{formatPrice(solution.total_price)}</strong>
+          <span className="potential-badge">Задел {decimal(solution.upgrade_potential, 0)}</span>
           <span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>
             {solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}
             {solution.solver_status === "HEURISTIC" ? "Подобрано" : solution.solver_status}
@@ -594,16 +678,99 @@ function BuildCard({ solution, index }: { solution: BuildSolution; index: number
             </span>
           ))}
         </div>
-        <details className="all-stats">
-          <summary>Все свойства <ChevronDown size={14} /></summary>
-          <div className="all-stats-grid">
-            {Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => (
-              <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>
-            ))}
-          </div>
-        </details>
+        <div className="build-actions">
+          <button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>
+            {upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}
+            {upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}
+          </button>
+          <details className="all-stats">
+            <summary>Все свойства <ChevronDown size={14} /></summary>
+            <div className="all-stats-grid">
+              {Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => (
+                <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>
+              ))}
+            </div>
+          </details>
+        </div>
       </footer>
+      {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
+      {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
     </article>
+  );
+}
+
+function UpgradePlans({ current, result }: { current: BuildSolution; result: UpgradeResult }) {
+  if (result.plans.length === 0) {
+    return <div className="upgrade-empty">В пределах +10 млн улучшений по выбранным свойствам не найдено.</div>;
+  }
+  return (
+    <section className="upgrade-panel">
+      <div className="upgrade-heading">
+        <div><ArrowUpRight size={16} /><strong>Пути улучшения</strong></div>
+        <span>{result.diagnostics.elapsed_seconds.toFixed(2)} с</span>
+      </div>
+      <div className="upgrade-list">
+        {result.plans.map((plan, index) => (
+          <UpgradePlanRow key={`${plan.extra_budget}-${plan.result_build.build_id}-${index}`} current={current} plan={plan} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function UpgradePlanRow({ current, plan }: { current: BuildSolution; plan: UpgradePlan }) {
+  const deltas = [
+    "effective_durability",
+    "hp_regen_score",
+    "movement_speed",
+    "total_sprint_speed",
+    "stamina_regeneration",
+    "carry_weight",
+  ].map((key) => [key, valueForStat(plan.result_build, key) - valueForStat(current, key)] as const)
+    .filter(([, value]) => Math.abs(value) > 0.004);
+  return (
+    <div className="upgrade-row">
+      <div className="upgrade-summary">
+        <strong>Бюджет +{formatPrice(plan.extra_budget)}</strong>
+        <span>{plan.kept_count} из {plan.current_count} артефактов остаются</span>
+      </div>
+      <div className="container-change">
+        <Box size={14} />
+        {plan.container_changed ? (
+          <><span>{current.container.name}</span><ArrowRight size={13} /><strong>{plan.result_build.container.name}</strong></>
+        ) : <strong>{current.container.name} оставить</strong>}
+        <small>контейнер без учета стоимости</small>
+      </div>
+      <div className="artifact-changes">
+        <ArtifactChangeList title="Убрать" artifacts={plan.removed_artifacts} empty="Ничего" />
+        <ArtifactChangeList title="Купить" artifacts={plan.added_artifacts} empty="Ничего" />
+      </div>
+      <div className="upgrade-deltas">
+        {deltas.map(([key, value]) => (
+          <span className={value > 0 ? "positive" : "negative"} key={key}>
+            {STAT_LABELS[key]} {signed(value)}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}
+          </span>
+        ))}
+      </div>
+      <div className="upgrade-costs">
+        <span>Покупка <strong>{formatPrice(plan.purchase_cost)}</strong></span>
+        <span>Продажа старых <strong>{formatPrice(plan.resale_credit)}</strong></span>
+        <span className="net-cost">Итого <strong>{formatPrice(plan.estimated_net_cost)}</strong></span>
+      </div>
+    </div>
+  );
+}
+
+function ArtifactChangeList({ title, artifacts, empty }: { title: string; artifacts: BuildSolution["artifacts"]; empty: string }) {
+  return (
+    <div className="change-list">
+      <b>{title}</b>
+      {artifacts.length === 0 ? <span>{empty}</span> : artifacts.map((artifact, index) => (
+        <span key={`${artifact.group_id}-${index}`}>
+          {artifact.name} · {RARITY_LABELS[artifact.quality_tier]} · {artifact.quality_percent.toFixed(2)}%
+        </span>
+      ))}
+    </div>
   );
 }
 
