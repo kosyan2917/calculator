@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import math
+import random
 import re
 import sys
 import time
@@ -337,6 +338,9 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 def collect(args: argparse.Namespace) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     queries = list(dict.fromkeys([*args.query, *discovery_queries(args.discover_prefixes)]))
     candidates = fetch_candidates(args.popular_period, args.recent, queries)
+    if args.shuffle_candidates:
+        rng = random.Random(args.random_seed)
+        rng.shuffle(candidates)
     if args.limit:
         candidates = candidates[: args.limit]
 
@@ -396,6 +400,8 @@ def parse_args() -> argparse.Namespace:
         help="Generate extra character suggestion queries. balanced is usually enough for a few hundred profiles.",
     )
     parser.add_argument("--target-rows", type=int, default=0, help="Stop profile fetching after this many kept rows.")
+    parser.add_argument("--shuffle-candidates", action="store_true", help="Shuffle candidates before applying limit.")
+    parser.add_argument("--random-seed", type=int, default=20260721)
     parser.add_argument("--append-raw", action="store_true", help="Append raw JSONL instead of replacing it.")
     parser.add_argument(
         "--max-last-login-days",
