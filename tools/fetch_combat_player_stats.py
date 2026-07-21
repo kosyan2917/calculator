@@ -97,6 +97,12 @@ CSV_FIELDS = [
     "notes",
 ]
 
+CYRILLIC_CHARS = "абвгдежзийклмнопрстуфхцчшщэюя"
+LATIN_CHARS = "abcdefghijklmnopqrstuvwxyz"
+DIGITS = "0123456789"
+COMMON_SECOND_CHARS = "аеёиоуыэюяирнстлкмв"
+COMMON_LATIN_SECOND_CHARS = "aeiournstlm"
+
 
 @dataclass(frozen=True)
 class Candidate:
@@ -156,6 +162,34 @@ def fetch_candidates(periods: list[str], include_recent: bool, queries: list[str
         add_many(fetch_json(f"{BASE_URL}/api/characters/suggestions/?{params}"), f"stalzone_wiki_suggestion_{query}")
 
     return list(candidates.values())
+
+
+def discovery_queries(mode: str) -> list[str]:
+    if mode == "none":
+        return []
+
+    queries: list[str] = []
+    queries.extend(CYRILLIC_CHARS)
+    queries.extend(LATIN_CHARS)
+    queries.extend(DIGITS)
+
+    if mode in {"balanced", "wide"}:
+        for first in CYRILLIC_CHARS:
+            for second in COMMON_SECOND_CHARS:
+                queries.append(first + second)
+        for first in LATIN_CHARS:
+            for second in COMMON_LATIN_SECOND_CHARS:
+                queries.append(first + second)
+
+    if mode == "wide":
+        for first in CYRILLIC_CHARS:
+            for second in CYRILLIC_CHARS:
+                queries.append(first + second)
+        for first in LATIN_CHARS:
+            for second in LATIN_CHARS:
+                queries.append(first + second)
+
+    return list(dict.fromkeys(queries))
 
 
 def profile_url(candidate: Candidate) -> str:
@@ -301,7 +335,8 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 
 
 def collect(args: argparse.Namespace) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    candidates = fetch_candidates(args.popular_period, args.recent, args.query)
+    queries = list(dict.fromkeys([*args.query, *discovery_queries(args.discover_prefixes)]))
+    candidates = fetch_candidates(args.popular_period, args.recent, queries)
     if args.limit:
         candidates = candidates[: args.limit]
 
@@ -310,6 +345,8 @@ def collect(args: argparse.Namespace) -> tuple[list[dict[str, Any]], list[dict[s
     raw_payloads: list[dict[str, Any]] = []
 
     for index, candidate in enumerate(candidates, start=1):
+        if args.target_rows and len(rows) >= args.target_rows:
+            break
         url = profile_url(candidate)
         try:
             html = fetch_text(url)
@@ -352,6 +389,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--popular-period", action="append", default=["week", "month", "all"])
     parser.add_argument("--query", action="append", default=[], help="Extra character suggestion query.")
+    parser.add_argument(
+        "--discover-prefixes",
+        choices=["none", "basic", "balanced", "wide"],
+        default="none",
+        help="Generate extra character suggestion queries. balanced is usually enough for a few hundred profiles.",
+    )
+    parser.add_argument("--target-rows", type=int, default=0, help="Stop profile fetching after this many kept rows.")
     parser.add_argument("--append-raw", action="store_true", help="Append raw JSONL instead of replacing it.")
     parser.add_argument(
         "--max-last-login-days",
