@@ -87,6 +87,7 @@ class CatalogCompilerConfig:
     max_artifact_price: int | None = 150_000_000
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
     excluded_container_ids: tuple[str, ...] = ("p99d",)
+    included_container_ids: tuple[str, ...] = ("lny1",)
     allowed_quality_tiers: tuple[str, ...] = (
         "common",
         "uncommon",
@@ -134,7 +135,12 @@ class ArtifactCatalogCompiler:
             for _key, items in sorted(grouped.items())
         )
 
-        containers = load_containers(Path(config.db_root), config.lang, set(config.ranks))
+        containers = load_containers(
+            Path(config.db_root),
+            config.lang,
+            set(config.ranks),
+            set(config.included_container_ids),
+        )
         containers = [
             container
             for container in containers
@@ -200,4 +206,3 @@ class ArtifactCatalogCompiler:
                             f"Non-affine artifact property: {low['item_id']} {low['quality_tier']} "
                             f"{section}.{key} at {item['quality_percent']}%: {actual} != {expected}"
                         )
-

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T23:59:02.907936+00:00",
+  "generated_at": "2026-07-21T01:22:06.452875+00:00",
   "artifact_upgrade_level": 15,
   "artifact_price_upgrade_level": 0,
   "min_quality_percent": 95.0,
@@ -17866,6 +17866,23 @@
         "carry_weight": 73.0
       },
       "source_path": "stalzone-database/ru/items/backpacks/glnp.json"
+    },
+    {
+      "container_id": "lny1",
+      "name": "Штурмовой рюкзак Tri-Zip",
+      "rank": "Сталкер",
+      "category": "backpacks",
+      "equipment_class": "medium",
+      "color": "RANK_STALKER",
+      "status": "PERSONAL_ON_USE",
+      "weight": 6.5,
+      "inner_protection": 60.000004,
+      "effectiveness": 78.5,
+      "capacity": 5,
+      "stats": {
+        "carry_weight": 56.0
+      },
+      "source_path": "stalzone-database/ru/items/backpacks/lny1.json"
     },
     {
       "container_id": "p262",

@@ -105,6 +105,7 @@ class PrecomputeConfig:
     max_beam_states: int = 0
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
     excluded_container_ids: tuple[str, ...] = ("p99d",)
+    included_container_ids: tuple[str, ...] = ("lny1",)
     allowed_quality_tiers: tuple[str, ...] = ("common", "uncommon", "special", "rare", "exclusive", "legendary")
     max_artifact_candidates: int = 1500
     beam_size: int = 800
@@ -261,7 +262,12 @@ class BuildPrecomputer:
         ranks = set(self.config.ranks)
         allowed_tiers = set(self.config.allowed_quality_tiers)
         self._write_progress({"status": "loading", "message": "Loading containers and artifact candidates."}, force=True)
-        containers = load_containers(db_root, self.config.lang, ranks)
+        containers = load_containers(
+            db_root,
+            self.config.lang,
+            ranks,
+            set(self.config.included_container_ids),
+        )
         excluded_container_ids = set(self.config.excluded_container_ids)
         containers_before_exclusions = len(containers)
         containers = [container for container in containers if container["container_id"] not in excluded_container_ids]

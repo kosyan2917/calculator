@@ -126,7 +126,12 @@ def extract_container(path: Path, lang: str) -> dict[str, Any]:
     return result
 
 
-def load_containers(db_root: Path, lang: str, ranks: set[str]) -> list[dict[str, Any]]:
+def load_containers(
+    db_root: Path,
+    lang: str,
+    ranks: set[str],
+    included_ids: set[str] | None = None,
+) -> list[dict[str, Any]]:
     item_root = db_root / lang / "items"
     paths = [
         path
@@ -134,7 +139,13 @@ def load_containers(db_root: Path, lang: str, ranks: set[str]) -> list[dict[str,
         for path in sorted((item_root / category).glob("*.json"))
     ]
     containers = [extract_container(path, lang) for path in paths]
-    return [container for container in containers if container["rank"] in ranks and container["capacity"] > 0]
+    included = included_ids or set()
+    return [
+        container
+        for container in containers
+        if (container["rank"] in ranks or container["container_id"] in included)
+        and container["capacity"] > 0
+    ]
 
 
 def load_artifact_price_segments(price_path: Path, upgrade_level: int) -> dict[tuple[str, str], dict[str, Any]]:
