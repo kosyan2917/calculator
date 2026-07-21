@@ -9,6 +9,7 @@ from .optimizer import (
     OptimizerConfig,
 )
 from .query import BuildQueryEngine, QueryConfig
+from .ranking import BuildStrategyRanker, RankedBuild
 from .solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfig, SolverCatalog
 from .upgrade import UpgradePlanner, UpgradePlannerConfig, UpgradePlanningRequest, UpgradePlanningResult
 
@@ -17,6 +18,7 @@ __all__ = [
     "ArtifactCatalogCompiler",
     "BuildPrecomputer",
     "BuildSolution",
+    "BuildStrategyRanker",
     "BuildQueryEngine",
     "CatalogCompilerConfig",
     "OptimizationRequest",
@@ -24,6 +26,7 @@ __all__ = [
     "OptimizerConfig",
     "PrecomputeConfig",
     "QueryConfig",
+    "RankedBuild",
     "SolverCatalog",
     "UpgradePlanner",
     "UpgradePlannerConfig",
