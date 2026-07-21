@@ -38,9 +38,9 @@ cd /opt/stalzone-artcalc
 1. Проверяет Git, Docker и Compose v2.
 2. Создает закрытый от Git файл `.env` и ограничивает его права до `600`.
 3. Настраивает для этого clone `core.hooksPath=.githooks` и fast-forward pull.
-4. Собирает приложение, запускает Caddy и ждет успешного healthcheck.
+4. Собирает `gateway`, `artcalc-api` и `simulator`, затем ждет успешных healthcheck.
 
-Caddy автоматически запросит и будет обновлять TLS-сертификат. FastAPI не публикует порт `8000` на хосте и доступен только внутри Docker-сети.
+`gateway` содержит production-сборку React и Caddy, который автоматически запросит и будет обновлять TLS-сертификат. Оба FastAPI-сервиса доступны только внутри Docker-сети. Gateway направляет обычные `/api/*` запросы в `artcalc-api`, а `/api/simulator/*` — в `simulator`.
 
 Проверка после запуска:
 
@@ -48,6 +48,7 @@ Caddy автоматически запросит и будет обновлят
 docker compose ps
 curl -I https://artifacts.example.com/
 curl https://artifacts.example.com/api/health
+curl https://artifacts.example.com/api/simulator/health
 ```
 
 ## Обновление
@@ -58,7 +59,7 @@ curl https://artifacts.example.com/api/health
 git pull
 ```
 
-Git вызывает `.githooks/post-merge`, который запускает `deploy/deploy.sh`. Новый image сначала полностью собирается, затем Compose переключает контейнеры и ждет healthcheck. При неуспешном переключении скрипт повторно помечает предыдущий application image и запускает его.
+Git вызывает `.githooks/post-merge`, который запускает `deploy/deploy.sh`. Новые images сначала полностью собираются, затем Compose переключает контейнеры и ждет healthcheck. При неуспешном переключении скрипт возвращает предыдущий согласованный набор images для всех трех сервисов.
 
 Одновременные деплои блокируются каталогом `.deploy.lock`. Hook срабатывает для обычного fast-forward `git pull`; обновление через `git reset`, `git checkout` или ручную замену файлов нужно завершать командой:
 
@@ -66,7 +67,7 @@ Git вызывает `.githooks/post-merge`, который запускает `
 ./deploy/deploy.sh
 ```
 
-Это автоматический in-place deployment с коротким перезапуском FastAPI, а не полноценный zero-downtime blue/green deployment.
+Это автоматический in-place deployment с коротким перезапуском контейнеров, а не полноценный zero-downtime blue/green deployment.
 
 ## Управление
 
@@ -77,8 +78,11 @@ docker compose ps
 # Логи всех сервисов
 docker compose logs -f --tail=200
 
-# Только приложение
-docker compose logs -f --tail=200 artcalc
+# Только API калькулятора
+docker compose logs -f --tail=200 artcalc-api
+
+# Новый сервис симулятора
+docker compose logs -f --tail=200 simulator
 
 # Ручная повторная сборка и запуск
 ./deploy/deploy.sh
@@ -91,13 +95,13 @@ docker compose down
 
 ## Если обновление не прошло
 
-Git уже может находиться на новом commit, даже если post-merge hook вернул ошибку. Работающий контейнер при ошибке сборки не затрагивается; при ошибке healthcheck выполняется попытка возврата предыдущего image.
+Git уже может находиться на новом commit, даже если post-merge hook вернул ошибку. Работающие контейнеры при ошибке сборки не затрагиваются; при ошибке healthcheck выполняется попытка возврата предыдущих images.
 
 Сначала изучите состояние и логи:
 
 ```bash
 docker compose ps
-docker compose logs --tail=300 artcalc caddy
+docker compose logs --tail=300 gateway artcalc-api simulator
 ```
 
 После устранения причины повторите `./deploy/deploy.sh`. Не удаляйте volumes `caddy_data` и `caddy_config`, если хотите сохранить состояние сертификатов.
