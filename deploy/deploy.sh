@@ -4,7 +4,9 @@ set -eu
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 LOCK_DIR="$ROOT_DIR/.deploy.lock"
 LOCK_ACQUIRED=0
-PREVIOUS_IMAGE=""
+PREVIOUS_ARTCALC_IMAGE=""
+PREVIOUS_SIMULATOR_IMAGE=""
+PREVIOUS_GATEWAY_IMAGE=""
 UPDATE_STARTED=0
 DEPLOY_SUCCEEDED=0
 
@@ -17,11 +19,16 @@ cleanup() {
     trap - 0 1 2 15
     set +e
 
-    if [ "$status" -ne 0 ] && [ "$UPDATE_STARTED" -eq 1 ] && [ -n "$PREVIOUS_IMAGE" ]; then
-        echo "Deployment failed; restoring the previous application image." >&2
-        docker image tag "$PREVIOUS_IMAGE" stalzone-artcalc:local
-        compose up -d --no-build --force-recreate --wait \
-            --wait-timeout "${DEPLOY_WAIT_TIMEOUT:-180}" artcalc
+    if [ "$status" -ne 0 ] && [ "$UPDATE_STARTED" -eq 1 ] \
+        && [ -n "$PREVIOUS_ARTCALC_IMAGE" ] \
+        && [ -n "$PREVIOUS_SIMULATOR_IMAGE" ] \
+        && [ -n "$PREVIOUS_GATEWAY_IMAGE" ]; then
+        echo "Deployment failed; restoring the previous service images." >&2
+        docker image tag "$PREVIOUS_ARTCALC_IMAGE" stalzone-artcalc-api:local
+        docker image tag "$PREVIOUS_SIMULATOR_IMAGE" stalzone-simulator:local
+        docker image tag "$PREVIOUS_GATEWAY_IMAGE" stalzone-gateway:local
+        compose up -d --no-build --force-recreate --remove-orphans --wait \
+            --wait-timeout "${DEPLOY_WAIT_TIMEOUT:-180}"
     fi
 
     if [ "$LOCK_ACQUIRED" -eq 1 ]; then
@@ -56,13 +63,12 @@ fi
 LOCK_ACQUIRED=1
 
 compose config --quiet
-PREVIOUS_IMAGE=$(compose images -q artcalc 2>/dev/null | head -n 1 || true)
+PREVIOUS_ARTCALC_IMAGE=$(compose images -q artcalc-api 2>/dev/null | head -n 1 || true)
+PREVIOUS_SIMULATOR_IMAGE=$(compose images -q simulator 2>/dev/null | head -n 1 || true)
+PREVIOUS_GATEWAY_IMAGE=$(compose images -q gateway 2>/dev/null | head -n 1 || true)
 
-echo "Pulling the reverse proxy image..."
-compose pull caddy
-
-echo "Building the application image..."
-compose build --pull artcalc
+echo "Building gateway, ArtCalc API, and simulator images..."
+compose build --pull gateway artcalc-api simulator
 
 echo "Starting the updated stack and waiting for healthchecks..."
 UPDATE_STARTED=1
