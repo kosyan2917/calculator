@@ -2,13 +2,23 @@
 
 Веб-интерфейс для поиска сборок артефактов под бюджет, костюм, контейнер и пятиуровневые приоритеты характеристик. FastAPI выполняет поиск, React показывает параметры и найденные сборки. В production FastAPI также раздает собранный фронтенд.
 
-## Запуск через Docker
+## Production-деплой
 
-```powershell
-docker compose up --build
+На Linux-сервере нужны Git, Docker Engine и Docker Compose v2. После клонирования выполните один раз:
+
+```bash
+./deploy/setup.sh artifacts.example.com
 ```
 
-После сборки приложение доступно на `http://localhost:8000`.
+Скрипт создаст локальный `.env`, настроит Git hook и запустит Caddy с автоматическим HTTPS. После этого обновление выполняется обычной командой:
+
+```bash
+git pull
+```
+
+Подробные требования к DNS, firewall, обновлению и откату описаны в [DEPLOYMENT.md](DEPLOYMENT.md).
+
+Для локального запуска production-стека скопируйте `.env.example` в `.env`, укажите домен и выполните `docker compose up --build`.
 
 ## Локальный production-запуск
 
