@@ -78,7 +78,7 @@ def get_optimizer() -> ArtifactBuildOptimizer:
             max_solutions_per_container=int(os.getenv("ARTCALC_SOLUTIONS_PER_CONTAINER", "1")),
             num_search_workers=int(os.getenv("ARTCALC_CP_WORKERS", "1")),
             nonlinear_iterations=int(os.getenv("ARTCALC_NONLINEAR_ITERATIONS", "3")),
-            infection_safety_margin=float(os.getenv("ARTCALC_INFECTION_SAFETY_MARGIN", "0.01")),
+            infection_safety_margin=float(os.getenv("ARTCALC_INFECTION_SAFETY_MARGIN", "0.0001")),
         ),
     )
 

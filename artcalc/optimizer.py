@@ -78,7 +78,7 @@ class OptimizerConfig:
     num_search_workers: int = 1
     stat_scale: int = 10_000
     objective_scale: int = 10_000
-    infection_safety_margin: float = 0.01
+    infection_safety_margin: float = 0.0001
     nonlinear_iterations: int = 4
 
 
