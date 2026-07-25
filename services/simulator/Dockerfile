@@ -5,12 +5,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /app
-COPY requirements.txt ./
+COPY services/simulator/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt \
     && groupadd --gid 10001 simulator \
     && useradd --uid 10001 --gid simulator --no-create-home --shell /usr/sbin/nologin simulator
 
-COPY app.py ./app.py
+COPY combat_simulator ./combat_simulator
+COPY services/simulator/app.py ./app.py
 
 USER simulator
 

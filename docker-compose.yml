@@ -41,7 +41,8 @@ services:
   simulator:
     image: stalzone-simulator:local
     build:
-      context: ./services/simulator
+      context: .
+      dockerfile: services/simulator/Dockerfile
     expose:
       - "8010"
     init: true
