@@ -34,22 +34,37 @@ DISTANCES_M = (10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0, 80.0)
 MINIMUM_RECOMMENDATION_EHP = 300
 NEAR_BEST_SCORE_RATIO = 0.98
 
-# The strongest regular PvP cartridge requested by the user for each caliber.
-# The two calibers without AP/incendiary/SBP use their specialized ammunition.
-AMMUNITION_BY_CALIBER: dict[str, tuple[str, str]] = {
-    "item.wpn.display_ammo_types.9mm": ("52l0", "9 mm SBP"),
-    "item.wpn.display_ammo_types.545mm": ("vdjd", "5.45 mm SBP"),
-    "item.wpn.display_ammo_types.556mm": ("63oy", "5.56 mm SBP"),
-    "item.wpn.display_ammo_types.762mm": ("y94o", "7.62 mm SBP"),
-    "item.wpn.display_ammo_types.939mm": ("kkrv", "9x39 mm SBP"),
-    "item.wpn.display_ammo_types.127mm": ("79w7", "12.7 mm specialized"),
-    "item.wpn.ptrd.display_ammo_types": ("qm0k", "PTRD standard"),
+AMMUNITION_PRESETS: dict[str, dict[str, tuple[str, str]]] = {
+    "sbp": {
+        "item.wpn.display_ammo_types.9mm": ("52l0", "9 mm SBP"),
+        "item.wpn.display_ammo_types.545mm": ("vdjd", "5.45 mm SBP"),
+        "item.wpn.display_ammo_types.556mm": ("63oy", "5.56 mm SBP"),
+        "item.wpn.display_ammo_types.762mm": ("y94o", "7.62 mm SBP"),
+        "item.wpn.display_ammo_types.939mm": ("kkrv", "9x39 mm SBP"),
+        "item.wpn.display_ammo_types.127mm": ("79w7", "12.7 mm specialized"),
+        "item.wpn.ptrd.display_ammo_types": ("qm0k", "PTRD standard"),
+    },
+    "armor_piercing": {
+        "item.wpn.display_ammo_types.9mm": ("1nr1", "9 mm armor-piercing"),
+        "item.wpn.display_ammo_types.545mm": ("ork0", "5.45 mm armor-piercing"),
+        "item.wpn.display_ammo_types.556mm": ("2p16", "5.56 mm armor-piercing"),
+        "item.wpn.display_ammo_types.762mm": ("g5np", "7.62 mm armor-piercing"),
+        "item.wpn.display_ammo_types.939mm": ("4dkn", "9x39 mm SP-6"),
+        "item.wpn.display_ammo_types.127mm": ("79w7", "12.7 mm specialized"),
+        "item.wpn.ptrd.display_ammo_types": ("qm0k", "PTRD standard"),
+    },
 }
-AMMUNITION_BY_CATEGORY_CALIBER: dict[tuple[str, str], tuple[str, str]] = {
-    (
-        "sniper_rifle",
-        "item.wpn.display_ammo_types.127mm",
-    ): ("63yy", "12.7 mm sniper"),
+AMMUNITION_CATEGORY_OVERRIDES: dict[
+    str,
+    dict[tuple[str, str], tuple[str, str]],
+] = {
+    preset: {
+        (
+            "sniper_rifle",
+            "item.wpn.display_ammo_types.127mm",
+        ): ("63yy", "12.7 mm sniper"),
+    }
+    for preset in AMMUNITION_PRESETS
 }
 RELOAD_OVERRIDES_SECONDS = {
     # The current official export omits Karbach's per-round reload field.
@@ -160,7 +175,11 @@ def load_ammunition(item_id: str) -> AmmunitionProfile:
     )
 
 
-def load_master_weapons() -> list[LoadedWeapon]:
+def load_master_weapons(ammunition_preset: str = "sbp") -> list[LoadedWeapon]:
+    ammunition_by_caliber = AMMUNITION_PRESETS.get(ammunition_preset)
+    if ammunition_by_caliber is None:
+        raise ValueError(f"Unknown ammunition preset: {ammunition_preset}")
+    category_overrides = AMMUNITION_CATEGORY_OVERRIDES[ammunition_preset]
     result: list[LoadedWeapon] = []
     ammo_cache: dict[str, AmmunitionProfile] = {}
     for category in WEAPON_CATEGORIES:
@@ -175,9 +194,9 @@ def load_master_weapons() -> list[LoadedWeapon]:
                 continue
 
             caliber = find_key_value(item, "weapon.tooltip.weapon.info.ammo_type")
-            ammo_choice = AMMUNITION_BY_CATEGORY_CALIBER.get(
+            ammo_choice = category_overrides.get(
                 (category, caliber),
-                AMMUNITION_BY_CALIBER.get(caliber),
+                ammunition_by_caliber.get(caliber),
             )
             if ammo_choice is None:
                 raise ValueError(f"No ammunition configured for {caliber} ({item_id})")
@@ -458,12 +477,16 @@ def analyze(
     lookback: int = 50,
     plateau: int = 50,
     accuracy_tier: AccuracyTier = AccuracyTier.MEDIUM,
+    ammunition_preset: str = "sbp",
 ) -> dict[str, Any]:
-    named_weapons = load_master_weapons()
+    named_weapons = load_master_weapons(ammunition_preset)
     weapons = group_functional_weapons(named_weapons)
+    ammunition_by_caliber = AMMUNITION_PRESETS[ammunition_preset]
+    category_overrides = AMMUNITION_CATEGORY_OVERRIDES[ammunition_preset]
     return {
         "method": {
             "accuracy_tier": accuracy_tier.value,
+            "ammunition_preset": ammunition_preset,
             "weapon_level": 15,
             "weapon_categories": WEAPON_CATEGORIES,
             "named_weapon_count": len(named_weapons),
@@ -480,7 +503,7 @@ def analyze(
                 "name": name,
                 **asdict(load_ammunition(item_id)),
             }
-            for caliber, (item_id, name) in AMMUNITION_BY_CALIBER.items()
+            for caliber, (item_id, name) in ammunition_by_caliber.items()
         },
         "category_ammunition_overrides": {
             f"{category}:{caliber}": {
@@ -491,7 +514,7 @@ def analyze(
             for (category, caliber), (
                 item_id,
                 name,
-            ) in AMMUNITION_BY_CATEGORY_CALIBER.items()
+            ) in category_overrides.items()
         },
         "distances": [
             analyze_distance(
@@ -529,12 +552,18 @@ def main() -> None:
         choices=[tier.value for tier in AccuracyTier],
         default=AccuracyTier.MEDIUM.value,
     )
+    parser.add_argument(
+        "--ammunition-preset",
+        choices=sorted(AMMUNITION_PRESETS),
+        default="sbp",
+    )
     args = parser.parse_args()
     report = analyze(
         args.bullet_resistance_cap,
         lookback=args.lookback,
         plateau=args.plateau,
         accuracy_tier=AccuracyTier(args.accuracy_tier),
+        ammunition_preset=args.ammunition_preset,
     )
     if not args.compact:
         print(json.dumps(report, ensure_ascii=False, indent=2))

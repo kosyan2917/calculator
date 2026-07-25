@@ -36,6 +36,24 @@ class CombatBreakpointDataTests(unittest.TestCase):
             {weapon.names for weapon in grouped},
         )
 
+    def test_armor_piercing_preset_uses_regular_ap_rounds(self) -> None:
+        weapons = load_master_weapons("armor_piercing")
+        seven_sixty_two = next(
+            weapon
+            for weapon in weapons
+            if weapon.caliber == "item.wpn.display_ammo_types.762mm"
+        )
+
+        self.assertEqual(seven_sixty_two.ammunition_name, "7.62 mm armor-piercing")
+        self.assertEqual(
+            seven_sixty_two.ammunition.armor_penetration_percent,
+            17.5,
+        )
+
+    def test_unknown_ammunition_preset_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Unknown ammunition preset"):
+            load_master_weapons("unknown")
+
     def test_displayed_ehp_adds_vitality_after_resistance_cap(self) -> None:
         target = target_for_displayed_ehp(500, bullet_resistance_cap=300)
 
