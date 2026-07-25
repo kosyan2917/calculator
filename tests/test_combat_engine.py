@@ -43,6 +43,14 @@ class CombatEngineTests(unittest.TestCase):
         self.assertAlmostEqual(distribution.body_share, 0.375)
         self.assertAlmostEqual(distribution.limb_share, 0.175)
 
+    def test_accuracy_table_interpolates_requested_15_meter_distance(self) -> None:
+        distribution = shot_distribution(15.0, AccuracyTier.MEDIUM)
+
+        self.assertAlmostEqual(distribution.hit_probability, 0.77)
+        self.assertAlmostEqual(distribution.head_share, 0.55)
+        self.assertAlmostEqual(distribution.body_share, 0.325)
+        self.assertAlmostEqual(distribution.limb_share, 0.125)
+
     def test_calculation_applies_penetration_before_vitality(self) -> None:
         result = ShootingSimulator().calculate(
             weapon=self.weapon,
