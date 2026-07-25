@@ -270,6 +270,7 @@ def calculate_hits(
     distance_m: float,
     displayed_ehp: int,
     bullet_resistance_cap: float,
+    accuracy_tier: AccuracyTier,
 ) -> list[int]:
     target = target_for_displayed_ehp(displayed_ehp, bullet_resistance_cap)
     simulator = ShootingSimulator()
@@ -279,7 +280,7 @@ def calculate_hits(
             ammunition=weapon.ammunition,
             target=target,
             distance_m=distance_m,
-            accuracy_tier=AccuracyTier.MEDIUM,
+            accuracy_tier=accuracy_tier,
         ).hits_to_kill
         for weapon in weapons
     ]
@@ -348,6 +349,7 @@ def analyze_distance(
     bullet_resistance_cap: float,
     lookback: int,
     plateau: int,
+    accuracy_tier: AccuracyTier,
 ) -> dict[str, Any]:
     hits = {
         displayed_ehp: calculate_hits(
@@ -355,6 +357,7 @@ def analyze_distance(
             distance_m=distance_m,
             displayed_ehp=displayed_ehp,
             bullet_resistance_cap=bullet_resistance_cap,
+            accuracy_tier=accuracy_tier,
         )
         for displayed_ehp in range(100, 651)
     }
@@ -408,7 +411,7 @@ def analyze_distance(
             ammunition=weapon.ammunition,
             target=target,
             distance_m=distance_m,
-            accuracy_tier=AccuracyTier.MEDIUM,
+            accuracy_tier=accuracy_tier,
         )
         next_breakpoint = next(
             (
@@ -454,12 +457,13 @@ def analyze(
     *,
     lookback: int = 50,
     plateau: int = 50,
+    accuracy_tier: AccuracyTier = AccuracyTier.MEDIUM,
 ) -> dict[str, Any]:
     named_weapons = load_master_weapons()
     weapons = group_functional_weapons(named_weapons)
     return {
         "method": {
-            "accuracy_tier": AccuracyTier.MEDIUM.value,
+            "accuracy_tier": accuracy_tier.value,
             "weapon_level": 15,
             "weapon_categories": WEAPON_CATEGORIES,
             "named_weapon_count": len(named_weapons),
@@ -496,6 +500,7 @@ def analyze(
                 bullet_resistance_cap=bullet_resistance_cap,
                 lookback=lookback,
                 plateau=plateau,
+                accuracy_tier=accuracy_tier,
             )
             for distance_m in DISTANCES_M
         ],
@@ -519,11 +524,17 @@ def main() -> None:
     )
     parser.add_argument("--lookback", type=int, default=50)
     parser.add_argument("--plateau", type=int, default=50)
+    parser.add_argument(
+        "--accuracy-tier",
+        choices=[tier.value for tier in AccuracyTier],
+        default=AccuracyTier.MEDIUM.value,
+    )
     args = parser.parse_args()
     report = analyze(
         args.bullet_resistance_cap,
         lookback=args.lookback,
         plateau=args.plateau,
+        accuracy_tier=AccuracyTier(args.accuracy_tier),
     )
     if not args.compact:
         print(json.dumps(report, ensure_ascii=False, indent=2))

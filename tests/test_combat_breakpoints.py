@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import unittest
 
+from combat_simulator import AccuracyTier
 from tools.analyze_combat_breakpoints import (
+    calculate_hits,
     group_functional_weapons,
     load_master_weapons,
     target_for_displayed_ehp,
@@ -43,6 +45,26 @@ class CombatBreakpointDataTests(unittest.TestCase):
             100 + target.vitality_percent
         ) / 100
         self.assertEqual(displayed_ehp, 500)
+
+    def test_accuracy_tier_does_not_change_required_hits(self) -> None:
+        weapons = group_functional_weapons(load_master_weapons())[:5]
+        common = {
+            "weapons": weapons,
+            "distance_m": 50,
+            "displayed_ehp": 350,
+            "bullet_resistance_cap": 300,
+        }
+
+        medium_hits = calculate_hits(
+            **common,
+            accuracy_tier=AccuracyTier.MEDIUM,
+        )
+        high_hits = calculate_hits(
+            **common,
+            accuracy_tier=AccuracyTier.HIGH,
+        )
+
+        self.assertEqual(high_hits, medium_hits)
 
 
 if __name__ == "__main__":
