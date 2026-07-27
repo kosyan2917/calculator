@@ -13,7 +13,6 @@ import {
   HeartPulse,
   Layers3,
   LoaderCircle,
-  Plus,
   Search,
   Shield,
   SlidersHorizontal,
@@ -451,20 +450,15 @@ function TargetFilters({
   targets: Record<string, string>;
   setTargets: (value: Record<string, string>) => void;
 }) {
-  const [draftMetric, setDraftMetric] = useState("");
-  const [draftValue, setDraftValue] = useState("");
   const metricByKey = useMemo(
     () => Object.fromEntries(metrics.map((metric) => [metric.key, metric])),
     [metrics],
   );
   const availableMetrics = metrics.filter((metric) => !(metric.key in targets));
-  const parsedDraft = parseDecimal(draftValue);
 
-  function addTarget() {
-    if (!draftMetric || !Number.isFinite(parsedDraft)) return;
-    setTargets({ ...targets, [draftMetric]: draftValue.trim().replace(",", ".") });
-    setDraftMetric("");
-    setDraftValue("");
+  function addTarget(metricKey: string) {
+    if (!metricKey) return;
+    setTargets({ ...targets, [metricKey]: "" });
   }
 
   return (
@@ -504,31 +498,14 @@ function TargetFilters({
             <div className="select-wrap">
               <select
                 aria-label="Свойство для минимального значения"
-                value={draftMetric}
-                onChange={(event) => setDraftMetric(event.target.value)}
+                value=""
+                onChange={(event) => addTarget(event.target.value)}
               >
                 <option value="">Выберите свойство</option>
                 {availableMetrics.map((metric) => <option key={metric.key} value={metric.key}>{metric.label}</option>)}
               </select>
               <ChevronDown size={15} />
             </div>
-            <input
-              aria-label="Новое минимальное значение"
-              type="text"
-              inputMode="decimal"
-              value={draftValue}
-              onChange={(event) => setDraftValue(event.target.value)}
-              placeholder="Значение"
-            />
-            <button
-              type="button"
-              aria-label="Добавить минимальное значение"
-              title="Добавить условие"
-              disabled={!draftMetric || !Number.isFinite(parsedDraft)}
-              onClick={addTarget}
-            >
-              <Plus size={15} />
-            </button>
           </div>
         )}
       </div>

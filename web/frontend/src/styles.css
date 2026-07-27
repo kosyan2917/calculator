@@ -161,20 +161,14 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 .target-row { display: grid; grid-template-columns: minmax(0, 1fr) 14px 82px 30px; align-items: center; gap: 6px; }
 .target-name { min-width: 0; overflow: hidden; color: #414844; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .target-operator { color: var(--muted); font-size: 12px; font-weight: 800; text-align: center; }
-.target-row input,
-.target-add-row > input { width: 100%; height: 34px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: 4px; outline: 0; background: #fff; color: var(--ink); font-size: 10px; cursor: text; }
-.target-row input:focus,
-.target-add-row > input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
+.target-row input { width: 100%; height: 34px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: 4px; outline: 0; background: #fff; color: var(--ink); font-size: 10px; cursor: text; }
+.target-row input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
 .target-row.invalid input { border-color: var(--danger); }
-.target-row button,
-.target-add-row > button { width: 30px; height: 34px; display: grid; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--muted); }
+.target-row button { width: 30px; height: 34px; display: grid; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--muted); }
 .target-row button:hover { border-color: #dfb1ae; background: #fff4f3; color: var(--danger); }
-.target-add-row { display: grid; grid-template-columns: minmax(0, 1fr) 82px 30px; gap: 6px; }
+.target-add-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
 .target-add-row .select-wrap select { height: 34px; font-size: 10px; }
 .target-add-row .select-wrap svg { top: 10px; }
-.target-add-row > button { border-color: #b9d4c7; background: var(--accent-soft); color: var(--accent); }
-.target-add-row > button:hover:not(:disabled) { border-color: var(--accent); background: var(--accent); color: #fff; }
-.target-add-row > button:disabled { border-color: var(--line); background: #eef1ee; color: #a2aaa5; cursor: not-allowed; }
 
 .exclusion-section { padding-top: 15px; padding-bottom: 15px; }
 .exclusion-settings > summary { gap: 8px; color: var(--ink); }
