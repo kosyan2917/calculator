@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 import math
 import time
 from typing import Any
@@ -51,15 +51,14 @@ METRIC_SCALES = {
     "tear_reaction": 10.0,
 }
 
-CAP_EXCESS_PENALTY = 0.01
+MINIMIZE_METRICS = {"bleeding_output"}
+NONLINEAR_METRICS = {"effective_durability", "hp_regen_score"}
 
 
 @dataclass(frozen=True)
 class OptimizationRequest:
     budget: int
-    preferences: dict[str, float]
-    preference_caps: dict[str, float] = field(default_factory=dict)
-    targets: dict[str, float] = field(default_factory=dict)
+    targets: dict[str, float]
     armor_ids: tuple[str, ...] = ()
     container_ids: tuple[str, ...] = ()
     allowed_quality_tiers: tuple[str, ...] = ()
@@ -69,7 +68,6 @@ class OptimizationRequest:
     min_quality_percent: float | None = None
     min_build_price: int = 0
     max_results: int = 10
-    group_rewards: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -86,8 +84,6 @@ class OptimizerConfig:
 @dataclass(frozen=True)
 class BuildSolution:
     build_id: str
-    objective_score: float
-    preference_score: float
     total_price: int
     armor: dict[str, Any]
     container: dict[str, Any]
@@ -152,7 +148,7 @@ class ArtifactBuildOptimizer:
                 statuses[status] = statuses.get(status, 0) + 1
             candidates.extend(container_solutions)
 
-        candidates.sort(key=lambda item: (-item.objective_score, item.total_price, item.build_id))
+        candidates.sort(key=lambda item: (item.total_price, item.build_id))
         selected = self._deduplicate(candidates)[: request.max_results]
         return OptimizationResult(
             request=request,
@@ -166,6 +162,9 @@ class ArtifactBuildOptimizer:
                 "solver_statuses": statuses,
                 "candidate_solutions": len(candidates),
                 "returned_solutions": len(selected),
+                "search_complete": not any(
+                    status in {"LIMIT", "UNKNOWN"} for status in statuses
+                ),
             },
         )
 
@@ -178,8 +177,37 @@ class ArtifactBuildOptimizer:
         limit: int,
     ) -> tuple[list[BuildSolution], list[str]]:
         if self._can_use_milp(request):
-            return self._solve_container_milp(request, container, groups, armors, limit)
-        return self._solve_container_cp_sat(request, container, groups, armors, limit)
+            return self._solve_container_milp(
+                request, container, groups, armors, limit, objective_mode="cost"
+            )
+
+        seed_request = replace(request, targets={})
+        seeds, seed_statuses = self._solve_container_milp(
+            seed_request,
+            container,
+            groups,
+            armors,
+            max(limit, 2),
+            objective_mode="targets",
+            objective_targets=request.targets,
+        )
+        valid_seeds = [
+            replace(seed, solver_status="FEASIBLE_SEED")
+            for seed in seeds
+            if self._passes_exact_targets(request.targets, seed.stats, seed.derived)
+        ]
+        exact, exact_statuses = self._solve_container_cp_sat(
+            request,
+            container,
+            groups,
+            armors,
+            limit,
+            initial_solutions=valid_seeds,
+            hint_solution=seeds[0] if seeds else None,
+        )
+        combined = self._deduplicate(exact + valid_seeds)
+        combined.sort(key=lambda item: (item.total_price, item.build_id))
+        return combined[:limit], seed_statuses + exact_statuses
 
     def _solve_container_cp_sat(
         self,
@@ -188,11 +216,16 @@ class ArtifactBuildOptimizer:
         groups: list[ArtifactGroup],
         armors: list[dict[str, Any]],
         limit: int,
+        initial_solutions: list[BuildSolution] | None = None,
+        hint_solution: BuildSolution | None = None,
     ) -> tuple[list[BuildSolution], list[str]]:
         model, context = self._build_model(request, container, groups, armors)
+        if hint_solution is not None:
+            self._apply_solution_hint(model, context, groups, armors, hint_solution)
+        fallback_results = list(initial_solutions or [])
         results: list[BuildSolution] = []
         statuses: list[str] = []
-        for _ in range(limit):
+        for _ in range(max(1, limit)):
             solver = cp_model.CpSolver()
             solver.parameters.max_time_in_seconds = self.config.time_limit_per_solve
             solver.parameters.num_search_workers = self.config.num_search_workers
@@ -216,7 +249,9 @@ class ArtifactBuildOptimizer:
             if solution is not None:
                 results.append(solution)
             self._exclude_composition(model, context["count_vars"], solver)
-        return results, statuses
+        results = self._deduplicate(results + fallback_results)
+        results.sort(key=lambda item: (item.total_price, item.build_id))
+        return results[:limit], statuses
 
     def _solve_container_milp(
         self,
@@ -225,6 +260,8 @@ class ArtifactBuildOptimizer:
         groups: list[ArtifactGroup],
         armors: list[dict[str, Any]],
         limit: int,
+        objective_mode: str,
+        objective_targets: dict[str, float] | None = None,
     ) -> tuple[list[BuildSolution], list[str]]:
         results: list[BuildSolution] = []
         statuses: list[str] = []
@@ -233,16 +270,20 @@ class ArtifactBuildOptimizer:
             reference_stats = self._initial_reference_stats(
                 container,
                 armors,
-                request.preferences,
-                request.preference_caps,
+                objective_targets or {},
             )
-            iterations = 1 if self._is_linear_request(request) else max(1, self.config.nonlinear_iterations)
+            iterations = (
+                max(1, self.config.nonlinear_iterations)
+                if objective_mode == "targets"
+                and self._contains_nonlinear_metrics(objective_targets or {})
+                else 1
+            )
             best_solution: BuildSolution | None = None
             best_counts: tuple[int, ...] | None = None
             final_status = "INFEASIBLE"
             for _iteration in range(iterations):
                 objective_coefficients = self._linearized_objective_coefficients(
-                    request.preferences,
+                    self._target_weights(objective_targets or {}),
                     reference_stats,
                 )
                 problem = self._build_milp_problem(
@@ -252,6 +293,7 @@ class ArtifactBuildOptimizer:
                     armors,
                     excluded_compositions,
                     objective_coefficients,
+                    objective_mode,
                 )
                 solve_started = time.perf_counter()
                 result = milp(
@@ -277,9 +319,14 @@ class ArtifactBuildOptimizer:
                 quality_sums = tuple(int(round(result.x[2 * index + 1])) for index in range(len(groups)))
                 armor_offset = 2 * len(groups)
                 armor_index = max(range(len(armors)), key=lambda index: result.x[armor_offset + index])
-                objective = -float(result.fun)
-                dual_bound = -float(result.mip_dual_bound) if result.mip_dual_bound is not None else objective
-                nonlinear = not self._is_linear_request(request)
+                objective = float(result.fun) if objective_mode == "cost" else -float(result.fun)
+                dual_bound = (
+                    float(result.mip_dual_bound)
+                    if objective_mode == "cost" and result.mip_dual_bound is not None
+                    else -float(result.mip_dual_bound)
+                    if result.mip_dual_bound is not None
+                    else objective
+                )
                 solution = self._materialize_values(
                     request,
                     container,
@@ -289,19 +336,25 @@ class ArtifactBuildOptimizer:
                     quality_sums,
                     tuple(problem["quality_lows"]),
                     armor_index,
-                    "HEURISTIC" if nonlinear else final_status,
+                    "HEURISTIC_SEED" if objective_mode == "targets" else final_status,
                     objective,
                     dual_bound,
-                    None if nonlinear else (float(result.mip_gap) if result.mip_gap is not None else None),
+                    None if objective_mode == "targets" else (float(result.mip_gap) if result.mip_gap is not None else None),
                     elapsed,
                 )
                 if solution is None:
                     break
-                if best_solution is None or solution.objective_score > best_solution.objective_score:
+                if best_solution is None or (
+                    objective_mode == "cost" and solution.total_price < best_solution.total_price
+                ) or (
+                    objective_mode == "targets"
+                    and self._target_search_score(solution, objective_targets or {})
+                    > self._target_search_score(best_solution, objective_targets or {})
+                ):
                     best_solution = solution
                     best_counts = counts
                 reference_stats = solution.stats
-            statuses.append("HEURISTIC" if best_solution and not self._is_linear_request(request) else final_status)
+            statuses.append("HEURISTIC_SEED" if best_solution and objective_mode == "targets" else final_status)
             if best_solution is None or best_counts is None:
                 break
             results.append(best_solution)
@@ -316,6 +369,7 @@ class ArtifactBuildOptimizer:
         armors: list[dict[str, Any]],
         excluded_compositions: list[tuple[int, ...]],
         objective_coefficients: dict[str, float],
+        objective_mode: str,
     ) -> dict[str, Any]:
         group_count = len(groups)
         armor_offset = 2 * group_count
@@ -327,17 +381,6 @@ class ArtifactBuildOptimizer:
                 if value > 0:
                     exclusion_specs.append((exclusion_index, group_index, value))
                     next_variable += 2
-        capped_metrics = {
-            self._resolve_metric(key): float(limit)
-            for key, limit in request.preference_caps.items()
-            if objective_coefficients.get(self._resolve_metric(key), 0.0) > 0.0
-        }
-        cap_offset = next_variable
-        capped_metric_variables = {
-            key: cap_offset + index
-            for index, key in enumerate(sorted(capped_metrics))
-        }
-        next_variable += len(capped_metric_variables)
         variable_count = next_variable
 
         objective = np.zeros(variable_count)
@@ -359,11 +402,8 @@ class ArtifactBuildOptimizer:
         upper_bounds[armor_offset : armor_offset + len(armors)] = 1
         if exclusion_specs:
             exclusion_offset = armor_offset + len(armors)
-            integrality[exclusion_offset:cap_offset] = 1
-            upper_bounds[exclusion_offset:cap_offset] = 1
-        for key, variable_index in capped_metric_variables.items():
-            lower_bounds[variable_index] = -np.inf
-            upper_bounds[variable_index] = capped_metrics[key]
+            integrality[exclusion_offset:next_variable] = 1
+            upper_bounds[exclusion_offset:next_variable] = 1
 
         rows: list[list[tuple[int, float]]] = []
         constraint_lows: list[float] = []
@@ -400,29 +440,22 @@ class ArtifactBuildOptimizer:
         sprint = stat_forms.get("sprint_speed", (np.zeros(variable_count), 0.0))
         metric_forms["total_sprint_speed"] = (movement[0] + sprint[0], 100.0 + movement[1] + sprint[1])
 
-        for key, normalized_weight in objective_coefficients.items():
-            coefficients, constant = metric_forms[key]
-            capped_variable = capped_metric_variables.get(key)
-            if capped_variable is None:
+        if objective_mode == "cost":
+            for index, group in enumerate(groups):
+                objective[2 * index] = float(group.price)
+        else:
+            for key, normalized_weight in objective_coefficients.items():
+                coefficients, _constant = metric_forms[key]
                 objective -= normalized_weight * coefficients
-                continue
-            objective[capped_variable] -= normalized_weight * (1.0 + CAP_EXCESS_PENALTY)
-            objective += normalized_weight * CAP_EXCESS_PENALTY * coefficients
-            items = [(capped_variable, 1.0)] + [
-                (index, -value)
-                for index, value in enumerate(coefficients)
-                if abs(value) > 1e-15
-            ]
-            add_constraint(items, -np.inf, constant)
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
             coefficients, constant = metric_forms[key]
             items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
-            add_constraint(items, float(target) - constant, np.inf)
-        for index, group in enumerate(groups):
-            reward = float(request.group_rewards.get(group.group_id, 0.0))
-            if reward:
-                objective[2 * index] -= reward
+            internal_target = self._internal_target(requested_key, float(target))
+            if self._target_direction(requested_key) == "min":
+                add_constraint(items, -np.inf, internal_target - constant)
+            else:
+                add_constraint(items, internal_target - constant, np.inf)
 
         exclusion_variables: dict[tuple[int, int], tuple[int, int]] = {}
         cursor = armor_offset + len(armors)
@@ -529,20 +562,22 @@ class ArtifactBuildOptimizer:
         slope = (high_value - low_value) / delta
         return low_value - slope * group.quality_low, slope
 
-    def _is_linear_request(self, request: OptimizationRequest) -> bool:
-        metrics = {
-            self._resolve_metric(key)
-            for key in set(request.preferences) | set(request.targets)
-        }
-        return not metrics.intersection({"effective_durability", "hp_regen_score"})
-
     def _can_use_milp(self, request: OptimizationRequest) -> bool:
         target_metrics = {self._resolve_metric(key) for key in request.targets}
-        return not target_metrics.intersection({"effective_durability", "hp_regen_score"})
+        return not target_metrics.intersection(NONLINEAR_METRICS)
+
+    def _contains_nonlinear_metrics(self, metrics: dict[str, float]) -> bool:
+        return bool({self._resolve_metric(key) for key in metrics}.intersection(NONLINEAR_METRICS))
+
+    def _target_weights(self, targets: dict[str, float]) -> dict[str, float]:
+        return {
+            key: -1.0 if self._target_direction(key) == "min" else 1.0
+            for key in targets
+        }
 
     def _linearized_objective_coefficients(
         self,
-        preferences: dict[str, float],
+        metric_weights: dict[str, float],
         reference_stats: dict[str, float],
     ) -> dict[str, float]:
         coefficients: dict[str, float] = {}
@@ -550,7 +585,7 @@ class ArtifactBuildOptimizer:
         def add(key: str, value: float) -> None:
             coefficients[key] = coefficients.get(key, 0.0) + value
 
-        for requested_key, raw_weight in preferences.items():
+        for requested_key, raw_weight in metric_weights.items():
             key = self._resolve_metric(requested_key)
             weight = max(-2.0, min(2.0, float(raw_weight)))
             if abs(weight) <= 1e-12:
@@ -580,8 +615,7 @@ class ArtifactBuildOptimizer:
         self,
         container: dict[str, Any],
         armors: list[dict[str, Any]],
-        preferences: dict[str, float],
-        preference_caps: dict[str, float],
+        targets: dict[str, float],
     ) -> dict[str, float]:
         best_stats: dict[str, float] | None = None
         best_score = -math.inf
@@ -589,7 +623,12 @@ class ArtifactBuildOptimizer:
         for armor in armors:
             stats = add_stats(container_stats, armor.get("stats") or {})
             derived = derived_stats(stats)
-            score = self._preference_score(preferences, preference_caps, stats, derived)
+            score = sum(
+                self._target_weights(targets)[requested_key]
+                * self._metric_value(stats, derived, self._resolve_metric(requested_key))
+                / METRIC_SCALES[self._resolve_metric(requested_key)]
+                for requested_key in targets
+            )
             if score > best_score:
                 best_score = score
                 best_stats = stats
@@ -669,22 +708,17 @@ class ArtifactBuildOptimizer:
         )
         requested_metrics = {
             self._resolve_metric(key)
-            for key in set(request.preferences) | set(request.targets)
+            for key in request.targets
         }
         metrics = self._metric_expressions(model, stat_vars, requested_metrics)
-        objective = self._objective_expression(
-            model,
-            request.preferences,
-            request.preference_caps,
-            metrics,
-            groups,
-            count_vars,
-            request.group_rewards,
-        )
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
-            model.add(metrics[key] >= int(math.ceil(float(target) * self.config.stat_scale - 1e-9)))
-        model.maximize(objective)
+            target_scaled = self._scaled_target(requested_key, float(target))
+            if self._target_direction(requested_key) == "min":
+                model.add(metrics[key] <= math.floor(target_scaled + 1e-9))
+            else:
+                model.add(metrics[key] >= math.ceil(target_scaled - 1e-9))
+        model.minimize(price_expression)
         return model, {
             "count_vars": count_vars,
             "quality_vars": quality_vars,
@@ -692,7 +726,7 @@ class ArtifactBuildOptimizer:
             "armor_vars": armor_vars,
             "metric_expressions": metrics,
             "price_expression": price_expression,
-            "objective_expression": objective,
+            "objective_expression": price_expression,
         }
 
     def _stat_numerator(
@@ -818,48 +852,6 @@ class ArtifactBuildOptimizer:
             result["hp_regen_score"] = hp_regen
         return result
 
-    def _objective_expression(
-        self,
-        model: cp_model.CpModel,
-        preferences: dict[str, float],
-        preference_caps: dict[str, float],
-        metrics: dict[str, cp_model.LinearExpr],
-        groups: list[ArtifactGroup],
-        count_vars: list[cp_model.IntVar],
-        group_rewards: dict[str, float],
-    ) -> cp_model.LinearExpr:
-        terms: list[cp_model.LinearExpr] = []
-        for requested_key, weight in preferences.items():
-            key = self._resolve_metric(requested_key)
-            normalized_weight = max(-2.0, min(2.0, float(weight)))
-            if abs(normalized_weight) <= 1e-12:
-                continue
-            coefficient = int(round(normalized_weight * self.config.objective_scale / METRIC_SCALES[key]))
-            if coefficient:
-                metric = metrics[key]
-                cap = preference_caps.get(requested_key, preference_caps.get(key))
-                if cap is not None and normalized_weight > 0:
-                    cap_scaled = int(round(float(cap) * self.config.stat_scale))
-                    capped = model.new_int_var(
-                        -2_000 * self.config.stat_scale,
-                        cap_scaled,
-                        f"capped_{key}",
-                    )
-                    model.add_min_equality(capped, [metric, cap_scaled])
-                    penalty_coefficient = max(1, int(round(coefficient * CAP_EXCESS_PENALTY)))
-                    terms.append(coefficient * capped)
-                    terms.append(-penalty_coefficient * (metric - capped))
-                else:
-                    terms.append(coefficient * metric)
-        for index, group in enumerate(groups):
-            reward = float(group_rewards.get(group.group_id, 0.0))
-            coefficient = int(round(reward * self.config.objective_scale * self.config.stat_scale))
-            if coefficient:
-                terms.append(coefficient * count_vars[index])
-        if not terms:
-            raise ValueError("At least one non-zero preference is required")
-        return cp_model.LinearExpr.sum(terms)
-
     def _materialize_solution(
         self,
         request: OptimizationRequest,
@@ -903,6 +895,29 @@ class ArtifactBuildOptimizer:
             elapsed,
         )
 
+    def _apply_solution_hint(
+        self,
+        model: cp_model.CpModel,
+        context: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        solution: BuildSolution,
+    ) -> None:
+        counts: dict[str, int] = {}
+        quality_sums: dict[str, int] = {}
+        for artifact in solution.artifacts:
+            group_id = str(artifact["group_id"])
+            counts[group_id] = counts.get(group_id, 0) + 1
+            quality_sums[group_id] = quality_sums.get(group_id, 0) + int(
+                round(float(artifact["quality_percent"]) * 100.0)
+            )
+        for index, group in enumerate(groups):
+            model.add_hint(context["count_vars"][index], counts.get(group.group_id, 0))
+            model.add_hint(context["quality_vars"][index], quality_sums.get(group.group_id, 0))
+        armor_id = solution.armor["item_id"]
+        for index, armor in enumerate(armors):
+            model.add_hint(context["armor_vars"][index], int(armor["item_id"] == armor_id))
+
     def _materialize_values(
         self,
         request: OptimizationRequest,
@@ -945,26 +960,14 @@ class ArtifactBuildOptimizer:
         if not self._passes_exact_targets(request.targets, stats, derived):
             return None
         metrics = {
-            self._resolve_metric(key): self._metric_value(stats, derived, self._resolve_metric(key))
-            for key in set(request.preferences) | set(request.targets)
+            key: self._requested_metric_value(key, stats, derived)
+            for key in request.targets
         }
-        preference_score = self._preference_score(
-            request.preferences,
-            request.preference_caps,
-            stats,
-            derived,
-        )
-        selection_bonus = sum(
-            float(request.group_rewards.get(item["group_id"], 0.0))
-            for item in artifacts
-        )
         build_id = f"{armor['item_id']}:{container['container_id']}:" + "|".join(
             f"{item['group_id']}@{item['quality_percent']:.2f}" for item in artifacts
         )
         return BuildSolution(
             build_id=build_id,
-            objective_score=round(preference_score + selection_bonus, 8),
-            preference_score=round(preference_score, 8),
             total_price=sum(int(item["price"]) for item in artifacts),
             armor=self._armor_view(armor),
             container=self._container_view(container),
@@ -1080,13 +1083,15 @@ class ArtifactBuildOptimizer:
             raise ValueError("budget must be positive")
         if request.max_results <= 0:
             raise ValueError("max_results must be positive")
-        for key in set(request.preferences) | set(request.preference_caps) | set(request.targets):
+        if not request.targets:
+            raise ValueError("At least one required stat is required")
+        for key in request.targets:
             resolved = self._resolve_metric(key)
             if resolved not in METRIC_SCALES:
                 raise ValueError(f"Unsupported metric: {key}")
-        for key, limit in request.preference_caps.items():
-            if not math.isfinite(float(limit)):
-                raise ValueError(f"Preference cap must be finite: {key}")
+        for key, target in request.targets.items():
+            if not math.isfinite(float(target)):
+                raise ValueError(f"Required stat must be finite: {key}")
 
     def _resolve_metric(self, key: str) -> str:
         return METRIC_ALIASES.get(key, key)
@@ -1097,10 +1102,46 @@ class ArtifactBuildOptimizer:
         stats: dict[str, float],
         derived: dict[str, float],
     ) -> bool:
-        return all(
-            self._metric_value(stats, derived, self._resolve_metric(key)) + 1e-7 >= float(target)
-            for key, target in targets.items()
-        )
+        for key, target in targets.items():
+            value = self._requested_metric_value(key, stats, derived)
+            if self._target_direction(key) == "min":
+                if value - 1e-7 > float(target):
+                    return False
+            elif value + 1e-7 < float(target):
+                return False
+        return True
+
+    def _target_direction(self, key: str) -> str:
+        return "min" if self._resolve_metric(key) in MINIMIZE_METRICS else "max"
+
+    def _internal_target(self, key: str, target: float) -> float:
+        return target + 100.0 if self._resolve_metric(key) == "total_sprint_speed" else target
+
+    def _scaled_target(self, key: str, target: float) -> float:
+        return self._internal_target(key, target) * self.config.stat_scale
+
+    def _requested_metric_value(
+        self,
+        key: str,
+        stats: dict[str, float],
+        derived: dict[str, float],
+    ) -> float:
+        resolved = self._resolve_metric(key)
+        value = self._metric_value(stats, derived, resolved)
+        return value - 100.0 if resolved == "total_sprint_speed" else value
+
+    def _target_search_score(
+        self,
+        solution: BuildSolution,
+        targets: dict[str, float],
+    ) -> float:
+        score = 0.0
+        for key in targets:
+            direction = -1.0 if self._target_direction(key) == "min" else 1.0
+            score += direction * self._requested_metric_value(key, solution.stats, solution.derived) / METRIC_SCALES[
+                self._resolve_metric(key)
+            ]
+        return score
 
     def _metric_value(
         self,
@@ -1111,25 +1152,6 @@ class ArtifactBuildOptimizer:
         if key in derived:
             return float(derived[key])
         return float(stats.get(key, 0.0))
-
-    def _preference_score(
-        self,
-        preferences: dict[str, float],
-        preference_caps: dict[str, float],
-        stats: dict[str, float],
-        derived: dict[str, float],
-    ) -> float:
-        score = 0.0
-        for requested_key, raw_weight in preferences.items():
-            key = self._resolve_metric(requested_key)
-            weight = max(-2.0, min(2.0, float(raw_weight)))
-            value = self._metric_value(stats, derived, key)
-            cap = preference_caps.get(requested_key, preference_caps.get(key))
-            if cap is not None and weight > 0:
-                limit = float(cap)
-                value = min(value, limit) - CAP_EXCESS_PENALTY * max(value - limit, 0.0)
-            score += weight * value / METRIC_SCALES[key]
-        return score
 
     def _quality_denominator(self, groups: list[ArtifactGroup]) -> int:
         denominator = 1

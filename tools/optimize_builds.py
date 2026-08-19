@@ -37,8 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Optimize artifact builds directly for a user query.")
     parser.add_argument("--catalog", default="data/solver_catalog.json")
     parser.add_argument("--budget", type=int, required=True)
-    parser.add_argument("--preferences", required=True, help="JSON object or JSON file path")
-    parser.add_argument("--targets", default="{}", help="JSON object or JSON file path")
+    parser.add_argument("--targets", required=True, help="Required stat bounds as JSON or a JSON file path")
     parser.add_argument("--armor-ids", default="")
     parser.add_argument("--container-ids", default="")
     parser.add_argument("--quality-tiers", default="")
@@ -68,7 +67,6 @@ def main() -> int:
     result = optimizer.search(
         OptimizationRequest(
             budget=args.budget,
-            preferences=parse_json(args.preferences),
             targets=parse_json(args.targets),
             armor_ids=parse_ids(args.armor_ids),
             container_ids=parse_ids(args.container_ids),
