@@ -16,7 +16,7 @@ optimizer = ArtifactBuildOptimizer(SolverCatalog.read("data/solver_catalog.json"
 result = optimizer.search(
     OptimizationRequest(
         budget=50_000_000,
-        preferences={"speed": 2, "regen": 1},
+        targets={"speed": 12, "regen": 6.5},
         armor_ids=("0r4gy",),
         max_results=10,
     )
@@ -32,23 +32,23 @@ python tools\compile_solver_catalog.py
 Run a standalone query:
 
 ```powershell
-python tools\optimize_builds.py --budget 50000000 --preferences speed=2 --armor-ids 0r4gy
+python tools\optimize_builds.py --budget 50000000 --targets "speed=12,regen=6.5" --armor-ids 0r4gy
 ```
 
-The public aliases are `speed` (movement speed), `run_speed` (base 100 plus
-movement and sprint bonuses), `durability`, `regen`, and `weight`. Canonical
+The public aliases are `speed` (movement speed), `run_speed` (movement plus
+sprint bonuses, without the base 100), `durability`, `regen`, and `weight`. Canonical
 stat names such as `movement_speed`, `stamina_regeneration`, and
 `healing_effectiveness` are also accepted.
 
-Linear requests use the HiGHS MILP backend and report `OPTIMAL`, `FEASIBLE`, or
-an error status plus a solver gap. Preferences involving effective durability
-or HP regeneration use iterative armor-aware linearization and report
-`HEURISTIC`; all returned stats and infection constraints are then evaluated
-again with the exact game formulas. Hard nonlinear targets use CP-SAT.
+Linear conditions use the HiGHS MILP backend. Conditions involving effective
+durability or HP regeneration first get a fast armor-aware seed and then use
+CP-SAT with the exact multiplication formulas. Every returned build is checked
+again with the exact stat and infection formulas. Unspecified stats do not
+affect feasibility or ordering; valid builds are ordered by artifact price.
 
 Artifact quality is a query-time variable in hundredths of a percent. The
 solver can therefore return six artifacts at 175% and one at 161.50% when that
-is the highest infection-valid point. Quality is not restricted to the old
+is needed to meet the requested stats without exceeding infection limits. Quality is not restricted to the old
 2.5% grid.
 
 The build calculator is split into two independent components.
