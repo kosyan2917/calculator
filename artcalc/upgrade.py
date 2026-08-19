@@ -12,7 +12,6 @@ from .solver_catalog import ArtifactGroup, SolverCatalog
 class UpgradePlannerConfig:
     extra_budgets: tuple[int, ...] = (2_500_000, 5_000_000, 10_000_000)
     max_plans_per_budget: int = 2
-    reuse_reward_per_artifact: float = 0.02
     time_limit_per_solve: float = 0.2
     nonlinear_iterations: int = 2
 
@@ -20,8 +19,6 @@ class UpgradePlannerConfig:
 @dataclass(frozen=True)
 class UpgradePlanningRequest:
     current_build: dict[str, Any]
-    preferences: dict[str, float]
-    preference_caps: dict[str, float]
     targets: dict[str, float]
     extra_budgets: tuple[int, ...] = ()
     excluded_artifact_ids: tuple[str, ...] = ()
@@ -34,7 +31,6 @@ class UpgradePlan:
     purchase_cost: int
     resale_credit: int
     estimated_net_cost: int
-    preference_gain: float
     kept_count: int
     current_count: int
     kept_value: int
@@ -91,20 +87,10 @@ class UpgradePlanner:
                 nonlinear_iterations=self.config.nonlinear_iterations,
             ),
         )
-        current_score = optimizer._preference_score(
-            request.preferences,
-            request.preference_caps,
-            dict(current.get("stats") or {}),
-            dict(current.get("derived") or {}),
-        )
         owned_by_id = {
             group.owned_instance_id: artifact
             for group, artifact in zip(owned_groups, current_artifacts, strict=True)
             if group.owned_instance_id is not None
-        }
-        rewards = {
-            group.group_id: self.config.reuse_reward_per_artifact
-            for group in owned_groups
         }
         budgets = request.extra_budgets or self.config.extra_budgets
         all_plans: list[UpgradePlan] = []
@@ -121,8 +107,6 @@ class UpgradePlanner:
             result = optimizer.search(
                 OptimizationRequest(
                     budget=extra_budget,
-                    preferences=request.preferences,
-                    preference_caps=request.preference_caps,
                     targets=request.targets,
                     armor_ids=(armor_id,),
                     container_ids=upgrade_container_ids,
@@ -130,7 +114,6 @@ class UpgradePlanner:
                     excluded_container_ids=request.excluded_container_ids,
                     min_quality_percent=self.catalog.min_quality_percent,
                     max_results=max(10, self.config.max_plans_per_budget * 4),
-                    group_rewards=rewards,
                 )
             )
             candidates = [
@@ -140,11 +123,14 @@ class UpgradePlanner:
                     owned_by_id,
                     current_container_id,
                     extra_budget,
-                    current_score,
                 )
                 for solution in result.solutions
             ]
-            candidates = [plan for plan in candidates if plan.preference_gain > 1e-7]
+            candidates = [
+                plan
+                for plan in candidates
+                if plan.added_artifacts or plan.removed_artifacts or plan.container_changed
+            ]
             selected = self._select_plans(candidates, self.config.max_plans_per_budget)
             all_plans.extend(selected)
             searches.append(
@@ -237,7 +223,6 @@ class UpgradePlanner:
         owned_by_id: dict[str, dict[str, Any]],
         current_container_id: str,
         extra_budget: int,
-        current_score: float,
     ) -> UpgradePlan:
         result_artifacts = tuple(result_build.get("artifacts") or ())
         kept_ids = {
@@ -264,7 +249,6 @@ class UpgradePlanner:
             purchase_cost=purchase_cost,
             resale_credit=resale_credit,
             estimated_net_cost=max(0, purchase_cost - resale_credit),
-            preference_gain=round(float(result_build["preference_score"]) - current_score, 8),
             kept_count=len(kept),
             current_count=len(current_artifacts),
             kept_value=kept_value,
@@ -280,7 +264,6 @@ class UpgradePlanner:
         ordered = sorted(
             plans,
             key=lambda plan: (
-                -plan.preference_gain,
                 -plan.kept_count,
                 plan.purchase_cost,
                 plan.result_build["container"]["container_id"],
