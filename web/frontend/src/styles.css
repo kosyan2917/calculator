@@ -114,6 +114,28 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 .select-wrap select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
 .select-wrap svg { position: absolute; top: 12px; right: 10px; pointer-events: none; color: var(--muted); }
 
+.requirement-list { display: grid; gap: 7px; }
+.requirement-row {
+  min-height: 39px;
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr) 18px 86px;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 6px 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #f0f2ef;
+  color: #7c837f;
+}
+.requirement-row.active { border-color: #a9c9ba; background: #fff; color: var(--ink); }
+.requirement-row > input[type="checkbox"] { width: 14px; height: 14px; margin: 0; accent-color: var(--accent); }
+.requirement-name { min-width: 0; overflow: hidden; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.requirement-operator { color: var(--accent); font-size: 13px; font-weight: 850; text-align: center; }
+.requirement-row > input[type="text"] { width: 100%; height: 28px; padding: 0 7px; border: 1px solid var(--line-strong); border-radius: 3px; outline: 0; background: #fff; color: var(--ink); font-size: 10px; cursor: text; }
+.requirement-row > input[type="text"]:disabled { border-color: transparent; background: transparent; cursor: default; }
+.requirement-row > input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
+.requirement-row.invalid { border-color: var(--danger); }
+
 .scale-legend { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; margin: -2px 0 13px; }
 .scale-legend span { min-width: 0; color: #7a827d; font-size: 7px; line-height: 1.1; text-align: center; }
 .scale-legend b { display: block; margin-bottom: 3px; color: #464d49; font-size: 9px; }
