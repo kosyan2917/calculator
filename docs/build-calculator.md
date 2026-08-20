@@ -44,7 +44,9 @@ Linear conditions use the HiGHS MILP backend. Conditions involving effective
 durability or HP regeneration first get a fast armor-aware seed and then use
 CP-SAT with the exact multiplication formulas. Every returned build is checked
 again with the exact stat and infection formulas. Unspecified stats do not
-affect feasibility or ordering; valid builds are ordered by artifact price.
+become user priorities. The result portfolio anchors the cheapest, fastest,
+and highest-durability valid builds, then fills remaining positions by artifact,
+stat, armor, and container distance.
 
 Artifact quality is a query-time variable in hundredths of a percent. The
 solver can therefore return six artifacts at 175% and one at 161.50% when that

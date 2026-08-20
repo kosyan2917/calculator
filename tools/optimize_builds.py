@@ -46,7 +46,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-build-price", type=int, default=0)
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--time-limit-per-solve", type=float, default=0.5)
-    parser.add_argument("--solutions-per-container", type=int, default=2)
+    parser.add_argument("--solutions-per-container", type=int, default=6)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--nonlinear-iterations", type=int, default=4)
     parser.add_argument("--output", default="")
