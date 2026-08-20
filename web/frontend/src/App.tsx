@@ -19,11 +19,13 @@ import {
   Timer,
   Weight,
   Wind,
+  X,
 } from "lucide-react";
-import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
 import type { BuildSolution, Catalog, Metric, OptimizationResult, UpgradePlan, UpgradeResult } from "./types";
 
 type UpgradeState = { loading: boolean; error: string; result: UpgradeResult | null };
+type SearchOption = { id: string; name: string; meta: string };
 
 const RARITY_LABELS: Record<string, string> = {
   common: "Обычный",
@@ -117,6 +119,16 @@ function App() {
 
   const mainMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "main") ?? [], [catalog]);
   const secondaryMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "secondary") ?? [], [catalog]);
+  const armorOptions = useMemo<SearchOption[]>(() => catalog?.armors.map((armor) => ({
+    id: armor.id,
+    name: armor.name,
+    meta: armor.rank,
+  })) ?? [], [catalog]);
+  const containerOptions = useMemo<SearchOption[]>(() => catalog?.containers.map((container) => ({
+    id: container.id,
+    name: container.name,
+    meta: `${container.category === "backpacks" ? "Рюкзак" : "Контейнер"} · ${container.capacity} сл.`,
+  })) ?? [], [catalog]);
   const requirementsValid = Object.keys(targets).length > 0
     && Object.values(targets).every((value) => Number.isFinite(parseDecimal(value)));
 
@@ -227,16 +239,9 @@ function App() {
             <section className="form-section equipment-section">
               <div className="section-heading"><Shield size={17} /><h2>Экипировка</h2></div>
               <label className="field-label" htmlFor="armor">Костюм</label>
-              <Select id="armor" value={armorId} onChange={(value) => { setArmorId(value); setExcludedArmorIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog}>
-                <option value="">Любой ветеранский или мастерский</option>
-                {catalog?.armors.map((armor) => <option key={armor.id} value={armor.id}>{armor.name}</option>)}
-              </Select>
+              <SearchableSelect id="armor" value={armorId} options={armorOptions} placeholder="Любой ветеранский или мастерский" onChange={(value) => { setArmorId(value); setExcludedArmorIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
               <label className="field-label" htmlFor="container">Контейнер / рюкзак</label>
-              <Select id="container" value={containerId} onChange={(value) => { setContainerId(value); setExcludedContainerIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog}>
-                <option value="">Любой контейнер или рюкзак</option>
-                <optgroup label="Контейнеры">{catalog?.containers.filter((item) => item.category === "containers").map((item) => <option key={item.id} value={item.id}>{item.name} · {item.capacity} сл.</option>)}</optgroup>
-                <optgroup label="Рюкзаки и разгрузки">{catalog?.containers.filter((item) => item.category === "backpacks").map((item) => <option key={item.id} value={item.id}>{item.name} · {item.capacity} сл.</option>)}</optgroup>
-              </Select>
+              <SearchableSelect id="container" value={containerId} options={containerOptions} placeholder="Любой контейнер или рюкзак" onChange={(value) => { setContainerId(value); setExcludedContainerIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
               <label className="option-toggle">
                 <input
                   type="checkbox"
@@ -297,8 +302,62 @@ function App() {
   );
 }
 
-function Select({ id, value, onChange, disabled, children }: { id: string; value: string; onChange: (value: string) => void; disabled?: boolean; children: ReactNode }) {
-  return <div className="select-wrap"><select id={id} value={value} onChange={(event) => onChange(event.target.value)} disabled={disabled}>{children}</select><ChevronDown size={16} /></div>;
+function SearchableSelect({ id, value, options, placeholder, onChange, disabled }: { id: string; value: string; options: SearchOption[]; placeholder: string; onChange: (value: string) => void; disabled?: boolean }) {
+  const selected = options.find((option) => option.id === value);
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const normalized = query.trim().toLocaleLowerCase("ru-RU");
+  const filtered = options.filter((option) => !normalized || `${option.name} ${option.meta}`.toLocaleLowerCase("ru-RU").includes(normalized)).slice(0, 30);
+
+  useEffect(() => {
+    setQuery(selected?.name ?? "");
+  }, [selected?.id, selected?.name]);
+
+  function choose(option: SearchOption) {
+    setQuery(option.name);
+    onChange(option.id);
+    setOpen(false);
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter" && open && filtered.length > 0) {
+      event.preventDefault();
+      choose(filtered[0]);
+    } else if (event.key === "Escape") {
+      setOpen(false);
+    } else if (event.key === "ArrowDown") {
+      setOpen(true);
+    }
+  }
+
+  return <div className={`search-select ${open ? "open" : ""}`}>
+    <Search className="search-select-icon" size={14} />
+    <input
+      id={id}
+      role="combobox"
+      aria-expanded={open}
+      aria-controls={`${id}-options`}
+      autoComplete="off"
+      type="search"
+      value={query}
+      placeholder={placeholder}
+      disabled={disabled}
+      onFocus={() => setOpen(true)}
+      onBlur={() => window.setTimeout(() => setOpen(false), 120)}
+      onKeyDown={handleKeyDown}
+      onChange={(event) => {
+        setQuery(event.target.value);
+        if (value) onChange("");
+        setOpen(true);
+      }}
+    />
+    {query && <button type="button" className="search-select-clear" aria-label="Очистить выбор" title="Очистить" onMouseDown={(event) => event.preventDefault()} onClick={() => { setQuery(""); onChange(""); setOpen(true); }}><X size={14} /></button>}
+    {open && !disabled && <div className="search-select-options" id={`${id}-options`} role="listbox">
+      <button type="button" className={!value ? "selected" : ""} onMouseDown={(event) => event.preventDefault()} onClick={() => { setQuery(""); onChange(""); setOpen(false); }}><span>{placeholder}</span><small>Без ограничения</small></button>
+      {filtered.map((option) => <button type="button" role="option" aria-selected={option.id === value} className={option.id === value ? "selected" : ""} key={option.id} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(option)}><span>{option.name}</span><small>{option.meta}</small></button>)}
+      {filtered.length === 0 && <div className="search-select-empty">Ничего не найдено</div>}
+    </div>}
+  </div>;
 }
 
 function RequirementList({ metrics, targets, setTargets }: { metrics: Metric[]; targets: Record<string, string>; setTargets: (value: Record<string, string>) => void }) {

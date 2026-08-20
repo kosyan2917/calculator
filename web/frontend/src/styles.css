@@ -113,6 +113,31 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 }
 .select-wrap select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
 .select-wrap svg { position: absolute; top: 12px; right: 10px; pointer-events: none; color: var(--muted); }
+.search-select { position: relative; }
+.search-select > input {
+  width: 100%;
+  height: 39px;
+  padding: 0 34px 0 32px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  outline: 0;
+  background: #fff;
+  color: var(--ink);
+  font-size: 11px;
+  cursor: text;
+}
+.search-select > input::-webkit-search-cancel-button { display: none; }
+.search-select > input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
+.search-select > input:disabled { background: #eef1ee; cursor: default; }
+.search-select-icon { position: absolute; z-index: 2; top: 12px; left: 10px; color: var(--muted); pointer-events: none; }
+.search-select-clear { position: absolute; z-index: 3; top: 5px; right: 5px; width: 29px; height: 29px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 3px; background: transparent; color: var(--muted); }
+.search-select-clear:hover { background: #edf1ed; color: var(--ink); }
+.search-select-options { position: absolute; z-index: 30; top: 43px; right: 0; left: 0; max-height: 244px; overflow-y: auto; border: 1px solid var(--line-strong); border-radius: 5px; background: #fff; box-shadow: 0 14px 28px #1b211d2e; }
+.search-select-options > button { width: 100%; min-height: 42px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 6px 10px; border: 0; border-bottom: 1px solid #edf0ed; background: transparent; color: var(--ink); text-align: left; }
+.search-select-options > button:hover, .search-select-options > button.selected { background: #edf5f0; }
+.search-select-options > button span { overflow: hidden; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.search-select-options > button small { color: var(--muted); font-size: 8px; white-space: nowrap; }
+.search-select-empty { padding: 16px 10px; color: var(--muted); font-size: 10px; text-align: center; }
 .option-toggle {
   min-height: 38px;
   display: grid;
@@ -382,7 +407,7 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
   .equipment-section { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
   .equipment-section .section-heading { grid-column: 1 / -1; }
   .equipment-section .field-label { grid-row: 2; }
-  .equipment-section .select-wrap { grid-row: 3; }
+  .equipment-section .select-wrap, .equipment-section .search-select { grid-row: 3; }
   .preference-section .metric-list { grid-template-columns: 1fr 1fr; gap: 13px 18px; }
   .secondary-settings { grid-column: 1 / -1; }
   .secondary-settings .metric-list { grid-template-columns: 1fr 1fr; }
