@@ -80,6 +80,7 @@ function App() {
   const [budgetMillions, setBudgetMillions] = useState(50);
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
+  const [excludeLegendaryArtifacts, setExcludeLegendaryArtifacts] = useState(true);
   const [targets, setTargets] = useState<Record<string, string>>({});
   const [excludedArmorIds, setExcludedArmorIds] = useState<string[]>([]);
   const [excludedContainerIds, setExcludedContainerIds] = useState<string[]>([]);
@@ -121,6 +122,7 @@ function App() {
           armor_id: armorId || null,
           container_id: containerId || null,
           targets: parsedTargets,
+          exclude_legendary_artifacts: excludeLegendaryArtifacts,
           excluded_armor_ids: excludedArmorIds,
           excluded_container_ids: excludedContainerIds,
           excluded_artifact_ids: excludedArtifactIds,
@@ -181,6 +183,14 @@ function App() {
                 <optgroup label="Контейнеры">{catalog?.containers.filter((item) => item.category === "containers").map((item) => <option key={item.id} value={item.id}>{item.name} · {item.capacity} сл.</option>)}</optgroup>
                 <optgroup label="Рюкзаки и разгрузки">{catalog?.containers.filter((item) => item.category === "backpacks").map((item) => <option key={item.id} value={item.id}>{item.name} · {item.capacity} сл.</option>)}</optgroup>
               </Select>
+              <label className="option-toggle">
+                <input
+                  type="checkbox"
+                  checked={excludeLegendaryArtifacts}
+                  onChange={(event) => setExcludeLegendaryArtifacts(event.target.checked)}
+                />
+                <span>Не использовать легендарные артефакты</span>
+              </label>
             </section>
 
             <section className="form-section requirement-section">

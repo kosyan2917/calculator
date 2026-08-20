@@ -113,6 +113,23 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 }
 .select-wrap select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px #cfe5da; }
 .select-wrap svg { position: absolute; top: 12px; right: 10px; pointer-events: none; color: var(--muted); }
+.option-toggle {
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: #414844;
+  font-size: 10px;
+  font-weight: 750;
+}
+.option-toggle:hover { border-color: #b9c7bf; background: #f5f8f5; }
+.option-toggle input { width: 14px; height: 14px; margin: 0; accent-color: var(--accent); }
 
 .requirement-list { display: grid; gap: 7px; }
 .requirement-row {
