@@ -247,6 +247,9 @@ class ArtifactBuildOptimizer:
             for seed in seeds
             if self._passes_exact_targets(request.targets, seed.stats, seed.derived)
         ]
+        if len(valid_seeds) >= limit:
+            valid_seeds.sort(key=lambda item: self._focus_sort_key(item, focus))
+            return valid_seeds[:limit], seed_statuses
         exact, exact_statuses = self._solve_container_cp_sat(
             request,
             container,
@@ -337,6 +340,7 @@ class ArtifactBuildOptimizer:
             )
             best_solution: BuildSolution | None = None
             best_counts: tuple[int, ...] | None = None
+            previous_signature: tuple[Any, ...] | None = None
             final_status = "INFEASIBLE"
             for _iteration in range(iterations):
                 objective_coefficients = self._linearized_objective_coefficients(
@@ -411,7 +415,11 @@ class ArtifactBuildOptimizer:
                 ):
                     best_solution = solution
                     best_counts = counts
+                signature = (counts, quality_sums, armor_index)
                 reference_stats = solution.stats
+                if signature == previous_signature:
+                    break
+                previous_signature = signature
             statuses.append("HEURISTIC_SEED" if best_solution and objective_mode == "targets" else final_status)
             if best_solution is None or best_counts is None:
                 break

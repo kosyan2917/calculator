@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from dataclasses import replace
+from unittest.mock import patch
 
 from artcalc.optimizer import ArtifactBuildOptimizer, OptimizationRequest, OptimizerConfig
 from artcalc.solver_catalog import ArtifactGroup, SolverCatalog
@@ -127,13 +128,20 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
             container(2),
         )
 
-        result = optimizer.search(
-            OptimizationRequest(
-                budget=2_000_000,
-                targets={"durability": 500.0, "speed": 2.0},
-                max_results=6,
+        with patch.object(
+            optimizer,
+            "_solve_container_cp_sat",
+            wraps=optimizer._solve_container_cp_sat,
+        ) as exact_solver:
+            result = optimizer.search(
+                OptimizationRequest(
+                    budget=2_000_000,
+                    targets={"durability": 500.0, "speed": 2.0},
+                    max_results=6,
+                )
             )
-        )
+
+        self.assertEqual(exact_solver.call_count, 0)
 
         self.assertGreaterEqual(len(result.solutions), 2)
         self.assertGreater(
