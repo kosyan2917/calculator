@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from collections import OrderedDict
+from copy import deepcopy
 from functools import lru_cache
+import json
 import os
 from pathlib import Path
+from threading import Lock
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
@@ -68,6 +72,36 @@ class UpgradePayload(BaseModel):
     extra_budgets: list[int] = Field(default_factory=list, max_length=6)
 
 
+class OptimizationResponseCache:
+    def __init__(self, max_entries: int):
+        self.max_entries = max(0, max_entries)
+        self._items: OrderedDict[str, dict[str, Any]] = OrderedDict()
+        self._lock = Lock()
+
+    def get(self, key: str) -> dict[str, Any] | None:
+        if self.max_entries == 0:
+            return None
+        with self._lock:
+            response = self._items.pop(key, None)
+            if response is None:
+                return None
+            self._items[key] = response
+            return deepcopy(response)
+
+    def put(self, key: str, response: dict[str, Any]) -> None:
+        if self.max_entries == 0:
+            return
+        with self._lock:
+            self._items.pop(key, None)
+            self._items[key] = deepcopy(response)
+            while len(self._items) > self.max_entries:
+                self._items.popitem(last=False)
+
+    def clear(self) -> None:
+        with self._lock:
+            self._items.clear()
+
+
 @lru_cache(maxsize=1)
 def get_catalog() -> SolverCatalog:
     return SolverCatalog.read(CATALOG_PATH)
@@ -101,6 +135,11 @@ def get_upgrade_planner() -> UpgradePlanner:
 @lru_cache(maxsize=1)
 def get_upgrade_potential_analyzer() -> BuildUpgradePotentialAnalyzer:
     return BuildUpgradePotentialAnalyzer(get_catalog())
+
+
+@lru_cache(maxsize=1)
+def get_optimization_cache() -> OptimizationResponseCache:
+    return OptimizationResponseCache(int(os.getenv("ARTCALC_QUERY_CACHE_SIZE", "64")))
 
 
 def validate_metrics(targets: dict[str, float]) -> None:
@@ -191,6 +230,17 @@ def catalog() -> dict:
 @app.post("/api/optimize")
 async def optimize(payload: OptimizePayload) -> dict:
     validate_metrics(payload.targets)
+    cache_key = json.dumps(
+        payload.model_dump(mode="json"),
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    cached = get_optimization_cache().get(cache_key)
+    if cached is not None:
+        cached["diagnostics"]["cache_hit"] = True
+        return cached
+
     request = OptimizationRequest(
         budget=payload.budget,
         targets=payload.targets,
@@ -219,6 +269,8 @@ async def optimize(payload: OptimizePayload) -> dict:
         }
         for solution in result.solutions
     ]
+    response["diagnostics"]["cache_hit"] = False
+    get_optimization_cache().put(cache_key, response)
     return response
 
 

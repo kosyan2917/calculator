@@ -4,7 +4,7 @@ import unittest
 
 from fastapi.testclient import TestClient
 
-from web.backend.app import app
+from web.backend.app import app, get_optimization_cache
 
 
 class WebApiTests(unittest.TestCase):
@@ -31,6 +31,7 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual(tri_zip["capacity"], 5)
 
     def test_nonlinear_requirement_returns_only_valid_builds(self) -> None:
+        get_optimization_cache().clear()
         response = self.client.post(
             "/api/optimize",
             json={
@@ -43,6 +44,7 @@ class WebApiTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, response.text)
         payload = response.json()
+        self.assertFalse(payload["diagnostics"]["cache_hit"])
         self.assertGreater(len(payload["solutions"]), 0)
         self.assertEqual(payload["request"]["targets"], {"durability": 450.0})
         self.assertTrue(payload["request"]["exclude_legendary_artifacts"])
@@ -55,6 +57,21 @@ class WebApiTests(unittest.TestCase):
             self.assertIn("score", build["upgrade_potential"])
             self.assertIn("artifact_reuse_score", build["upgrade_potential"])
             self.assertIn("container_upgrade_score", build["upgrade_potential"])
+
+        cached_response = self.client.post(
+            "/api/optimize",
+            json={
+                "budget": 50_000_000,
+                "armor_id": "2ovr0",
+                "container_id": "g35n",
+                "targets": {"durability": 450.0},
+                "max_results": 2,
+            },
+        )
+        self.assertEqual(cached_response.status_code, 200, cached_response.text)
+        cached_payload = cached_response.json()
+        self.assertTrue(cached_payload["diagnostics"]["cache_hit"])
+        self.assertEqual(cached_payload["solutions"], payload["solutions"])
 
     def test_optimize_rejects_empty_requirements(self) -> None:
         response = self.client.post("/api/optimize", json={"budget": 10_000_000, "targets": {}})
