@@ -9,7 +9,7 @@ from artcalc.stat_model import MechanicsConfig
 
 
 def group(group_id: str, stats_low: dict[str, float], stats_high: dict[str, float], infections_low: dict[str, float] | None = None, infections_high: dict[str, float] | None = None, low: int = 16000, high: int = 17500) -> ArtifactGroup:
-    return ArtifactGroup(group_id=group_id, item_id=group_id, name=group_id, quality_tier="legendary", quality_low=low, quality_high=high, price=1_000_000, stats_low=stats_low, stats_high=stats_high, infections_low=infections_low or {}, infections_high=infections_high or {})
+    return ArtifactGroup(group_id=group_id, item_id=group_id, name=group_id, quality_tier="rare", quality_low=low, quality_high=high, price=1_000_000, stats_low=stats_low, stats_high=stats_high, infections_low=infections_low or {}, infections_high=infections_high or {})
 
 
 def armor(item_id: str, stats: dict[str, float]) -> dict:
@@ -84,6 +84,30 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         solution = self.optimizer((enough, excessive), (armor("plain", {}),), container(1)).search(OptimizationRequest(budget=3_000_000, targets={"speed": 2.0}, max_results=1)).solutions[0]
         self.assertEqual(solution.artifacts[0]["item_id"], "enough")
         self.assertEqual(set(solution.metrics), {"speed"})
+
+    def test_legendary_artifacts_are_excluded_by_default_and_can_be_enabled(self) -> None:
+        regular = group("regular", {"movement_speed": 2.0}, {"movement_speed": 2.0})
+        legendary = replace(
+            group("legendary", {"movement_speed": 3.0}, {"movement_speed": 3.0}),
+            quality_tier="legendary",
+            price=500_000,
+        )
+        optimizer = self.optimizer((regular, legendary), (armor("plain", {}),), container(1))
+
+        default_solution = optimizer.search(
+            OptimizationRequest(budget=1_000_000, targets={"speed": 2.0}, max_results=1)
+        ).solutions[0]
+        enabled_solution = optimizer.search(
+            OptimizationRequest(
+                budget=1_000_000,
+                targets={"speed": 2.0},
+                exclude_legendary_artifacts=False,
+                max_results=1,
+            )
+        ).solutions[0]
+
+        self.assertEqual(default_solution.artifacts[0]["item_id"], "regular")
+        self.assertEqual(enabled_solution.artifacts[0]["item_id"], "legendary")
 
     def test_minimize_direction_and_run_speed_bonus_are_respected(self) -> None:
         good = group("good", {"bleeding_output": -1.0, "movement_speed": 3.0, "sprint_speed": 2.0}, {"bleeding_output": -1.0, "movement_speed": 3.0, "sprint_speed": 2.0})

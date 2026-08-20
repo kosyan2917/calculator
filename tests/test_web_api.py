@@ -41,6 +41,7 @@ class WebApiTests(unittest.TestCase):
         payload = response.json()
         self.assertGreater(len(payload["solutions"]), 0)
         self.assertEqual(payload["request"]["targets"], {"durability": 450.0})
+        self.assertTrue(payload["request"]["exclude_legendary_artifacts"])
         for build in payload["solutions"]:
             self.assertLessEqual(build["total_price"], 50_000_000)
             self.assertTrue(build["infection"]["valid"])

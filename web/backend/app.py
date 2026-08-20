@@ -50,6 +50,7 @@ class OptimizePayload(BaseModel):
     armor_id: str | None = None
     container_id: str | None = None
     targets: dict[str, float] = Field(min_length=1)
+    exclude_legendary_artifacts: bool = True
     excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
@@ -60,6 +61,7 @@ class OptimizePayload(BaseModel):
 class UpgradePayload(BaseModel):
     current_build: dict[str, Any]
     targets: dict[str, float] = Field(min_length=1)
+    exclude_legendary_artifacts: bool = True
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     extra_budgets: list[int] = Field(default_factory=list, max_length=6)
@@ -186,6 +188,7 @@ async def optimize(payload: OptimizePayload) -> dict:
     request = OptimizationRequest(
         budget=payload.budget,
         targets=payload.targets,
+        exclude_legendary_artifacts=payload.exclude_legendary_artifacts,
         armor_ids=(payload.armor_id,) if payload.armor_id else (),
         container_ids=(payload.container_id,) if payload.container_id else (),
         excluded_armor_ids=tuple(payload.excluded_armor_ids),
@@ -211,6 +214,7 @@ async def upgrade_plans(payload: UpgradePayload) -> dict:
     request = UpgradePlanningRequest(
         current_build=payload.current_build,
         targets=payload.targets,
+        exclude_legendary_artifacts=payload.exclude_legendary_artifacts,
         extra_budgets=budgets,
         excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
         excluded_container_ids=tuple(payload.excluded_container_ids),

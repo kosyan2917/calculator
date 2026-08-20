@@ -101,6 +101,7 @@ class UpgradePlannerTest(unittest.TestCase):
             UpgradePlanningRequest(
                 current_build=current_build,
                 targets={"speed": 3.0},
+                exclude_legendary_artifacts=False,
             )
         )
 

@@ -59,6 +59,7 @@ NONLINEAR_METRICS = {"effective_durability", "hp_regen_score"}
 class OptimizationRequest:
     budget: int
     targets: dict[str, float]
+    exclude_legendary_artifacts: bool = True
     armor_ids: tuple[str, ...] = ()
     container_ids: tuple[str, ...] = ()
     allowed_quality_tiers: tuple[str, ...] = ()
@@ -1042,6 +1043,7 @@ class ArtifactBuildOptimizer:
             for group in self.catalog.artifact_groups
             if group.item_id not in excluded
             and (not tiers or group.quality_tier in tiers)
+            and (not request.exclude_legendary_artifacts or group.quality_tier != "legendary")
             and group.price <= request.budget
             and (
                 request.min_quality_percent is None
