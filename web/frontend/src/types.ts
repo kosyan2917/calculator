@@ -59,6 +59,7 @@ export type Artifact = {
 
 export type BuildSolution = {
   build_id: string;
+  search_focus: string;
   upgrade_potential: UpgradePotential;
   total_price: number;
   armor: { item_id: string; name: string; rank: string; category: string };
