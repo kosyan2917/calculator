@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import unittest
+from dataclasses import replace
 
 from artcalc.solver_catalog import ArtifactGroup, SolverCatalog
 from artcalc.stat_model import MechanicsConfig
 from artcalc.upgrade import UpgradePlanner, UpgradePlannerConfig, UpgradePlanningRequest
 
 
-def artifact(group_id: str, speed: float) -> ArtifactGroup:
+def artifact(group_id: str, speed: float, extra_stats: dict[str, float] | None = None) -> ArtifactGroup:
+    stats = {"movement_speed": speed, **(extra_stats or {})}
     return ArtifactGroup(
         group_id=group_id,
         item_id=group_id,
@@ -16,8 +18,8 @@ def artifact(group_id: str, speed: float) -> ArtifactGroup:
         quality_low=16000,
         quality_high=17500,
         price=1_000_000,
-        stats_low={"movement_speed": speed},
-        stats_high={"movement_speed": speed},
+        stats_low=stats,
+        stats_high=stats,
         infections_low={},
         infections_high={},
     )
@@ -118,6 +120,60 @@ class UpgradePlannerTest(unittest.TestCase):
         build_ids = [plan.result_build["build_id"] for plan in result.plans]
         self.assertEqual(len(build_ids), len(set(build_ids)))
         self.assertGreaterEqual(result.diagnostics["duplicate_plans_removed"], 0)
+
+    def test_upgrade_preserves_build_style_and_rejects_full_tank_replacement(self) -> None:
+        source_catalog = catalog()
+        source_catalog = replace(
+            source_catalog,
+            artifact_groups=(
+                artifact("current", 2.0),
+                artifact("hybrid", 1.0, {"vitality": 20.0}),
+                artifact("tank", -5.0, {"vitality": 100.0}),
+            ),
+        )
+        current_build = {
+            "armor": source_catalog.armors[0],
+            "container": source_catalog.containers[0],
+            "artifacts": (
+                {
+                    "group_id": "current",
+                    "item_id": "current",
+                    "name": "current",
+                    "quality_tier": "legendary",
+                    "quality_percent": 175.0,
+                    "price": 1_000_000,
+                    "market_price": 1_000_000,
+                },
+            ),
+            "stats": {"movement_speed": 2.0},
+            "derived": {"effective_durability": 100.0},
+        }
+        planner = UpgradePlanner(
+            source_catalog,
+            UpgradePlannerConfig(
+                extra_budgets=(1_000_000,),
+                max_plans_per_budget=2,
+                time_limit_per_solve=1.0,
+                nonlinear_iterations=1,
+            ),
+        )
+
+        result = planner.plan(
+            UpgradePlanningRequest(
+                current_build=current_build,
+                targets={"durability": 100.0},
+                exclude_legendary_artifacts=False,
+            )
+        )
+
+        self.assertGreater(len(result.plans), 0)
+        for plan in result.plans:
+            self.assertGreaterEqual(plan.result_build["stats"]["movement_speed"], 1.0)
+            self.assertGreaterEqual(plan.result_build["derived"]["effective_durability"], 90.0)
+            self.assertNotEqual(
+                [artifact["item_id"] for artifact in plan.result_build["artifacts"]],
+                ["tank"],
+            )
 
 
 if __name__ == "__main__":

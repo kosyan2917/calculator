@@ -117,6 +117,13 @@ class BuildUpgradePotentialAnalyzer:
             artifacts=artifact_reuse,
         )
 
+    def artifacts_fit(
+        self,
+        artifacts: Iterable[dict[str, Any]],
+        container: dict[str, Any],
+    ) -> bool:
+        return self._artifacts_fit(tuple(artifacts), container)
+
     def _artifact_reuse(
         self,
         artifact: dict[str, Any],
