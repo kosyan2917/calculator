@@ -48,6 +48,9 @@ class WebApiTests(unittest.TestCase):
             self.assertGreaterEqual(build["derived"]["effective_durability"], 450.0)
             self.assertNotIn("preference_score", build)
             self.assertNotIn("objective_score", build)
+            self.assertIn("score", build["upgrade_potential"])
+            self.assertIn("artifact_reuse_score", build["upgrade_potential"])
+            self.assertIn("container_upgrade_score", build["upgrade_potential"])
 
     def test_optimize_rejects_empty_requirements(self) -> None:
         response = self.client.post("/api/optimize", json={"budget": 10_000_000, "targets": {}})

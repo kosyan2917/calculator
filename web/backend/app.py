@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 
 from artcalc import (
     ArtifactBuildOptimizer,
+    BuildUpgradePotentialAnalyzer,
     OptimizationRequest,
     OptimizerConfig,
     SolverCatalog,
@@ -95,6 +96,11 @@ def get_upgrade_planner() -> UpgradePlanner:
             nonlinear_iterations=int(os.getenv("ARTCALC_UPGRADE_NONLINEAR_ITERATIONS", "2")),
         ),
     )
+
+
+@lru_cache(maxsize=1)
+def get_upgrade_potential_analyzer() -> BuildUpgradePotentialAnalyzer:
+    return BuildUpgradePotentialAnalyzer(get_catalog())
 
 
 def validate_metrics(targets: dict[str, float]) -> None:
@@ -201,7 +207,19 @@ async def optimize(payload: OptimizePayload) -> dict:
         result = await run_in_threadpool(get_optimizer().search, request)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
-    return result.to_dict()
+    response = result.to_dict()
+    analyzer = get_upgrade_potential_analyzer()
+    response["solutions"] = [
+        {
+            **solution.to_dict(),
+            "upgrade_potential": analyzer.analyze(
+                solution,
+                payload.excluded_container_ids,
+            ).to_dict(),
+        }
+        for solution in result.solutions
+    ]
+    return response
 
 
 @app.post("/api/upgrade-plans")

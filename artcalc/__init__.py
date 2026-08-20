@@ -11,12 +11,14 @@ from .optimizer import (
 from .query import BuildQueryEngine, QueryConfig
 from .solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfig, SolverCatalog
 from .upgrade import UpgradePlanner, UpgradePlannerConfig, UpgradePlanningRequest, UpgradePlanningResult
+from .upgrade_potential import BuildUpgradePotentialAnalyzer, UpgradePotential
 
 __all__ = [
     "ArtifactBuildOptimizer",
     "ArtifactCatalogCompiler",
     "BuildPrecomputer",
     "BuildSolution",
+    "BuildUpgradePotentialAnalyzer",
     "BuildQueryEngine",
     "CatalogCompilerConfig",
     "OptimizationRequest",
@@ -29,4 +31,5 @@ __all__ = [
     "UpgradePlannerConfig",
     "UpgradePlanningRequest",
     "UpgradePlanningResult",
+    "UpgradePotential",
 ]

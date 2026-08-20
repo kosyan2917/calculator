@@ -112,6 +112,9 @@ class UpgradePlannerTest(unittest.TestCase):
         self.assertEqual(changed.removed_artifacts, ())
         self.assertEqual([item["item_id"] for item in changed.added_artifacts], ["fast"])
         self.assertEqual(changed.result_build["container"]["container_id"], "larger")
+        self.assertIn("score", changed.upgrade_potential)
+        self.assertIsInstance(changed.potential_gain, float)
+        self.assertIn("current_potential", result.diagnostics)
         build_ids = [plan.result_build["build_id"] for plan in result.plans]
         self.assertEqual(len(build_ids), len(set(build_ids)))
         self.assertGreaterEqual(result.diagnostics["duplicate_plans_removed"], 0)

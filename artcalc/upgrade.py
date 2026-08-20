@@ -6,6 +6,7 @@ from typing import Any
 
 from .optimizer import ArtifactBuildOptimizer, OptimizationRequest, OptimizerConfig
 from .solver_catalog import ArtifactGroup, SolverCatalog
+from .upgrade_potential import BuildUpgradePotentialAnalyzer
 
 
 @dataclass(frozen=True)
@@ -36,6 +37,8 @@ class UpgradePlan:
     current_count: int
     kept_value: int
     container_changed: bool
+    potential_gain: float
+    upgrade_potential: dict[str, Any]
     removed_artifacts: tuple[dict[str, Any], ...]
     added_artifacts: tuple[dict[str, Any], ...]
     result_build: dict[str, Any]
@@ -60,6 +63,7 @@ class UpgradePlanner:
         self.catalog = catalog
         self.config = config or UpgradePlannerConfig()
         self.groups_by_id = {group.group_id: group for group in catalog.artifact_groups}
+        self.potential_analyzer = BuildUpgradePotentialAnalyzer(catalog)
 
     def plan(self, request: UpgradePlanningRequest) -> UpgradePlanningResult:
         started = time.perf_counter()
@@ -98,6 +102,10 @@ class UpgradePlanner:
         searches: list[dict[str, Any]] = []
         armor_id = str((current.get("armor") or {}).get("item_id") or "")
         current_container_id = str((current.get("container") or {}).get("container_id") or "")
+        current_potential = self.potential_analyzer.analyze(
+            current,
+            request.excluded_container_ids,
+        )
         upgrade_container_ids = self._upgrade_container_ids(
             current_container_id,
             len(current_artifacts),
@@ -125,6 +133,8 @@ class UpgradePlanner:
                     owned_by_id,
                     current_container_id,
                     extra_budget,
+                    current_potential.score,
+                    request.excluded_container_ids,
                 )
                 for solution in result.solutions
             ]
@@ -150,6 +160,7 @@ class UpgradePlanner:
             diagnostics={
                 "elapsed_seconds": round(time.perf_counter() - started, 6),
                 "owned_artifacts": len(current_artifacts),
+                "current_potential": current_potential.to_dict(),
                 "eligible_containers": len(upgrade_container_ids),
                 "duplicate_plans_removed": len(all_plans) - len(unique_plans),
                 "searches": searches,
@@ -225,6 +236,8 @@ class UpgradePlanner:
         owned_by_id: dict[str, dict[str, Any]],
         current_container_id: str,
         extra_budget: int,
+        current_potential_score: float,
+        excluded_container_ids: tuple[str, ...],
     ) -> UpgradePlan:
         result_artifacts = tuple(result_build.get("artifacts") or ())
         kept_ids = {
@@ -246,6 +259,10 @@ class UpgradePlanner:
         purchase_cost = sum(int(artifact.get("price") or 0) for artifact in added)
         resale_credit = sum(int(artifact.get("market_price") or artifact.get("price") or 0) for artifact in removed)
         kept_value = sum(int(artifact.get("market_price") or artifact.get("price") or 0) for artifact in kept)
+        result_potential = self.potential_analyzer.analyze(
+            result_build,
+            excluded_container_ids,
+        )
         return UpgradePlan(
             extra_budget=extra_budget,
             purchase_cost=purchase_cost,
@@ -255,6 +272,8 @@ class UpgradePlanner:
             current_count=len(current_artifacts),
             kept_value=kept_value,
             container_changed=str(result_build["container"]["container_id"]) != current_container_id,
+            potential_gain=round(result_potential.score - current_potential_score, 1),
+            upgrade_potential=result_potential.to_dict(),
             removed_artifacts=removed,
             added_artifacts=added,
             result_build=result_build,
@@ -266,6 +285,7 @@ class UpgradePlanner:
         ordered = sorted(
             plans,
             key=lambda plan: (
+                -plan.potential_gain,
                 -plan.kept_count,
                 plan.purchase_cost,
                 plan.result_build["container"]["container_id"],
