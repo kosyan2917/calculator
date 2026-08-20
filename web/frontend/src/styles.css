@@ -315,6 +315,20 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 .upgrade-heading > div { display: flex; align-items: center; gap: 7px; color: var(--accent); }
 .upgrade-heading strong { color: var(--ink); font-size: 11px; }
 .upgrade-heading > span { color: var(--muted); font-size: 9px; }
+.potential-overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--line); background: #f8faf8; }
+.potential-overview > div { min-width: 0; min-height: 64px; display: grid; align-content: center; gap: 4px; padding: 10px 14px; border-right: 1px solid var(--line); }
+.potential-overview > div:last-child { border-right: 0; }
+.potential-overview span { color: var(--muted); font-size: 8px; font-weight: 750; text-transform: uppercase; }
+.potential-overview strong { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.potential-overview small { color: var(--muted); font-size: 8px; }
+.artifact-reuse-details { border-bottom: 1px solid var(--line); background: #fff; }
+.artifact-reuse-details > summary { min-height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 16px; list-style: none; color: var(--muted); font-size: 9px; font-weight: 750; }
+.artifact-reuse-details[open] > summary svg { transform: rotate(180deg); }
+.artifact-reuse-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 16px 10px; }
+.artifact-reuse-list > div { min-width: 0; display: grid; grid-template-columns: minmax(80px, 1fr) minmax(100px, 1.4fr) 28px; gap: 8px; padding: 6px 8px; border-top: 1px solid #edf0ed; font-size: 8px; }
+.artifact-reuse-list strong, .artifact-reuse-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.artifact-reuse-list span { color: var(--muted); }
+.artifact-reuse-list b { color: var(--accent); text-align: right; }
 .upgrade-list { display: grid; }
 .upgrade-row { display: grid; grid-template-columns: 180px minmax(220px, .8fr) minmax(310px, 1.5fr); gap: 10px 18px; padding: 15px 16px; border-top: 1px solid var(--line); }
 .upgrade-row:first-child { border-top: 0; }
@@ -377,6 +391,9 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
   .empty-state, .loading-state { min-height: 280px; }
   .artifact-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .upgrade-row { grid-template-columns: 1fr 1fr; }
+  .potential-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .potential-overview > div:nth-child(2) { border-right: 0; }
+  .artifact-reuse-list { grid-template-columns: 1fr; }
   .artifact-changes { grid-column: 1 / -1; }
   .upgrade-costs { grid-column: 2; }
 }
@@ -402,6 +419,9 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
   .all-stats summary { justify-content: flex-start; }
   .all-stats-grid { position: static; width: 100%; grid-template-columns: 1fr; margin-top: 9px; box-shadow: none; }
   .upgrade-row { grid-template-columns: 1fr; }
+  .potential-overview { grid-template-columns: 1fr; }
+  .potential-overview > div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .potential-overview > div:last-child { border-bottom: 0; }
   .artifact-changes, .upgrade-deltas, .upgrade-costs { grid-column: 1; }
   .upgrade-costs { justify-content: flex-start; }
 }

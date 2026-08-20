@@ -1,5 +1,7 @@
 import {
   Activity,
+  ArrowRight,
+  ArrowUpRight,
   Ban,
   Box,
   CheckCircle2,
@@ -10,6 +12,7 @@ import {
   Gauge,
   HeartPulse,
   Layers3,
+  LoaderCircle,
   Search,
   Shield,
   SlidersHorizontal,
@@ -18,7 +21,9 @@ import {
   Wind,
 } from "lucide-react";
 import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
-import type { BuildSolution, Catalog, Metric, OptimizationResult } from "./types";
+import type { BuildSolution, Catalog, Metric, OptimizationResult, UpgradePlan, UpgradeResult } from "./types";
+
+type UpgradeState = { loading: boolean; error: string; result: UpgradeResult | null };
 
 const RARITY_LABELS: Record<string, string> = {
   common: "Обычный",
@@ -48,6 +53,16 @@ const INFECTION_LABELS: Record<string, string> = {
   biological: "Биозаражение",
   psycho: "Пси",
   frost: "Холод",
+};
+
+const ROLE_LABELS: Record<string, string> = {
+  speed: "скорость",
+  durability: "жир",
+  regeneration: "реген",
+  endurance: "выносливость",
+  weight: "вес",
+  support: "защита",
+  cleanse: "контрарт",
 };
 
 function formatPrice(value: number) {
@@ -88,6 +103,7 @@ function App() {
   const [result, setResult] = useState<OptimizationResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [upgradeStates, setUpgradeStates] = useState<Record<string, UpgradeState>>({});
 
   useEffect(() => {
     fetch("/api/catalog")
@@ -113,6 +129,7 @@ function App() {
     const parsedTargets = Object.fromEntries(Object.entries(targets).map(([key, value]) => [key, parseDecimal(value)]));
     setLoading(true);
     setError("");
+    setUpgradeStates({});
     try {
       const response = await fetch("/api/optimize", {
         method: "POST",
@@ -137,6 +154,43 @@ function App() {
       setError(reason instanceof Error ? reason.message : "Ошибка расчета");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function loadUpgrades(solution: BuildSolution) {
+    setUpgradeStates((current) => ({
+      ...current,
+      [solution.build_id]: { loading: true, error: "", result: null },
+    }));
+    const parsedTargets = Object.fromEntries(Object.entries(targets).map(([key, value]) => [key, parseDecimal(value)]));
+    try {
+      const response = await fetch("/api/upgrade-plans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          current_build: solution,
+          targets: parsedTargets,
+          exclude_legendary_artifacts: excludeLegendaryArtifacts,
+          excluded_container_ids: excludedContainerIds,
+          excluded_artifact_ids: excludedArtifactIds,
+          extra_budgets: [2_500_000, 5_000_000, 10_000_000],
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(typeof payload.detail === "string" ? payload.detail : "Ошибка расчета улучшений");
+      setUpgradeStates((current) => ({
+        ...current,
+        [solution.build_id]: { loading: false, error: "", result: payload as UpgradeResult },
+      }));
+    } catch (reason) {
+      setUpgradeStates((current) => ({
+        ...current,
+        [solution.build_id]: {
+          loading: false,
+          error: reason instanceof Error ? reason.message : "Ошибка расчета улучшений",
+          result: null,
+        },
+      }));
     }
   }
 
@@ -228,7 +282,15 @@ function App() {
           {loading && <LoadingState />}
           {!loading && !result && !error && <EmptyState />}
           {!loading && result && result.solutions.length === 0 && <div className="empty-state"><CircleAlert size={28} /><h2>Сборок с такими условиями не найдено</h2></div>}
-          {!loading && result && result.solutions.length > 0 && <div className="build-list">{result.solutions.map((solution, index) => <BuildCard key={solution.build_id} solution={solution} index={index} />)}</div>}
+          {!loading && result && result.solutions.length > 0 && <div className="build-list">{result.solutions.map((solution, index) => (
+            <BuildCard
+              key={solution.build_id}
+              solution={solution}
+              index={index}
+              upgradeState={upgradeStates[solution.build_id]}
+              onLoadUpgrades={() => loadUpgrades(solution)}
+            />
+          ))}</div>}
         </main>
       </div>
     </div>
@@ -275,15 +337,52 @@ function ExclusionGroup({ title, options, selected, setSelected, disabledId = ""
   </details>;
 }
 
-function BuildCard({ solution, index }: { solution: BuildSolution; index: number }) {
+function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void }) {
   const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   return <article className="build-card">
-    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{formatPrice(solution.total_price)}</strong><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
+    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{formatPrice(solution.total_price)}</strong><span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
     <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price">{formatPrice(artifact.price)}</div></div>)}</div>
     <div className="stat-grid">{keyStats.map(([key, Icon]) => <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{signed(valueForStat(solution, key))}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</strong></div>)}</div>
-    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></footer>
+    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions"><button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
+    {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
+    {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
   </article>;
+}
+
+function UpgradePlans({ current, result }: { current: BuildSolution; result: UpgradeResult }) {
+  const potential = result.diagnostics.current_potential;
+  return <section className="upgrade-panel">
+    <div className="upgrade-heading"><div><ArrowUpRight size={16} /><strong>Потенциал и пути улучшения</strong></div><span>{result.diagnostics.elapsed_seconds.toFixed(2)} с</span></div>
+    <div className="potential-overview">
+      <div><span>Переносимость артефактов</span><strong>{decimal(potential.artifact_reuse_score, 0)} / 100</strong></div>
+      <div><span>Смена контейнера</span><strong>{decimal(potential.container_upgrade_score, 0)} / 100</strong></div>
+      <div><span>Подходящие контейнеры</span><strong>{potential.compatible_container_count}</strong><small>из них вместительнее: {potential.larger_container_count}</small></div>
+      <div><span>Следующий контейнер</span><strong>{potential.best_container_upgrade?.name ?? "Нет"}</strong>{potential.best_container_upgrade && <small>{potential.best_container_upgrade.capacity} слотов · защита {decimal(potential.best_container_upgrade.inner_protection)}%</small>}</div>
+    </div>
+    <details className="artifact-reuse-details">
+      <summary>Использование артефактов в других сборках <ChevronDown size={14} /></summary>
+      <div className="artifact-reuse-list">{potential.artifacts.map((artifact, index) => <div key={`${artifact.item_id}-${index}`}><strong>{artifact.name}</strong><span>{artifact.roles.length > 0 ? artifact.roles.map((role) => ROLE_LABELS[role] ?? role).join(", ") : "узкая специализация"}</span><b>{decimal(artifact.score, 0)}</b></div>)}</div>
+    </details>
+    {result.plans.length === 0 ? <div className="upgrade-empty">Конкретных изменений в пределах +10 млн не найдено.</div> : <div className="upgrade-list">{result.plans.map((plan, index) => <UpgradePlanRow key={`${plan.extra_budget}-${plan.result_build.build_id}-${index}`} current={current} plan={plan} />)}</div>}
+  </section>;
+}
+
+function UpgradePlanRow({ current, plan }: { current: BuildSolution; plan: UpgradePlan }) {
+  const deltas = ["effective_durability", "hp_regen_score", "movement_speed", "total_sprint_speed", "stamina_regeneration", "carry_weight"]
+    .map((key) => [key, valueForStat(plan.result_build, key) - valueForStat(current, key)] as const)
+    .filter(([, value]) => Math.abs(value) > 0.004);
+  return <div className="upgrade-row">
+    <div className="upgrade-summary"><strong>Бюджет +{formatPrice(plan.extra_budget)}</strong><span>{plan.kept_count} из {plan.current_count} артефактов остаются</span><span>Потенциал {signed(plan.potential_gain, 1)} → {decimal(plan.upgrade_potential.score, 0)}</span></div>
+    <div className="container-change"><Box size={14} />{plan.container_changed ? <><span>{current.container.name}</span><ArrowRight size={13} /><strong>{plan.result_build.container.name}</strong></> : <strong>{current.container.name} оставить</strong>}<small>стоимость контейнера не учитывается</small></div>
+    <div className="artifact-changes"><ArtifactChangeList title="Убрать" artifacts={plan.removed_artifacts} empty="Ничего" /><ArtifactChangeList title="Купить" artifacts={plan.added_artifacts} empty="Ничего" /></div>
+    <div className="upgrade-deltas">{deltas.map(([key, value]) => <span className={value > 0 ? "positive" : "negative"} key={key}>{STAT_LABELS[key]} {signed(value)}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</span>)}</div>
+    <div className="upgrade-costs"><span>Покупка <strong>{formatPrice(plan.purchase_cost)}</strong></span><span>Продажа старых <strong>{formatPrice(plan.resale_credit)}</strong></span><span className="net-cost">Итого <strong>{formatPrice(plan.estimated_net_cost)}</strong></span></div>
+  </div>;
+}
+
+function ArtifactChangeList({ title, artifacts, empty }: { title: string; artifacts: BuildSolution["artifacts"]; empty: string }) {
+  return <div className="change-list"><b>{title}</b>{artifacts.length === 0 ? <span>{empty}</span> : artifacts.map((artifact, index) => <span key={`${artifact.group_id}-${index}`}>{artifact.name} · {RARITY_LABELS[artifact.quality_tier]} · {artifact.quality_percent.toFixed(2)}%</span>)}</div>;
 }
 
 function LoadingState() {

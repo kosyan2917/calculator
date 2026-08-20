@@ -59,6 +59,7 @@ export type Artifact = {
 
 export type BuildSolution = {
   build_id: string;
+  upgrade_potential: UpgradePotential;
   total_price: number;
   armor: { item_id: string; name: string; rank: string; category: string };
   container: {
@@ -88,6 +89,63 @@ export type BuildSolution = {
   solver_status: string;
   solver_gap: number | null;
   solve_seconds: number;
+};
+
+export type ArtifactReuse = {
+  item_id: string;
+  name: string;
+  roles: string[];
+  compatible_containers: number;
+  container_candidates: number;
+  score: number;
+};
+
+export type UpgradePotential = {
+  score: number;
+  artifact_reuse_score: number;
+  container_upgrade_score: number;
+  reusable_roles: string[];
+  compatible_container_count: number;
+  larger_container_count: number;
+  best_container_upgrade: {
+    container_id: string;
+    name: string;
+    capacity: number;
+    inner_protection: number;
+  } | null;
+  artifacts: ArtifactReuse[];
+};
+
+export type UpgradePlan = {
+  extra_budget: number;
+  purchase_cost: number;
+  resale_credit: number;
+  estimated_net_cost: number;
+  kept_count: number;
+  current_count: number;
+  kept_value: number;
+  container_changed: boolean;
+  potential_gain: number;
+  upgrade_potential: UpgradePotential;
+  removed_artifacts: Artifact[];
+  added_artifacts: Artifact[];
+  result_build: BuildSolution;
+};
+
+export type UpgradeResult = {
+  plans: UpgradePlan[];
+  diagnostics: {
+    elapsed_seconds: number;
+    owned_artifacts: number;
+    eligible_containers: number;
+    current_potential: UpgradePotential;
+    searches: Array<{
+      extra_budget: number;
+      candidates: number;
+      selected: number;
+      elapsed_seconds: number;
+    }>;
+  };
 };
 
 export type OptimizationResult = {
