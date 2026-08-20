@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import asdict, dataclass, field, replace
 import math
 import time
@@ -74,7 +75,7 @@ class OptimizationRequest:
 @dataclass(frozen=True)
 class OptimizerConfig:
     time_limit_per_solve: float = 0.5
-    max_solutions_per_container: int = 2
+    max_solutions_per_container: int = 6
     num_search_workers: int = 1
     stat_scale: int = 10_000
     objective_scale: int = 10_000
@@ -98,6 +99,7 @@ class BuildSolution:
     solver_best_bound: float
     solver_gap: float | None
     solve_seconds: float
+    search_focus: str = "price"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -136,21 +138,26 @@ class ArtifactBuildOptimizer:
         attempts = 0
         statuses: dict[str, int] = {}
 
+        per_container_limit = min(
+            request.max_results,
+            self.config.max_solutions_per_container,
+            6 if len(containers) == 1 else 3,
+        )
         for container in containers:
             container_solutions, container_statuses = self._solve_container(
                 request,
                 container,
                 groups,
                 armors,
-                min(request.max_results, self.config.max_solutions_per_container),
+                per_container_limit,
             )
             attempts += len(container_statuses)
             for status in container_statuses:
                 statuses[status] = statuses.get(status, 0) + 1
             candidates.extend(container_solutions)
 
-        candidates.sort(key=lambda item: (item.total_price, item.build_id))
-        selected = self._deduplicate(candidates)[: request.max_results]
+        unique_candidates = self._deduplicate(candidates)
+        selected = self._select_diverse_portfolio(unique_candidates, request.max_results)
         return OptimizationResult(
             request=request,
             solutions=tuple(selected),
@@ -162,9 +169,11 @@ class ArtifactBuildOptimizer:
                 "solver_attempts": attempts,
                 "solver_statuses": statuses,
                 "candidate_solutions": len(candidates),
+                "unique_candidate_solutions": len(unique_candidates),
                 "returned_solutions": len(selected),
                 "search_complete": not any(
-                    status in {"LIMIT", "UNKNOWN"} for status in statuses
+                    status in {"LIMIT", "UNKNOWN", "FEASIBLE", "HEURISTIC_SEED"}
+                    for status in statuses
                 ),
             },
         )
@@ -177,23 +186,64 @@ class ArtifactBuildOptimizer:
         armors: list[dict[str, Any]],
         limit: int,
     ) -> tuple[list[BuildSolution], list[str]]:
-        if self._can_use_milp(request):
-            return self._solve_container_milp(
-                request, container, groups, armors, limit, objective_mode="cost"
-            )
+        focuses = ("price",) if limit == 1 else ("price", "speed", "durability")
+        quota = (
+            1
+            if not self._can_use_milp(request)
+            else max(1, math.ceil(limit / len(focuses)))
+        )
+        results: list[BuildSolution] = []
+        statuses: list[str] = []
+        for focus in focuses:
+            if self._can_use_milp(request):
+                objective_mode = "cost" if focus == "price" else "targets"
+                objective_targets = None if focus == "price" else {focus: 1.0}
+                focused, focused_statuses = self._solve_container_milp(
+                    request,
+                    container,
+                    groups,
+                    armors,
+                    quota,
+                    objective_mode=objective_mode,
+                    objective_targets=objective_targets,
+                )
+            else:
+                focused, focused_statuses = self._solve_nonlinear_focus(
+                    request,
+                    container,
+                    groups,
+                    armors,
+                    quota,
+                    focus,
+                )
+            results.extend(replace(solution, search_focus=focus) for solution in focused)
+            statuses.extend(focused_statuses)
 
-        seed_request = replace(request, targets={})
+        combined = self._deduplicate(results)
+        return combined[:limit], statuses
+
+    def _solve_nonlinear_focus(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        limit: int,
+        focus: str,
+    ) -> tuple[list[BuildSolution], list[str]]:
+        seed_request = request
+        seed_objectives = request.targets if focus == "price" else {focus: 1.0}
         seeds, seed_statuses = self._solve_container_milp(
             seed_request,
             container,
             groups,
             armors,
-            max(limit, 2),
+            limit,
             objective_mode="targets",
-            objective_targets=request.targets,
+            objective_targets=seed_objectives,
         )
         valid_seeds = [
-            replace(seed, solver_status="FEASIBLE_SEED")
+            replace(seed, solver_status="FEASIBLE_SEED", search_focus=focus)
             for seed in seeds
             if self._passes_exact_targets(request.targets, seed.stats, seed.derived)
         ]
@@ -203,12 +253,11 @@ class ArtifactBuildOptimizer:
             groups,
             armors,
             limit,
+            objective_focus=focus,
             initial_solutions=valid_seeds,
             hint_solution=seeds[0] if seeds else None,
         )
-        combined = self._deduplicate(exact + valid_seeds)
-        combined.sort(key=lambda item: (item.total_price, item.build_id))
-        return combined[:limit], seed_statuses + exact_statuses
+        return exact, seed_statuses + exact_statuses
 
     def _solve_container_cp_sat(
         self,
@@ -217,10 +266,13 @@ class ArtifactBuildOptimizer:
         groups: list[ArtifactGroup],
         armors: list[dict[str, Any]],
         limit: int,
+        objective_focus: str = "price",
         initial_solutions: list[BuildSolution] | None = None,
         hint_solution: BuildSolution | None = None,
     ) -> tuple[list[BuildSolution], list[str]]:
-        model, context = self._build_model(request, container, groups, armors)
+        model, context = self._build_model(
+            request, container, groups, armors, objective_focus=objective_focus
+        )
         if hint_solution is not None:
             self._apply_solution_hint(model, context, groups, armors, hint_solution)
         fallback_results = list(initial_solutions or [])
@@ -251,7 +303,8 @@ class ArtifactBuildOptimizer:
                 results.append(solution)
             self._exclude_composition(model, context["count_vars"], solver)
         results = self._deduplicate(results + fallback_results)
-        results.sort(key=lambda item: (item.total_price, item.build_id))
+        results = [replace(solution, search_focus=objective_focus) for solution in results]
+        results.sort(key=lambda item: self._focus_sort_key(item, objective_focus))
         return results[:limit], statuses
 
     def _solve_container_milp(
@@ -275,8 +328,11 @@ class ArtifactBuildOptimizer:
             )
             iterations = (
                 max(1, self.config.nonlinear_iterations)
-                if objective_mode == "targets"
-                and self._contains_nonlinear_metrics(objective_targets or {})
+                if self._contains_nonlinear_metrics(request.targets)
+                or (
+                    objective_mode == "targets"
+                    and self._contains_nonlinear_metrics(objective_targets or {})
+                )
                 else 1
             )
             best_solution: BuildSolution | None = None
@@ -295,6 +351,7 @@ class ArtifactBuildOptimizer:
                     excluded_compositions,
                     objective_coefficients,
                     objective_mode,
+                    reference_stats,
                 )
                 solve_started = time.perf_counter()
                 result = milp(
@@ -371,6 +428,7 @@ class ArtifactBuildOptimizer:
         excluded_compositions: list[tuple[int, ...]],
         objective_coefficients: dict[str, float],
         objective_mode: str,
+        reference_stats: dict[str, float],
     ) -> dict[str, Any]:
         group_count = len(groups)
         armor_offset = 2 * group_count
@@ -440,6 +498,36 @@ class ArtifactBuildOptimizer:
         movement = stat_forms.get("movement_speed", (np.zeros(variable_count), 0.0))
         sprint = stat_forms.get("sprint_speed", (np.zeros(variable_count), 0.0))
         metric_forms["total_sprint_speed"] = (movement[0] + sprint[0], 100.0 + movement[1] + sprint[1])
+        bullet = stat_forms.get("bullet_resistance", (np.zeros(variable_count), 0.0))
+        vitality = stat_forms.get("vitality", (np.zeros(variable_count), 0.0))
+        reference_bullet = float(reference_stats.get("bullet_resistance", 0.0))
+        reference_vitality = float(reference_stats.get("vitality", 0.0))
+        bullet_gradient = (reference_vitality + 100.0) / 100.0
+        vitality_gradient = (reference_bullet + 100.0) / 100.0
+        metric_forms["effective_durability"] = (
+            bullet_gradient * bullet[0] + vitality_gradient * vitality[0],
+            bullet_gradient * bullet[1]
+            + vitality_gradient * vitality[1]
+            + 100.0
+            - reference_bullet * reference_vitality / 100.0,
+        )
+        regeneration = stat_forms.get("health_regeneration", (np.zeros(variable_count), 0.0))
+        periodic = stat_forms.get("periodic_healing", (np.zeros(variable_count), 0.0))
+        healing = stat_forms.get("healing_effectiveness", (np.zeros(variable_count), 0.0))
+        reference_periodic = float(reference_stats.get("periodic_healing", 0.0))
+        reference_healing = float(reference_stats.get("healing_effectiveness", 0.0))
+        periodic_gradient = 1.0 + reference_healing / 100.0
+        healing_gradient = reference_periodic / 100.0
+        metric_forms["hp_regen_score"] = (
+            0.2 * regeneration[0]
+            + periodic_gradient * periodic[0]
+            + healing_gradient * healing[0],
+            0.2 * regeneration[1]
+            + periodic_gradient * periodic[1]
+            + healing_gradient * healing[1]
+            + 0.5
+            - reference_periodic * reference_healing / 100.0,
+        )
 
         if objective_mode == "cost":
             for index, group in enumerate(groups):
@@ -648,6 +736,7 @@ class ArtifactBuildOptimizer:
         container: dict[str, Any],
         groups: list[ArtifactGroup],
         armors: list[dict[str, Any]],
+        objective_focus: str = "price",
     ) -> tuple[cp_model.CpModel, dict[str, Any]]:
         model = cp_model.CpModel()
         capacity = int(container["capacity"])
@@ -711,6 +800,8 @@ class ArtifactBuildOptimizer:
             self._resolve_metric(key)
             for key in request.targets
         }
+        if objective_focus != "price":
+            requested_metrics.add(self._resolve_metric(objective_focus))
         metrics = self._metric_expressions(model, stat_vars, requested_metrics)
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
@@ -719,7 +810,12 @@ class ArtifactBuildOptimizer:
                 model.add(metrics[key] <= math.floor(target_scaled + 1e-9))
             else:
                 model.add(metrics[key] >= math.ceil(target_scaled - 1e-9))
-        model.minimize(price_expression)
+        if objective_focus == "price":
+            objective_expression = price_expression
+            model.minimize(price_expression)
+        else:
+            objective_expression = metrics[self._resolve_metric(objective_focus)]
+            model.maximize(objective_expression)
         return model, {
             "count_vars": count_vars,
             "quality_vars": quality_vars,
@@ -727,7 +823,7 @@ class ArtifactBuildOptimizer:
             "armor_vars": armor_vars,
             "metric_expressions": metrics,
             "price_expression": price_expression,
-            "objective_expression": price_expression,
+            "objective_expression": objective_expression,
         }
 
     def _stat_numerator(
@@ -1257,6 +1353,118 @@ class ArtifactBuildOptimizer:
             seen.add(signature)
             selected.append(candidate)
         return selected
+
+    def _focus_sort_key(self, solution: BuildSolution, focus: str) -> tuple[Any, ...]:
+        if focus == "speed":
+            return (-float(solution.stats.get("movement_speed", 0.0)), solution.total_price, solution.build_id)
+        if focus == "durability":
+            return (-float(solution.derived.get("effective_durability", 0.0)), solution.total_price, solution.build_id)
+        return (solution.total_price, solution.build_id)
+
+    def _select_diverse_portfolio(
+        self,
+        candidates: list[BuildSolution],
+        limit: int,
+    ) -> list[BuildSolution]:
+        if not candidates or limit <= 0:
+            return []
+
+        selected: list[BuildSolution] = []
+        seen: set[str] = set()
+
+        def add(solution: BuildSolution, focus: str) -> None:
+            if solution.build_id in seen:
+                index = next(
+                    index
+                    for index, current in enumerate(selected)
+                    if current.build_id == solution.build_id
+                )
+                focuses = selected[index].search_focus.split("+")
+                if focus not in focuses:
+                    selected[index] = replace(
+                        selected[index],
+                        search_focus="+".join((*focuses, focus)),
+                    )
+                return
+            if len(selected) >= limit:
+                return
+            selected.append(replace(solution, search_focus=focus))
+            seen.add(solution.build_id)
+
+        add(min(candidates, key=lambda item: (item.total_price, item.build_id)), "price")
+        add(
+            max(
+                candidates,
+                key=lambda item: (
+                    float(item.stats.get("movement_speed", 0.0)),
+                    -item.total_price,
+                    item.build_id,
+                ),
+            ),
+            "speed",
+        )
+        add(
+            max(
+                candidates,
+                key=lambda item: (
+                    float(item.derived.get("effective_durability", 0.0)),
+                    -item.total_price,
+                    item.build_id,
+                ),
+            ),
+            "durability",
+        )
+
+        speed_values = [float(item.stats.get("movement_speed", 0.0)) for item in candidates]
+        durability_values = [float(item.derived.get("effective_durability", 0.0)) for item in candidates]
+        speed_range = max(max(speed_values) - min(speed_values), 1.0)
+        durability_range = max(max(durability_values) - min(durability_values), 10.0)
+
+        while len(selected) < limit:
+            remaining = [item for item in candidates if item.build_id not in seen]
+            if not remaining:
+                break
+            candidate = max(
+                remaining,
+                key=lambda item: (
+                    min(
+                        self._solution_distance(item, chosen, speed_range, durability_range)
+                        for chosen in selected
+                    ),
+                    -item.total_price,
+                    item.build_id,
+                ),
+            )
+            add(candidate, "diverse")
+        return selected
+
+    def _solution_distance(
+        self,
+        left: BuildSolution,
+        right: BuildSolution,
+        speed_range: float,
+        durability_range: float,
+    ) -> float:
+        left_artifacts = Counter(str(item["item_id"]) for item in left.artifacts)
+        right_artifacts = Counter(str(item["item_id"]) for item in right.artifacts)
+        keys = set(left_artifacts) | set(right_artifacts)
+        union = sum(max(left_artifacts[key], right_artifacts[key]) for key in keys)
+        intersection = sum(min(left_artifacts[key], right_artifacts[key]) for key in keys)
+        artifact_distance = 1.0 - intersection / union if union else 0.0
+        speed_distance = abs(
+            float(left.stats.get("movement_speed", 0.0))
+            - float(right.stats.get("movement_speed", 0.0))
+        ) / speed_range
+        durability_distance = abs(
+            float(left.derived.get("effective_durability", 0.0))
+            - float(right.derived.get("effective_durability", 0.0))
+        ) / durability_range
+        stat_distance = min(1.0, (speed_distance + durability_distance) / 2.0)
+        equipment_distance = float(
+            left.armor["item_id"] != right.armor["item_id"]
+            or left.container["container_id"] != right.container["container_id"]
+        )
+        return 0.6 * artifact_distance + 0.3 * stat_distance + 0.1 * equipment_distance
 
     def _armor_view(self, armor: dict[str, Any]) -> dict[str, Any]:
         return {

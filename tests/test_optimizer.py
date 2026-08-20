@@ -117,6 +117,42 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertLessEqual(solution.metrics["bleeding_output"], -0.5)
         self.assertAlmostEqual(solution.metrics["run_speed"], 5.0)
 
+    def test_portfolio_contains_different_speed_and_durability_extremes(self) -> None:
+        tank = group("tank", {"bullet_resistance": 20.0}, {"bullet_resistance": 20.0})
+        fast = group("fast", {"movement_speed": 4.0}, {"movement_speed": 4.0})
+        hybrid = group("hybrid", {"movement_speed": 1.0, "vitality": 5.0}, {"movement_speed": 1.0, "vitality": 5.0})
+        optimizer = self.optimizer(
+            (tank, fast, hybrid),
+            (armor("armored", {"bullet_resistance": 400.0}),),
+            container(2),
+        )
+
+        result = optimizer.search(
+            OptimizationRequest(
+                budget=2_000_000,
+                targets={"durability": 500.0, "speed": 2.0},
+                max_results=6,
+            )
+        )
+
+        self.assertGreaterEqual(len(result.solutions), 2)
+        self.assertGreater(
+            max(solution.stats["movement_speed"] for solution in result.solutions),
+            min(solution.stats["movement_speed"] for solution in result.solutions),
+        )
+        self.assertGreater(
+            max(solution.derived["effective_durability"] for solution in result.solutions),
+            min(solution.derived["effective_durability"] for solution in result.solutions),
+        )
+        signatures = {
+            tuple(sorted(artifact["item_id"] for artifact in solution.artifacts))
+            for solution in result.solutions
+        }
+        self.assertEqual(len(signatures), len(result.solutions))
+        for solution in result.solutions:
+            self.assertGreaterEqual(solution.derived["effective_durability"], 500.0)
+            self.assertGreaterEqual(solution.stats["movement_speed"], 2.0)
+
     def test_equipment_exclusions_are_applied_by_the_core(self) -> None:
         optimizer = self.optimizer((group("speed", {"movement_speed": 1.0}, {"movement_speed": 1.0}),), (armor("keep", {}), armor("drop", {})), container(1))
         request = OptimizationRequest(budget=1_000_000, targets={"speed": 1.0}, excluded_armor_ids=("drop",))

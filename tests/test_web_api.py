@@ -22,6 +22,10 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual(len(payload["containers"]), 26)
         self.assertGreater(len(payload["artifacts"]), 0)
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
+        self.assertEqual(
+            {metric["key"] for metric in payload["metrics"] if metric["group"] == "main"},
+            {"durability", "speed"},
+        )
         self.assertEqual({item["category"] for item in payload["containers"]}, {"containers", "backpacks"})
         tri_zip = next(item for item in payload["containers"] if item["id"] == "lny1")
         self.assertEqual(tri_zip["capacity"], 5)
