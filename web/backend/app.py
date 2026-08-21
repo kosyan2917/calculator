@@ -20,6 +20,8 @@ from pydantic import BaseModel, Field
 from artcalc import (
     ArtifactBuildOptimizer,
     BuildUpgradePotentialAnalyzer,
+    FrontierBuildGenerator,
+    FrontierGeneratorConfig,
     OptimizationRequest,
     OptimizerConfig,
     SolverCatalog,
@@ -109,12 +111,21 @@ def get_catalog() -> SolverCatalog:
 
 
 @lru_cache(maxsize=1)
-def get_optimizer() -> ArtifactBuildOptimizer:
-    return ArtifactBuildOptimizer(
+def get_optimizer() -> FrontierBuildGenerator:
+    return FrontierBuildGenerator(
         get_catalog(),
-        OptimizerConfig(
+        FrontierGeneratorConfig(
+            sweep_points=int(os.getenv("ARTCALC_FRONTIER_SWEEP_POINTS", "3")),
+            solutions_per_point=int(os.getenv("ARTCALC_FRONTIER_SOLUTIONS_PER_POINT", "2")),
+            multi_container_sweep_points=int(
+                os.getenv("ARTCALC_MULTI_CONTAINER_SWEEP_POINTS", "1")
+            ),
+            multi_container_solutions_per_point=int(
+                os.getenv("ARTCALC_MULTI_CONTAINER_SOLUTIONS_PER_POINT", "1")
+            ),
+        ),
+        solver_config=OptimizerConfig(
             time_limit_per_solve=float(os.getenv("ARTCALC_TIME_LIMIT", "0.5")),
-            max_solutions_per_container=int(os.getenv("ARTCALC_SOLUTIONS_PER_CONTAINER", "6")),
             num_search_workers=int(os.getenv("ARTCALC_CP_WORKERS", "1")),
             nonlinear_iterations=int(os.getenv("ARTCALC_NONLINEAR_ITERATIONS", "3")),
             infection_safety_margin=float(os.getenv("ARTCALC_INFECTION_SAFETY_MARGIN", "0.0001")),
