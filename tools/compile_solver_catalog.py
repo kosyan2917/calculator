@@ -19,6 +19,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default="data/solver_catalog.json")
     parser.add_argument("--min-quality-percent", type=float, default=95.0)
     parser.add_argument("--max-artifact-price", type=int)
+    parser.add_argument("--artifact-purchase-surcharge", type=int, default=2_000_000)
     return parser.parse_args()
 
 
@@ -32,6 +33,7 @@ def main() -> int:
             armor_stats_path=args.armor_stats,
             min_quality_percent=args.min_quality_percent,
             max_artifact_price=args.max_artifact_price,
+            artifact_purchase_surcharge=args.artifact_purchase_surcharge,
         )
     ).compile()
     catalog.write(args.output)

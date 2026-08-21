@@ -86,6 +86,7 @@ class CatalogCompilerConfig:
     ranks: tuple[str, ...] = ("\u0412\u0435\u0442\u0435\u0440\u0430\u043d", "\u041c\u0430\u0441\u0442\u0435\u0440")
     artifact_upgrade_level: int = 15
     artifact_price_upgrade_level: int = 0
+    artifact_purchase_surcharge: int = 2_000_000
     min_quality_percent: float = 95.0
     max_artifact_price: int | None = None
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
@@ -168,6 +169,7 @@ class ArtifactCatalogCompiler:
         low_percent = float(low["quality_percent"])
         high_percent = float(high["quality_percent"])
         self._validate_affine(ordered, low, high)
+        market_price = int(low["price"])
         return ArtifactGroup(
             group_id=f"{low['item_id']}:{low['quality_tier']}",
             item_id=str(low["item_id"]),
@@ -175,7 +177,7 @@ class ArtifactCatalogCompiler:
             quality_tier=str(low["quality_tier"]),
             quality_low=int(round(low_percent * 100.0)),
             quality_high=int(round(high_percent * 100.0)),
-            price=int(low["price"]),
+            price=market_price + self.config.artifact_purchase_surcharge,
             stats_low=dict(low.get("stats") or {}),
             stats_high=dict(high.get("stats") or {}),
             infections_low=dict(low.get("infections") or {}),
@@ -183,6 +185,7 @@ class ArtifactCatalogCompiler:
             price_basis=low.get("price_basis"),
             liquidity_score=float(low.get("liquidity_score") or 0.0),
             confidence_score=float(low.get("confidence_score") or 0.0),
+            market_price=market_price,
         )
 
     def _validate_affine(

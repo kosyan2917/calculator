@@ -415,7 +415,7 @@ function ExclusionGroup({ title, options, selected, setSelected, disabledId = ""
 }
 
 function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void }) {
-  const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
+  const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   const focusLabel = solution.search_focus.split("+").map((focus) => FOCUS_LABELS[focus] ?? focus).join(" · ");
   return <article className="build-card">
