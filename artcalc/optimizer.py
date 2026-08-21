@@ -15,6 +15,7 @@ from .solver_catalog import ArtifactGroup, SolverCatalog
 from .stat_model import (
     INFECTION_STATS,
     PRIMARY_STATS,
+    QUALITY_ORDER,
     SECONDARY_STATS,
     MechanicsConfig,
     add_stats,
@@ -60,7 +61,7 @@ NONLINEAR_METRICS = {"effective_durability", "hp_regen_score"}
 class OptimizationRequest:
     budget: int
     targets: dict[str, float]
-    exclude_legendary_artifacts: bool = True
+    max_quality_tier: str = "exclusive"
     armor_ids: tuple[str, ...] = ()
     container_ids: tuple[str, ...] = ()
     allowed_quality_tiers: tuple[str, ...] = ()
@@ -1147,7 +1148,7 @@ class ArtifactBuildOptimizer:
             for group in self.catalog.artifact_groups
             if group.item_id not in excluded
             and (not tiers or group.quality_tier in tiers)
-            and (not request.exclude_legendary_artifacts or group.quality_tier != "legendary")
+            and QUALITY_ORDER[group.quality_tier] <= QUALITY_ORDER[request.max_quality_tier]
             and group.price <= request.budget
             and (
                 request.min_quality_percent is None
@@ -1191,6 +1192,8 @@ class ArtifactBuildOptimizer:
             raise ValueError("max_results must be positive")
         if not request.targets:
             raise ValueError("At least one required stat is required")
+        if request.max_quality_tier not in QUALITY_ORDER:
+            raise ValueError(f"Unsupported maximum artifact quality: {request.max_quality_tier}")
         for key in request.targets:
             resolved = self._resolve_metric(key)
             if resolved not in METRIC_SCALES:

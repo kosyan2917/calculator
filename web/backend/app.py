@@ -27,6 +27,7 @@ from artcalc import (
     UpgradePlannerConfig,
     UpgradePlanningRequest,
 )
+from artcalc.stat_model import QUALITY_ORDER
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -55,7 +56,7 @@ class OptimizePayload(BaseModel):
     armor_id: str | None = None
     container_id: str | None = None
     targets: dict[str, float] = Field(min_length=1)
-    exclude_legendary_artifacts: bool = True
+    max_quality_tier: str = "exclusive"
     excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
@@ -66,7 +67,7 @@ class OptimizePayload(BaseModel):
 class UpgradePayload(BaseModel):
     current_build: dict[str, Any]
     targets: dict[str, float] = Field(min_length=1)
-    exclude_legendary_artifacts: bool = True
+    max_quality_tier: str = "exclusive"
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     extra_budgets: list[int] = Field(default_factory=list, max_length=6)
@@ -146,6 +147,11 @@ def validate_metrics(targets: dict[str, float]) -> None:
     unknown = set(targets) - set(METRIC_DIRECTIONS)
     if unknown:
         raise HTTPException(status_code=422, detail=f"Unknown metrics: {', '.join(sorted(unknown))}")
+
+
+def validate_quality_tier(quality_tier: str) -> None:
+    if quality_tier not in QUALITY_ORDER:
+        raise HTTPException(status_code=422, detail=f"Unknown artifact quality: {quality_tier}")
 
 
 app = FastAPI(title="STALZONE Artifact Builds", version="2.0.0")
@@ -230,6 +236,7 @@ def catalog() -> dict:
 @app.post("/api/optimize")
 async def optimize(payload: OptimizePayload) -> dict:
     validate_metrics(payload.targets)
+    validate_quality_tier(payload.max_quality_tier)
     cache_key = json.dumps(
         payload.model_dump(mode="json"),
         ensure_ascii=True,
@@ -244,7 +251,7 @@ async def optimize(payload: OptimizePayload) -> dict:
     request = OptimizationRequest(
         budget=payload.budget,
         targets=payload.targets,
-        exclude_legendary_artifacts=payload.exclude_legendary_artifacts,
+        max_quality_tier=payload.max_quality_tier,
         armor_ids=(payload.armor_id,) if payload.armor_id else (),
         container_ids=(payload.container_id,) if payload.container_id else (),
         excluded_armor_ids=tuple(payload.excluded_armor_ids),
@@ -277,6 +284,7 @@ async def optimize(payload: OptimizePayload) -> dict:
 @app.post("/api/upgrade-plans")
 async def upgrade_plans(payload: UpgradePayload) -> dict:
     validate_metrics(payload.targets)
+    validate_quality_tier(payload.max_quality_tier)
     budgets = tuple(payload.extra_budgets) if payload.extra_budgets else ()
     if any(budget < 1 or budget > 50_000_000 for budget in budgets):
         raise HTTPException(status_code=422, detail="Extra budgets must be between 1 and 50000000")
@@ -284,7 +292,7 @@ async def upgrade_plans(payload: UpgradePayload) -> dict:
     request = UpgradePlanningRequest(
         current_build=payload.current_build,
         targets=payload.targets,
-        exclude_legendary_artifacts=payload.exclude_legendary_artifacts,
+        max_quality_tier=payload.max_quality_tier,
         extra_budgets=budgets,
         excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
         excluded_container_ids=tuple(payload.excluded_container_ids),

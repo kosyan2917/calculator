@@ -103,7 +103,7 @@ class UpgradePlannerTest(unittest.TestCase):
             UpgradePlanningRequest(
                 current_build=current_build,
                 targets={"speed": 3.0},
-                exclude_legendary_artifacts=False,
+                max_quality_tier="legendary",
             )
         )
 
@@ -162,7 +162,7 @@ class UpgradePlannerTest(unittest.TestCase):
             UpgradePlanningRequest(
                 current_build=current_build,
                 targets={"durability": 100.0},
-                exclude_legendary_artifacts=False,
+                max_quality_tier="legendary",
             )
         )
 

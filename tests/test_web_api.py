@@ -47,7 +47,7 @@ class WebApiTests(unittest.TestCase):
         self.assertFalse(payload["diagnostics"]["cache_hit"])
         self.assertGreater(len(payload["solutions"]), 0)
         self.assertEqual(payload["request"]["targets"], {"durability": 450.0})
-        self.assertTrue(payload["request"]["exclude_legendary_artifacts"])
+        self.assertEqual(payload["request"]["max_quality_tier"], "exclusive")
         for build in payload["solutions"]:
             self.assertLessEqual(build["total_price"], 50_000_000)
             self.assertTrue(build["infection"]["valid"])
@@ -93,6 +93,18 @@ class WebApiTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 422)
         self.assertIn("unknown_stat", response.json()["detail"])
+
+    def test_optimize_rejects_unknown_maximum_quality(self) -> None:
+        response = self.client.post(
+            "/api/optimize",
+            json={
+                "budget": 10_000_000,
+                "targets": {"speed": 0.0},
+                "max_quality_tier": "mythical",
+            },
+        )
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("mythical", response.json()["detail"])
 
 
 if __name__ == "__main__":

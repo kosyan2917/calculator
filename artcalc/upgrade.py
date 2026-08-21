@@ -25,7 +25,7 @@ class UpgradePlannerConfig:
 class UpgradePlanningRequest:
     current_build: dict[str, Any]
     targets: dict[str, float]
-    exclude_legendary_artifacts: bool = True
+    max_quality_tier: str = "exclusive"
     extra_budgets: tuple[int, ...] = ()
     excluded_artifact_ids: tuple[str, ...] = ()
     excluded_container_ids: tuple[str, ...] = ()
@@ -122,7 +122,7 @@ class UpgradePlanner:
                 OptimizationRequest(
                     budget=extra_budget,
                     targets=upgrade_targets,
-                    exclude_legendary_artifacts=request.exclude_legendary_artifacts,
+                    max_quality_tier=request.max_quality_tier,
                     armor_ids=(armor_id,),
                     container_ids=upgrade_container_ids,
                     excluded_artifact_ids=request.excluded_artifact_ids,

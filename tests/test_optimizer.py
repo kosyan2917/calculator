@@ -86,7 +86,7 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertEqual(solution.artifacts[0]["item_id"], "enough")
         self.assertEqual(set(solution.metrics), {"speed"})
 
-    def test_legendary_artifacts_are_excluded_by_default_and_can_be_enabled(self) -> None:
+    def test_maximum_artifact_quality_is_respected(self) -> None:
         regular = group("regular", {"movement_speed": 2.0}, {"movement_speed": 2.0})
         legendary = replace(
             group("legendary", {"movement_speed": 3.0}, {"movement_speed": 3.0}),
@@ -102,7 +102,7 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
             OptimizationRequest(
                 budget=1_000_000,
                 targets={"speed": 2.0},
-                exclude_legendary_artifacts=False,
+                max_quality_tier="legendary",
                 max_results=1,
             )
         ).solutions[0]
