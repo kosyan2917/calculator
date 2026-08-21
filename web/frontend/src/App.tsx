@@ -36,6 +36,15 @@ const RARITY_LABELS: Record<string, string> = {
   legendary: "Легендарный",
 };
 
+const QUALITY_LIMITS = [
+  { value: "common", label: "Обычное · до 100%" },
+  { value: "uncommon", label: "Необычное · до 115%" },
+  { value: "special", label: "Особое · до 130%" },
+  { value: "rare", label: "Редкое · до 145%" },
+  { value: "exclusive", label: "Исключительное · до 160%" },
+  { value: "legendary", label: "Легендарное · до 175%" },
+] as const;
+
 const STAT_LABELS: Record<string, string> = {
   effective_durability: "Приведенка",
   hp_regen_score: "Лечение/с",
@@ -104,7 +113,7 @@ function App() {
   const [budgetMillions, setBudgetMillions] = useState(50);
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
-  const [excludeLegendaryArtifacts, setExcludeLegendaryArtifacts] = useState(true);
+  const [maxQualityTier, setMaxQualityTier] = useState("exclusive");
   const [targets, setTargets] = useState<Record<string, string>>({});
   const [excludedArmorIds, setExcludedArmorIds] = useState<string[]>([]);
   const [excludedContainerIds, setExcludedContainerIds] = useState<string[]>([]);
@@ -158,7 +167,7 @@ function App() {
           armor_id: armorId || null,
           container_id: containerId || null,
           targets: parsedTargets,
-          exclude_legendary_artifacts: excludeLegendaryArtifacts,
+          max_quality_tier: maxQualityTier,
           excluded_armor_ids: excludedArmorIds,
           excluded_container_ids: excludedContainerIds,
           excluded_artifact_ids: excludedArtifactIds,
@@ -189,7 +198,7 @@ function App() {
         body: JSON.stringify({
           current_build: solution,
           targets: parsedTargets,
-          exclude_legendary_artifacts: excludeLegendaryArtifacts,
+          max_quality_tier: maxQualityTier,
           excluded_container_ids: excludedContainerIds,
           excluded_artifact_ids: excludedArtifactIds,
           extra_budgets: [2_500_000, 5_000_000, 10_000_000],
@@ -249,14 +258,13 @@ function App() {
               <SearchableSelect id="armor" value={armorId} options={armorOptions} placeholder="Любой ветеранский или мастерский" onChange={(value) => { setArmorId(value); setExcludedArmorIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
               <label className="field-label" htmlFor="container">Контейнер / рюкзак</label>
               <SearchableSelect id="container" value={containerId} options={containerOptions} placeholder="Любой контейнер или рюкзак" onChange={(value) => { setContainerId(value); setExcludedContainerIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
-              <label className="option-toggle">
-                <input
-                  type="checkbox"
-                  checked={excludeLegendaryArtifacts}
-                  onChange={(event) => setExcludeLegendaryArtifacts(event.target.checked)}
-                />
-                <span>Не использовать легендарные артефакты</span>
-              </label>
+              <label className="field-label quality-limit-label" htmlFor="max-quality">Максимальное качество артефактов</label>
+              <div className="select-wrap quality-limit-select">
+                <select id="max-quality" value={maxQualityTier} onChange={(event) => setMaxQualityTier(event.target.value)}>
+                  {QUALITY_LIMITS.map((quality) => <option key={quality.value} value={quality.value}>{quality.label}</option>)}
+                </select>
+                <ChevronDown size={15} />
+              </div>
             </section>
 
             <section className="form-section requirement-section">

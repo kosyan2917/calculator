@@ -409,6 +409,8 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
   .equipment-section .section-heading { grid-column: 1 / -1; }
   .equipment-section .field-label { grid-row: 2; }
   .equipment-section .select-wrap, .equipment-section .search-select { grid-row: 3; }
+  .equipment-section .quality-limit-label { grid-column: 1 / -1; grid-row: 4; }
+  .equipment-section .quality-limit-select { grid-column: 1 / -1; grid-row: 5; }
   .preference-section .metric-list { grid-template-columns: 1fr 1fr; gap: 13px 18px; }
   .secondary-settings { grid-column: 1 / -1; }
   .secondary-settings .metric-list { grid-template-columns: 1fr 1fr; }
