@@ -80,6 +80,9 @@ const FOCUS_LABELS: Record<string, string> = {
   price: "Дешевле",
   speed: "Макс. скорость",
   durability: "Макс. приведёнка",
+  balanced: "Компромисс",
+  alternative: "Другой состав",
+  frontier: "Граница параметров",
   diverse: "Другой состав",
 };
 
