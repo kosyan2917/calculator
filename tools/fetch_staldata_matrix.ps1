@@ -40,16 +40,19 @@ foreach ($file in $files) {
     $encodedId = [Uri]::EscapeDataString($itemId)
     $url = "$ApiBase/market/artifact-matrix?region=$regionValue&item_id=$encodedId"
     $outFile = Join-Path $regionDir "$itemId.json"
+    $tempFile = "$outFile.tmp"
 
     Write-Host "[$index/$($files.Count)] $itemId"
-    & curl.exe --silent --show-error --location --fail --max-time 30 $url --output $outFile
+    & curl.exe --silent --show-error --location --fail --noproxy "*" --max-time 30 $url --output $tempFile
     if ($LASTEXITCODE -ne 0) {
         $failures += [pscustomobject]@{
             item_id = $itemId
             path = $file.FullName
             exit_code = $LASTEXITCODE
         }
-        Remove-Item -LiteralPath $outFile -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $tempFile -ErrorAction SilentlyContinue
+    } else {
+        Move-Item -LiteralPath $tempFile -Destination $outFile -Force
     }
 
     if ($DelayMs -gt 0) {
