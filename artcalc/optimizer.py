@@ -120,6 +120,12 @@ class OptimizationResult:
         }
 
 
+@dataclass(frozen=True)
+class FocusedSearchResult:
+    solutions: tuple[BuildSolution, ...]
+    statuses: tuple[str, ...]
+
+
 class ArtifactBuildOptimizer:
     """Query-time artifact optimizer independent of the old beam index."""
 
@@ -144,6 +150,7 @@ class ArtifactBuildOptimizer:
             self.config.max_solutions_per_container,
             6 if len(containers) == 1 else 3,
         )
+
         for container in containers:
             container_solutions, container_statuses = self._solve_container(
                 request,
@@ -179,6 +186,35 @@ class ArtifactBuildOptimizer:
             },
         )
 
+    def solve_focus(
+        self,
+        request: OptimizationRequest,
+        container_id: str,
+        focus: str,
+        limit: int = 1,
+    ) -> FocusedSearchResult:
+        self._validate_request(request)
+        if focus not in {"price", "speed", "durability"}:
+            raise ValueError(f"Unsupported search focus: {focus}")
+        if limit <= 0:
+            raise ValueError("limit must be positive")
+
+        focused_request = replace(request, container_ids=(container_id,))
+        groups = self._eligible_groups(focused_request)
+        armors = self._eligible_armors(focused_request)
+        containers = self._eligible_containers(focused_request)
+        if len(containers) != 1:
+            raise ValueError(f"Container is not unique: {container_id}")
+        solutions, statuses = self._solve_focus(
+            focused_request,
+            containers[0],
+            groups,
+            armors,
+            limit,
+            focus,
+        )
+        return FocusedSearchResult(tuple(solutions), tuple(statuses))
+
     def _solve_container(
         self,
         request: OptimizationRequest,
@@ -196,32 +232,46 @@ class ArtifactBuildOptimizer:
         results: list[BuildSolution] = []
         statuses: list[str] = []
         for focus in focuses:
-            if self._can_use_milp(request):
-                objective_mode = "cost" if focus == "price" else "targets"
-                objective_targets = None if focus == "price" else {focus: 1.0}
-                focused, focused_statuses = self._solve_container_milp(
-                    request,
-                    container,
-                    groups,
-                    armors,
-                    quota,
-                    objective_mode=objective_mode,
-                    objective_targets=objective_targets,
-                )
-            else:
-                focused, focused_statuses = self._solve_nonlinear_focus(
-                    request,
-                    container,
-                    groups,
-                    armors,
-                    quota,
-                    focus,
-                )
+            focused, focused_statuses = self._solve_focus(
+                request, container, groups, armors, quota, focus
+            )
             results.extend(replace(solution, search_focus=focus) for solution in focused)
             statuses.extend(focused_statuses)
 
         combined = self._deduplicate(results)
         return combined[:limit], statuses
+
+    def _solve_focus(
+        self,
+        request: OptimizationRequest,
+        container: dict[str, Any],
+        groups: list[ArtifactGroup],
+        armors: list[dict[str, Any]],
+        limit: int,
+        focus: str,
+    ) -> tuple[list[BuildSolution], list[str]]:
+        if self._can_use_milp(request):
+            objective_mode = "cost" if focus == "price" else "targets"
+            objective_targets = None if focus == "price" else {focus: 1.0}
+            focused, statuses = self._solve_container_milp(
+                request,
+                container,
+                groups,
+                armors,
+                limit,
+                objective_mode=objective_mode,
+                objective_targets=objective_targets,
+            )
+        else:
+            focused, statuses = self._solve_nonlinear_focus(
+                request,
+                container,
+                groups,
+                armors,
+                limit,
+                focus,
+            )
+        return [replace(solution, search_focus=focus) for solution in focused], statuses
 
     def _solve_nonlinear_focus(
         self,
@@ -233,14 +283,15 @@ class ArtifactBuildOptimizer:
         focus: str,
     ) -> tuple[list[BuildSolution], list[str]]:
         seed_request = request
-        seed_objectives = request.targets if focus == "price" else {focus: 1.0}
+        objective_mode = "cost" if focus == "price" else "targets"
+        seed_objectives = None if focus == "price" else {focus: 1.0}
         seeds, seed_statuses = self._solve_container_milp(
             seed_request,
             container,
             groups,
             armors,
             limit,
-            objective_mode="targets",
+            objective_mode=objective_mode,
             objective_targets=seed_objectives,
         )
         valid_seeds = [

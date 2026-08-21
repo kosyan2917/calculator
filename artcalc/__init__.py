@@ -4,6 +4,7 @@ from .precompute import BuildPrecomputer, PrecomputeConfig
 from .optimizer import (
     ArtifactBuildOptimizer,
     BuildSolution,
+    FocusedSearchResult,
     OptimizationRequest,
     OptimizationResult,
     OptimizerConfig,
@@ -18,6 +19,7 @@ __all__ = [
     "ArtifactCatalogCompiler",
     "BuildPrecomputer",
     "BuildSolution",
+    "FocusedSearchResult",
     "BuildUpgradePotentialAnalyzer",
     "BuildQueryEngine",
     "CatalogCompilerConfig",

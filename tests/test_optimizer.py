@@ -79,6 +79,31 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
         self.assertGreaterEqual(plain.derived["effective_durability"], 120.0)
         self.assertGreaterEqual(armored.derived["effective_durability"], 550.0)
 
+    def test_nonlinear_price_focus_minimizes_price_instead_of_maximizing_durability(self) -> None:
+        cheap = group("cheap", {"vitality": 10.0}, {"vitality": 10.0})
+        expensive = replace(
+            group("expensive", {"vitality": 20.0}, {"vitality": 20.0}),
+            price=3_000_000,
+        )
+        optimizer = self.optimizer(
+            (cheap, expensive),
+            (armor("armored", {"bullet_resistance": 400.0}),),
+            container(1),
+        )
+
+        result = optimizer.solve_focus(
+            OptimizationRequest(
+                budget=3_000_000,
+                targets={"durability": 550.0},
+                max_results=1,
+            ),
+            "container",
+            "price",
+        )
+
+        self.assertEqual(result.solutions[0].artifacts[0]["item_id"], "cheap")
+        self.assertEqual(result.solutions[0].total_price, 1_000_000)
+
     def test_unspecified_stats_do_not_affect_cheapest_solution(self) -> None:
         enough = group("enough", {"movement_speed": 2.0}, {"movement_speed": 2.0})
         excessive = replace(group("excessive", {"movement_speed": 10.0, "carry_weight": 200.0}, {"movement_speed": 10.0, "carry_weight": 200.0}), price=3_000_000)
