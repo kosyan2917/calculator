@@ -49,7 +49,7 @@ const STAT_LABELS: Record<string, string> = {
   effective_durability: "Приведенка",
   hp_regen_score: "Лечение/с",
   movement_speed: "Скорость",
-  total_sprint_speed: "Скорость бега",
+  total_sprint_speed: "Итоговая скорость бега",
   bullet_resistance: "Пулестойкость",
   vitality: "Живучесть",
   stamina: "Выносливость",
@@ -102,7 +102,7 @@ function decimal(value: number, digits = 2) {
 
 function valueForStat(solution: BuildSolution, key: string) {
   if (key === "effective_durability" || key === "hp_regen_score") return solution.derived[key] ?? 0;
-  if (key === "total_sprint_speed") return (solution.derived[key] ?? 100) - 100;
+  if (key === "total_sprint_speed") return solution.derived[key] ?? 100;
   return solution.stats[key] ?? 0;
 }
 
@@ -421,7 +421,7 @@ function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution
   return <article className="build-card">
     <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{formatPrice(solution.total_price)}</strong><span className="focus-badge">{focusLabel}</span><span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
     <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price">{formatPrice(artifact.price)}</div></div>)}</div>
-    <div className="stat-grid">{keyStats.map(([key, Icon]) => <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{signed(valueForStat(solution, key))}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</strong></div>)}</div>
+    <div className="stat-grid">{keyStats.map(([key, Icon]) => <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{key === "total_sprint_speed" ? decimal(valueForStat(solution, key)) : signed(valueForStat(solution, key))}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</strong></div>)}</div>
     <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions"><button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
     {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
     {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
