@@ -138,10 +138,10 @@ class ArtifactBuildOptimizerTest(unittest.TestCase):
     def test_minimize_direction_and_run_speed_bonus_are_respected(self) -> None:
         good = group("good", {"bleeding_output": -1.0, "movement_speed": 3.0, "sprint_speed": 2.0}, {"bleeding_output": -1.0, "movement_speed": 3.0, "sprint_speed": 2.0})
         bad = group("bad", {"bleeding_output": 1.0}, {"bleeding_output": 1.0})
-        solution = self.optimizer((good, bad), (armor("plain", {}),), container(1)).search(OptimizationRequest(budget=1_000_000, targets={"bleeding_output": -0.5, "run_speed": 5.0}, max_results=1)).solutions[0]
+        solution = self.optimizer((good, bad), (armor("plain", {}),), container(1)).search(OptimizationRequest(budget=1_000_000, targets={"bleeding_output": -0.5, "run_speed": 105.0}, max_results=1)).solutions[0]
         self.assertEqual(solution.artifacts[0]["item_id"], "good")
         self.assertLessEqual(solution.metrics["bleeding_output"], -0.5)
-        self.assertAlmostEqual(solution.metrics["run_speed"], 5.0)
+        self.assertAlmostEqual(solution.metrics["run_speed"], 105.0)
 
     def test_portfolio_contains_different_speed_and_durability_extremes(self) -> None:
         tank = group("tank", {"bullet_resistance": 20.0}, {"bullet_resistance": 20.0})

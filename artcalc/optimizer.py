@@ -1275,7 +1275,7 @@ class ArtifactBuildOptimizer:
         return "min" if self._resolve_metric(key) in MINIMIZE_METRICS else "max"
 
     def _internal_target(self, key: str, target: float) -> float:
-        return target + 100.0 if self._resolve_metric(key) == "total_sprint_speed" else target
+        return target
 
     def _scaled_target(self, key: str, target: float) -> float:
         return self._internal_target(key, target) * self.config.stat_scale
@@ -1287,8 +1287,7 @@ class ArtifactBuildOptimizer:
         derived: dict[str, float],
     ) -> float:
         resolved = self._resolve_metric(key)
-        value = self._metric_value(stats, derived, resolved)
-        return value - 100.0 if resolved == "total_sprint_speed" else value
+        return self._metric_value(stats, derived, resolved)
 
     def _target_search_score(
         self,
