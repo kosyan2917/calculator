@@ -43,7 +43,7 @@ foreach ($file in $files) {
     $tempFile = "$outFile.tmp"
 
     Write-Host "[$index/$($files.Count)] $itemId"
-    & curl.exe --silent --show-error --location --fail --noproxy "*" --max-time 30 $url --output $tempFile
+    & curl.exe --silent --show-error --location --fail --noproxy "*" --max-time 30 --retry 4 --retry-all-errors --retry-delay 1 $url --output $tempFile
     if ($LASTEXITCODE -ne 0) {
         $failures += [pscustomobject]@{
             item_id = $itemId
