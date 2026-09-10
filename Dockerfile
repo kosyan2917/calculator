@@ -20,6 +20,8 @@ RUN groupadd --gid 10001 artcalc \
 
 USER artcalc
 
+RUN python -c "import web.backend.app"
+
 EXPOSE 8000
 STOPSIGNAL SIGTERM
 
