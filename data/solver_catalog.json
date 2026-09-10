@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T14:38:47.936076+00:00",
+  "generated_at": "2026-09-10T09:52:54.310932+00:00",
   "artifact_upgrade_level": 15,
   "artifact_price_upgrade_level": 0,
   "min_quality_percent": 95.0,
@@ -2112,12 +2112,12 @@
       "price": 2089991,
       "stats_low": {
         "bullet_resistance": 16.6725,
-        "recoil": -6.159833333333333,
+        "recoil": -8.382833066666667,
         "stamina": 20.007
       },
       "stats_high": {
         "bullet_resistance": 17.55,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 21.06
       },
       "infections_low": {
@@ -2143,12 +2143,12 @@
       "price": 23548999,
       "stats_low": {
         "bullet_resistance": 25.4475,
-        "recoil": -5.4795,
+        "recoil": -7.4685,
         "stamina": 30.537
       },
       "stats_high": {
         "bullet_resistance": 28.080000000000005,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 33.696000000000005
       },
       "infections_low": {
@@ -2174,12 +2174,12 @@
       "price": 166999999,
       "stats_low": {
         "bullet_resistance": 28.080000000000005,
-        "recoil": -5.4795,
+        "recoil": -7.4685,
         "stamina": 33.696000000000005
       },
       "stats_high": {
         "bullet_resistance": 30.7125,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 36.855000000000004
       },
       "infections_low": {
@@ -2205,12 +2205,12 @@
       "price": 8100000,
       "stats_low": {
         "bullet_resistance": 22.815000000000005,
-        "recoil": -5.4795,
+        "recoil": -7.4685,
         "stamina": 27.378
       },
       "stats_high": {
         "bullet_resistance": 25.4475,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 30.537
       },
       "infections_low": {
@@ -2236,12 +2236,12 @@
       "price": 2780000,
       "stats_low": {
         "bullet_resistance": 20.1825,
-        "recoil": -5.4795,
+        "recoil": -7.4685,
         "stamina": 24.219
       },
       "stats_high": {
         "bullet_resistance": 22.815000000000005,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 27.378
       },
       "infections_low": {
@@ -2267,12 +2267,12 @@
       "price": 2139990,
       "stats_low": {
         "bullet_resistance": 17.55,
-        "recoil": -5.4795,
+        "recoil": -7.4685,
         "stamina": 21.06
       },
       "stats_high": {
         "bullet_resistance": 20.1825,
-        "recoil": -6.5,
+        "recoil": -8.8399996,
         "stamina": 24.219
       },
       "infections_low": {
@@ -2298,13 +2298,13 @@
       "price": 2040000,
       "stats_low": {
         "health_regeneration": 3.82849981,
-        "recoil": -7.2865,
-        "wiggle": -7.5335
+        "recoil": -7.533499566666666,
+        "wiggle": -23.5885
       },
       "stats_high": {
         "health_regeneration": 4.0299998,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.375
@@ -2329,13 +2329,13 @@
       "price": 9800000,
       "stats_low": {
         "health_regeneration": 5.84349971,
-        "recoil": -6.5195,
-        "wiggle": -6.7405
+        "recoil": -6.7404997,
+        "wiggle": -21.1055
       },
       "stats_high": {
         "health_regeneration": 6.44799968,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.125
@@ -2360,13 +2360,13 @@
       "price": 41999999,
       "stats_low": {
         "health_regeneration": 6.44799968,
-        "recoil": -6.5195,
-        "wiggle": -6.7405
+        "recoil": -6.7404997,
+        "wiggle": -21.1055
       },
       "stats_high": {
         "health_regeneration": 7.05249965,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.125
@@ -2391,13 +2391,13 @@
       "price": 2833000,
       "stats_low": {
         "health_regeneration": 5.23899974,
-        "recoil": -6.5195,
-        "wiggle": -6.7405
+        "recoil": -6.7404997,
+        "wiggle": -21.1055
       },
       "stats_high": {
         "health_regeneration": 5.84349971,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.125
@@ -2422,13 +2422,13 @@
       "price": 2175990,
       "stats_low": {
         "health_regeneration": 4.63449977,
-        "recoil": -6.5195,
-        "wiggle": -6.7405
+        "recoil": -6.7404997,
+        "wiggle": -21.1055
       },
       "stats_high": {
         "health_regeneration": 5.23899974,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.125
@@ -2453,13 +2453,13 @@
       "price": 2070000,
       "stats_low": {
         "health_regeneration": 4.0299998,
-        "recoil": -6.5195,
-        "wiggle": -6.7405
+        "recoil": -6.7404997,
+        "wiggle": -21.1055
       },
       "stats_high": {
         "health_regeneration": 4.63449977,
-        "recoil": -7.67,
-        "wiggle": -7.93
+        "recoil": -7.9299995,
+        "wiggle": -24.83
       },
       "infections_low": {
         "biological": 2.125
@@ -3625,13 +3625,13 @@
       "quality_high": 10000,
       "price": 2053900,
       "stats_low": {
-        "recoil": -7.2865,
-        "wiggle": -10.126999433333333,
+        "recoil": -9.879999999999999,
+        "wiggle": -13.832,
         "bullet_resistance": 15.067
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 15.86
       },
       "infections_low": {
@@ -3656,13 +3656,13 @@
       "quality_high": 16000,
       "price": 16999999,
       "stats_low": {
-        "recoil": -6.5195,
-        "wiggle": -9.060999500000001,
+        "recoil": -8.84,
+        "wiggle": -12.376000000000001,
         "bullet_resistance": 22.997000000000003
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 25.376
       },
       "infections_low": {
@@ -3687,13 +3687,13 @@
       "quality_high": 17500,
       "price": 67000000,
       "stats_low": {
-        "recoil": -6.5195,
-        "wiggle": -9.060999500000001,
+        "recoil": -8.84,
+        "wiggle": -12.376000000000001,
         "bullet_resistance": 25.376
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 27.755000000000003
       },
       "infections_low": {
@@ -3718,13 +3718,13 @@
       "quality_high": 14500,
       "price": 4780000,
       "stats_low": {
-        "recoil": -6.5195,
-        "wiggle": -9.060999500000001,
+        "recoil": -8.84,
+        "wiggle": -12.376000000000001,
         "bullet_resistance": 20.618
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 22.997000000000003
       },
       "infections_low": {
@@ -3749,13 +3749,13 @@
       "quality_high": 13000,
       "price": 2320000,
       "stats_low": {
-        "recoil": -6.5195,
-        "wiggle": -9.060999500000001,
+        "recoil": -8.84,
+        "wiggle": -12.376000000000001,
         "bullet_resistance": 18.239
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 20.618
       },
       "infections_low": {
@@ -3780,13 +3780,13 @@
       "quality_high": 11500,
       "price": 2060000,
       "stats_low": {
-        "recoil": -6.5195,
-        "wiggle": -9.060999500000001,
+        "recoil": -8.84,
+        "wiggle": -12.376000000000001,
         "bullet_resistance": 15.86
       },
       "stats_high": {
-        "recoil": -7.67,
-        "wiggle": -10.6599994,
+        "recoil": -10.399999999999999,
+        "wiggle": -14.56,
         "bullet_resistance": 18.239
       },
       "infections_low": {
@@ -4617,13 +4617,13 @@
       "stats_low": {
         "movement_speed": 1.9760000949999998,
         "sprint_speed": 1.976,
-        "recoil": -4.311666300000001,
+        "recoil": -5.793666399999999,
         "bleeding_output": -1.3
       },
       "stats_high": {
         "movement_speed": 2.0800000999999995,
         "sprint_speed": 2.08,
-        "recoil": -4.5499996000000005,
+        "recoil": -6.1099996,
         "bleeding_output": -1.3
       },
       "infections_low": {
@@ -4650,13 +4650,13 @@
       "stats_low": {
         "movement_speed": 3.016000145,
         "sprint_speed": 3.016,
-        "recoil": -3.8349997,
+        "recoil": -5.161,
         "bleeding_output": -1.3
       },
       "stats_high": {
         "movement_speed": 3.32800016,
         "sprint_speed": 3.3280000000000003,
-        "recoil": -4.5499996000000005,
+        "recoil": -6.1099996,
         "bleeding_output": -1.3
       },
       "infections_low": {
@@ -4683,13 +4683,13 @@
       "stats_low": {
         "movement_speed": 2.70400013,
         "sprint_speed": 2.704,
-        "recoil": -3.8349997,
+        "recoil": -5.161,
         "bleeding_output": -1.3
       },
       "stats_high": {
         "movement_speed": 3.016000145,
         "sprint_speed": 3.016,
-        "recoil": -4.5499996000000005,
+        "recoil": -6.1099996,
         "bleeding_output": -1.3
       },
       "infections_low": {
@@ -4716,13 +4716,13 @@
       "stats_low": {
         "movement_speed": 2.392000115,
         "sprint_speed": 2.3920000000000003,
-        "recoil": -3.8349997,
+        "recoil": -5.161,
         "bleeding_output": -1.3
       },
       "stats_high": {
         "movement_speed": 2.70400013,
         "sprint_speed": 2.704,
-        "recoil": -4.5499996000000005,
+        "recoil": -6.1099996,
         "bleeding_output": -1.3
       },
       "infections_low": {
@@ -4749,13 +4749,13 @@
       "stats_low": {
         "movement_speed": 2.0800000999999995,
         "sprint_speed": 2.08,
-        "recoil": -3.8349997,
+        "recoil": -5.161,
         "bleeding_output": -1.3
       },
       "stats_high": {
         "movement_speed": 2.392000115,
         "sprint_speed": 2.3920000000000003,
-        "recoil": -4.5499996000000005,
+        "recoil": -6.1099996,
         "bleeding_output": -1.3
       },
       "infections_low": {
@@ -11558,10 +11558,14 @@
       "price": 2209999,
       "stats_low": {
         "vitality": 2.59349981,
+        "movement_speed": 0.494,
+        "sprint_speed": 0.494,
         "carry_weight": 13.46149905
       },
       "stats_high": {
         "vitality": 2.7299998,
+        "movement_speed": 0.52,
+        "sprint_speed": 0.52,
         "carry_weight": 14.169999
       },
       "infections_low": {
@@ -11587,10 +11591,14 @@
       "price": 56000000,
       "stats_low": {
         "vitality": 3.95849971,
+        "movement_speed": 0.754,
+        "sprint_speed": 0.754,
         "carry_weight": 20.546498550000003
       },
       "stats_high": {
         "vitality": 4.36799968,
+        "movement_speed": 0.8320000000000001,
+        "sprint_speed": 0.8320000000000001,
         "carry_weight": 22.671998400000003
       },
       "infections_low": {
@@ -11616,10 +11624,14 @@
       "price": 161999999,
       "stats_low": {
         "vitality": 4.36799968,
+        "movement_speed": 0.8320000000000001,
+        "sprint_speed": 0.8320000000000001,
         "carry_weight": 22.671998400000003
       },
       "stats_high": {
         "vitality": 4.777499649999999,
+        "movement_speed": 0.91,
+        "sprint_speed": 0.91,
         "carry_weight": 24.797498250000004
       },
       "infections_low": {
@@ -11645,10 +11657,14 @@
       "price": 20100000,
       "stats_low": {
         "vitality": 3.5489997399999997,
+        "movement_speed": 0.676,
+        "sprint_speed": 0.676,
         "carry_weight": 18.4209987
       },
       "stats_high": {
         "vitality": 3.95849971,
+        "movement_speed": 0.754,
+        "sprint_speed": 0.754,
         "carry_weight": 20.546498550000003
       },
       "infections_low": {
@@ -11674,10 +11690,14 @@
       "price": 7300000,
       "stats_low": {
         "vitality": 3.13949977,
+        "movement_speed": 0.5980000000000001,
+        "sprint_speed": 0.5980000000000001,
         "carry_weight": 16.29549885
       },
       "stats_high": {
         "vitality": 3.5489997399999997,
+        "movement_speed": 0.676,
+        "sprint_speed": 0.676,
         "carry_weight": 18.4209987
       },
       "infections_low": {
@@ -11703,10 +11723,14 @@
       "price": 2499989,
       "stats_low": {
         "vitality": 2.7299998,
+        "movement_speed": 0.52,
+        "sprint_speed": 0.52,
         "carry_weight": 14.169999
       },
       "stats_high": {
         "vitality": 3.13949977,
+        "movement_speed": 0.5980000000000001,
+        "sprint_speed": 0.5980000000000001,
         "carry_weight": 16.29549885
       },
       "infections_low": {
@@ -13186,13 +13210,15 @@
       "price": 2108000,
       "stats_low": {
         "stamina": 25.193998099999998,
-        "combustion": -0.3692,
-        "healing_effectiveness": 7.41
+        "sprint_speed": 0.7410000284999999,
+        "healing_effectiveness": 13.708499620000001,
+        "combustion": -0.3692
       },
       "stats_high": {
         "stamina": 26.519998,
-        "combustion": -0.39,
-        "healing_effectiveness": 7.800000000000001
+        "sprint_speed": 0.78000003,
+        "healing_effectiveness": 14.4299996,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -5.0388
@@ -13217,13 +13243,15 @@
       "price": 9000000,
       "stats_low": {
         "stamina": 38.453997099999995,
-        "combustion": -0.3276,
-        "healing_effectiveness": 11.309999999999999
+        "sprint_speed": 1.1310000434999998,
+        "healing_effectiveness": 20.92349942,
+        "combustion": -0.3276
       },
       "stats_high": {
         "stamina": 42.4319968,
-        "combustion": -0.39,
-        "healing_effectiveness": 12.48
+        "sprint_speed": 1.248000048,
+        "healing_effectiveness": 23.087999359999998,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -7.6908
@@ -13248,13 +13276,15 @@
       "price": 47000000,
       "stats_low": {
         "stamina": 42.4319968,
-        "combustion": -0.3276,
-        "healing_effectiveness": 12.48
+        "sprint_speed": 1.248000048,
+        "healing_effectiveness": 23.087999359999998,
+        "combustion": -0.3276
       },
       "stats_high": {
         "stamina": 46.4099965,
-        "combustion": -0.39,
-        "healing_effectiveness": 13.65
+        "sprint_speed": 1.3650000525,
+        "healing_effectiveness": 25.2524993,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -8.486400000000001
@@ -13279,13 +13309,15 @@
       "price": 3111111,
       "stats_low": {
         "stamina": 34.4759974,
-        "combustion": -0.3276,
-        "healing_effectiveness": 10.14
+        "sprint_speed": 1.014000039,
+        "healing_effectiveness": 18.75899948,
+        "combustion": -0.3276
       },
       "stats_high": {
         "stamina": 38.453997099999995,
-        "combustion": -0.39,
-        "healing_effectiveness": 11.309999999999999
+        "sprint_speed": 1.1310000434999998,
+        "healing_effectiveness": 20.92349942,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -6.8952
@@ -13310,13 +13342,15 @@
       "price": 2320000,
       "stats_low": {
         "stamina": 30.4979977,
-        "combustion": -0.3276,
-        "healing_effectiveness": 8.97
+        "sprint_speed": 0.8970000345,
+        "healing_effectiveness": 16.59449954,
+        "combustion": -0.3276
       },
       "stats_high": {
         "stamina": 34.4759974,
-        "combustion": -0.39,
-        "healing_effectiveness": 10.14
+        "sprint_speed": 1.014000039,
+        "healing_effectiveness": 18.75899948,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -6.099600000000001
@@ -13341,13 +13375,15 @@
       "price": 2150000,
       "stats_low": {
         "stamina": 26.519998,
-        "combustion": -0.3276,
-        "healing_effectiveness": 7.800000000000001
+        "sprint_speed": 0.78000003,
+        "healing_effectiveness": 14.4299996,
+        "combustion": -0.3276
       },
       "stats_high": {
         "stamina": 30.4979977,
-        "combustion": -0.39,
-        "healing_effectiveness": 8.97
+        "sprint_speed": 0.8970000345,
+        "healing_effectiveness": 16.59449954,
+        "combustion": -0.39
       },
       "infections_low": {
         "temperature": -5.303999999999999
@@ -17309,10 +17345,12 @@
         "vitality": 2.496
       },
       "infections_low": {
+        "radiation": -0.5655000290000001,
         "temperature": -2.4127998550000003,
         "biological": 0.53125
       },
       "infections_high": {
+        "radiation": -0.624000032,
         "temperature": -2.66239984,
         "biological": 0.625
       },
@@ -17342,10 +17380,12 @@
         "vitality": 2.262
       },
       "infections_low": {
+        "radiation": -0.5070000259999999,
         "temperature": -2.16319987,
         "biological": 0.53125
       },
       "infections_high": {
+        "radiation": -0.5655000290000001,
         "temperature": -2.4127998550000003,
         "biological": 0.625
       },
@@ -17375,10 +17415,12 @@
         "vitality": 2.028
       },
       "infections_low": {
+        "radiation": -0.448500023,
         "temperature": -1.9135998850000002,
         "biological": 0.53125
       },
       "infections_high": {
+        "radiation": -0.5070000259999999,
         "temperature": -2.16319987,
         "biological": 0.625
       },
@@ -17408,10 +17450,12 @@
         "vitality": 1.7939999999999998
       },
       "infections_low": {
+        "radiation": -0.39000002,
         "temperature": -1.6639999,
         "biological": 0.53125
       },
       "infections_high": {
+        "radiation": -0.448500023,
         "temperature": -1.9135998850000002,
         "biological": 0.625
       },
@@ -18193,11 +18237,15 @@
       "quality_high": 10000,
       "price": 2025000,
       "stats_low": {
+        "movement_speed": 0.37050001899999996,
+        "sprint_speed": 0.37050001899999996,
         "health_regeneration": 2.469999905,
         "healing_effectiveness": 14.94349905,
         "explosion_protection": 8.892
       },
       "stats_high": {
+        "movement_speed": 0.39000002,
+        "sprint_speed": 0.39000002,
         "health_regeneration": 2.5999999000000003,
         "healing_effectiveness": 15.729999,
         "explosion_protection": 9.360000000000001
@@ -18226,11 +18274,15 @@
       "quality_high": 16000,
       "price": 7000000,
       "stats_low": {
+        "movement_speed": 0.5655000290000001,
+        "sprint_speed": 0.5655000290000001,
         "health_regeneration": 3.769999855,
         "healing_effectiveness": 22.808498549999996,
         "explosion_protection": 13.572
       },
       "stats_high": {
+        "movement_speed": 0.624000032,
+        "sprint_speed": 0.624000032,
         "health_regeneration": 4.159999839999999,
         "healing_effectiveness": 25.167998400000002,
         "explosion_protection": 14.975999999999999
@@ -18259,11 +18311,15 @@
       "quality_high": 17500,
       "price": 20650000,
       "stats_low": {
+        "movement_speed": 0.624000032,
+        "sprint_speed": 0.624000032,
         "health_regeneration": 4.159999839999999,
         "healing_effectiveness": 25.167998400000002,
         "explosion_protection": 14.975999999999999
       },
       "stats_high": {
+        "movement_speed": 0.682500035,
+        "sprint_speed": 0.682500035,
         "health_regeneration": 4.549999825,
         "healing_effectiveness": 27.527498249999997,
         "explosion_protection": 16.38
@@ -18292,11 +18348,15 @@
       "quality_high": 14500,
       "price": 2422222,
       "stats_low": {
+        "movement_speed": 0.5070000259999999,
+        "sprint_speed": 0.5070000259999999,
         "health_regeneration": 3.37999987,
         "healing_effectiveness": 20.448998699999997,
         "explosion_protection": 12.168
       },
       "stats_high": {
+        "movement_speed": 0.5655000290000001,
+        "sprint_speed": 0.5655000290000001,
         "health_regeneration": 3.769999855,
         "healing_effectiveness": 22.808498549999996,
         "explosion_protection": 13.572
@@ -18325,11 +18385,15 @@
       "quality_high": 13000,
       "price": 2130000,
       "stats_low": {
+        "movement_speed": 0.448500023,
+        "sprint_speed": 0.448500023,
         "health_regeneration": 2.989999885,
         "healing_effectiveness": 18.08949885,
         "explosion_protection": 10.764
       },
       "stats_high": {
+        "movement_speed": 0.5070000259999999,
+        "sprint_speed": 0.5070000259999999,
         "health_regeneration": 3.37999987,
         "healing_effectiveness": 20.448998699999997,
         "explosion_protection": 12.168
@@ -18358,11 +18422,15 @@
       "quality_high": 11500,
       "price": 2046000,
       "stats_low": {
+        "movement_speed": 0.39000002,
+        "sprint_speed": 0.39000002,
         "health_regeneration": 2.5999999000000003,
         "healing_effectiveness": 15.729999,
         "explosion_protection": 9.360000000000001
       },
       "stats_high": {
+        "movement_speed": 0.448500023,
+        "sprint_speed": 0.448500023,
         "health_regeneration": 2.989999885,
         "healing_effectiveness": 18.08949885,
         "explosion_protection": 10.764
@@ -20010,6 +20078,27 @@
       "source_path": "stalzone-database/ru/items/backpacks/p262.json"
     },
     {
+      "container_id": "v667",
+      "name": "Сумка «Тюк»",
+      "rank": "Мастер",
+      "category": "backpacks",
+      "equipment_class": "light",
+      "color": "RANK_MASTER",
+      "status": "PERSONAL_ON_USE",
+      "weight": 5.0,
+      "inner_protection": 89.5,
+      "effectiveness": 127.5,
+      "capacity": 3,
+      "stats": {
+        "stamina": 35.0,
+        "movement_speed": 5.0,
+        "sprint_speed": 5.0,
+        "carry_weight": 25.0,
+        "frost": 1.0
+      },
+      "source_path": "stalzone-database/ru/items/backpacks/v667.json"
+    },
+    {
       "container_id": "vyjd",
       "name": "ZIVCAS Sisyphus-6",
       "rank": "Мастер",
@@ -20278,7 +20367,7 @@
         "movement_speed": -10.0,
         "carry_weight": 15.0,
         "stability": 50.0,
-        "bullet_resistance": 396.77402,
+        "bullet_resistance": 401.83,
         "tear_protection": 232.0,
         "explosion_protection": 420.0,
         "electricity_protection": 50.0,
@@ -20291,14 +20380,14 @@
         "bleeding_resistance": 60.0
       },
       "derived": {
-        "effective_durability": 496.77402,
+        "effective_durability": 501.83,
         "total_sprint_speed": 90.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          114.774
+          115.83
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/1rpl6/15.json"
@@ -20493,7 +20582,7 @@
         "movement_speed": -5.0,
         "carry_weight": 25.0,
         "stability": 20.0,
-        "bullet_resistance": 355.0,
+        "bullet_resistance": 351.234,
         "tear_protection": 193.0,
         "explosion_protection": 300.0,
         "electricity_protection": 50.0,
@@ -20506,14 +20595,14 @@
         "bleeding_resistance": 50.0
       },
       "derived": {
-        "effective_durability": 455.0,
+        "effective_durability": 451.23400000000004,
         "total_sprint_speed": 95.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          105.0
+          104.23401
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/4ql1r/15.json"
@@ -20661,8 +20750,8 @@
       "max_durability": 100.0,
       "stats": {
         "movement_speed": -2.0,
-        "carry_weight": 13.0,
-        "bullet_resistance": 279.74402,
+        "carry_weight": 15.0,
+        "bullet_resistance": 283.53,
         "tear_protection": 144.0,
         "explosion_protection": 109.0,
         "electricity_protection": 900.0,
@@ -20675,14 +20764,14 @@
         "bleeding_resistance": 35.0
       },
       "derived": {
-        "effective_durability": 379.7440199999999,
+        "effective_durability": 383.53,
         "total_sprint_speed": 98.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          87.744
+          88.53001
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/scientist/_variants/5l1l0/15.json"
@@ -20744,7 +20833,7 @@
       "durability": 100.0,
       "max_durability": 100.0,
       "stats": {
-        "movement_speed": -3.0,
+        "movement_speed": -2.0,
         "carry_weight": 20.0,
         "stamina_regeneration": 5.0,
         "periodic_healing": 2.0,
@@ -20763,7 +20852,7 @@
       },
       "derived": {
         "effective_durability": 397.876,
-        "total_sprint_speed": 97.0,
+        "total_sprint_speed": 98.0,
         "hp_regen_score": 2.5
       },
       "unmapped_stats": {},
@@ -21042,8 +21131,8 @@
       "max_durability": 100.0,
       "stats": {
         "movement_speed": -3.0,
-        "carry_weight": 13.0,
-        "bullet_resistance": 287.496,
+        "carry_weight": 15.0,
+        "bullet_resistance": 290.0,
         "tear_protection": 144.0,
         "explosion_protection": 120.0,
         "electricity_protection": 900.0,
@@ -21056,14 +21145,14 @@
         "bleeding_resistance": 35.0
       },
       "derived": {
-        "effective_durability": 387.496,
+        "effective_durability": 390.0,
         "total_sprint_speed": 97.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          89.496
+          90.0
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/scientist/_variants/7lzl7/15.json"
@@ -21130,7 +21219,7 @@
         "movement_speed": -10.0,
         "carry_weight": 15.0,
         "stability": 50.0,
-        "bullet_resistance": 396.77402,
+        "bullet_resistance": 401.83,
         "tear_protection": 232.0,
         "explosion_protection": 420.0,
         "electricity_protection": 50.0,
@@ -21143,14 +21232,14 @@
         "bleeding_resistance": 60.0
       },
       "derived": {
-        "effective_durability": 496.77402,
+        "effective_durability": 501.83,
         "total_sprint_speed": 90.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          114.774
+          115.83
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/96yz0/15.json"
@@ -21217,7 +21306,7 @@
         "movement_speed": -10.0,
         "carry_weight": 15.0,
         "stability": 50.0,
-        "bullet_resistance": 396.77402,
+        "bullet_resistance": 401.83,
         "tear_protection": 232.0,
         "explosion_protection": 420.0,
         "electricity_protection": 50.0,
@@ -21230,14 +21319,14 @@
         "bleeding_resistance": 60.0
       },
       "derived": {
-        "effective_durability": 496.77402,
+        "effective_durability": 501.83,
         "total_sprint_speed": 90.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          114.774
+          115.83
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/g4310/15.json"
@@ -21258,8 +21347,8 @@
       "max_durability": 100.0,
       "stats": {
         "movement_speed": -4.0,
-        "carry_weight": 13.0,
-        "bullet_resistance": 295.771,
+        "carry_weight": 15.0,
+        "bullet_resistance": 297.876,
         "tear_protection": 164.0,
         "explosion_protection": 109.0,
         "electricity_protection": 900.0,
@@ -21272,14 +21361,14 @@
         "bleeding_resistance": 40.0
       },
       "derived": {
-        "effective_durability": 395.77099999999996,
+        "effective_durability": 397.876,
         "total_sprint_speed": 96.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          92.771
+          91.876
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/scientist/_variants/g434p/15.json"
@@ -21552,7 +21641,7 @@
         "stamina": -5.0,
         "movement_speed": -4.0,
         "carry_weight": 20.0,
-        "stability": 20.0,
+        "stability": 25.0,
         "bullet_resistance": 335.58,
         "tear_protection": 164.0,
         "explosion_protection": 160.0,
@@ -21727,7 +21816,7 @@
         "movement_speed": -10.0,
         "carry_weight": 15.0,
         "stability": 50.0,
-        "bullet_resistance": 396.77402,
+        "bullet_resistance": 401.83,
         "tear_protection": 232.0,
         "explosion_protection": 420.0,
         "electricity_protection": 50.0,
@@ -21740,14 +21829,14 @@
         "bleeding_resistance": 60.0
       },
       "derived": {
-        "effective_durability": 496.77402,
+        "effective_durability": 501.83,
         "total_sprint_speed": 90.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          114.774
+          115.83
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/ly3kj/15.json"
@@ -21768,7 +21857,7 @@
       "max_durability": 100.0,
       "stats": {
         "stamina": -10.0,
-        "movement_speed": -7.0,
+        "movement_speed": -6.0,
         "carry_weight": 13.0,
         "stability": 35.0,
         "bullet_resistance": 329.13,
@@ -21785,7 +21874,7 @@
       },
       "derived": {
         "effective_durability": 429.13,
-        "total_sprint_speed": 93.0,
+        "total_sprint_speed": 94.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
@@ -22108,7 +22197,7 @@
       "durability": 100.0,
       "max_durability": 100.0,
       "stats": {
-        "movement_speed": -2.0,
+        "movement_speed": -1.0,
         "carry_weight": 12.0,
         "stamina_regeneration": 4.0,
         "periodic_healing": 2.0,
@@ -22127,7 +22216,7 @@
       },
       "derived": {
         "effective_durability": 289.91200000000003,
-        "total_sprint_speed": 98.0,
+        "total_sprint_speed": 99.0,
         "hp_regen_score": 2.5
       },
       "unmapped_stats": {},
@@ -22286,7 +22375,7 @@
         "movement_speed": -8.0,
         "carry_weight": 14.0,
         "stability": 35.0,
-        "bullet_resistance": 286.241,
+        "bullet_resistance": 288.749,
         "tear_protection": 170.0,
         "explosion_protection": 296.0,
         "electricity_protection": 40.0,
@@ -22299,14 +22388,14 @@
         "bleeding_resistance": 55.0
       },
       "derived": {
-        "effective_durability": 386.241,
+        "effective_durability": 388.749,
         "total_sprint_speed": 92.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          89.241
+          89.74899
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/qjoz3/15.json"
@@ -22369,7 +22458,7 @@
       "durability": 100.0,
       "max_durability": 100.0,
       "stats": {
-        "movement_speed": -3.0,
+        "movement_speed": -2.0,
         "carry_weight": 20.0,
         "stamina_regeneration": 4.0,
         "periodic_healing": 2.0,
@@ -22388,7 +22477,7 @@
       },
       "derived": {
         "effective_durability": 348.472,
-        "total_sprint_speed": 97.0,
+        "total_sprint_speed": 98.0,
         "hp_regen_score": 2.5
       },
       "unmapped_stats": {},
@@ -22458,8 +22547,8 @@
       "max_durability": 100.0,
       "stats": {
         "movement_speed": -5.0,
-        "carry_weight": 13.0,
-        "bullet_resistance": 301.796,
+        "carry_weight": 15.0,
+        "bullet_resistance": 304.473,
         "tear_protection": 144.0,
         "explosion_protection": 109.0,
         "electricity_protection": 900.0,
@@ -22472,14 +22561,14 @@
         "bleeding_resistance": 35.0
       },
       "derived": {
-        "effective_durability": 401.796,
+        "effective_durability": 404.473,
         "total_sprint_speed": 95.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          92.796
+          93.473
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/scientist/_variants/wj4lp/15.json"
@@ -22717,7 +22806,7 @@
         "movement_speed": -8.0,
         "carry_weight": 15.0,
         "stability": 45.0,
-        "bullet_resistance": 383.792,
+        "bullet_resistance": 387.75,
         "tear_protection": 213.0,
         "explosion_protection": 340.0,
         "electricity_protection": 50.0,
@@ -22730,14 +22819,14 @@
         "bleeding_resistance": 55.0
       },
       "derived": {
-        "effective_durability": 483.792,
+        "effective_durability": 487.75,
         "total_sprint_speed": 92.0,
         "hp_regen_score": 0.5
       },
       "unmapped_stats": {},
       "duplicate_stats": {
         "bullet_resistance": [
-          111.79199
+          112.75
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/combat/_variants/y3q1o/15.json"

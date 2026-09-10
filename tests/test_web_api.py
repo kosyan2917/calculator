@@ -19,7 +19,7 @@ class WebApiTests(unittest.TestCase):
         self.assertNotIn("preference_levels", payload)
         self.assertNotIn("strategies", payload)
         self.assertGreater(len(payload["armors"]), 0)
-        self.assertEqual(len(payload["containers"]), 26)
+        self.assertEqual(len(payload["containers"]), 27)
         self.assertGreater(len(payload["artifacts"]), 0)
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
         self.assertEqual(
