@@ -1,6 +1,7 @@
 """Reusable STALZONE artifact build calculation components."""
 
 from .precompute import BuildPrecomputer, PrecomputeConfig
+from .feedback import FeedbackRanker, FeedbackStore
 from .frontier import FrontierBuildGenerator, FrontierGeneratorConfig
 from .optimizer import (
     ArtifactBuildOptimizer,
@@ -21,6 +22,8 @@ __all__ = [
     "BuildPrecomputer",
     "BuildSolution",
     "FocusedSearchResult",
+    "FeedbackRanker",
+    "FeedbackStore",
     "FrontierBuildGenerator",
     "FrontierGeneratorConfig",
     "BuildUpgradePotentialAnalyzer",

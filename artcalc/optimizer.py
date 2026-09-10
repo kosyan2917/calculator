@@ -136,6 +136,12 @@ class ArtifactBuildOptimizer:
         self.groups_by_id = {group.group_id: group for group in catalog.artifact_groups}
 
     def search(self, request: OptimizationRequest) -> OptimizationResult:
+        if request.budget is None:
+            from .frontier import FrontierBuildGenerator
+            return FrontierBuildGenerator(self.catalog, solver=self).search(request)
+        if current_session.get() is None:
+            with search_session():
+                return self.search(request)
         self._validate_request(request)
         started = time.perf_counter()
         groups = self._eligible_groups(request)
@@ -438,6 +444,10 @@ class ArtifactBuildOptimizer:
                 )
                 solve_started = time.perf_counter()
                 result = session.solve(model_key, problem, self.config.time_limit_per_solve)
+                if result.x is None and result.status == 1 and session.remaining() > 0.5:
+                    # A short first attempt may find no incumbent at all. Spend
+                    # more of the shared deadline before declaring this focus empty.
+                    result = session.solve(model_key, problem, max(1.0, 2 * self.config.time_limit_per_solve))
                 elapsed = time.perf_counter() - solve_started
                 final_status = self._milp_status_name(int(result.status), result.x is not None)
                 if result.x is None:
@@ -1187,6 +1197,12 @@ class ArtifactBuildOptimizer:
         elapsed: float,
     ) -> BuildSolution | None:
         armor = armors[armor_index]
+        total_price = sum(group.price * counts[index] for index, group in enumerate(groups))
+        if (sum(counts) != int(container["capacity"])
+                or any(count < 0 for count in counts)
+                or (request.budget is not None and total_price > request.budget)
+                or total_price < request.min_build_price):
+            return None
         artifacts: list[dict[str, Any]] = []
         for index, group in enumerate(groups):
             count = counts[index]

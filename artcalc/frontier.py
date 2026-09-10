@@ -94,7 +94,7 @@ class FrontierBuildGenerator:
             points_attempted += attempted
             session.deadline = global_deadline
 
-        unique = self._deduplicate(candidates)
+        unique = self._deduplicate(candidates, request.budget is None)
         near_frontier = self._prune_obviously_dominated(unique, request.budget is None)
         selected = self._select_portfolio(near_frontier, request.max_results, request.budget is None)
         return OptimizationResult(
@@ -157,7 +157,7 @@ class FrontierBuildGenerator:
         for focus in (("speed", "durability") if request.budget is None else ("price", "speed", "durability")):
             solve(request, focus, focus)
 
-        anchors = self._deduplicate(candidates)
+        anchors = self._deduplicate(candidates, request.budget is None)
         if len(anchors) < 2 or sweep_points <= 0:
             return anchors, statuses, attempted
 
@@ -209,7 +209,7 @@ class FrontierBuildGenerator:
             solve(replace(request, targets=knee_targets),
                   "speed" if request.budget is None else "price", "balanced")
 
-        return self._deduplicate(candidates), statuses, attempted
+        return self._deduplicate(candidates, request.budget is None), statuses, attempted
 
     def _with_minimum(
         self,
@@ -377,7 +377,7 @@ class FrontierBuildGenerator:
         intersection = sum(min(left_counts[key], right_counts[key]) for key in keys)
         return 1.0 - intersection / union
 
-    def _deduplicate(self, candidates: list[BuildSolution]) -> list[BuildSolution]:
+    def _deduplicate(self, candidates: list[BuildSolution], ignore_price: bool = False) -> list[BuildSolution]:
         unique: dict[str, BuildSolution] = {}
         for candidate in candidates:
             existing = unique.get(candidate.build_id)
@@ -391,7 +391,7 @@ class FrontierBuildGenerator:
                    and self._artifact_distance(candidate, other) == 0
                    and abs(self._speed(candidate) - self._speed(other)) < 0.1
                    and abs(self._durability(candidate) - self._durability(other)) < 1.0
-                   and abs(candidate.total_price - other.total_price) < 100_000
+                   and (ignore_price or abs(candidate.total_price - other.total_price) < 100_000)
                    for other in distinct):
                 continue
             distinct.append(candidate)

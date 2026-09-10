@@ -6,6 +6,15 @@ from artcalc.solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfi
 
 
 class SolverCatalogCompilerTests(unittest.TestCase):
+    def test_rarity_boundary_belongs_to_previous_tier(self) -> None:
+        low = {"item_id": "a", "name": "a", "quality_tier": "rare", "quality_percent": 130,
+               "price": 100, "stats": {"movement_speed": 13}, "infections": {"radiation": 1}}
+        high = {**low, "quality_percent": 145, "stats": {"movement_speed": 14.5}, "infections": {"radiation": 2}}
+        group = ArtifactCatalogCompiler()._compile_group([low, high])
+        self.assertEqual(group.quality_low, 13001)
+        self.assertEqual(group.quality_high, 14500)
+        self.assertAlmostEqual(group.stats_low["movement_speed"], 13.001)
+
     def test_defaults_price_finished_artifacts_without_surcharge(self) -> None:
         config = CatalogCompilerConfig()
         self.assertEqual(config.artifact_price_upgrade_level, 15)

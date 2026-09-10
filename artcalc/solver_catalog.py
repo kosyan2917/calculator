@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .loaders import load_armor_items, load_artifact_candidates, load_containers
-from .stat_model import INFECTION_STATS, MechanicsConfig
+from .stat_model import INFECTION_STATS, MechanicsConfig, QUALITY_BOUNDS
 
 
 @dataclass(frozen=True)
@@ -170,6 +170,18 @@ class ArtifactCatalogCompiler:
         low_percent = float(low["quality_percent"])
         high_percent = float(high["quality_percent"])
         self._validate_affine(ordered, low, high)
+        boundary = QUALITY_BOUNDS[str(low["quality_tier"])][0]
+        if low["quality_tier"] != "common" and low_percent == boundary and high_percent > low_percent:
+            # The shared mathematical endpoint belongs to the previous rarity.
+            # Interpolate onto the first purchasable hundredth of this rarity.
+            fraction = 0.01 / (high_percent - low_percent)
+            low = {**low, **{
+                section: {key: float(low.get(section, {}).get(key, 0.0)) + fraction * (
+                    float(high.get(section, {}).get(key, 0.0)) - float(low.get(section, {}).get(key, 0.0)))
+                    for key in set(low.get(section) or {}) | set(high.get(section) or {})}
+                for section in ("stats", "infections")
+            }}
+            low_percent += 0.01
         market_price = int(low["price"])
         return ArtifactGroup(
             group_id=f"{low['item_id']}:{low['quality_tier']}",
