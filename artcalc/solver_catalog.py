@@ -31,6 +31,7 @@ class ArtifactGroup:
     max_count: int | None = None
     owned_instance_id: str | None = None
     market_price: int | None = None
+    price_estimate: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ArtifactGroup:
@@ -85,8 +86,8 @@ class CatalogCompilerConfig:
     lang: str = "ru"
     ranks: tuple[str, ...] = ("\u0412\u0435\u0442\u0435\u0440\u0430\u043d", "\u041c\u0430\u0441\u0442\u0435\u0440")
     artifact_upgrade_level: int = 15
-    artifact_price_upgrade_level: int = 0
-    artifact_purchase_surcharge: int = 2_000_000
+    artifact_price_upgrade_level: int = 15
+    artifact_purchase_surcharge: int = 0
     min_quality_percent: float = 95.0
     max_artifact_price: int | None = None
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
@@ -186,6 +187,7 @@ class ArtifactCatalogCompiler:
             liquidity_score=float(low.get("liquidity_score") or 0.0),
             confidence_score=float(low.get("confidence_score") or 0.0),
             market_price=market_price,
+            price_estimate=dict(low.get("price_estimate") or {}),
         )
 
     def _validate_affine(

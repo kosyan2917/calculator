@@ -161,7 +161,34 @@ def load_artifact_price_segments(price_path: Path, upgrade_level: int) -> dict[t
         tier = segment.get("quality_tier")
         item_id = segment.get("item_id")
         if item_id and tier:
-            segments[(str(item_id), str(tier))] = segment
+            segments[(str(item_id), str(tier))] = {**segment, "price_available": True}
+    if upgrade_level == 15:
+        # Never pretend +12..14 or +0 sales are prices of a finished +15 item.
+        for segment in data.get("segments") or []:
+            key = (str(segment.get("item_id") or ""), str(segment.get("quality_tier") or ""))
+            if not all(key):
+                continue
+            if key not in segments:
+                segments[key] = {"item_id": key[0], "quality_tier": key[1], "price": 0,
+                                 "price_basis": "unavailable", "local_confidence": "none",
+                                 "price_available": False}
+        for key, segment in segments.items():
+            nearby = [{"upgrade_level": row["upgrade_level"], "price": row["price"]}
+                      for row in data.get("segments") or []
+                      if row.get("item_id") == key[0] and row.get("quality_tier") == key[1]
+                      and row.get("upgrade_level") in (12, 13, 14) and row.get("price")]
+            segment["price_estimate"] = {
+                "available": segment.get("price_available", True),
+                "upgrade_level": 15,
+                "basis": segment.get("price_basis"),
+                "confidence": segment.get("local_confidence", "low"),
+                "observed_at": segment.get("observed_at") or data.get("generated_at"),
+                "sales_7d": segment.get("sales_7d", 0),
+                "sales_30d": segment.get("sales_30d", 0),
+                "history_from": segment.get("history_from"),
+                "history_to": segment.get("history_to"),
+                "nearby_upgrades": nearby,
+            }
     return segments
 
 
@@ -272,6 +299,7 @@ def _artifact_quality_candidates(
                 "price_upgrade_level": price_level,
                 "price": int(price_info.get("price") or 0),
                 "price_basis": price_info.get("price_basis"),
+                "price_estimate": price_info.get("price_estimate") or {},
                 "price_confidence": price_info.get("local_confidence"),
                 "sales_7d": int(price_info.get("sales_7d") or 0),
                 "sales_count": int(price_info.get("sales_count") or 0),

@@ -6,6 +6,11 @@ from artcalc.solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfi
 
 
 class SolverCatalogCompilerTests(unittest.TestCase):
+    def test_defaults_price_finished_artifacts_without_surcharge(self) -> None:
+        config = CatalogCompilerConfig()
+        self.assertEqual(config.artifact_price_upgrade_level, 15)
+        self.assertEqual(config.artifact_purchase_surcharge, 0)
+
     def test_purchase_price_includes_surcharge_and_preserves_market_price(self) -> None:
         compiler = ArtifactCatalogCompiler(
             CatalogCompilerConfig(artifact_purchase_surcharge=2_000_000)

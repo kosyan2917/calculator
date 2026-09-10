@@ -1262,6 +1262,7 @@ class ArtifactBuildOptimizer:
             "market_price": group.market_price if group.market_price is not None else group.price,
             "owned_instance_id": group.owned_instance_id,
             "price_basis": group.price_basis,
+            "price_estimate": group.price_estimate,
             "stats": effective_stats,
             "infections": infections,
             "liquidity_score": group.liquidity_score,
@@ -1296,6 +1297,7 @@ class ArtifactBuildOptimizer:
             and (not tiers or group.quality_tier in tiers)
             and QUALITY_ORDER[group.quality_tier] <= QUALITY_ORDER[request.max_quality_tier]
             and (request.budget is None or group.price <= request.budget)
+            and (request.budget is None or group.price_estimate.get("available", True))
             and (
                 request.min_quality_percent is None
                 or group.quality_high + 1e-9 >= request.min_quality_percent * 100.0

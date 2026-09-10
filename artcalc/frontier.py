@@ -436,6 +436,7 @@ class FrontierBuildGenerator:
             and (not selected_tiers or group.quality_tier in selected_tiers)
             and QUALITY_ORDER[group.quality_tier] <= QUALITY_ORDER[request.max_quality_tier]
             and (request.budget is None or group.price <= request.budget)
+            and (request.budget is None or group.price_estimate.get("available", True))
             for group in self.catalog.artifact_groups
         )
 

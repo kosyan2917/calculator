@@ -139,8 +139,9 @@ def local_basis(row: dict[str, Any], min_recent_sales: int) -> tuple[int | None,
     best_ask = as_int(row.get("best_ask"))
     fair_source = row.get("fair_price_source")
     fair_status = row.get("fair_price_status")
-    sales_7d = int(row.get("sales_7d") or 0)
-    sales_count = int(row.get("sales_count") or 0)
+    windows = row.get("aligned_sales_windows") or {}
+    sales_7d = int(windows.get("sales_7d", row.get("sales_7d")) or 0)
+    sales_count = int(windows.get("sales_30d", row.get("sales_count")) or 0)
 
     if fair_price is not None:
         if fair_source == "raw_7d" and sales_7d >= min_recent_sales:
@@ -161,6 +162,7 @@ def local_basis(row: dict[str, Any], min_recent_sales: int) -> tuple[int | None,
 
 def normalize_segment(artifact: dict[str, str], row: dict[str, Any], min_recent_sales: int) -> dict[str, Any]:
     price, basis, local_confidence = local_basis(row, min_recent_sales)
+    windows = row.get("aligned_sales_windows") or {}
     return {
         "item_id": artifact["item_id"],
         "name": artifact["name"],
@@ -178,7 +180,9 @@ def normalize_segment(artifact: dict[str, str], row: dict[str, Any], min_recent_
         "market_ask_p20": as_int(row.get("market_ask_p20")),
         "active_lots": int(row.get("active_lots") or 0),
         "sales_count": int(row.get("sales_count") or 0),
-        "sales_7d": int(row.get("sales_7d") or 0),
+        "sales_7d": int(windows.get("sales_7d", row.get("sales_7d")) or 0),
+        "sales_30d": int(windows.get("sales_30d") or 0),
+        "sales_window_end": windows.get("window_end"),
         "sample_count": int(row.get("sample_count") or 0),
         "liquidity_score": as_float(row.get("liquidity_score")),
         "risk_score": as_float(row.get("risk_score")),
@@ -268,7 +272,11 @@ def main() -> int:
                 args.offline,
             )
             for row in data.get("matrix", []):
-                all_segments.append(normalize_segment(artifact, row, args.min_recent_sales))
+                segment = normalize_segment(artifact, row, args.min_recent_sales)
+                segment["observed_at"] = data.get("generated_at")
+                segment["history_from"] = data.get("data_from")
+                segment["history_to"] = data.get("data_to")
+                all_segments.append(segment)
         except Exception as error:  # Keep partial market output useful.
             failures.append({"item_id": artifact["item_id"], "name": artifact["name"], "error": str(error)})
         if args.request_delay > 0:
