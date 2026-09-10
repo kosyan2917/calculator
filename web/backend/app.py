@@ -5,11 +5,13 @@ from copy import deepcopy
 from functools import lru_cache
 import json
 import os
+import re
+import secrets
 from pathlib import Path
 from threading import Lock
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -30,6 +32,8 @@ from artcalc import (
     UpgradePlanningRequest,
 )
 from artcalc.stat_model import QUALITY_ORDER
+from artcalc.feedback import FeedbackRanker, FeedbackStore
+from .search_jobs import SearchBusyError, SearchJobs
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -64,6 +68,7 @@ class OptimizePayload(BaseModel):
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     max_results: int = Field(default=10, ge=1, le=30)
     min_quality_percent: float = Field(default=95.0, ge=95.0, le=175.0)
+    personalize: bool = True
 
     @model_validator(mode="after")
     def require_targets_for_limited_budget(self):
@@ -74,11 +79,50 @@ class OptimizePayload(BaseModel):
 
 class UpgradePayload(BaseModel):
     current_build: dict[str, Any]
-    targets: dict[str, float] = Field(min_length=1)
+    targets: dict[str, float] = Field(default_factory=dict)
     max_quality_tier: str = "exclusive"
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     extra_budgets: list[int] = Field(default_factory=list, max_length=6)
+
+
+class FeedbackPayload(BaseModel):
+    search_id: str = Field(min_length=32, max_length=32, pattern="^[a-f0-9]+$")
+    build_id: str = Field(min_length=1, max_length=4096)
+    rating: int = Field(ge=-1, le=1)
+    reason: str = Field(default="balance", max_length=32)
+    other_id: str | None = Field(default=None, max_length=4096)
+
+
+@lru_cache(maxsize=1)
+def get_feedback_store() -> FeedbackStore:
+    return FeedbackStore(os.getenv("ARTCALC_FEEDBACK_DB", str(ROOT / "data" / "feedback" / "feedback.sqlite3")))
+
+
+@lru_cache(maxsize=1)
+def get_search_jobs() -> SearchJobs:
+    return SearchJobs(int(os.getenv("ARTCALC_CONCURRENT_SEARCHES", "1")))
+
+
+def feedback_profile(request: Request, response: Response) -> str:
+    profile = request.cookies.get("artcalc_profile", "")
+    if not re.fullmatch(r"[a-f0-9]{64}", profile):
+        profile = secrets.token_hex(32)
+        response.set_cookie("artcalc_profile", profile, max_age=365 * 86400,
+                            httponly=True, samesite="strict", secure=request.url.scheme == "https")
+    return profile
+
+
+def present_result(raw: dict, payload: OptimizePayload, profile: str) -> dict:
+    result = deepcopy(raw)
+    context = payload.model_dump(exclude={"personalize", "max_results"})
+    store = get_feedback_store()
+    events = store.events(profile)
+    if payload.personalize:
+        result["solutions"] = FeedbackRanker().rank(result["solutions"], context, events)
+    result["search_id"] = store.remember(profile, context, result["solutions"])
+    result["feedback"] = {"enabled": payload.personalize, "examples": len(events)}
+    return result
 
 
 class OptimizationResponseCache:
@@ -252,19 +296,20 @@ def catalog() -> dict:
 
 
 @app.post("/api/optimize")
-async def optimize(payload: OptimizePayload) -> dict:
+async def optimize(payload: OptimizePayload, http_request: Request, http_response: Response) -> dict:
     validate_metrics(payload.targets)
     validate_quality_tier(payload.max_quality_tier)
     cache_key = json.dumps(
-        payload.model_dump(mode="json"),
+        payload.model_dump(mode="json", exclude={"personalize"}),
         ensure_ascii=True,
         separators=(",", ":"),
         sort_keys=True,
     )
     cached = get_optimization_cache().get(cache_key)
+    profile = feedback_profile(http_request, http_response)
     if cached is not None:
         cached["diagnostics"]["cache_hit"] = True
-        return cached
+        return await run_in_threadpool(present_result, cached, payload, profile)
 
     request = OptimizationRequest(
         budget=payload.budget,
@@ -278,25 +323,61 @@ async def optimize(payload: OptimizePayload) -> dict:
         min_quality_percent=payload.min_quality_percent,
         max_results=payload.max_results,
     )
+    def compute() -> dict:
+        cached_again = get_optimization_cache().get(cache_key)
+        if cached_again is not None:
+            return cached_again
+        result = get_optimizer().search(request)
+        response = result.to_dict()
+        analyzer = get_upgrade_potential_analyzer()
+        response["solutions"] = [
+            {**solution.to_dict(), "upgrade_potential": analyzer.analyze(
+                solution, payload.excluded_container_ids).to_dict()}
+            for solution in result.solutions
+        ]
+        response["diagnostics"]["cache_hit"] = False
+        get_optimization_cache().put(cache_key, response)
+        return response
+
     try:
-        result = await run_in_threadpool(get_optimizer().search, request)
+        response = await run_in_threadpool(get_search_jobs().run, cache_key, compute)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
-    response = result.to_dict()
-    analyzer = get_upgrade_potential_analyzer()
-    response["solutions"] = [
-        {
-            **solution.to_dict(),
-            "upgrade_potential": analyzer.analyze(
-                solution,
-                payload.excluded_container_ids,
-            ).to_dict(),
-        }
-        for solution in result.solutions
-    ]
-    response["diagnostics"]["cache_hit"] = False
-    get_optimization_cache().put(cache_key, response)
-    return response
+    except SearchBusyError as error:
+        raise HTTPException(status_code=503, detail="Очередь расчётов заполнена. Повторите позже.", headers={"Retry-After": "20"}) from error
+    return await run_in_threadpool(present_result, response, payload, profile)
+
+
+@app.post("/api/feedback")
+def feedback(payload: FeedbackPayload, request: Request, response: Response) -> dict:
+    profile = feedback_profile(request, response)
+    try:
+        event_id = get_feedback_store().record(profile, payload.search_id, payload.build_id,
+                                               payload.rating, payload.reason, payload.other_id)
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from error
+    return {"id": event_id, "learning": payload.reason != "data_error"}
+
+
+@app.delete("/api/feedback/{event_id}")
+def undo_feedback(event_id: str, request: Request, response: Response) -> dict:
+    if not get_feedback_store().undo(feedback_profile(request, response), event_id):
+        raise HTTPException(status_code=404, detail="Feedback not found")
+    return {"deleted": True}
+
+
+@app.get("/api/feedback")
+def feedback_history(request: Request, response: Response) -> dict:
+    events = get_feedback_store().events(feedback_profile(request, response))
+    return {"count": len(events), "events": [
+        {"id": event["id"], "rating": event["rating"], "reason": event["reason"],
+         "armor": event["build"].get("armor", {}).get("name", ""),
+         "container": event["build"].get("container", {}).get("name", ""),
+         "durability": event["build"].get("derived", {}).get("effective_durability", 0),
+         "speed": event["build"].get("stats", {}).get("movement_speed", 0),
+         "comparison": event.get("other") is not None}
+        for event in reversed(events[-50:])
+    ]}
 
 
 @app.post("/api/upgrade-plans")
@@ -316,9 +397,12 @@ async def upgrade_plans(payload: UpgradePayload) -> dict:
         excluded_container_ids=tuple(payload.excluded_container_ids),
     )
     try:
-        result = await run_in_threadpool(get_upgrade_planner().plan, request)
+        job_key = "upgrade:" + json.dumps(payload.model_dump(), sort_keys=True)
+        result = await run_in_threadpool(get_search_jobs().run, job_key, lambda: get_upgrade_planner().plan(request))
     except (KeyError, TypeError, ValueError) as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
+    except SearchBusyError as error:
+        raise HTTPException(status_code=503, detail="Очередь расчётов заполнена") from error
     return result.to_dict()
 
 

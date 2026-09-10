@@ -462,3 +462,18 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
 .budget-unlimited { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; cursor: pointer; }
 .budget-unlimited input { accent-color: #248365; width: 16px; height: 16px; }
 .budget-input:disabled { opacity: 0.45; }
+.personalize-setting { display: flex; align-items: center; gap: 8px; margin: 12px 0; font-size: 13px; }
+.personalize-setting input { accent-color: #248365; }
+.feedback-controls { border-top: 1px solid #dce3e1; padding: 10px 16px 0; }
+.feedback-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.feedback-row select { flex: 1; min-width: 100px; max-width: 320px; width: 100%; padding: 6px; font-size: 12px; border: 1px solid #cbd5d0; border-radius: 4px; color: inherit; background: transparent; }
+.feedback-row button { width: 32px; height: 32px; display: inline-flex; justify-content: center; align-items: center; border: 1px solid #cbd5d0; border-radius: 4px; background: transparent; color: inherit; cursor: pointer; }
+.feedback-row button:hover:not(:disabled) { background: #e4f0e9; color: #14613f; }
+.feedback-row button:disabled { opacity: 0.4; cursor: default; }
+.feedback-message { min-height: 18px; font-size: 12px; overflow-wrap: anywhere; color: #577266; }
+.artifact-price { grid-column: 2 / -1; display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 11px; white-space: nowrap; min-height: 16px; color: var(--muted); }
+.feedback-history { margin: 12px 0; font-size: 12px; }
+.feedback-history summary { cursor: pointer; padding: 8px 0; }
+.feedback-history-row { display: flex; align-items: center; gap: 6px; border-top: 1px solid var(--line); padding: 8px 0; }
+.feedback-history-row > div { min-width: 0; flex: 1; display: grid; gap: 4px; overflow-wrap: anywhere; }
+.feedback-history-row button { flex-shrink: 0; width: 32px; height: 32px; border: 1px solid var(--line); background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }

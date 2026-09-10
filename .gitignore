@@ -9,3 +9,5 @@ dist/
 data/precompute_runner.json
 .env
 .deploy.lock/
+data/feedback/
+.diagnostics/web-current.*.log

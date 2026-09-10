@@ -19,9 +19,13 @@ services:
       ARTCALC_MULTI_CONTAINER_SWEEP_POINTS: "${ARTCALC_MULTI_CONTAINER_SWEEP_POINTS:-1}"
       ARTCALC_MULTI_CONTAINER_SOLUTIONS_PER_POINT: "${ARTCALC_MULTI_CONTAINER_SOLUTIONS_PER_POINT:-1}"
       ARTCALC_QUERY_CACHE_SIZE: "${ARTCALC_QUERY_CACHE_SIZE:-64}"
+      ARTCALC_FEEDBACK_DB: /app/data/feedback/feedback.sqlite3
+      ARTCALC_CONCURRENT_SEARCHES: "${ARTCALC_CONCURRENT_SEARCHES:-1}"
       ARTCALC_UPGRADE_TIME_LIMIT: "${ARTCALC_UPGRADE_TIME_LIMIT:-0.25}"
       ARTCALC_UPGRADE_NONLINEAR_ITERATIONS: "${ARTCALC_UPGRADE_NONLINEAR_ITERATIONS:-2}"
     init: true
+    volumes:
+      - feedback_data:/app/data/feedback
     read_only: true
     tmpfs:
       - /tmp:size=256m,mode=1777
@@ -91,5 +95,6 @@ services:
     logging: *default-logging
 
 volumes:
+  feedback_data:
   caddy_data:
   caddy_config:

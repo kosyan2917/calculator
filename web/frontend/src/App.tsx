@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
 import type { BuildSolution, Catalog, Metric, OptimizationResult, UpgradePlan, UpgradeResult } from "./types";
+import { FeedbackControls, FeedbackHistory } from "./FeedbackControls";
 
 type UpgradeState = { loading: boolean; error: string; result: UpgradeResult | null };
 type SearchOption = { id: string; name: string; meta: string };
@@ -122,6 +123,7 @@ function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [budgetMillions, setBudgetMillions] = useState(50);
   const [unlimitedBudget, setUnlimitedBudget] = useState(false);
+  const [personalize, setPersonalize] = useState(true);
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
   const [maxQualityTier, setMaxQualityTier] = useState("exclusive");
@@ -188,6 +190,7 @@ function App() {
           excluded_artifact_ids: excludedArtifactIds,
           max_results: 10,
           min_quality_percent: 95,
+          personalize,
         }),
       });
       const payload = await response.json();
@@ -306,6 +309,8 @@ function App() {
             <button className="submit-button" type="submit" disabled={!catalog || loading}>
               {loading ? <><span className="spinner" /> Проверка...</> : <><Search size={18} /> Найти сборки</>}
             </button>
+            <label className="personalize-setting"><input type="checkbox" checked={personalize} onChange={(event) => setPersonalize(event.target.checked)} />Учитывать мои оценки</label>
+            <FeedbackHistory />
           </form>
         </aside>
 
@@ -320,11 +325,12 @@ function App() {
           {!loading && result && result.solutions.length === 0 && <div className="empty-state"><CircleAlert size={28} /><h2>Сборок с такими условиями не найдено</h2></div>}
           {!loading && result && result.solutions.length > 0 && <div className="build-list">{result.solutions.map((solution, index) => (
             <BuildCard
-              key={solution.build_id}
+              key={`${result.search_id}-${solution.build_id}`}
               solution={solution}
               index={index}
               upgradeState={upgradeStates[solution.build_id]}
               onLoadUpgrades={() => loadUpgrades(solution)}
+              feedback={<FeedbackControls searchId={result.search_id} buildId={solution.build_id} builds={result.solutions} />}
             />
           ))}</div>}
         </main>
@@ -427,7 +433,7 @@ function ExclusionGroup({ title, options, selected, setSelected, disabledId = ""
   </details>;
 }
 
-function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void }) {
+function BuildCard({ solution, index, upgradeState, onLoadUpgrades, feedback }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void; feedback?: React.ReactNode }) {
   const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   const focusLabel = solution.search_focus.split("+").map((focus) => FOCUS_LABELS[focus] ?? focus).join(" · ");
@@ -439,6 +445,7 @@ function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution
     <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions"><button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
     {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
     {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
+    {feedback}
   </article>;
 }
 

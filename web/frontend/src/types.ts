@@ -158,6 +158,8 @@ export type UpgradeResult = {
 };
 
 export type OptimizationResult = {
+  search_id: string;
+  feedback: { enabled: boolean; examples: number };
   solutions: BuildSolution[];
   diagnostics: {
     elapsed_seconds: number;

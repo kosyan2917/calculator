@@ -14,7 +14,9 @@ COPY web/__init__.py ./web/__init__.py
 COPY web/backend/ ./web/backend/
 
 RUN groupadd --gid 10001 artcalc \
-    && useradd --uid 10001 --gid artcalc --no-create-home --shell /usr/sbin/nologin artcalc
+    && useradd --uid 10001 --gid artcalc --no-create-home --shell /usr/sbin/nologin artcalc \
+    && mkdir -p /app/data/feedback \
+    && chown artcalc:artcalc /app/data/feedback
 
 USER artcalc
 
