@@ -78,6 +78,12 @@ class WebApiTests(unittest.TestCase):
         response = self.client.post("/api/optimize", json={"budget": 10_000_000, "targets": {}})
         self.assertEqual(response.status_code, 422)
 
+    def test_budget_contract_accepts_arbitrary_amount_and_unlimited(self) -> None:
+        from web.backend.app import OptimizePayload
+        self.assertEqual(OptimizePayload(budget=100_001, targets={"speed": 0}).budget, 100_001)
+        self.assertIsNone(OptimizePayload(budget=None).budget)
+        self.assertEqual(self.client.post("/api/optimize", json={"budget": 99_999, "targets": {"speed": 0}}).status_code, 422)
+
     def test_optimize_rejects_selected_and_excluded_armor(self) -> None:
         armor_id = self.client.get("/api/catalog").json()["armors"][0]["id"]
         response = self.client.post(

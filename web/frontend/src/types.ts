@@ -53,6 +53,14 @@ export type Artifact = {
   price: number;
   market_price: number;
   owned_instance_id: string | null;
+  price_estimate?: {
+    available: boolean;
+    confidence: string;
+    basis: string;
+    observed_at?: string;
+    sales_7d: number;
+    sales_30d: number;
+  };
   stats: Record<string, number>;
   infections: Record<string, number>;
 };

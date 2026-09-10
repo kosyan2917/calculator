@@ -90,6 +90,13 @@ function formatPrice(value: number) {
   return `${(value / 1_000_000).toLocaleString("ru-RU", { maximumFractionDigits: 2 })} млн`;
 }
 
+function priceDetails(artifact: BuildSolution["artifacts"][number]) {
+  const estimate = artifact.price_estimate;
+  if (!estimate?.available) return "Нет оценки цены +15";
+  const confidence: Record<string, string> = { highest: "Высокая", high: "Высокая", medium: "Средняя", low: "Низкая", very_low: "Только предложения продавцов", none: "Нет данных" };
+  return `Цена +15. Надёжность: ${confidence[estimate.confidence] ?? "Неизвестна"}. Продаж за 7 / 30 дней: ${estimate.sales_7d} / ${estimate.sales_30d}. Данные: ${estimate.observed_at ? new Date(estimate.observed_at).toLocaleDateString("ru-RU") : "нет даты"}`;
+}
+
 function signed(value: number, digits = 2) {
   const rounded = Math.abs(value) < 0.0005 ? 0 : value;
   return `${rounded > 0 ? "+" : ""}${rounded.toLocaleString("ru-RU", { maximumFractionDigits: digits })}`;
@@ -114,6 +121,7 @@ function parseDecimal(value: string) {
 function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [budgetMillions, setBudgetMillions] = useState(50);
+  const [unlimitedBudget, setUnlimitedBudget] = useState(false);
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
   const [maxQualityTier, setMaxQualityTier] = useState("exclusive");
@@ -148,11 +156,15 @@ function App() {
     name: container.name,
     meta: `${container.category === "backpacks" ? "Рюкзак" : "Контейнер"} · ${container.capacity} сл.`,
   })) ?? [], [catalog]);
-  const requirementsValid = Object.keys(targets).length > 0
+  const requirementsValid = (unlimitedBudget || Object.keys(targets).length > 0)
     && Object.values(targets).every((value) => Number.isFinite(parseDecimal(value)));
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (!unlimitedBudget && (!Number.isFinite(budgetMillions) || budgetMillions < 0.1)) {
+      setError("Минимальный бюджет: 100 000 рублей");
+      return;
+    }
     if (!requirementsValid) {
       setError(Object.keys(targets).length === 0 ? "Задайте хотя бы одно обязательное значение" : "Проверьте числовые значения условий");
       return;
@@ -166,7 +178,7 @@ function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          budget: Math.round(budgetMillions * 1_000_000),
+          budget: unlimitedBudget ? null : Math.round(budgetMillions * 1_000_000),
           armor_id: armorId || null,
           container_id: containerId || null,
           targets: parsedTargets,
@@ -250,9 +262,10 @@ function App() {
             <section className="form-section">
               <div className="section-heading"><Coins size={17} /><h2>Бюджет</h2></div>
               <div className="budget-row">
-                <input aria-label="Бюджет в миллионах" className="budget-input" type="number" min={2.5} step={2.5} value={budgetMillions} onChange={(event) => setBudgetMillions(Number(event.target.value))} />
+                <input aria-label="Бюджет в миллионах" className="budget-input" type="number" min={0.1} step="any" disabled={unlimitedBudget} value={budgetMillions} onChange={(event) => setBudgetMillions(Number(event.target.value))} />
                 <span>млн</span>
               </div>
+              <label className="budget-unlimited"><input type="checkbox" checked={unlimitedBudget} onChange={(event) => setUnlimitedBudget(event.target.checked)} />Неограниченный бюджет</label>
             </section>
 
             <section className="form-section equipment-section">
@@ -418,9 +431,10 @@ function BuildCard({ solution, index, upgradeState, onLoadUpgrades }: { solution
   const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   const focusLabel = solution.search_focus.split("+").map((focus) => FOCUS_LABELS[focus] ?? focus).join(" · ");
+  const unknownPrice = solution.artifacts.some((artifact) => artifact.price_estimate?.available === false);
   return <article className="build-card">
-    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{formatPrice(solution.total_price)}</strong><span className="focus-badge">{focusLabel}</span><span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
-    <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price">{formatPrice(artifact.price)}</div></div>)}</div>
+    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{unknownPrice ? "Цена известна не полностью" : `~ ${formatPrice(solution.total_price)}`}</strong><span className="focus-badge">{focusLabel}</span><span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
+    <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price" title={priceDetails(artifact)}>{artifact.price_estimate?.available === false ? "Нет цены" : formatPrice(artifact.price)}{["low", "very_low"].includes(artifact.price_estimate?.confidence ?? "") && <CircleAlert size={12} aria-label="Низкая надёжность цены" />}</div></div>)}</div>
     <div className="stat-grid">{keyStats.map(([key, Icon]) => <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{key === "total_sprint_speed" ? decimal(valueForStat(solution, key)) : signed(valueForStat(solution, key))}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</strong></div>)}</div>
     <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions"><button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
     {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}

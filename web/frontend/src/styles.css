@@ -459,3 +459,6 @@ button, summary, select, input[type="range"], input[type="checkbox"] { cursor: p
   .artifact-price { display: none; }
   .stat-grid { grid-template-columns: 1fr; }
 }
+.budget-unlimited { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; cursor: pointer; }
+.budget-unlimited input { accent-color: #248365; width: 16px; height: 16px; }
+.budget-input:disabled { opacity: 0.45; }

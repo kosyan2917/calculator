@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from artcalc import (
     ArtifactBuildOptimizer,
@@ -54,16 +54,22 @@ METRIC_DIRECTIONS = {item["key"]: item["direction"] for item in METRICS}
 
 
 class OptimizePayload(BaseModel):
-    budget: int = Field(ge=1)
+    budget: int | None = Field(ge=100_000)
     armor_id: str | None = None
     container_id: str | None = None
-    targets: dict[str, float] = Field(min_length=1)
+    targets: dict[str, float] = Field(default_factory=dict)
     max_quality_tier: str = "exclusive"
     excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_container_ids: list[str] = Field(default_factory=list, max_length=100)
     excluded_artifact_ids: list[str] = Field(default_factory=list, max_length=500)
     max_results: int = Field(default=10, ge=1, le=30)
     min_quality_percent: float = Field(default=95.0, ge=95.0, le=175.0)
+
+    @model_validator(mode="after")
+    def require_targets_for_limited_budget(self):
+        if self.budget is not None and not self.targets:
+            raise ValueError("At least one required stat is required")
+        return self
 
 
 class UpgradePayload(BaseModel):
@@ -236,8 +242,9 @@ def catalog() -> dict:
         "artifacts": artifacts,
         "metrics": METRICS,
         "limits": {
-            "budget_min": 2_500_000,
-            "budget_step": 2_500_000,
+            "budget_min": 100_000,
+            "budget_step": 1,
+            "unlimited_budget": True,
             "quality_min": data.min_quality_percent,
             "quality_max": 175.0,
         },
