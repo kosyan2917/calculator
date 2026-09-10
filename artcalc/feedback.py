@@ -18,7 +18,7 @@ REASONS = {"balance", "price", "composition", "availability", "upgrade", "data_e
 
 
 def context_similarity(left: dict, right: dict) -> float:
-    for key in ("armor_id", "container_id", "max_quality_tier"):
+    for key in ("armor_id", "container_id", "max_quality_tier", "active_reaction"):
         if left.get(key) != right.get(key):
             return 0.0
     a, b = left.get("budget"), right.get("budget")
@@ -40,7 +40,7 @@ def features(build: dict, context: dict) -> np.ndarray:
     targets = context.get("targets", {})
     price = build.get("total_price", 0) / max(context.get("budget") or 1, 1) if context.get("budget") is not None else 0
     values = [
-        (derived.get("effective_durability", 100) - targets.get("durability", 100)) / 200,
+        (derived.get("durability_with_reaction", derived.get("effective_durability", 100)) - targets.get("durability", 100)) / 200,
         (stats.get("movement_speed", 0) - targets.get("speed", 0)) / 20,
         derived.get("hp_regen_score", 0) / 20,
         stats.get("healing_effectiveness", 0) / 50,

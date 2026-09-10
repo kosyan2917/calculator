@@ -66,9 +66,10 @@ export type Artifact = {
 };
 
 export type BuildSolution = {
+  active_reaction?: "electricity" | "burning" | "tear" | null;
   build_id: string;
   search_focus: string;
-  upgrade_potential: UpgradePotential;
+  upgrade_potential?: UpgradePotential;
   total_price: number;
   armor: { item_id: string; name: string; rank: string; category: string };
   container: {

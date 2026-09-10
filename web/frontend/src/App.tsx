@@ -20,6 +20,7 @@ import {
   Weight,
   Wind,
   X,
+  Zap,
 } from "lucide-react";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
 import type { BuildSolution, Catalog, Metric, OptimizationResult, UpgradePlan, UpgradeResult } from "./types";
@@ -27,6 +28,12 @@ import { FeedbackControls, FeedbackHistory } from "./FeedbackControls";
 
 type UpgradeState = { loading: boolean; error: string; result: UpgradeResult | null };
 type SearchOption = { id: string; name: string; meta: string };
+type Reaction = NonNullable<BuildSolution["active_reaction"]>;
+const REACTIONS: Record<Reaction, { label: string; stat: string }> = {
+  electricity: { label: "Электричество", stat: "electroshock_reaction" },
+  burning: { label: "Горение", stat: "burn_reaction" },
+  tear: { label: "Разрыв", stat: "tear_reaction" },
+};
 
 const RARITY_LABELS: Record<string, string> = {
   common: "Обычный",
@@ -48,6 +55,12 @@ const QUALITY_LIMITS = [
 
 const STAT_LABELS: Record<string, string> = {
   effective_durability: "Приведенка",
+  durability_without_reactions: "Приведа без реакций",
+  durability_with_reaction: "Приведа с реакциями",
+  electroshock_reaction: "Реакция на электричество",
+  burn_reaction: "Реакция на горение",
+  tear_reaction: "Реакция на разрыв",
+  chemical_burn_reaction: "Реакция на химический ожог",
   hp_regen_score: "Лечение/с",
   movement_speed: "Скорость",
   total_sprint_speed: "Итоговая скорость бега",
@@ -109,7 +122,7 @@ function decimal(value: number, digits = 2) {
 }
 
 function valueForStat(solution: BuildSolution, key: string) {
-  if (key === "effective_durability" || key === "hp_regen_score") return solution.derived[key] ?? 0;
+  if (key in solution.derived) return solution.derived[key];
   if (key === "total_sprint_speed") return solution.derived[key] ?? 100;
   return solution.stats[key] ?? 0;
 }
@@ -124,6 +137,8 @@ function App() {
   const [budgetMillions, setBudgetMillions] = useState(50);
   const [unlimitedBudget, setUnlimitedBudget] = useState(false);
   const [personalize, setPersonalize] = useState(true);
+  const [searchMode, setSearchMode] = useState<"normal" | "reactions">("normal");
+  const [reaction, setReaction] = useState<Reaction>("electricity");
   const [armorId, setArmorId] = useState("");
   const [containerId, setContainerId] = useState("");
   const [maxQualityTier, setMaxQualityTier] = useState("exclusive");
@@ -146,7 +161,9 @@ function App() {
       .catch((reason: Error) => setError(reason.message));
   }, []);
 
-  const mainMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "main") ?? [], [catalog]);
+  const mainMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "main").map((metric) =>
+    searchMode === "reactions" && metric.key === "durability" ? { ...metric, label: "Приведа с реакциями" } : metric
+  ) ?? [], [catalog, searchMode]);
   const secondaryMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "secondary") ?? [], [catalog]);
   const armorOptions = useMemo<SearchOption[]>(() => catalog?.armors.map((armor) => ({
     id: armor.id,
@@ -158,8 +175,14 @@ function App() {
     name: container.name,
     meta: `${container.category === "backpacks" ? "Рюкзак" : "Контейнер"} · ${container.capacity} сл.`,
   })) ?? [], [catalog]);
-  const requirementsValid = (unlimitedBudget || Object.keys(targets).length > 0)
+  const requirementsValid = (unlimitedBudget || searchMode === "reactions" || Object.keys(targets).length > 0)
     && Object.values(targets).every((value) => Number.isFinite(parseDecimal(value)));
+
+  function clearResults() {
+    setResult(null);
+    setUpgradeStates({});
+    setError("");
+  }
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -191,6 +214,7 @@ function App() {
           max_results: 10,
           min_quality_percent: 95,
           personalize,
+          active_reaction: searchMode === "reactions" ? reaction : null,
         }),
       });
       const payload = await response.json();
@@ -251,6 +275,11 @@ function App() {
         <div className="topbar-status"><span className="status-dot" /> Артефакты +15</div>
       </header>
 
+      <nav className="search-tabs" aria-label="Режим поиска">
+        <button type="button" aria-pressed={searchMode === "normal"} disabled={loading} onClick={() => { setSearchMode("normal"); clearResults(); }}><Shield size={16} />Обычные сборки</button>
+        <button type="button" aria-pressed={searchMode === "reactions"} disabled={loading} onClick={() => { setSearchMode("reactions"); clearResults(); }}><Zap size={16} />Шизо-варианты</button>
+      </nav>
+
       <div className="workspace">
         <aside className="control-panel">
           <form onSubmit={submit}>
@@ -261,6 +290,15 @@ function App() {
                 <span>{Object.keys(targets).length} условий</span>
               </div>
             </div>
+
+            {searchMode === "reactions" && <section className="form-section reaction-settings">
+              <div className="section-heading"><Zap size={17} /><h2>Активная реакция</h2></div>
+              <div className="select-wrap">
+                <select aria-label="Активная реакция" value={reaction} disabled={loading} onChange={(event) => { setReaction(event.target.value as Reaction); clearResults(); }}>
+                  {Object.entries(REACTIONS).map(([key, item]) => <option key={key} value={key}>{item.label}</option>)}
+                </select><ChevronDown size={15} />
+              </div>
+            </section>}
 
             <section className="form-section">
               <div className="section-heading"><Coins size={17} /><h2>Бюджет</h2></div>
@@ -316,12 +354,12 @@ function App() {
 
         <main className="results-panel">
           <div className="results-heading">
-            <div><div className="eyebrow">Результаты</div><div className="results-title-row"><h1>Подходящие сборки</h1>{result && <span className="result-count">{result.solutions.length}</span>}</div></div>
+            <div><div className="eyebrow">Результаты</div><div className="results-title-row"><h1>{searchMode === "reactions" ? "Шизо-варианты" : "Подходящие сборки"}</h1>{result && <span className="result-count">{result.solutions.length}</span>}</div></div>
             {result && <div className="runtime"><Timer size={16} /> {result.diagnostics.elapsed_seconds.toFixed(2)} с</div>}
           </div>
           {error && <div className="error-banner"><CircleAlert size={18} />{error}</div>}
           {loading && <LoadingState />}
-          {!loading && !result && !error && <EmptyState />}
+          {!loading && !result && !error && <EmptyState reaction={searchMode === "reactions" ? reaction : null} />}
           {!loading && result && result.solutions.length === 0 && <div className="empty-state"><CircleAlert size={28} /><h2>Сборок с такими условиями не найдено</h2></div>}
           {!loading && result && result.solutions.length > 0 && <div className="build-list">{result.solutions.map((solution, index) => (
             <BuildCard
@@ -434,15 +472,22 @@ function ExclusionGroup({ title, options, selected, setSelected, disabledId = ""
 }
 
 function BuildCard({ solution, index, upgradeState, onLoadUpgrades, feedback }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void; feedback?: React.ReactNode }) {
-  const keyStats = [["effective_durability", Shield], ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
+  const durabilityStats = solution.active_reaction
+    ? [["durability_without_reactions", Shield], ["durability_with_reaction", Zap]] as const
+    : [["effective_durability", Shield]] as const;
+  const keyStats = [...durabilityStats, ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   const focusLabel = solution.search_focus.split("+").map((focus) => FOCUS_LABELS[focus] ?? focus).join(" · ");
   const unknownPrice = solution.artifacts.some((artifact) => artifact.price_estimate?.available === false);
-  return <article className="build-card">
-    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{unknownPrice ? "Цена известна не полностью" : `~ ${formatPrice(solution.total_price)}`}</strong><span className="focus-badge">{focusLabel}</span><span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span><span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
+  return <article className={`build-card ${solution.active_reaction ? "reaction-build" : ""}`}>
+    <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{unknownPrice ? "Цена известна не полностью" : `~ ${formatPrice(solution.total_price)}`}</strong><span className="focus-badge">{focusLabel}</span>{solution.upgrade_potential && <span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span>}<span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
+    {solution.active_reaction && <div className="reaction-condition"><Zap size={15} /><span>Активна реакция: <strong>{REACTIONS[solution.active_reaction].label}</strong></span><span>Живучесть {signed(solution.stats[REACTIONS[solution.active_reaction].stat] ?? 0)}%</span></div>}
     <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price" title={priceDetails(artifact)}>{artifact.price_estimate?.available === false ? "Нет цены" : formatPrice(artifact.price)}{["low", "very_low"].includes(artifact.price_estimate?.confidence ?? "") && <CircleAlert size={12} aria-label="Низкая надёжность цены" />}</div></div>)}</div>
-    <div className="stat-grid">{keyStats.map(([key, Icon]) => <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{key === "total_sprint_speed" ? decimal(valueForStat(solution, key)) : signed(valueForStat(solution, key))}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</strong></div>)}</div>
-    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions"><button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button><details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
+    <div className="stat-grid">{keyStats.map(([key, Icon]) => {
+      const durability = key === "effective_durability" || key.startsWith("durability_");
+      return <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{durability || key === "total_sprint_speed" ? decimal(valueForStat(solution, key)) : signed(valueForStat(solution, key))}{durability || key === "carry_weight" ? "" : "%"}</strong></div>;
+    })}</div>
+    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions">{!solution.active_reaction && <button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button>}<details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
     {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
     {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
     {feedback}
@@ -488,8 +533,8 @@ function LoadingState() {
   return <div className="loading-state"><div className="loading-pulse"><SlidersHorizontal size={25} /></div><h2>Проверяем обязательные условия</h2><div className="loading-lines"><span /><span /><span /></div></div>;
 }
 
-function EmptyState() {
-  return <div className="empty-state"><div className="empty-visual"><Shield size={34} /><Activity size={22} /><Wind size={26} /></div><h2>Задайте обязательные значения</h2><div className="empty-stats"><span>Костюм</span><span>Контейнер</span><span>Артефакты</span></div></div>;
+function EmptyState({ reaction }: { reaction: Reaction | null }) {
+  return <div className="empty-state"><div className="empty-visual"><Shield size={34} /><Activity size={22} /><Wind size={26} /></div><h2>{reaction ? `Реакция: ${REACTIONS[reaction].label}` : "Задайте обязательные значения"}</h2><div className="empty-stats"><span>Костюм</span><span>Контейнер</span><span>Артефакты</span></div></div>;
 }
 
 export default App;

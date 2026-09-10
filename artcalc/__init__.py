@@ -12,6 +12,7 @@ from .optimizer import (
     OptimizerConfig,
 )
 from .query import BuildQueryEngine, QueryConfig
+from .reactions import ReactionBuildGenerator
 from .solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfig, SolverCatalog
 from .upgrade import UpgradePlanner, UpgradePlannerConfig, UpgradePlanningRequest, UpgradePlanningResult
 from .upgrade_potential import BuildUpgradePotentialAnalyzer, UpgradePotential
@@ -34,6 +35,7 @@ __all__ = [
     "OptimizerConfig",
     "PrecomputeConfig",
     "QueryConfig",
+    "ReactionBuildGenerator",
     "SolverCatalog",
     "UpgradePlanner",
     "UpgradePlannerConfig",

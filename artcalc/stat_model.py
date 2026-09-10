@@ -70,6 +70,7 @@ SECONDARY_STATS = [
     "bleeding_resistance",
     "burn_reaction",
     "tear_reaction",
+    "electroshock_reaction",
 ]
 
 INFECTION_STATS = ["radiation", "temperature", "biological", "psycho", "frost"]

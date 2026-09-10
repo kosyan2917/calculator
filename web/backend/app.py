@@ -9,7 +9,7 @@ import re
 import secrets
 from pathlib import Path
 from threading import Lock
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.concurrency import run_in_threadpool
@@ -27,6 +27,7 @@ from artcalc import (
     OptimizationRequest,
     OptimizerConfig,
     SolverCatalog,
+    ReactionBuildGenerator,
     UpgradePlanner,
     UpgradePlannerConfig,
     UpgradePlanningRequest,
@@ -69,10 +70,11 @@ class OptimizePayload(BaseModel):
     max_results: int = Field(default=10, ge=1, le=30)
     min_quality_percent: float = Field(default=95.0, ge=95.0, le=175.0)
     personalize: bool = True
+    active_reaction: Literal["electricity", "burning", "tear"] | None = None
 
     @model_validator(mode="after")
     def require_targets_for_limited_budget(self):
-        if self.budget is not None and not self.targets:
+        if self.budget is not None and not self.targets and not self.active_reaction:
             raise ValueError("At least one required stat is required")
         return self
 
@@ -192,6 +194,12 @@ def get_upgrade_planner() -> UpgradePlanner:
             nonlinear_iterations=int(os.getenv("ARTCALC_UPGRADE_NONLINEAR_ITERATIONS", "2")),
         ),
     )
+
+
+@lru_cache(maxsize=3)
+def get_reaction_generator(reaction: str) -> ReactionBuildGenerator:
+    normal = get_optimizer()
+    return ReactionBuildGenerator(get_catalog(), reaction, normal.config, normal.solver.config)
 
 
 @lru_cache(maxsize=1)
@@ -327,14 +335,17 @@ async def optimize(payload: OptimizePayload, http_request: Request, http_respons
         cached_again = get_optimization_cache().get(cache_key)
         if cached_again is not None:
             return cached_again
-        result = get_optimizer().search(request)
+        generator = get_reaction_generator(payload.active_reaction) if payload.active_reaction else get_optimizer()
+        result = generator.search(request)
         response = result.to_dict()
+        response["request"]["active_reaction"] = payload.active_reaction
         analyzer = get_upgrade_potential_analyzer()
-        response["solutions"] = [
-            {**solution.to_dict(), "upgrade_potential": analyzer.analyze(
-                solution, payload.excluded_container_ids).to_dict()}
-            for solution in result.solutions
-        ]
+        if not payload.active_reaction:
+            response["solutions"] = [
+                {**solution.to_dict(), "upgrade_potential": analyzer.analyze(
+                    solution, payload.excluded_container_ids).to_dict()}
+                for solution in result.solutions
+            ]
         response["diagnostics"]["cache_hit"] = False
         get_optimization_cache().put(cache_key, response)
         return response
@@ -373,7 +384,8 @@ def feedback_history(request: Request, response: Response) -> dict:
         {"id": event["id"], "rating": event["rating"], "reason": event["reason"],
          "armor": event["build"].get("armor", {}).get("name", ""),
          "container": event["build"].get("container", {}).get("name", ""),
-         "durability": event["build"].get("derived", {}).get("effective_durability", 0),
+         "durability": event["build"].get("derived", {}).get("durability_with_reaction",
+                          event["build"].get("derived", {}).get("effective_durability", 0)),
          "speed": event["build"].get("stats", {}).get("movement_speed", 0),
          "comparison": event.get("other") is not None}
         for event in reversed(events[-50:])
@@ -382,6 +394,8 @@ def feedback_history(request: Request, response: Response) -> dict:
 
 @app.post("/api/upgrade-plans")
 async def upgrade_plans(payload: UpgradePayload) -> dict:
+    if payload.current_build.get("active_reaction"):
+        raise HTTPException(status_code=422, detail="Улучшения сборок с реакциями пока не поддерживаются")
     validate_metrics(payload.targets)
     validate_quality_tier(payload.max_quality_tier)
     budgets = tuple(payload.extra_budgets) if payload.extra_budgets else ()

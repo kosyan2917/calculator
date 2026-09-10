@@ -51,6 +51,7 @@ METRIC_SCALES = {
     "bleeding_resistance": 10.0,
     "burn_reaction": 10.0,
     "tear_reaction": 10.0,
+    "electroshock_reaction": 10.0,
 }
 
 MINIMIZE_METRICS = {"bleeding_output"}
@@ -101,6 +102,7 @@ class BuildSolution:
     solver_gap: float | None
     solve_seconds: float
     search_focus: str = "price"
+    active_reaction: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
