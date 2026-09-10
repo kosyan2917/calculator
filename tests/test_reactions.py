@@ -67,6 +67,9 @@ class ReactionSearchTests(unittest.TestCase):
         build = result.solutions[0]
         self.assertAlmostEqual(build.stats["vitality"], 20)
         self.assertAlmostEqual(build.stats["tear_reaction"], 25)
+        self.assertAlmostEqual(build.loadout_stats["vitality"], 17)
+        self.assertAlmostEqual(build.loadout_stats["tear_reaction"], 29)
+        self.assertNotIn("bullet_resistance", build.loadout_stats)
         self.assertAlmostEqual(build.artifacts[0]["stats"]["vitality"], 15)
         self.assertAlmostEqual(build.derived["durability_without_reactions"], 600)
         self.assertAlmostEqual(build.derived["durability_with_reaction"], 725)
@@ -127,6 +130,8 @@ class ReactionSearchTests(unittest.TestCase):
             data = result.json()
             self.assertEqual(data["request"]["active_reaction"], "tear")
             self.assertEqual(data["solutions"][0]["derived"]["durability_with_reaction"], 120)
+            self.assertEqual(data["solutions"][0]["loadout_stats"]["vitality"], 0)
+            self.assertEqual(data["solutions"][0]["loadout_stats"]["tear_reaction"], 20)
             cached = client.post("/api/optimize", json=payload).json()
             self.assertTrue(cached["diagnostics"]["cache_hit"])
             self.assertEqual(factory.call_count, 1)

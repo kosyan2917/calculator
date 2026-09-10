@@ -103,6 +103,7 @@ class BuildSolution:
     solve_seconds: float
     search_focus: str = "price"
     active_reaction: str | None = None
+    loadout_stats: dict[str, float] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -1221,6 +1222,8 @@ class ArtifactBuildOptimizer:
                 artifacts.append(self._artifact_view(group, quality, container))
 
         stats, report = self._evaluate_exact(artifacts, armor, container)
+        container_stats, _ = split_infections(container.get("stats") or {})
+        loadout_stats = add_stats(container_stats, *(artifact["stats"] for artifact in artifacts))
         if not report["valid"] or any(
             float(item["margin"]) + 1e-9 < self.config.infection_safety_margin
             for item in report["by_type"].values()
@@ -1243,6 +1246,7 @@ class ArtifactBuildOptimizer:
             container=self._container_view(container),
             artifacts=tuple(artifacts),
             stats=stats,
+            loadout_stats=loadout_stats,
             derived=derived,
             infection=report,
             metrics=metrics,

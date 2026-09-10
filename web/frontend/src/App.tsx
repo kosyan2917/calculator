@@ -66,6 +66,22 @@ const STAT_LABELS: Record<string, string> = {
   total_sprint_speed: "Итоговая скорость бега",
   bullet_resistance: "Пулестойкость",
   vitality: "Живучесть",
+  sprint_speed: "Скорость бега",
+  health_regeneration: "Регенерация здоровья",
+  periodic_healing: "Периодическое лечение",
+  bleeding_output: "Вывод кровотечения",
+  bleeding_resistance: "Сопротивление кровотечению",
+  tear_protection: "Защита от разрыва",
+  explosion_protection: "Защита от взрыва",
+  electricity_protection: "Электрозащита",
+  fire_protection: "Защита от огня",
+  chemical_protection: "Химзащита",
+  radiation_protection: "Защита от радиации",
+  thermal_protection: "Защита от температуры",
+  biological_protection: "Защита от биозаражения",
+  psycho_protection: "Защита от пси-излучения",
+  frost_protection: "Защита от холода",
+  stability: "Стойкость",
   stamina: "Выносливость",
   stamina_regeneration: "Восст. выносливости",
   healing_effectiveness: "Эффективность лечения",
@@ -472,26 +488,45 @@ function ExclusionGroup({ title, options, selected, setSelected, disabledId = ""
 }
 
 function BuildCard({ solution, index, upgradeState, onLoadUpgrades, feedback }: { solution: BuildSolution; index: number; upgradeState?: UpgradeState; onLoadUpgrades: () => void; feedback?: React.ReactNode }) {
-  const durabilityStats = solution.active_reaction
-    ? [["durability_without_reactions", Shield], ["durability_with_reaction", Zap]] as const
-    : [["effective_durability", Shield]] as const;
-  const keyStats = [...durabilityStats, ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
   const infections = Object.entries(solution.infection.by_type).map(([key, value]) => [key, value, value.after_inner_protection + value.container] as const).filter(([, value, exposure]) => Math.abs(exposure) > 0.0005 || value.margin < 0.05);
   const focusLabel = solution.search_focus.split("+").map((focus) => FOCUS_LABELS[focus] ?? focus).join(" · ");
   const unknownPrice = solution.artifacts.some((artifact) => artifact.price_estimate?.available === false);
   return <article className={`build-card ${solution.active_reaction ? "reaction-build" : ""}`}>
     <header className="build-header"><div className="build-rank">#{index + 1}</div><div className="build-equipment"><h2>{solution.armor.name}</h2><div><Box size={15} /> {solution.container.name} · {solution.container.capacity} слотов</div></div><div className="build-meta"><strong>{unknownPrice ? "Цена известна не полностью" : `~ ${formatPrice(solution.total_price)}`}</strong><span className="focus-badge">{focusLabel}</span>{solution.upgrade_potential && <span className="potential-badge">Потенциал {decimal(solution.upgrade_potential.score, 0)}</span>}<span className={`solver-badge ${solution.solver_status.toLowerCase()}`}>{solution.solver_status === "OPTIMAL" ? <CheckCircle2 size={13} /> : <Gauge size={13} />}{solution.solver_status === "FEASIBLE_SEED" ? "Проверено" : solution.solver_status}</span></div></header>
-    {solution.active_reaction && <div className="reaction-condition"><Zap size={15} /><span>Активна реакция: <strong>{REACTIONS[solution.active_reaction].label}</strong></span><span>Живучесть {signed(solution.stats[REACTIONS[solution.active_reaction].stat] ?? 0)}%</span></div>}
     <div className="artifact-strip">{solution.artifacts.map((artifact, artifactIndex) => <div className={`artifact-row rarity-${artifact.quality_tier}`} key={`${artifact.group_id}-${artifactIndex}`}><span className="rarity-swatch" /><div className="artifact-name"><strong>{artifact.name}</strong><small>{RARITY_LABELS[artifact.quality_tier]}</small></div><div className="artifact-quality">{artifact.quality_percent.toFixed(2)}%</div><div className="artifact-level">+{artifact.upgrade_level}</div><div className="artifact-price" title={priceDetails(artifact)}>{artifact.price_estimate?.available === false ? "Нет цены" : formatPrice(artifact.price)}{["low", "very_low"].includes(artifact.price_estimate?.confidence ?? "") && <CircleAlert size={12} aria-label="Низкая надёжность цены" />}</div></div>)}</div>
-    <div className="stat-grid">{keyStats.map(([key, Icon]) => {
-      const durability = key === "effective_durability" || key.startsWith("durability_");
-      return <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{durability || key === "total_sprint_speed" ? decimal(valueForStat(solution, key)) : signed(valueForStat(solution, key))}{durability || key === "carry_weight" ? "" : "%"}</strong></div>;
-    })}</div>
-    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions">{!solution.active_reaction && <button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button>}<details className="all-stats"><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(solution.stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details></div></footer>
+    <BuildStats solution={solution} />
+    <footer className="build-footer"><div className="infection-summary"><CheckCircle2 size={15} />{infections.length === 0 ? <span>Заражения после защиты нет</span> : infections.map(([key, value, exposure]) => <span className={value.margin < 0.05 ? "near-limit" : ""} key={key}>{INFECTION_LABELS[key] ?? key}: {decimal(exposure)} / {decimal(value.limit)}</span>)}</div><div className="build-actions">{!solution.active_reaction && <button className="upgrade-button" type="button" onClick={onLoadUpgrades} disabled={upgradeState?.loading}>{upgradeState?.loading ? <LoaderCircle className="spin-icon" size={14} /> : <ArrowUpRight size={14} />}{upgradeState?.loading ? "Считаем" : upgradeState?.result ? "Пересчитать" : "Улучшить"}</button>}</div></footer>
     {upgradeState?.error && <div className="upgrade-error"><CircleAlert size={15} />{upgradeState.error}</div>}
     {upgradeState?.result && <UpgradePlans current={solution} result={upgradeState.result} />}
     {feedback}
   </article>;
+}
+
+function BuildStats({ solution }: { solution: BuildSolution }) {
+  const [withoutArmor, setWithoutArmor] = useState(false);
+  const stats = withoutArmor ? solution.loadout_stats : solution.stats;
+  const durabilityStats = solution.active_reaction
+    ? [["durability_without_reactions", Shield], ["durability_with_reaction", Zap]] as const
+    : [["effective_durability", Shield]] as const;
+  const totalKeys = [...durabilityStats, ["hp_regen_score", HeartPulse], ["movement_speed", Wind], ["total_sprint_speed", Footprints], ["healing_effectiveness", HeartPulse], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
+  const loadoutKeys = [["bullet_resistance", Shield], ["vitality", HeartPulse], ["movement_speed", Wind], ["sprint_speed", Footprints], ["health_regeneration", HeartPulse], ["periodic_healing", HeartPulse], ["healing_effectiveness", HeartPulse], ["stamina", Activity], ["stamina_regeneration", Activity], ["carry_weight", Weight]] as const;
+  const reactionKeys = Object.values(REACTIONS).filter(({ stat }) => Math.abs(stats[stat] ?? 0) > 0.0005).map(({ stat }) => [stat, Zap] as const);
+  const keys = withoutArmor ? [...loadoutKeys, ...reactionKeys] : totalKeys;
+  return <section className={`build-statistics ${withoutArmor ? "without-armor" : ""}`} aria-label={withoutArmor ? "Свойства артефактов и контейнера без костюма" : "Итоговые свойства с костюмом"}>
+    <div className="stats-toolbar">
+      <div className="stats-basis" role="group" aria-label="Состав характеристик">
+        <button type="button" aria-pressed={!withoutArmor} onClick={() => setWithoutArmor(false)}><Shield size={13} />С костюмом</button>
+        <button type="button" aria-pressed={withoutArmor} onClick={() => setWithoutArmor(true)}><Box size={13} />Арты + контейнер</button>
+      </div>
+      <details className="all-stats" key={withoutArmor ? "loadout" : "total"}><summary>Все свойства <ChevronDown size={14} /></summary><div className="all-stats-grid">{Object.entries(stats).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => <div key={key}><span>{STAT_LABELS[key] ?? key}</span><strong>{signed(value)}</strong></div>)}</div></details>
+    </div>
+    {solution.active_reaction && <div className="reaction-condition"><Zap size={15} /><span>Активна реакция: <strong>{REACTIONS[solution.active_reaction].label}</strong></span><span>Живучесть {signed(stats[REACTIONS[solution.active_reaction].stat] ?? 0)}%</span></div>}
+    <div className="stat-grid">{keys.map(([key, Icon]) => {
+      const durability = key === "effective_durability" || key.startsWith("durability_");
+      const value = withoutArmor ? stats[key] ?? 0 : valueForStat(solution, key);
+      return <div className="stat-cell" key={key}><Icon size={16} /><span>{STAT_LABELS[key]}</span><strong>{durability || key === "total_sprint_speed" ? decimal(value) : signed(value)}{durability || key === "carry_weight" || key === "bullet_resistance" ? "" : "%"}</strong></div>;
+    })}</div>
+  </section>;
 }
 
 function UpgradePlans({ current, result }: { current: BuildSolution; result: UpgradeResult }) {
@@ -522,6 +557,7 @@ function UpgradePlanRow({ current, plan }: { current: BuildSolution; plan: Upgra
     <div className="artifact-changes"><ArtifactChangeList title="Убрать" artifacts={plan.removed_artifacts} empty="Ничего" /><ArtifactChangeList title="Купить" artifacts={plan.added_artifacts} empty="Ничего" /></div>
     <div className="upgrade-deltas">{deltas.map(([key, value]) => <span className={value > 0 ? "positive" : "negative"} key={key}>{STAT_LABELS[key]} {signed(value)}{key === "effective_durability" || key === "carry_weight" ? "" : "%"}</span>)}</div>
     <div className="upgrade-costs"><span>Покупка <strong>{formatPrice(plan.purchase_cost)}</strong></span><span>Продажа старых <strong>{formatPrice(plan.resale_credit)}</strong></span><span className="net-cost">Итого <strong>{formatPrice(plan.estimated_net_cost)}</strong></span></div>
+    <BuildStats solution={plan.result_build} />
   </div>;
 }
 

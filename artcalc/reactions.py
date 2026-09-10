@@ -80,6 +80,7 @@ class ReactionBuildGenerator:
         return replace(
             solution, build_id=f"reaction:{self.reaction}:{solution.build_id}",
             active_reaction=self.reaction, stats=stats, derived=derived,
+            loadout_stats=self._passive(solution.loadout_stats),
             artifacts=tuple({**item, "stats": self._passive(item["stats"])}
                             for item in solution.artifacts),
         )

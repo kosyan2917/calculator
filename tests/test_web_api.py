@@ -58,6 +58,8 @@ class WebApiTests(unittest.TestCase):
             self.assertIn("score", build["upgrade_potential"])
             self.assertIn("artifact_reuse_score", build["upgrade_potential"])
             self.assertIn("container_upgrade_score", build["upgrade_potential"])
+            self.assertIn("loadout_stats", build)
+            self.assertNotEqual(build["loadout_stats"].get("bullet_resistance", 0), build["stats"]["bullet_resistance"])
 
         cached_response = self.client.post(
             "/api/optimize",

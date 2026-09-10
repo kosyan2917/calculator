@@ -43,6 +43,27 @@ def catalog(groups: tuple[ArtifactGroup, ...], armors: tuple[dict, ...], test_co
 
 
 class ArtifactBuildOptimizerTest(unittest.TestCase):
+    def test_loadout_stats_include_container_and_effectiveness_but_not_armor(self) -> None:
+        stats = {"bullet_resistance": 20, "vitality": -5, "movement_speed": 4,
+                 "health_regeneration": 2, "periodic_healing": 1, "carry_weight": 3}
+        bag = {**container(1, {"bullet_resistance": 5, "vitality": 2, "carry_weight": 12}),
+               "effectiveness": 150}
+        armors = (armor("heavy", {"bullet_resistance": 400, "vitality": 50, "movement_speed": -10,
+                                   "health_regeneration": 5, "thermal_protection": 200}),
+                  armor("light", {"bullet_resistance": 200, "movement_speed": 2}))
+        optimizer = self.optimizer((group("a", stats, stats),), armors, bag)
+        builds = [optimizer.solve_focus(OptimizationRequest(
+            budget=1_000_000, targets={"speed": -20}, armor_ids=(item["item_id"],)),
+            "container", "price").solutions[0] for item in armors]
+        expected = {"bullet_resistance": 35, "vitality": -5.5, "movement_speed": 6,
+                    "health_regeneration": 3, "periodic_healing": 1.5, "carry_weight": 16.5}
+        for build in builds:
+            self.assertEqual(build.loadout_stats, expected)
+            self.assertEqual(build.to_dict()["loadout_stats"], expected)
+        self.assertEqual(builds[0].stats["bullet_resistance"], 435)
+        self.assertEqual(builds[0].stats["movement_speed"], -4)
+        self.assertEqual(builds[1].stats["movement_speed"], 8)
+
     def test_fractional_quality_is_not_rounded_below_requirement(self) -> None:
         source = group("a", {"movement_speed": 0}, {"movement_speed": 1}, low=10000, high=10100)
         result = self.optimizer((source,), (armor("plain", {}),), container(1)).solve_focus(

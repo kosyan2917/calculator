@@ -81,6 +81,7 @@ export type BuildSolution = {
     effectiveness: number;
   };
   artifacts: Artifact[];
+  loadout_stats: Record<string, number>;
   stats: Record<string, number>;
   derived: Record<string, number>;
   infection: {

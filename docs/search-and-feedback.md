@@ -14,6 +14,22 @@ available even after personalized ordering. It cannot discover a composition tha
 the solver did not generate. No offline build index or separate benchmark service
 is required.
 
+## Stat Display
+
+Every solution, including upgrade results, exposes `loadout_stats`: the sum of
+container properties and artifact properties after container effectiveness,
+without armor or character base stats. Infection exposure remains in the
+separate `infection` report, with the existing protection and base-output rules.
+`stats` and `derived` retain their original full-build meaning; search conditions
+and ranking are unchanged.
+
+Cards switch between full results and artifact/container bonuses. The latter
+show bullet resistance and vitality separately, raw movement/sprint bonuses,
+regeneration and periodic healing rather than an invented additive durability
+or healing contribution. Expanded properties follow the selected view. Reaction
+builds also expose passive `loadout_stats`: only reaction bonuses from artifacts
+and the container appear there, without armor reaction bonuses.
+
 ## Budget and Prices
 
 `POST /api/optimize` accepts an integer budget of at least 100000 RUB, with no
