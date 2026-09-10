@@ -43,6 +43,34 @@ def catalog(groups: tuple[ArtifactGroup, ...], armors: tuple[dict, ...], test_co
 
 
 class ArtifactBuildOptimizerTest(unittest.TestCase):
+    def test_fractional_quality_is_not_rounded_below_requirement(self) -> None:
+        source = group("a", {"movement_speed": 0}, {"movement_speed": 1}, low=10000, high=10100)
+        result = self.optimizer((source,), (armor("plain", {}),), container(1)).solve_focus(
+            OptimizationRequest(budget=1_000_000, targets={"speed": 0.005}), "container", "price")
+        self.assertEqual(len(result.solutions), 1)
+        self.assertGreaterEqual(result.solutions[0].stats["movement_speed"], 0.005)
+
+    def test_full_composition_can_be_replaced(self) -> None:
+        a = group("a", {"movement_speed": 1}, {"movement_speed": 1})
+        b = replace(a, group_id="b", item_id="b", price=2_000_000)
+        result = self.optimizer((a, b), (armor("plain", {}),), container(1)).solve_focus(
+            OptimizationRequest(budget=2_000_000, targets={"speed": 1}), "container", "price", 2)
+        self.assertEqual({s.artifacts[0]["item_id"] for s in result.solutions}, {"a", "b"})
+
+    def test_bilinear_constraint_does_not_discard_joint_gain(self) -> None:
+        a = group("both", {"bullet_resistance": 100, "vitality": 100},
+                  {"bullet_resistance": 100, "vitality": 100})
+        result = self.optimizer((a,), (armor("plain", {}),), container(1)).solve_focus(
+            OptimizationRequest(budget=1_000_000, targets={"durability": 350}), "container", "price")
+        self.assertEqual(len(result.solutions), 1)
+        self.assertAlmostEqual(result.solutions[0].derived["effective_durability"], 400)
+
+    def test_unlimited_budget_has_no_purchase_cap(self) -> None:
+        a = replace(group("fast", {"movement_speed": 100}, {"movement_speed": 100}), price=10**12)
+        result = self.optimizer((a,), (armor("plain", {}),), container(1)).solve_focus(
+            OptimizationRequest(budget=None, targets={}), "container", "speed")
+        self.assertEqual(result.solutions[0].total_price, 10**12)
+
     def optimizer(self, groups: tuple[ArtifactGroup, ...], armors: tuple[dict, ...], test_container: dict) -> ArtifactBuildOptimizer:
         return ArtifactBuildOptimizer(catalog(groups, armors, test_container), OptimizerConfig(time_limit_per_solve=1.0, max_solutions_per_container=2))
 

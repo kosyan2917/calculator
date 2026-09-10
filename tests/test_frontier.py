@@ -43,7 +43,7 @@ class FrontierBuildGeneratorTest(unittest.TestCase):
         self.assertIn((8.0, 500.0), points)
         self.assertIn((4.0, 550.0), points)
         self.assertIn((0.0, 600.0), points)
-        self.assertEqual(result.diagnostics["engine"], "frontier_v2")
+        self.assertEqual(result.diagnostics["engine"], "frontier_v3")
 
 
 if __name__ == "__main__":

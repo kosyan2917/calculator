@@ -8,10 +8,10 @@ from typing import Any
 
 import numpy as np
 from ortools.sat.python import cp_model
-from scipy.optimize import Bounds, LinearConstraint, milp
 from scipy.sparse import lil_matrix
 
 from .solver_catalog import ArtifactGroup, SolverCatalog
+from .search_session import current_session, search_session
 from .stat_model import (
     INFECTION_STATS,
     PRIMARY_STATS,
@@ -59,7 +59,7 @@ NONLINEAR_METRICS = {"effective_durability", "hp_regen_score"}
 
 @dataclass(frozen=True)
 class OptimizationRequest:
-    budget: int
+    budget: int | None
     targets: dict[str, float]
     max_quality_tier: str = "exclusive"
     armor_ids: tuple[str, ...] = ()
@@ -199,6 +199,9 @@ class ArtifactBuildOptimizer:
         if limit <= 0:
             raise ValueError("limit must be positive")
 
+        if current_session.get() is None:
+            with search_session():
+                return self.solve_focus(request, container_id, focus, limit)
         focused_request = replace(request, container_ids=(container_id,))
         groups = self._eligible_groups(focused_request)
         armors = self._eligible_armors(focused_request)
@@ -213,6 +216,12 @@ class ArtifactBuildOptimizer:
             limit,
             focus,
         )
+        if not solutions:
+            solutions = [s for s in current_session.get().candidates
+                         if s.container["container_id"] == container_id
+                         and self._passes_exact_targets(request.targets, s.stats, s.derived)]
+            solutions.sort(key=lambda s: self._focus_sort_key(s, focus))
+            solutions = solutions[:limit]
         return FocusedSearchResult(tuple(solutions), tuple(statuses))
 
     def _solve_container(
@@ -250,7 +259,7 @@ class ArtifactBuildOptimizer:
         limit: int,
         focus: str,
     ) -> tuple[list[BuildSolution], list[str]]:
-        if self._can_use_milp(request):
+        if not any(self._resolve_metric(key) == "hp_regen_score" for key in request.targets):
             objective_mode = "cost" if focus == "price" else "targets"
             objective_targets = None if focus == "price" else {focus: 1.0}
             focused, statuses = self._solve_container_milp(
@@ -334,8 +343,12 @@ class ArtifactBuildOptimizer:
         results: list[BuildSolution] = []
         statuses: list[str] = []
         for _ in range(max(1, limit)):
+            session = current_session.get()
+            if session is not None and session.remaining() <= 0:
+                statuses.append("LIMIT")
+                break
             solver = cp_model.CpSolver()
-            solver.parameters.max_time_in_seconds = self.config.time_limit_per_solve
+            solver.parameters.max_time_in_seconds = min(self.config.time_limit_per_solve, session.remaining()) if session else self.config.time_limit_per_solve
             solver.parameters.num_search_workers = self.config.num_search_workers
             solve_started = time.perf_counter()
             status = solver.solve(model)
@@ -372,9 +385,16 @@ class ArtifactBuildOptimizer:
         objective_mode: str,
         objective_targets: dict[str, float] | None = None,
     ) -> tuple[list[BuildSolution], list[str]]:
+        if current_session.get() is None:
+            with search_session():
+                return self._solve_container_milp(request, container, groups, armors, limit,
+                                                  objective_mode, objective_targets)
+        session = current_session.get()
         results: list[BuildSolution] = []
         statuses: list[str] = []
         excluded_compositions: list[tuple[int, ...]] = []
+        model_key = (id(self), container["container_id"], tuple(g.group_id for g in groups),
+                     tuple(a["item_id"] for a in armors))
         for _ in range(limit):
             reference_stats = self._initial_reference_stats(
                 container,
@@ -382,7 +402,7 @@ class ArtifactBuildOptimizer:
                 objective_targets or {},
             )
             iterations = (
-                max(1, self.config.nonlinear_iterations)
+                max(8, self.config.nonlinear_iterations)
                 if self._contains_nonlinear_metrics(request.targets)
                 or (
                     objective_mode == "targets"
@@ -393,8 +413,14 @@ class ArtifactBuildOptimizer:
             best_solution: BuildSolution | None = None
             best_counts: tuple[int, ...] | None = None
             previous_signature: tuple[Any, ...] | None = None
-            final_status = "INFEASIBLE"
+            final_status = "UNKNOWN"
+            references = [reference_stats]
+            # Already found builds are useful tangent points, not restrictions.
+            references.extend(s.stats for s in session.candidates[-12:])
             for _iteration in range(iterations):
+                if session.remaining() <= 0:
+                    final_status = "LIMIT"
+                    break
                 objective_coefficients = self._linearized_objective_coefficients(
                     self._target_weights(objective_targets or {}),
                     reference_stats,
@@ -408,27 +434,17 @@ class ArtifactBuildOptimizer:
                     objective_coefficients,
                     objective_mode,
                     reference_stats,
+                    references,
                 )
                 solve_started = time.perf_counter()
-                result = milp(
-                    c=problem["objective"],
-                    integrality=problem["integrality"],
-                    bounds=Bounds(problem["lower_bounds"], problem["upper_bounds"]),
-                    constraints=LinearConstraint(
-                        problem["matrix"],
-                        problem["constraint_lows"],
-                        problem["constraint_highs"],
-                    ),
-                    options={
-                        "time_limit": self.config.time_limit_per_solve,
-                        "mip_rel_gap": 0.001,
-                        "presolve": True,
-                    },
-                )
+                result = session.solve(model_key, problem, self.config.time_limit_per_solve)
                 elapsed = time.perf_counter() - solve_started
                 final_status = self._milp_status_name(int(result.status), result.x is not None)
                 if result.x is None:
                     break
+                reference_stats = {key: float(coefs @ result.x + const)
+                                   for key, (coefs, const) in problem["stat_forms"].items()}
+                references.append(reference_stats)
                 counts = tuple(int(round(result.x[2 * index])) for index in range(len(groups)))
                 quality_sums = tuple(int(round(result.x[2 * index + 1])) for index in range(len(groups)))
                 armor_offset = 2 * len(groups)
@@ -450,14 +466,37 @@ class ArtifactBuildOptimizer:
                     quality_sums,
                     tuple(problem["quality_lows"]),
                     armor_index,
-                    "HEURISTIC_SEED" if objective_mode == "targets" else final_status,
+                    final_status,
                     objective,
                     dual_bound,
                     None if objective_mode == "targets" else (float(result.mip_gap) if result.mip_gap is not None else None),
                     elapsed,
                 )
                 if solution is None:
-                    break
+                    # Solve hundredths only for the chosen composition. Making every
+                    # unused group's quality integral needlessly slows the global MIP.
+                    polished = dict(problem)
+                    polished["integrality"] = problem["integrality"].copy()
+                    polished["lower_bounds"] = problem["lower_bounds"].copy()
+                    polished["upper_bounds"] = problem["upper_bounds"].copy()
+                    polished["integrality"][:2 * len(groups)] = 1
+                    for i, count in enumerate(counts):
+                        polished["lower_bounds"][2 * i] = count
+                        polished["upper_bounds"][2 * i] = count
+                    for i in range(len(armors)):
+                        polished["lower_bounds"][armor_offset + i] = int(i == armor_index)
+                        polished["upper_bounds"][armor_offset + i] = int(i == armor_index)
+                    if session.remaining() > 0:
+                        repaired = session.solve((*model_key, "hundredths"), polished, 0.15)
+                        if repaired.x is not None:
+                            quality_sums = tuple(int(round(repaired.x[2 * i + 1])) for i in range(len(groups)))
+                            solution = self._materialize_values(
+                                request, container, groups, armors, counts, quality_sums,
+                                tuple(problem["quality_lows"]), armor_index, "FEASIBLE",
+                                objective, dual_bound, None, elapsed)
+                if solution is None:
+                    final_status = "EXACT_REJECTED"
+                    continue
                 if best_solution is None or (
                     objective_mode == "cost" and solution.total_price < best_solution.total_price
                 ) or (
@@ -468,14 +507,26 @@ class ArtifactBuildOptimizer:
                     best_solution = solution
                     best_counts = counts
                 signature = (counts, quality_sums, armor_index)
-                reference_stats = solution.stats
+                nonlinear_objective = any(self._resolve_metric(k) == "effective_durability"
+                                          for k in (objective_targets or {}))
+                bound_matches = not nonlinear_objective or (
+                    result.x[armor_offset + len(armors)]
+                    <= math.sqrt(max(0.0, solution.derived["effective_durability"] * 100)) + 1e-4
+                )
+                if bound_matches:
+                    break
+                final_status = "FEASIBLE"
                 if signature == previous_signature:
                     break
                 previous_signature = signature
-            statuses.append("HEURISTIC_SEED" if best_solution and objective_mode == "targets" else final_status)
+            if best_solution is not None and final_status not in {"OPTIMAL", "FEASIBLE"}:
+                final_status = "FEASIBLE"
+            statuses.append(final_status)
             if best_solution is None or best_counts is None:
                 break
+            best_solution = replace(best_solution, solver_status=final_status)
             results.append(best_solution)
+            session.candidates.append(best_solution)
             excluded_compositions.append(best_counts)
         return results, statuses
 
@@ -489,14 +540,21 @@ class ArtifactBuildOptimizer:
         objective_coefficients: dict[str, float],
         objective_mode: str,
         reference_stats: dict[str, float],
+        durability_references: list[dict[str, float]] | None = None,
     ) -> dict[str, Any]:
         group_count = len(groups)
         armor_offset = 2 * group_count
         capacity = int(container["capacity"])
         exclusion_specs: list[tuple[int, int, int]] = []
-        next_variable = armor_offset + len(armors)
+        durability_variable = armor_offset + len(armors)
+        next_variable = durability_variable + 1
+        item_indices: dict[str, list[int]] = {}
+        for index, group in enumerate(groups):
+            item_indices.setdefault(group.item_id, []).append(index)
         for exclusion_index, composition in enumerate(excluded_compositions):
-            for group_index, value in enumerate(composition):
+            for indices in item_indices.values():
+                group_index = indices[0]
+                value = sum(composition[index] for index in indices)
                 if value > 0:
                     exclusion_specs.append((exclusion_index, group_index, value))
                     next_variable += 2
@@ -520,7 +578,7 @@ class ArtifactBuildOptimizer:
         integrality[armor_offset : armor_offset + len(armors)] = 1
         upper_bounds[armor_offset : armor_offset + len(armors)] = 1
         if exclusion_specs:
-            exclusion_offset = armor_offset + len(armors)
+            exclusion_offset = durability_variable + 1
             integrality[exclusion_offset:next_variable] = 1
             upper_bounds[exclusion_offset:next_variable] = 1
 
@@ -537,7 +595,7 @@ class ArtifactBuildOptimizer:
         add_constraint(
             [(2 * index, float(group.price)) for index, group in enumerate(groups)],
             float(request.min_build_price) if request.min_build_price > 0 else -np.inf,
-            float(request.budget),
+            float(request.budget) if request.budget is not None else np.inf,
         )
         add_constraint(
             [(armor_offset + index, 1.0) for index in range(len(armors))],
@@ -548,8 +606,16 @@ class ArtifactBuildOptimizer:
             add_constraint([(2 * index, -quality_lows[index]), (2 * index + 1, 1.0)], 0.0, np.inf)
             add_constraint([(2 * index, -group.quality_high), (2 * index + 1, 1.0)], -np.inf, 0.0)
 
-        stat_forms = self._milp_stat_forms(groups, armors, container, variable_count)
-        infection_forms = self._milp_infection_forms(groups, container, variable_count)
+        session = current_session.get()
+        form_key = (id(self), container["container_id"], tuple(g.group_id for g in groups),
+                    tuple(a["item_id"] for a in armors), variable_count)
+        cached_forms = session.forms.get(form_key) if session else None
+        if cached_forms is None:
+            cached_forms = (self._milp_stat_forms(groups, armors, container, variable_count),
+                            self._milp_infection_forms(groups, container, variable_count))
+            if session:
+                session.forms[form_key] = cached_forms
+        stat_forms, infection_forms = cached_forms
         for coefficients, constant in infection_forms.values():
             items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
             add_constraint(items, -np.inf, -constant - self.config.infection_safety_margin)
@@ -589,45 +655,76 @@ class ArtifactBuildOptimizer:
             - reference_periodic * reference_healing / 100.0,
         )
 
+        # sqrt((B+100)*(V+100)) is concave on the physically meaningful domain.
+        # Its tangent planes are global upper bounds, unlike a bilinear Taylor expansion.
+        add_constraint([(i, v) for i, v in enumerate(bullet[0]) if v], -99.999 - bullet[1], np.inf)
+        add_constraint([(i, v) for i, v in enumerate(vitality[0]) if v], -99.999 - vitality[1], np.inf)
+        references = durability_references or [reference_stats]
+        for reference in references:
+            x = max(0.001, 100 + reference.get("bullet_resistance", 0.0))
+            y = max(0.001, 100 + reference.get("vitality", 0.0))
+            gx, gy = 0.5 * math.sqrt(y / x), 0.5 * math.sqrt(x / y)
+            coefficients = -gx * bullet[0] - gy * vitality[0]
+            coefficients[durability_variable] = 1.0
+            add_constraint([(i, v) for i, v in enumerate(coefficients) if v], -np.inf,
+                           gx * (100 + bullet[1]) + gy * (100 + vitality[1]))
+
         if objective_mode == "cost":
             for index, group in enumerate(groups):
                 objective[2 * index] = float(group.price)
         else:
             for key, normalized_weight in objective_coefficients.items():
-                coefficients, _constant = metric_forms[key]
-                objective -= normalized_weight * coefficients
+                if key == "effective_durability":
+                    objective[durability_variable] -= normalized_weight
+                else:
+                    coefficients, _constant = metric_forms[key]
+                    objective -= normalized_weight * coefficients
         for requested_key, target in request.targets.items():
             key = self._resolve_metric(requested_key)
             coefficients, constant = metric_forms[key]
             items = [(index, value) for index, value in enumerate(coefficients) if abs(value) > 1e-15]
             internal_target = self._internal_target(requested_key, float(target))
+            if key == "effective_durability":
+                # V >= 100*T/(B+100)-100 is convex for T >= 0. Tangents only
+                # exclude impossible points; exact evaluation adds separating cuts.
+                if internal_target > 0:
+                    for reference in references:
+                        x = max(0.001, 100 + reference.get("bullet_resistance", 0.0))
+                        gradient = 100 * internal_target / (x * x)
+                        coefficients = vitality[0] + gradient * bullet[0]
+                        rhs = 200 * internal_target / x - 100 - 100 * gradient
+                        add_constraint([(i, v) for i, v in enumerate(coefficients) if v],
+                                       rhs - vitality[1] - gradient * bullet[1], np.inf)
+                continue
             if self._target_direction(requested_key) == "min":
                 add_constraint(items, -np.inf, internal_target - constant)
             else:
                 add_constraint(items, internal_target - constant, np.inf)
 
         exclusion_variables: dict[tuple[int, int], tuple[int, int]] = {}
-        cursor = armor_offset + len(armors)
+        cursor = durability_variable + 1
         for exclusion_index, group_index, value in exclusion_specs:
             less_index = cursor
             greater_index = cursor + 1
             cursor += 2
             exclusion_variables[(exclusion_index, group_index)] = (less_index, greater_index)
+            count_terms = [(2 * i, 1.0) for i in item_indices[groups[group_index].item_id]]
             add_constraint(
-                [(2 * group_index, 1.0), (less_index, float(capacity))],
+                count_terms + [(less_index, float(capacity + 1))],
                 -np.inf,
-                float(value - 1 + capacity),
+                float(value + capacity),
             )
             add_constraint(
-                [(2 * group_index, 1.0), (greater_index, -float(capacity))],
-                float(value + 1 - capacity),
+                count_terms + [(greater_index, -float(capacity + 1))],
+                float(value - capacity),
                 np.inf,
             )
             add_constraint([(less_index, 1.0), (greater_index, 1.0)], -np.inf, 1.0)
         for exclusion_index, composition in enumerate(excluded_compositions):
             flags: list[tuple[int, float]] = []
-            for group_index, value in enumerate(composition):
-                if value <= 0:
+            for indices in item_indices.values():
+                group_index = indices[0]
+                if sum(composition[i] for i in indices) <= 0:
                     continue
                 less_index, greater_index = exclusion_variables[(exclusion_index, group_index)]
                 flags.extend(((less_index, 1.0), (greater_index, 1.0)))
@@ -646,6 +743,7 @@ class ArtifactBuildOptimizer:
             "constraint_lows": np.asarray(constraint_lows),
             "constraint_highs": np.asarray(constraint_highs),
             "quality_lows": quality_lows,
+            "stat_forms": stat_forms,
         }
 
     def _milp_stat_forms(
@@ -740,11 +838,7 @@ class ArtifactBuildOptimizer:
             if abs(weight) <= 1e-12:
                 continue
             if key == "effective_durability":
-                bullet = float(reference_stats.get("bullet_resistance", 0.0))
-                vitality = float(reference_stats.get("vitality", 0.0))
-                base = weight / METRIC_SCALES[key]
-                add("bullet_resistance", base * (vitality + 100.0) / 100.0)
-                add("vitality", base * (bullet + 100.0) / 100.0)
+                add(key, weight / METRIC_SCALES[key])
             elif key == "hp_regen_score":
                 periodic = float(reference_stats.get("periodic_healing", 0.0))
                 healing = float(reference_stats.get("healing_effectiveness", 0.0))
@@ -819,7 +913,8 @@ class ArtifactBuildOptimizer:
 
         model.add(sum(count_vars) == capacity)
         price_expression = sum(group.price * count_vars[index] for index, group in enumerate(groups))
-        model.add(price_expression <= request.budget)
+        if request.budget is not None:
+            model.add(price_expression <= request.budget)
         if request.min_build_price > 0:
             model.add(price_expression >= request.min_build_price)
 
@@ -1200,7 +1295,7 @@ class ArtifactBuildOptimizer:
             if group.item_id not in excluded
             and (not tiers or group.quality_tier in tiers)
             and QUALITY_ORDER[group.quality_tier] <= QUALITY_ORDER[request.max_quality_tier]
-            and group.price <= request.budget
+            and (request.budget is None or group.price <= request.budget)
             and (
                 request.min_quality_percent is None
                 or group.quality_high + 1e-9 >= request.min_quality_percent * 100.0
@@ -1237,11 +1332,11 @@ class ArtifactBuildOptimizer:
         return containers
 
     def _validate_request(self, request: OptimizationRequest) -> None:
-        if request.budget <= 0:
+        if request.budget is not None and request.budget <= 0:
             raise ValueError("budget must be positive")
         if request.max_results <= 0:
             raise ValueError("max_results must be positive")
-        if not request.targets:
+        if not request.targets and request.budget is not None:
             raise ValueError("At least one required stat is required")
         if request.max_quality_tier not in QUALITY_ORDER:
             raise ValueError(f"Unsupported maximum artifact quality: {request.max_quality_tier}")

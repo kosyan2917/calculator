@@ -45,7 +45,7 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.text)
         payload = response.json()
         self.assertFalse(payload["diagnostics"]["cache_hit"])
-        self.assertEqual(payload["diagnostics"]["engine"], "frontier_v2")
+        self.assertEqual(payload["diagnostics"]["engine"], "frontier_v3")
         self.assertGreater(len(payload["solutions"]), 0)
         self.assertEqual(payload["request"]["targets"], {"durability": 450.0})
         self.assertEqual(payload["request"]["max_quality_tier"], "exclusive")
