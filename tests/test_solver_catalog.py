@@ -1,11 +1,29 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 
+from artcalc.loaders import load_armor_items, load_containers
 from artcalc.solver_catalog import ArtifactCatalogCompiler, CatalogCompilerConfig
 
 
 class SolverCatalogCompilerTests(unittest.TestCase):
+    def test_requested_legendary_equipment_is_included(self) -> None:
+        config = CatalogCompilerConfig()
+        armors = load_armor_items(Path(config.armor_stats_path), set(config.ranks), 15,
+                                 set(config.included_armor_ids))
+        legends = [item for item in armors if item["rank"] not in config.ranks]
+        self.assertEqual({item["item_id"] for item in legends}, {"m03w7", "wj4no"})
+        self.assertTrue(all(item["upgrade_level"] == 15 for item in legends))
+        self.assertTrue(all(item["stats"]["bullet_resistance"] > 300 for item in legends))
+        containers = load_containers(Path(config.db_root), config.lang, set(config.ranks),
+                                     set(config.included_container_ids))
+        chitin = next(item for item in containers if item["container_id"] == "yq90")
+        self.assertEqual(chitin["capacity"], 6)
+        self.assertEqual(chitin["effectiveness"], 115)
+        self.assertAlmostEqual(chitin["inner_protection"], 60, places=4)
+        self.assertEqual(chitin["stats"]["carry_weight"], 47)
+
     def test_rarity_boundary_belongs_to_previous_tier(self) -> None:
         low = {"item_id": "a", "name": "a", "quality_tier": "rare", "quality_percent": 130,
                "price": 100, "stats": {"movement_speed": 13}, "infections": {"radiation": 1}}

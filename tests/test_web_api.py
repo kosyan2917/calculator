@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import unittest
+from unittest.mock import Mock, patch
 
 from fastapi.testclient import TestClient
 
-from web.backend.app import app, get_optimization_cache
+from web.backend.app import app, get_catalog, get_optimization_cache
 
 
 class WebApiTests(unittest.TestCase):
@@ -19,7 +20,7 @@ class WebApiTests(unittest.TestCase):
         self.assertNotIn("preference_levels", payload)
         self.assertNotIn("strategies", payload)
         self.assertGreater(len(payload["armors"]), 0)
-        self.assertEqual(len(payload["containers"]), 27)
+        self.assertEqual(len(payload["containers"]), 28)
         self.assertGreater(len(payload["artifacts"]), 0)
         self.assertIn("durability", {metric["key"] for metric in payload["metrics"]})
         self.assertEqual(
@@ -29,6 +30,49 @@ class WebApiTests(unittest.TestCase):
         self.assertEqual({item["category"] for item in payload["containers"]}, {"containers", "backpacks"})
         tri_zip = next(item for item in payload["containers"] if item["id"] == "lny1")
         self.assertEqual(tri_zip["capacity"], 5)
+        self.assertTrue({"m03w7", "wj4no"} <= {item["id"] for item in payload["armors"]})
+        self.assertIn("yq90", {item["id"] for item in payload["containers"]})
+
+    def test_master_selection_restricts_search_inputs_in_both_modes(self) -> None:
+        data = get_catalog()
+        for reaction in (None, "electricity"):
+            with self.subTest(reaction=reaction):
+                get_optimization_cache().clear()
+                generator = Mock()
+                generator.search.side_effect = ValueError("test search inputs")
+                factory = "get_reaction_generator" if reaction else "get_optimizer"
+                with patch(f"web.backend.app.{factory}", return_value=generator):
+                    response = self.client.post("/api/optimize", json={
+                        "budget": 10_000_000, "targets": {"speed": 0},
+                        "armor_rank": "master", "container_rank": "master",
+                        "excluded_container_ids": ["g35n"], "active_reaction": reaction,
+                    })
+                self.assertEqual(response.status_code, 422)
+                request = generator.search.call_args.args[0]
+                self.assertEqual(set(request.armor_ids),
+                                 {a["item_id"] for a in data.armors if a["rank"] == "\u041c\u0430\u0441\u0442\u0435\u0440"})
+                self.assertEqual(set(request.container_ids),
+                                 {c["container_id"] for c in data.containers if c["rank"] == "\u041c\u0430\u0441\u0442\u0435\u0440"})
+                self.assertTrue(request.armor_ids)
+                self.assertTrue(request.container_ids)
+                self.assertFalse({"m03w7", "wj4no"} & set(request.armor_ids))
+                self.assertNotIn("yq90", request.container_ids)
+                self.assertEqual(request.excluded_container_ids, ("g35n",))
+
+    def test_conflicting_equipment_rank_does_not_become_unrestricted(self) -> None:
+        for selection in ({"armor_id": "m03w7", "armor_rank": "master"},
+                          {"container_id": "yq90", "container_rank": "master"}):
+            response = self.client.post("/api/optimize", json={
+                "budget": 10_000_000, "targets": {"speed": 0}, **selection,
+            })
+            self.assertEqual(response.status_code, 422)
+            self.assertIn("selected rank", response.json()["detail"])
+
+    def test_unknown_equipment_rank_is_rejected(self) -> None:
+        response = self.client.post("/api/optimize", json={
+            "budget": 10_000_000, "targets": {"speed": 0}, "armor_rank": "unknown",
+        })
+        self.assertEqual(response.status_code, 422)
 
     def test_nonlinear_requirement_returns_only_valid_builds(self) -> None:
         get_optimization_cache().clear()

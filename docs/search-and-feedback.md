@@ -14,6 +14,20 @@ available even after personalized ordering. It cannot discover a composition tha
 the solver did not generate. No offline build index or separate benchmark service
 is required.
 
+## Equipment Selection
+
+The catalog includes veteran/master equipment plus ZIVCAS M2-C, Albatross
+Stormtrooper (both +15), Chitin backpack, and the existing Tri-Zip exception.
+Original item ranks and properties are preserved.
+
+`POST /api/optimize` accepts optional `armor_rank: "master"` and
+`container_rank: "master"`. These select only the exact Master rank, not Veteran
+or Legend, and apply before generation in both normal and reaction searches.
+The container filter includes Master backpacks. Explicit item IDs intersect
+the rank filter; incompatible combinations return 422. Exclusions still apply.
+Omitting the rank means no rank restriction within the compiled catalog.
+The API translates ranks into item ID sets for the independent search engine.
+
 ## Stat Display
 
 Every solution, including upgrade results, exposes `loadout_stats`: the sum of

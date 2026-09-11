@@ -92,7 +92,8 @@ class CatalogCompilerConfig:
     max_artifact_price: int | None = None
     excluded_artifact_ids: tuple[str, ...] = ("9n7z",)
     excluded_container_ids: tuple[str, ...] = ("p99d",)
-    included_container_ids: tuple[str, ...] = ("lny1",)
+    included_container_ids: tuple[str, ...] = ("lny1", "yq90")
+    included_armor_ids: tuple[str, ...] = ("m03w7", "wj4no")
     allowed_quality_tiers: tuple[str, ...] = (
         "common",
         "uncommon",
@@ -151,7 +152,10 @@ class ArtifactCatalogCompiler:
             for container in containers
             if container["container_id"] not in set(config.excluded_container_ids)
         ]
-        armors = load_armor_items(Path(config.armor_stats_path), set(config.ranks), config.artifact_upgrade_level)
+        armors = load_armor_items(
+            Path(config.armor_stats_path), set(config.ranks), config.artifact_upgrade_level,
+            set(config.included_armor_ids),
+        )
         return SolverCatalog(
             generated_at=datetime.now(timezone.utc).isoformat(),
             artifact_upgrade_level=config.artifact_upgrade_level,

@@ -181,16 +181,20 @@ function App() {
     searchMode === "reactions" && metric.key === "durability" ? { ...metric, label: "Приведа с реакциями" } : metric
   ) ?? [], [catalog, searchMode]);
   const secondaryMetrics = useMemo(() => catalog?.metrics.filter((metric) => metric.group === "secondary") ?? [], [catalog]);
-  const armorOptions = useMemo<SearchOption[]>(() => catalog?.armors.map((armor) => ({
+  const armorOptions = useMemo<SearchOption[]>(() => [
+    { id: "rank:master", name: "Любой мастерский костюм", meta: "Только ранг Мастер" },
+    ...(catalog?.armors.map((armor) => ({
     id: armor.id,
     name: armor.name,
     meta: armor.rank,
-  })) ?? [], [catalog]);
-  const containerOptions = useMemo<SearchOption[]>(() => catalog?.containers.map((container) => ({
+  })) ?? [])], [catalog]);
+  const containerOptions = useMemo<SearchOption[]>(() => [
+    { id: "rank:master", name: "Любой мастерский контейнер", meta: "Контейнеры и рюкзаки ранга Мастер" },
+    ...(catalog?.containers.map((container) => ({
     id: container.id,
     name: container.name,
-    meta: `${container.category === "backpacks" ? "Рюкзак" : "Контейнер"} · ${container.capacity} сл.`,
-  })) ?? [], [catalog]);
+    meta: `${container.rank} · ${container.category === "backpacks" ? "Рюкзак" : "Контейнер"} · ${container.capacity} сл.`,
+  })) ?? [])], [catalog]);
   const requirementsValid = (unlimitedBudget || searchMode === "reactions" || Object.keys(targets).length > 0)
     && Object.values(targets).every((value) => Number.isFinite(parseDecimal(value)));
 
@@ -220,8 +224,10 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           budget: unlimitedBudget ? null : Math.round(budgetMillions * 1_000_000),
-          armor_id: armorId || null,
-          container_id: containerId || null,
+          armor_id: armorId === "rank:master" ? null : armorId || null,
+          container_id: containerId === "rank:master" ? null : containerId || null,
+          armor_rank: armorId === "rank:master" ? "master" : null,
+          container_rank: containerId === "rank:master" ? "master" : null,
           targets: parsedTargets,
           max_quality_tier: maxQualityTier,
           excluded_armor_ids: excludedArmorIds,
@@ -328,7 +334,7 @@ function App() {
             <section className="form-section equipment-section">
               <div className="section-heading"><Shield size={17} /><h2>Экипировка</h2></div>
               <label className="field-label" htmlFor="armor">Костюм</label>
-              <SearchableSelect id="armor" value={armorId} options={armorOptions} placeholder="Любой ветеранский или мастерский" onChange={(value) => { setArmorId(value); setExcludedArmorIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
+              <SearchableSelect id="armor" value={armorId} options={armorOptions} placeholder="Любой костюм" onChange={(value) => { setArmorId(value); setExcludedArmorIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
               <label className="field-label" htmlFor="container">Контейнер / рюкзак</label>
               <SearchableSelect id="container" value={containerId} options={containerOptions} placeholder="Любой контейнер или рюкзак" onChange={(value) => { setContainerId(value); setExcludedContainerIds((current) => current.filter((id) => id !== value)); }} disabled={!catalog} />
               <label className="field-label quality-limit-label" htmlFor="max-quality">Максимальное качество артефактов</label>

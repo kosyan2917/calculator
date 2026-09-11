@@ -380,11 +380,17 @@ def effective_artifact_stats(candidate: dict[str, Any], container: dict[str, Any
     return split_infections(adjusted)
 
 
-def load_armor_items(armor_path: Path, ranks: set[str], upgrade_level: int | None = 15) -> list[dict[str, Any]]:
+def load_armor_items(
+    armor_path: Path,
+    ranks: set[str],
+    upgrade_level: int | None = 15,
+    included_ids: set[str] | None = None,
+) -> list[dict[str, Any]]:
     data = read_json(armor_path)
     items = []
+    included = included_ids or set()
     for item in data.get("items") or []:
-        if item.get("rank") not in ranks:
+        if item.get("rank") not in ranks and item.get("item_id") not in included:
             continue
         if upgrade_level is not None and int(item.get("upgrade_level") or 0) != upgrade_level:
             continue

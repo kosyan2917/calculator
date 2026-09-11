@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T12:29:25.379126+00:00",
+  "generated_at": "2026-09-11T15:02:48.462523+00:00",
   "artifact_upgrade_level": 15,
   "artifact_price_upgrade_level": 15,
   "min_quality_percent": 95.0,
@@ -32245,6 +32245,23 @@
       "source_path": "stalzone-database/ru/items/backpacks/vyqd.json"
     },
     {
+      "container_id": "yq90",
+      "name": "Рюкзак «Хитин»",
+      "rank": "Легенда",
+      "category": "backpacks",
+      "equipment_class": "medium",
+      "color": "RANK_LEGEND",
+      "status": "PERSONAL_ON_USE",
+      "weight": 8.1,
+      "inner_protection": 60.000004,
+      "effectiveness": 115.0,
+      "capacity": 6,
+      "stats": {
+        "carry_weight": 47.0
+      },
+      "source_path": "stalzone-database/ru/items/backpacks/yq90.json"
+    },
+    {
       "container_id": "zjqk",
       "name": "Марафонская сумка",
       "rank": "Ветеран",
@@ -34039,6 +34056,48 @@
       "source_path": "stalzone-database/ru/items/armor/combined/_variants/m034j/15.json"
     },
     {
+      "item_id": "m03w7",
+      "base_id": "m03w7",
+      "upgrade_level": 15,
+      "is_variant": true,
+      "name": "Экзоброня ZIVCAS M2-C",
+      "category": "armor/combined",
+      "rank": "Легенда",
+      "class_label": "Комбинированные",
+      "color": "RANK_LEGEND",
+      "status": "PERSONAL_ON_USE",
+      "weight": 28.0,
+      "durability": 100.0,
+      "max_durability": 100.0,
+      "stats": {
+        "carry_weight": 30.0,
+        "periodic_healing": 3.0,
+        "bullet_resistance": 310.824,
+        "tear_protection": 140.0,
+        "explosion_protection": 122.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 400.0,
+        "chemical_protection": 500.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 410.824,
+        "total_sprint_speed": 100.0,
+        "hp_regen_score": 3.5
+      },
+      "unmapped_stats": {},
+      "duplicate_stats": {
+        "bullet_resistance": [
+          94.824005
+        ]
+      },
+      "source_path": "stalzone-database/ru/items/armor/combined/_variants/m03w7/15.json"
+    },
+    {
       "item_id": "m06k2",
       "base_id": "m06k2",
       "upgrade_level": 15,
@@ -34682,6 +34741,48 @@
         ]
       },
       "source_path": "stalzone-database/ru/items/armor/scientist/_variants/wj4lp/15.json"
+    },
+    {
+      "item_id": "wj4no",
+      "base_id": "wj4no",
+      "upgrade_level": 15,
+      "is_variant": true,
+      "name": "Бронескелет «Альбатрос-Штурмовик»",
+      "category": "armor/combined",
+      "rank": "Легенда",
+      "class_label": "Комбинированные",
+      "color": "RANK_LEGEND",
+      "status": "PERSONAL_ON_USE",
+      "weight": 37.0,
+      "durability": 100.0,
+      "max_durability": 100.0,
+      "stats": {
+        "carry_weight": 30.0,
+        "bleeding_output": -1.0,
+        "bullet_resistance": 340.814,
+        "tear_protection": 159.0,
+        "explosion_protection": 140.0,
+        "electricity_protection": 300.0,
+        "fire_protection": 300.0,
+        "chemical_protection": 300.0,
+        "radiation_protection": 300.0,
+        "thermal_protection": 200.0,
+        "biological_protection": 300.0,
+        "psycho_protection": 300.0,
+        "bleeding_resistance": 40.0
+      },
+      "derived": {
+        "effective_durability": 440.814,
+        "total_sprint_speed": 100.0,
+        "hp_regen_score": 0.5
+      },
+      "unmapped_stats": {},
+      "duplicate_stats": {
+        "bullet_resistance": [
+          101.814
+        ]
+      },
+      "source_path": "stalzone-database/ru/items/armor/combined/_variants/wj4no/15.json"
     },
     {
       "item_id": "wjg62",

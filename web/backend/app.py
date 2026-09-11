@@ -62,6 +62,8 @@ class OptimizePayload(BaseModel):
     budget: int | None = Field(ge=100_000)
     armor_id: str | None = None
     container_id: str | None = None
+    armor_rank: Literal["master"] | None = None
+    container_rank: Literal["master"] | None = None
     targets: dict[str, float] = Field(default_factory=dict)
     max_quality_tier: str = "exclusive"
     excluded_armor_ids: list[str] = Field(default_factory=list, max_length=100)
@@ -303,6 +305,17 @@ def catalog() -> dict:
     }
 
 
+def selected_equipment_ids(items: tuple[dict, ...], id_key: str, item_id: str | None, rank: str | None) -> tuple[str, ...]:
+    if rank is None:
+        return (item_id,) if item_id else ()
+    ids = tuple(item[id_key] for item in items
+                if item["rank"] == "\u041c\u0430\u0441\u0442\u0435\u0440" and (item_id is None or item[id_key] == item_id))
+    # An empty ID list means unrestricted search to the engine, not no matches.
+    if not ids:
+        raise HTTPException(status_code=422, detail=f"No {id_key} matches the selected rank")
+    return ids
+
+
 @app.post("/api/optimize")
 async def optimize(payload: OptimizePayload, http_request: Request, http_response: Response) -> dict:
     validate_metrics(payload.targets)
@@ -323,8 +336,8 @@ async def optimize(payload: OptimizePayload, http_request: Request, http_respons
         budget=payload.budget,
         targets=payload.targets,
         max_quality_tier=payload.max_quality_tier,
-        armor_ids=(payload.armor_id,) if payload.armor_id else (),
-        container_ids=(payload.container_id,) if payload.container_id else (),
+        armor_ids=selected_equipment_ids(get_catalog().armors, "item_id", payload.armor_id, payload.armor_rank),
+        container_ids=selected_equipment_ids(get_catalog().containers, "container_id", payload.container_id, payload.container_rank),
         excluded_armor_ids=tuple(payload.excluded_armor_ids),
         excluded_container_ids=tuple(payload.excluded_container_ids),
         excluded_artifact_ids=tuple(payload.excluded_artifact_ids),
